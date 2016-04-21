@@ -1,6 +1,12 @@
 import test from 'ava'
-import fn from './'
+import trash from 'trash'
+import exists from 'path-exists'
+import vbuild from './'
 
-test('main', t => {
-  t.is(fn('unicorns'), 'unicorns & rainbows')
+test('main', async t => {
+  await trash(['./dist'])
+  await vbuild({
+    config: true
+  })
+  t.true(await exists('./dist/index.html'))
 })

@@ -14,7 +14,7 @@
     "node": ">=4"
   },
   "scripts": {
-    "test": "xo lib/*.js"
+    "test": "xo lib/*.js && nyc ava"
   },
   "bin": "cli.js",
   "files": [
@@ -30,13 +30,17 @@
   ],
   "devDependencies": {
     "ava": "latest",
+    "nyc": "^6.4.0",
     "xo": "latest"
   },
   "xo": {
     "semicolon": false,
     "space": 2,
     "rules": {
-      "operator-linebreak": [2, "before"]
+      "operator-linebreak": [
+        2,
+        "before"
+      ]
     }
   },
   "dependencies": {

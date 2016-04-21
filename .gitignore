@@ -2,3 +2,6 @@ node_modules
 *.log
 .DS_Store
 /dist
+/vbuild.js
+coverage
+.nyc_output

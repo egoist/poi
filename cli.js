@@ -18,7 +18,7 @@ const cli = meow(`
     --electron:                 Electron mode
     --silent:                   Do not open browser
     --browser-sync [port]:      Browser Sync, port is optional
-    -c/--config:                Specific a config file path
+    -c/--config [path]:                Use config file or specific a config file path
     -v/--version:               Print version
     -h/--help:                  Print help (You are here!)
 `, {
