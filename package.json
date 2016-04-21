@@ -30,6 +30,7 @@
   ],
   "devDependencies": {
     "ava": "latest",
+    "coveralls": "^2.11.9",
     "nyc": "^6.4.0",
     "xo": "latest"
   },
