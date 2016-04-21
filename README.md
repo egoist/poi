@@ -15,7 +15,7 @@ $ npm install -g vbuild
 
 ## Usage
 
-You can use full-featured ES2015+ and PostCSS with CSSNext in you Vue apps.
+You can use full-featured ES2015+ and PostCSS with CSSNext in your Vue apps.
 
 ```bash
 # build ./src/index.js
@@ -36,7 +36,7 @@ $ vbuild --title FaceBook
 
 ## Advanced configuration
 
-Drop a `vbuild.js` in the root of yout project directory:
+Drop a `vbuild.js` in the root of your project directory:
 
 ```js
 export default {
