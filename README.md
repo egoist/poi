@@ -226,7 +226,7 @@ ESlint-compatiable config.
 Type: `boolean`<br>
 Default: `false`
 
-Prevent from genertaing html files, it's set to `true` in `--umd` and `--cjs` mode. But you can override it.
+Prevent from generating html files, it's set to `true` in `--umd` and `--cjs` mode. But you can override it.
 
 #### outputAssetsPath
 
