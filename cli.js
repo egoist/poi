@@ -15,6 +15,7 @@ const cli = meow(`
   Options:
     -e/--entry:                 Specific entries
     -d/--dev:                   Development mode
+    -w/--watch:                 Watch mode
     -p/--port [port]:           Server port, port is optional
     -t/--title [title]:         App title, title is optional
     -b/--browsers:              Set autoprefixer browser list
@@ -37,7 +38,8 @@ const cli = meow(`
     v: 'version',
     h: 'help',
     t: 'title',
-    b: 'browsers'
+    b: 'browsers',
+    w: 'watch'
   }
 })
 
