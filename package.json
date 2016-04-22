@@ -14,7 +14,8 @@
     "node": ">=4"
   },
   "scripts": {
-    "test": "xo lib/*.js && nyc ava"
+    "test": "xo lib/*.js && nyc ava",
+    "example": "vbuild -c example/vbuild.js"
   },
   "bin": "cli.js",
   "files": [
@@ -81,6 +82,7 @@
     "vue-style-loader": "^1.0.0",
     "webpack": "^1.13.0",
     "webpack-hot-server": "^0.3.0",
+    "webpack-notifier": "^1.3.0",
     "webpack-target-electron-renderer": "^0.4.0"
   }
 }

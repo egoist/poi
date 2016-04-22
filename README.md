@@ -9,7 +9,10 @@ Preset build tool for Vue.js apps.
 
 ## Install
 
+Recommend Node >= 4 and NPM >=3:
+
 ```bash
+# it takes me 7 minutes to complete the installation
 $ npm install -g vbuild
 ```
 
@@ -50,7 +53,7 @@ export default {
     // options: cli arguments merged with options above
     
     // update config before building
-    // this can override everything in cli arguments and options above
+    // this can override changes made by cli arguments and options above
     config.entry = './goaway.js'
   }
 }
