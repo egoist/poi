@@ -95,6 +95,14 @@ $ vbuild --help
 
 ## API
 
+```js
+import vbuild from 'vbuild'
+
+(async function () {
+  await vbuild(options)
+})()
+```
+
 ### options
 
 #### entry
