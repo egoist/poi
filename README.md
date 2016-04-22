@@ -49,6 +49,7 @@ export default {
     js: './src/app.js',
     css: './src/app.css'
   },
+  browsers: ['ie > 10', 'last 1 version'],
   webpack(config, options) {
     // config:  webpack config
     // options: cli arguments merged with options above
