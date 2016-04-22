@@ -152,6 +152,13 @@ Default: `false`
 
 Run in development mode, ie. hot reloading and a lot more.
 
+#### watch
+
+Type: `boolean`<br>
+Default: `false`
+
+Run in watch mode, works like `webpack --watch`
+
 #### port
 
 Type: `number`<br>
