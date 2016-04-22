@@ -19,8 +19,8 @@
   },
   "bin": "cli.js",
   "files": [
-    "index.js",
-    "lib"
+    "lib",
+    "cli.js"
   ],
   "keywords": [
     "vue",
