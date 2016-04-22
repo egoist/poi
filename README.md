@@ -75,7 +75,7 @@ $ vbuild --help
     vbuild [options]
 
   Example:
-    vbuild [entries] --port 4000 --dev --browser-sync
+    vbuild --entry index.js --port 4000 --dev --browser-sync
 
   Options:
     -e/--entry:                 Specific entries
