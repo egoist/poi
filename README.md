@@ -186,7 +186,7 @@ Specfic a function to update webpack `config` before building. `options` is the 
 Type: `string` `boolean`<br>
 Default: `./vbuild.js` `false`
 
-Use default config or specific a config file.
+Use default config file or specific a config file.
 
 ## License
 
