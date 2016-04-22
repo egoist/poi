@@ -27,7 +27,8 @@ $ vbuild
 # yeppppp! so simple!
 
 # build something elsewhere
-$ vbuild ./lib/foo.js
+# -e/--entry
+$ vbuild --entry ./lib/foo.js
 
 # development? sure! with hot reloading!
 # -d/--dev
@@ -71,12 +72,13 @@ $ vbuild --help
   Preset build tool for Vue.js apps.
 
   Usage:
-    vbuild [entries] [options]
+    vbuild [options]
 
   Example:
-    vbuild --port 4000 --dev --browser-sync
+    vbuild [entries] --port 4000 --dev --browser-sync
 
   Options:
+    -e/--entry:                 Specific entries
     -d/--dev:                   Development mode
     -p/--port [port]:           Server port, port is optional
     -t/--title [title]:         App title, title is optional

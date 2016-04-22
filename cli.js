@@ -6,12 +6,13 @@ const main = require('./lib')
 
 const cli = meow(`
   Usage:
-    vbuild [entries] [options]
+    vbuild [options]
 
   Example:
-    vbuild --port 4000 --dev --browser-sync
+    vbuild [entries] --port 4000 --dev --browser-sync
 
   Options:
+    -e/--entry:                 Specific entries
     -d/--dev:                   Development mode
     -p/--port [port]:           Server port, port is optional
     -t/--title [title]:         App title, title is optional
