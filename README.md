@@ -6,6 +6,7 @@ Preset build tool for Vue.js apps.
 
 - Web apps made with Vue.js
 - Desktop apps made with Electron and Vue.js
+- Vue related stuffs, like Vue components, directives, etc.
 
 ## Install
 
@@ -78,6 +79,7 @@ $ vbuild --help
     -d/--dev:                   Development mode
     -p/--port [port]:           Server port, port is optional
     -t/--title [title]:         App title, title is optional
+    -b, --browsers:             Autoprefixer browsers list
     --electron:                 Electron mode
     --silent:                   Do not open browser
     --browser-sync [port]:      Browser Sync, port is optional
