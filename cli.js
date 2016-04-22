@@ -2,6 +2,7 @@
 'use strict'
 const meow = require('meow')
 const chalk = require('chalk')
+const update = require('update-notifier')
 const main = require('./lib')
 
 const cli = meow(`
@@ -37,6 +38,8 @@ const cli = meow(`
     b: 'browsers'
   }
 })
+
+update({pkg: cli.pkg}).notify()
 
 const options = cli.flags
 main(options).catch(e => console.log(chalk.red(e.stack)))
