@@ -221,6 +221,20 @@ Default: `{}`
 
 ESlint-compatiable config.
 
+#### disableHtml
+
+Type: `boolean`<br>
+Default: `false`
+
+Prevent from genertaing html files, it's set to `true` in `--umd` and `--cjs` mode. But you can override it.
+
+#### outputAssetsPath
+
+Type: `boolean`<br>
+Default: `false`
+
+Use `assets-webpack-plugin` to output assets path in `./webpack-assets.json`
+
 #### webpack
 
 Type: `function`<br>
