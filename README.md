@@ -93,6 +93,101 @@ $ vbuild --help
     -h/--help:                  Print help (You are here!)
 ```
 
+## API
+
+### options
+
+#### entry
+
+Type: `string` `array` `object`<br>
+Default: `./src/index.js`
+
+Webpack config entry.
+
+#### dev
+
+Type: `boolean`<br>
+Default: `false`
+
+Run in development mode, ie. hot reloading and a lot more.
+
+#### port
+
+Type: `number`<br>
+Default: `4000`
+
+Dev server port.
+
+#### title
+
+Type: `string`<br>
+Default: `vbuild`
+
+HTML title.
+
+#### browsers
+
+Type: `array`<br>
+Default: `['> 5%', 'last 2 version', 'ie > 8']`
+
+Autoprefixer browser list.
+
+#### umd
+
+Type: `string`
+
+Build in UMD format, and specific a moduleName.
+
+#### cjs
+
+Type: `boolean`<br>
+Default: `false`
+
+Build in CommonJS format.
+
+#### electron
+
+Type: `boolean`<br>
+Default: `false`
+
+Use Electron mode to build, support hot reloading.
+
+#### silent
+
+Type: `boolean`<br>
+Default: `false`
+
+Don't open browser when bundle valid in dev mode.
+
+#### browserSync
+
+Type: `boolean` `number`<br>
+Default: `false` `23789`
+
+Use browser-sync-webpack-plugin and specific a port to run at.
+
+#### eslint
+
+Type: `object`<br>
+Default: `{}`
+
+ESlint-compatiable config.
+
+#### webpack
+
+Type: `function`<br>
+Default: `undefined`<br>
+Params: `config` `options`
+
+Specfic a function to update webpack `config` before building. `options` is the API options.
+
+#### config
+
+Type: `string` `boolean`<br>
+Default: `./vbuild.js` `false`
+
+Use default config or specific a config file.
+
 ## License
 
 MIT © [EGOIST](https://github.com/egoist)
