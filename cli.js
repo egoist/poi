@@ -26,6 +26,7 @@ const cli = meow(`
     --silent:                   Do not open browser
     --browser-sync [port]:      Browser Sync, port is optional
     --disable-html:             Do not generate html file
+    --output-assets-path:       Output assets path using assets-webpack-plugin
     -c/--config [path]:         Use config file or specific a config file path
     -v/--version:               Print version
     -h/--help:                  Print help (You are here!)

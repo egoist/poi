@@ -54,6 +54,20 @@ Imagine using scaffolding tool for prototyping every small demos of you? Dear lo
 
 `vbuild` can build production ready apps by default. 😅
 
+### Legacy project
+
+If you are stilling using Vue in a non-SPA website, you can use `--watch` mode when developing. Unlink `-dev` mode this way only rebuild assets when files change, no dev server was established.
+
+```bash
+# for example you are using Vue with Laravel
+# and using assets-webpack-plugin to get the path the bundled files in Laravel
+$ vbuild --watch --output-assets-path
+```
+
+### Universal apps
+
+Really? sure, I will add this feature once Vue supports Virtual Dom or Server-side rendering.
+
 ## Advanced configuration
 
 Drop a `vbuild.js` in the root of your project directory:
@@ -106,6 +120,7 @@ $ vbuild --help
     --silent:                   Do not open browser
     --browser-sync [port]:      Browser Sync, port is optional
     --disable-html:             Do not generate html file
+    --output-assets-path:       Output assets path using assets-webpack-plugin
     -c/--config [path]:         Use config file or specific a config file path
     -v/--version:               Print version
     -h/--help:                  Print help (You are here!)
