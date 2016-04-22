@@ -66,7 +66,7 @@ $ vbuild --watch --output-assets-path
 
 ### Universal apps
 
-Really? sure, I will add this feature once Vue supports Virtual Dom or Server-side rendering.
+Really? sure, I will add this feature once Vue supports Virtual Dom or Server-side rendering. And it will come soon!
 
 ## Advanced configuration
 
