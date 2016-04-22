@@ -56,11 +56,11 @@ Imagine using scaffolding tool for prototyping every small demos of you? Dear lo
 
 ### Legacy project
 
-If you are stilling using Vue in a non-SPA website, you can use `--watch` mode when developing. Unlink `-dev` mode this way only rebuild assets when files change, no dev server was established.
+If you are stilling using Vue in a non-SPA website, you can use `--watch` mode when developing. Unlike `-dev` mode this way only rebuilds assets when files change, no dev server was established.
 
 ```bash
 # for example you are using Vue with Laravel
-# and using assets-webpack-plugin to get the path the bundled files in Laravel
+# and using assets-webpack-plugin to get the paths of bundled files in Laravel
 $ vbuild --watch --output-assets-path
 ```
 
