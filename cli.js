@@ -13,23 +13,23 @@ const cli = meow(`
     vbuild --entry index.js --port 4000 --dev --browser-sync
 
   Options:
-    -e/--entry:                 Specific entries
-    -d/--dev:                   Development mode
-    -w/--watch:                 Watch mode
-    -p/--port [port]:           Server port, port is optional
-    -t/--title [title]:         App title, title is optional
-    -b/--browsers:              Set autoprefixer browser list
-    --lint:                     Lint your code
-    --umd <moduleName>:         UMD mode and prvide a module name
-    --cjs:                      CommonJS mode
-    --electron:                 Electron mode
-    --silent:                   Do not open browser
-    --browser-sync [port]:      Browser Sync, port is optional
-    --disable-html:             Do not generate html file
-    --output-assets-path:       Output assets path using assets-webpack-plugin
-    -c/--config [path]:         Use config file or specific a config file path
-    -v/--version:               Print version
-    -h/--help:                  Print help (You are here!)
+    -e/--entry:                            Specific entries
+    -d/--dev:                              Development mode
+    -w/--watch:                            Watch mode
+    -p/--port [port]:                      Server port, port is optional
+    -t/--title [title]:                    App title, title is optional
+    -b/--browsers:                         Set autoprefixer browser list
+    --lint:                                Lint your code
+    --umd <moduleName>:                    UMD mode and prvide a module name
+    --cjs:                                 CommonJS mode
+    --electron:                            Electron mode
+    --silent:                              Do not open browser
+    --browser-sync [port]:                 Browser Sync, port is optional
+    --disable-html:                        Do not generate html file
+    --output-assets-path [filename]:       Output assets path using assets-webpack-plugin
+    -c/--config [path]:                    Use config file or specific a config file path
+    -v/--version:                          Print version
+    -h/--help:                             Print help (You are here!)
 `, {
   alias: {
     e: 'entry',
