@@ -104,6 +104,7 @@ $ vbuild --help
     --electron:                 Electron mode
     --silent:                   Do not open browser
     --browser-sync [port]:      Browser Sync, port is optional
+    --disable-html:             Do not generate html file
     -c/--config [path]:         Use config file or specific a config file path
     -v/--version:               Print version
     -h/--help:                  Print help (You are here!)
