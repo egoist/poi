@@ -15,10 +15,11 @@ const cli = meow(`
     -d/--dev:                   Development mode
     -p/--port [port]:           Server port, port is optional
     -t/--title [title]:         App title, title is optional
+    -b/--browsers:              Set autoprefixer browser list
     --electron:                 Electron mode
     --silent:                   Do not open browser
     --browser-sync [port]:      Browser Sync, port is optional
-    -c/--config [path]:                Use config file or specific a config file path
+    -c/--config [path]:         Use config file or specific a config file path
     -v/--version:               Print version
     -h/--help:                  Print help (You are here!)
 `, {
@@ -29,7 +30,8 @@ const cli = meow(`
     c: 'config',
     v: 'version',
     h: 'help',
-    t: 'title'
+    t: 'title',
+    b: 'browsers'
   }
 })
 
