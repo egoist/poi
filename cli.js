@@ -16,6 +16,8 @@ const cli = meow(`
     -p/--port [port]:           Server port, port is optional
     -t/--title [title]:         App title, title is optional
     -b/--browsers:              Set autoprefixer browser list
+    --umd [moduleName]:         UMD mode and prvide a module name
+    --cjs:                      CommonJS mode
     --electron:                 Electron mode
     --silent:                   Do not open browser
     --browser-sync [port]:      Browser Sync, port is optional
