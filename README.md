@@ -2,6 +2,8 @@
 
 Preset build tool for Vue.js apps.
 
+![preview](https://ooo.0o0.ooo/2016/04/22/5719ce0ab62b9.gif)
+
 ## What can be done perfectly?
 
 - Web apps made with Vue.js
