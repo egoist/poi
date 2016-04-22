@@ -25,6 +25,7 @@ You can use full-featured ES2015+ and PostCSS with CSSNext in your Vue apps.
 
 ```bash
 # build ./src/index.js
+# production ready
 $ vbuild
 # yeppppp! so simple!
 
@@ -40,6 +41,18 @@ $ vbuild --dev
 # -t/--title
 $ vbuild --title FaceBook
 ```
+
+### Not a scaffolding tool
+
+Scaffolding tools like Yeoman and Vue-cli save us a lot of time, while `vbuild` does not add additional files into your projects but those do. You can skip the step of generating boilerplates and start writing code of your app immediately.
+
+### Fun for prototyping
+
+Imagine using scaffolding tool for prototyping every small demos of you? Dear lord! I refuse to do that. You can use `vbuild` for your experiments or demos with nearly no setup.
+
+### Production ready
+
+`vbuild` can build production ready apps by default. 😅
 
 ## Advanced configuration
 
