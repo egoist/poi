@@ -6,7 +6,7 @@ Preset build tool for Vue.js apps.
 
 ## What can be done perfectly?
 
-- Web apps made with Vue.js
+- [Web apps made with Vue.js](https://github.com/egoist/vbuild/wiki/Regular-web-applications-using-Vue.js)
 - [Desktop apps made with Electron and Vue.js](https://github.com/egoist/vbuild/issues/1)
 - Vue related stuffs, like Vue components, directives, etc.
 
