@@ -5,3 +5,4 @@ node_modules
 /vbuild.js
 coverage
 .nyc_output
+/vbuild-assets.json
