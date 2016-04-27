@@ -10,6 +10,8 @@ Preset build tool for Vue.js apps.
 - [Desktop apps made with Electron and Vue.js](https://github.com/egoist/vbuild/wiki/Electron-apps)
 - Vue related stuffs, like Vue components, directives, etc.
 
+**Dive into the [WIKI](https://github.com/egoist/vbuild/wiki) or [API](#api) to see more.** 😋
+
 ## Install
 
 Recommend Node >= 4 and NPM >=3:
