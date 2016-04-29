@@ -240,6 +240,12 @@ Default: `{}`
 
 ESlint-compatiable config.
 
+#### postcss
+
+Type: `array` `function`
+
+An array of PostCSS plugins or a function that return an array of plugins.
+
 #### disableHtml
 
 Type: `boolean`<br>
