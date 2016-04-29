@@ -82,6 +82,9 @@ export default {
     css: './src/app.css'
   },
   browsers: ['ie > 10', 'last 1 version'],
+  production: {
+    devtool: false
+  },
   webpack(config, options) {
     // config:  webpack config
     // options: cli arguments merged with options above
@@ -243,6 +246,20 @@ Type: `boolean` `string`<br>
 Default: `false` `vbuild-assets.json`
 
 Use `assets-webpack-plugin` to output assets path in `./vbuild-assets.json`, if it's a `string` we use it as filename.
+
+#### development
+
+Type: `object`<br>
+Default: `undefined`
+
+Development options, will be deeply assigned into `options` in `--dev` mode.
+
+#### production
+
+Type: `object`<br>
+Default: `undefined`
+
+Production options, will be deeply assigned into `options` in build mode.
 
 #### webpack
 

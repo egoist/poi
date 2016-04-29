@@ -10,3 +10,16 @@ test('main', async t => {
   })
   t.true(await exists('./dist/index.html'))
 })
+
+test('production config', async t => {
+  await trash(['./dist-cool'])
+  await vbuild({
+    entry: './example',
+    production: {
+      filename: 'hahaha.js',
+      dist: 'dist-cool',
+      devtool: false
+    }
+  })
+  t.true(await exists('./dist-cool/assets/hahaha.js'))
+})

@@ -1,3 +1,6 @@
 export default {
-  entry: ['./example']
+  entry: ['./example'],
+  production: {
+    filename: 'bundle.js'
+  }
 }

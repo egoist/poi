@@ -14,7 +14,8 @@
     "node": ">=4"
   },
   "scripts": {
-    "test": "xo lib/*.js && nyc ava",
+    "test": "xo lib/*.js && nyc npm run ava",
+    "ava": "ava -s",
     "example": "vbuild -c example/vbuild.js"
   },
   "bin": "cli.js",
