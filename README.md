@@ -178,6 +178,13 @@ Default: `vbuild`
 
 HTML title.
 
+#### dist
+
+Type: `string`<br>
+Default: `dist`
+
+Dist directory.
+
 #### browsers
 
 Type: `array`<br>
