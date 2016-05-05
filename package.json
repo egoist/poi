@@ -75,6 +75,7 @@
     "handlebars": "^4.0.5",
     "handlebars-loader": "^1.2.0",
     "html-webpack-plugin": "^2.16.0",
+    "json-loader": "^0.5.4",
     "meow": "^3.7.0",
     "opn": "^4.0.1",
     "path-exists": "^2.1.0",
