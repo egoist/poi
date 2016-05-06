@@ -41,9 +41,6 @@ const cli = meow(`
     t: 'title',
     b: 'browsers',
     w: 'watch'
-  },
-  default: {
-    port: 4000
   }
 })
 
