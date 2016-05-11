@@ -2,7 +2,7 @@
 
 Preset build tool for Vue.js apps.
 
-![preview](https://ooo.0o0.ooo/2016/04/22/5719ce0ab62b9.gif)
+![preview](http://ww4.sinaimg.cn/large/a15b4afegw1f3ra85h0flg20j10agjsb)
 
 ## What can be done perfectly?
 
