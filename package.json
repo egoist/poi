@@ -82,6 +82,7 @@
     "path-exists": "^3.0.0",
     "pify": "^2.3.0",
     "postcss-cssnext": "^2.5.2",
+    "postcss-loader": "^0.9.1",
     "require-from-string": "^1.1.0",
     "style-loader": "^0.13.1",
     "text-table": "^0.2.0",
