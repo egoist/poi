@@ -21,6 +21,7 @@ const cli = meow(`
     -b/--browsers:                         Set autoprefixer browser list
     --lint:                                Lint your code
     --umd <moduleName>:                    UMD mode and prvide a module name
+    --live:                                Live reloading when files change
     --cjs:                                 CommonJS mode
     --electron:                            Electron mode
     --silent:                              Do not open browser
@@ -40,7 +41,8 @@ const cli = meow(`
     h: 'help',
     t: 'title',
     b: 'browsers',
-    w: 'watch'
+    w: 'watch',
+    l: 'live'
   }
 })
 

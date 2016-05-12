@@ -227,6 +227,13 @@ Default: `false` `23789`
 
 Use browser-sync-webpack-plugin and specific a port to run at.
 
+#### live
+
+Type: `boolean`<br>
+Default: `false`
+
+Live reloading when files change.
+
 #### lint
 
 Type: `boolean`<br>
