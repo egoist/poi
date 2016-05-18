@@ -268,6 +268,12 @@ Default: `false` `vbuild-assets.json`
 
 Use `assets-webpack-plugin` to output assets path in `./vbuild-assets.json`, if it's a `string` we use it as filename.
 
+#### template
+
+Type: `string`
+
+Html-webpack-plugin template.
+
 #### development
 
 Type: `object`<br>
