@@ -15,11 +15,22 @@ Preset build tool for Vue.js apps.
 
 ## Install
 
-Recommend Node >= 4 and NPM >=3:
+**Install via NPM**, work with Node >= 4 and NPM >=3:
 
 ```bash
 # it takes me 7 minutes to complete the installation
 $ npm install -g vbuild
+```
+
+**Install via GIT**:
+
+Recommended way for power users to install `vbuild`, since you can edit the core code directly to suit your needs!
+
+```bash
+$ git clone https://github.com/egoist/vbuild.git
+$ cd vbuild
+$ npm install
+$ npm link
 ```
 
 ## Usage
