@@ -29,7 +29,8 @@ const cli = meow(`
     --disable-html:                        Do not generate html file
     --output-assets-path [filename]:       Output assets path using assets-webpack-plugin
     --template:                            Html-webpack-plugin template
-    -c/--config [path]:                    Use config file or specific a config file path
+    -c/--config [path]:                    Specific a config file path
+    --no-config:                           Do not use config file
     -v/--version:                          Print version
     -h/--help:                             Print help (You are here!)
 `, {

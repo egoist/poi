@@ -132,13 +132,16 @@ $ vbuild --help
     -b/--browsers:                         Set autoprefixer browser list
     --lint:                                Lint your code
     --umd <moduleName>:                    UMD mode and prvide a module name
+    --live:                                Live reloading when files change
     --cjs:                                 CommonJS mode
     --electron:                            Electron mode
     --silent:                              Do not open browser
     --browser-sync [port]:                 Browser Sync, port is optional
     --disable-html:                        Do not generate html file
     --output-assets-path [filename]:       Output assets path using assets-webpack-plugin
-    -c/--config [path]:                    Use config file or specific a config file path
+    --template:                            Html-webpack-plugin template
+    -c/--config [path]:                    Specific a config file path
+    --no-config:                           Do not use config file
     -v/--version:                          Print version
     -h/--help:                             Print help (You are here!)
 ```
@@ -309,10 +312,11 @@ Specfic a function to update webpack `config` before building. `options` is the 
 
 #### config
 
-Type: `string` `boolean`<br>
-Default: `./vbuild.js` `false`
+Type: `string`<br>
+Default: `./vbuild.js`
 
-Use default config file or specific a config file.
+Specific a custom config file path. Set to `false` to disable config file.
+
 
 ## License
 
