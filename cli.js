@@ -51,4 +51,9 @@ const cli = meow(`
 update({pkg: cli.pkg}).notify()
 
 const options = cli.flags
-main(options).catch(e => console.log(chalk.red(e.stack)))
+main(options).catch(e => {
+  console.log(chalk.red(e.stack))
+  if (!options.dev) {
+    process.exit(1)
+  }
+})
