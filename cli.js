@@ -19,6 +19,7 @@ const cli = meow(`
     -p/--port [port]:                      Server port, port is optional
     -t/--title [title]:                    App title, title is optional
     -b/--browsers:                         Set autoprefixer browser list
+    --alias:                               Use preset webpack alias
     --lint:                                Lint your code
     --umd <moduleName>:                    UMD mode and prvide a module name
     --live:                                Live reloading when files change

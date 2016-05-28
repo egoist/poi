@@ -132,6 +132,7 @@ $ vbuild --help
     -p/--port [port]:                      Server port, port is optional
     -t/--title [title]:                    App title, title is optional
     -b/--browsers:                         Set autoprefixer browser list
+    --alias:                               Use preset webpack alias
     --lint:                                Lint your code
     --umd <moduleName>:                    UMD mode and prvide a module name
     --live:                                Live reloading when files change
@@ -289,6 +290,13 @@ Use `assets-webpack-plugin` to output assets path in `./vbuild-assets.json`, if 
 Type: `string`
 
 Html-webpack-plugin template.
+
+#### alias
+
+Type: `boolean` `string`<br>
+Default: `false`
+
+Use default webpack `resolve.alias` preset by vbuild. Use a string to specific custom `src` dir to your app. eg: `--alias example`, then `import 'src/app'` becomes `/absolute/path/to/example/app`.
 
 #### development
 

@@ -7,6 +7,7 @@ test('main', async t => {
   await trash(['./dist'])
   await vbuild({
     config: false,
+    alias: 'example',
     entry: ['./example']
   })
   t.true(await exists('./dist/index.html'))
