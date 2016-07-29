@@ -26,7 +26,7 @@ const cli = meow(`
     --cjs:                                 CommonJS mode
     --electron:                            Electron mode
     --silent:                              Do not open browser
-    --browser-sync [port]:                 Browser Sync, port is optional
+    --bs/--browser-sync [port]:                 Browser Sync, port is optional
     --disable-html:                        Do not generate html file
     --output-assets-path [filename]:       Output assets path using assets-webpack-plugin
     --template:                            Html-webpack-plugin template
@@ -45,7 +45,8 @@ const cli = meow(`
     t: 'title',
     b: 'browsers',
     w: 'watch',
-    l: 'live'
+    l: 'live',
+    bs: 'browser-sync'
   }
 })
 
