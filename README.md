@@ -21,7 +21,7 @@ Or see the alive example made with `vbuild`: https://github.com/vist-service/vis
 
 ```bash
 # it takes me 7 minutes to complete the installation
-$ npm install -g vbuild
+$ npm install -g vbuild@next
 ```
 
 **Install via GIT**:
@@ -102,7 +102,7 @@ export default {
   webpack(config, options) {
     // config:  webpack config
     // options: cli arguments merged with options above
-    
+
     // update config before building
     // this can override changes made by cli arguments and options above
     config.entry = './goaway.js'
