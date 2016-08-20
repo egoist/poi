@@ -18,6 +18,8 @@ const cli = yargs
   .describe('live', 'Live reloading while file changes')
     .alias('live', 'l')
     .boolean('live')
+  .describe('devtool', 'Specific the devtool for webpack')
+    .string('devtool')
   .describe('title', 'HTML title')
     .alias('title', 't')
     .string('title')

@@ -268,6 +268,12 @@ Default: `false`
 
 Use default webpack `resolve.alias` preset by vbuild. Use a string to specific custom `src` dir to your app. eg: `--alias example`, then `import 'src/app'` becomes `/absolute/path/to/example/app`.
 
+#### devtool
+
+Type: `string`<br>
+
+Webpack devtool, by default it's `cheap-module-eval-source-map` in `dev` `watch` mode, and `source-map` in `production` mode.
+
 #### development
 
 Type: `object`<br>
