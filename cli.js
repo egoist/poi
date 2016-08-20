@@ -49,6 +49,7 @@ const cli = yargs
 
 if (cli.version) {
   console.log(pkg.version)
+  process.exit(0)
 }
 
 update({pkg}).notify()
