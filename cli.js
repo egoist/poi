@@ -1,61 +1,64 @@
 #!/usr/bin/env node
 'use strict'
-const meow = require('meow')
+const yargs = require('yargs')
 const chalk = require('chalk')
 const update = require('update-notifier')
 const main = require('./lib')
+const pkg = require('./package')
 
-const cli = meow(`
-  Usage:
-    vbuild [options]
+const cli = yargs
+  .describe('dev', 'Run in dev mode')
+    .alias('dev', 'd')
+    .boolean('dev')
+  .describe('port', 'Port of dev server')
+    .alias('port', 'p')
+  .describe('watch', 'Run in watch mode')
+    .alias('watch', 'w')
+    .boolean('watch')
+  .describe('live', 'Live reloading while file changes')
+    .alias('live', 'l')
+    .boolean('live')
+  .describe('title', 'HTML title')
+    .alias('title', 't')
+    .string('title')
+  .describe('browsers', 'Set autoprefixer browser list')
+    .alias('browsers', 'b')
+    .array('browsers')
+  .describe('alias', 'User preset webpack alias')
+  .describe('lint', 'Lint your code while building')
+    .boolean('lint')
+  .describe('umd', 'Build in UMD mode and specific a module name')
+    .string('umd')
+  .describe('cjs', 'Build in CommonJS mode')
+    .boolean('cjs')
+  .describe('electron', 'Build in Electron mode')
+    .boolean('electron')
+  .describe('silent', 'Do not open browser in dev mode')
+    .boolean('silent')
+  .describe('browser-sync', 'User browser-sync and specific a port')
+  .describe('disable-html', 'Disable HTML output')
+  .describe('output-assets-path', 'Custom name of output webpack-asset.json')
+  .describe('template', 'Custom path to HTML template')
+  .describe('config', 'Custom path to config file')
+  .describe('no-config', 'Disable looking for default config file')
+  .describe('version', 'Output version number')
+    .alias('version', 'v')
+  .help('h')
+    .alias('h', 'help')
+  .argv
 
-  Example:
-    vbuild --entry index.js --port 4000 --dev --browser-sync
+if (cli.version) {
+  console.log(pkg.version)
+}
 
-  Options:
-    -e/--entry:                            Specific entries
-    -d/--dev:                              Development mode
-    -w/--watch:                            Watch mode
-    -p/--port [port]:                      Server port, port is optional
-    -t/--title [title]:                    App title, title is optional
-    -b/--browsers:                         Set autoprefixer browser list
-    --alias:                               Use preset webpack alias
-    --lint:                                Lint your code
-    --umd <moduleName>:                    UMD mode and prvide a module name
-    --live:                                Live reloading when files change
-    --cjs:                                 CommonJS mode
-    --electron:                            Electron mode
-    --silent:                              Do not open browser
-    --bs/--browser-sync [port]:                 Browser Sync, port is optional
-    --disable-html:                        Do not generate html file
-    --output-assets-path [filename]:       Output assets path using assets-webpack-plugin
-    --template:                            Html-webpack-plugin template
-    -c/--config [path]:                    Specific a config file path
-    --no-config:                           Do not use config file
-    -v/--version:                          Print version
-    -h/--help:                             Print help (You are here!)
-`, {
-  alias: {
-    e: 'entry',
-    d: 'dev',
-    p: 'port',
-    c: 'config',
-    v: 'version',
-    h: 'help',
-    t: 'title',
-    b: 'browsers',
-    w: 'watch',
-    l: 'live',
-    bs: 'browser-sync'
-  }
-})
+update({pkg}).notify()
 
-update({pkg: cli.pkg}).notify()
-
-const options = cli.flags
-main(options).catch(e => {
+const input = cli._
+delete cli._
+cli.entry = input
+main(cli).catch(e => {
   console.log(chalk.red(e.stack))
-  if (!options.dev) {
+  if (!cli.dev && !cli.watch) {
     process.exit(1)
   }
 })
