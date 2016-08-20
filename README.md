@@ -24,6 +24,8 @@ Or see the alive example made with `vbuild`: https://github.com/vist-service/vis
 $ npm install -g vbuild
 ```
 
+Notice: only Vue 2 is supported, for Vue 1 please install `vbuild@0.2`.
+
 **Install via GIT**:
 
 Recommended way for power users to install `vbuild`, since you can edit the core code directly to suit your needs!
