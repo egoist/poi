@@ -21,7 +21,7 @@ Or see the alive example made with `vbuild`: https://github.com/vist-service/vis
 
 ```bash
 # it takes me 7 minutes to complete the installation
-$ npm install -g vbuild@next
+$ npm install -g vbuild
 ```
 
 **Install via GIT**:
@@ -46,8 +46,7 @@ $ vbuild
 # yeppppp! so simple!
 
 # build something elsewhere
-# -e/--entry
-$ vbuild --entry ./lib/foo.js
+$ vbuild ./lib/foo.js
 
 # development? sure! with hot reloading!
 # -d/--dev
@@ -116,37 +115,6 @@ For more usages:
 
 ```bash
 $ vbuild --help
-
-  Preset build tool for Vue.js apps.
-
-  Usage:
-    vbuild [options]
-
-  Example:
-    vbuild --entry index.js --port 4000 --dev --browser-sync
-
-  Options:
-    -e/--entry:                            Specific entries
-    -d/--dev:                              Development mode
-    -w/--watch:                            Watch mode
-    -p/--port [port]:                      Server port, port is optional
-    -t/--title [title]:                    App title, title is optional
-    -b/--browsers:                         Set autoprefixer browser list
-    --alias:                               Use preset webpack alias
-    --lint:                                Lint your code
-    --umd <moduleName>:                    UMD mode and prvide a module name
-    --live:                                Live reloading when files change
-    --cjs:                                 CommonJS mode
-    --electron:                            Electron mode
-    --silent:                              Do not open browser
-    --browser-sync [port]:                 Browser Sync, port is optional
-    --disable-html:                        Do not generate html file
-    --output-assets-path [filename]:       Output assets path using assets-webpack-plugin
-    --template:                            Html-webpack-plugin template
-    -c/--config [path]:                    Specific a config file path
-    --no-config:                           Do not use config file
-    -v/--version:                          Print version
-    -h/--help:                             Print help (You are here!)
 ```
 
 ## API
