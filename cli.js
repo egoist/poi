@@ -42,6 +42,7 @@ const cli = yargs
   .describe('output-assets-path', 'Custom name of output webpack-asset.json')
     .alias('output-assets-path', 'osp')
   .describe('template', 'Custom path to HTML template')
+  .describe('css-modules', 'Use CSS modules in normal JS files')
   .describe('config', 'Custom path to config file')
     .alias('config', 'c')
   .describe('no-config', 'Disable looking for default config file')

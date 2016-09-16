@@ -1,6 +1,7 @@
 <style>
   body {
     margin: 0;
+    display: flex;
     font-family: -apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica,helvetica neue,Ubuntu,segoe ui,arial,sans-serif;
   }
   .page {
