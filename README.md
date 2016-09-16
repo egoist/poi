@@ -239,6 +239,12 @@ Type: `array` `function`
 
 An array of PostCSS plugins or a function that return an array of plugins.
 
+#### cssModules
+
+Type: `boolean`
+
+Enable CSS modules support.
+
 #### disableHtml
 
 Type: `boolean`<br>
@@ -264,7 +270,7 @@ Html-webpack-plugin template.
 Type: `boolean` `string`<br>
 Default: `false`
 
-Use default webpack `resolve.alias` preset by vbuild. Use a string to specific custom `src` dir to your app. eg: `--alias example`, then `import 'src/app'` becomes `/absolute/path/to/example/app`.
+Use default webpack `resolve.alias` preset. Use a string to specific custom `src` dir to your app. eg: `--alias example`, then `import 'src/app'` becomes `/absolute/path/to/example/app`.
 
 #### devtool
 
