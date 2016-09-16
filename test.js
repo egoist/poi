@@ -22,5 +22,5 @@ test('production config', async t => {
       devtool: false
     }
   })
-  t.true(await exists('./dist-cool/assets/bundle.xxx.js'))
+  t.true(await exists('./dist-cool/bundle.xxx.js'))
 })
