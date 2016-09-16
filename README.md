@@ -124,9 +124,7 @@ $ vbuild --help
 ```js
 import vbuild from 'vbuild'
 
-(async function () {
-  await vbuild(options)
-})()
+vbuild(options).then(/* your code */)
 ```
 
 ### options
