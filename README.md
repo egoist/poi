@@ -219,6 +219,20 @@ Default: `false`
 
 Live reloading when files change.
 
+#### lint
+
+Type: `boolean`<br>
+Default: `false`
+
+Lint your code. (ESlint for now)
+
+#### eslint
+
+Type: `object`<br>
+Default: `{}`
+
+ESlint-compatiable config.
+
 #### postcss
 
 Type: `array` `function`

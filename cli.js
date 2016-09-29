@@ -27,6 +27,8 @@ const cli = yargs
     .alias('browsers', 'b')
     .array('browsers')
   .describe('alias', 'User preset webpack alias')
+  .describe('lint', 'Lint your code while building')
+    .boolean('lint')
   .describe('umd', 'Build in UMD mode and specific a module name')
     .string('umd')
   .describe('cjs', 'Build in CommonJS mode')
