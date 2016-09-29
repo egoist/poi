@@ -13,8 +13,6 @@ Preset build tool for Vue.js apps.
 
 **Dive into the [WIKI](https://github.com/egoist/vbuild/wiki) or [API](#api) to see more.** 😋
 
-Or see the alive example made with `vbuild`: https://github.com/vist-service/vist
-
 ## Install
 
 **Install via NPM**, work with Node >= 4 and NPM >=3:
