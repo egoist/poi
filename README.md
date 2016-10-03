@@ -2,8 +2,6 @@
 
 Preset build tool for Vue.js apps.
 
-![preview](http://ww4.sinaimg.cn/large/a15b4afegw1f3ra85h0flg20j10agjsb)
-
 ## What can be done perfectly?
 
 - [Web apps made with Vue.js](https://github.com/egoist/vbuild/wiki/Regular-web-applications-using-Vue.js)
@@ -11,7 +9,7 @@ Preset build tool for Vue.js apps.
 - Vue related stuffs, like Vue components, directives, etc.
 - Customizable configuration file.
 
-**Dive into the [WIKI](https://github.com/egoist/vbuild/wiki) or [API](#api) to see more.** 😋
+**Dive into the [API](#api) to see more.** 😋
 
 ## Install
 
@@ -22,22 +20,11 @@ Preset build tool for Vue.js apps.
 $ npm install -g vbuild
 ```
 
-Notice: only Vue 2 is supported, for Vue 1 please install `vbuild@0.2`.
-
-**Install via GIT**:
-
-Recommended way for power users to install `vbuild`, since you can edit the core code directly to suit your needs!
-
-```bash
-$ git clone https://github.com/egoist/vbuild.git
-$ cd vbuild
-$ npm install
-$ npm link
-```
+Note: only Vue 2 is supported.
 
 ## Usage
 
-You can use full-featured ES2015+ and PostCSS with CSSNext in your Vue apps.
+You can use full-featured ES2015+ and PostCSS in your Vue apps.
 
 ```bash
 # build ./src/index.js
@@ -203,7 +190,7 @@ Live reloading when files change.
 Type: `boolean`<br>
 Default: `false`
 
-Lint your code. (ESlint for now)
+Build and Lint your code. (ESlint for now)
 
 #### eslint
 
@@ -211,12 +198,6 @@ Type: `object`<br>
 Default: `{}`
 
 ESlint-compatiable config.
-
-#### postcss
-
-Type: `array` `function`
-
-An array of PostCSS plugins or a function that return an array of plugins.
 
 #### cssModules
 
