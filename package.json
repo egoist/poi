@@ -14,8 +14,7 @@
     "node": ">=4"
   },
   "scripts": {
-    "test": "xo lib/*.js && npm run example",
-    "example": "vbuild -c example/vbuild.js"
+    "test": "xo lib/*.js"
   },
   "bin": "cli.js",
   "files": [

@@ -1,7 +1,0 @@
-{
-  "entry": ["./example"],
-  "alias": "example",
-  "production": {
-    "filename": "bundle.xxx.js"
-  }
-}
