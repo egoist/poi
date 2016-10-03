@@ -96,7 +96,6 @@
     "webpack-hot-server": "^0.5.1",
     "webpack-livereload-plugin": "^0.8.2",
     "webpack-notifier": "^1.3.2",
-    "webpack-target-electron-renderer": "^0.4.0",
     "yargs": "^5.0.0"
   }
 }
