@@ -9,7 +9,7 @@ Preset build tool for Vue.js apps.
 - [Web apps made with Vue.js](https://github.com/egoist/vbuild/wiki/Regular-web-applications-using-Vue.js)
 - [Desktop apps made with Electron and Vue.js](https://github.com/egoist/vbuild/wiki/Electron-apps)
 - Vue related stuffs, like Vue components, directives, etc.
-- Extendable to build any web app.
+- Customizable configuration file.
 
 **Dive into the [WIKI](https://github.com/egoist/vbuild/wiki) or [API](#api) to see more.** 😋
 
@@ -69,42 +69,23 @@ Imagine using scaffolding tool for prototyping every small demos of you? Dear lo
 
 `vbuild` can build production ready apps by default. 😅
 
-### Legacy project
-
-If you are stilling using Vue in a non-SPA website, you can use `--watch` mode when developing. Unlike `--dev` mode this way only rebuilds assets when files change, no dev server was established.
-
-```bash
-# for example you are using Vue with Laravel
-# and using assets-webpack-plugin to get the paths of bundled files in Laravel
-$ vbuild --watch --output-assets-path
-```
 
 ### Universal apps
 
 Really? sure, I will add this feature once Vue supports Virtual Dom or Server-side rendering. And it will come soon!
 
-## Advanced configuration
+## Configuration file
 
-Drop a `vbuild.js` in the root of your project directory:
+Drop a `vue.config.json` in the root of your project directory:
 
 ```js
-export default {
-  // the options here (except `webpack()` function) can be override by cli arguments
-  entry: {
-    js: './src/app.js',
-    css: './src/app.css'
-  },
-  browsers: ['ie > 10', 'last 1 version'],
-  production: {
-    devtool: false
-  },
-  webpack(config, options) {
-    // config:  webpack config
-    // options: cli arguments merged with options above
-
-    // update config before building
-    // this can override changes made by cli arguments and options above
-    config.entry = './goaway.js'
+{
+  "entry": "./src/entry.js",
+  // ...
+  // you can specific different config for production mode
+  // and development mode
+  "development": {
+    "live": true
   }
 }
 ```
@@ -290,18 +271,10 @@ Default: `undefined`
 
 Production options, will be deeply assigned into `options` in build mode.
 
-#### webpack
-
-Type: `function`<br>
-Default: `undefined`<br>
-Params: `config` `options`
-
-Specfic a function to update webpack `config` before building. `options` is the API options.
-
 #### config
 
 Type: `string`<br>
-Default: `./vbuild.js`
+Default: `./vue.config.json`
 
 Specific a custom config file path. Set to `false` to disable config file.
 
