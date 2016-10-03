@@ -137,6 +137,12 @@ Default: `dist`
 
 Dist directory.
 
+#### babel
+
+Type: `object`
+
+Babel options.
+
 #### postcss
 
 Type: `object`
