@@ -1,7 +1,7 @@
 import test from 'ava'
 import trash from 'trash'
 import exists from 'path-exists'
-import vbuild from './'
+import vbuild from './lib'
 
 test('main', async t => {
   await trash(['./dist'])
