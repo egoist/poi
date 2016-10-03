@@ -16,7 +16,7 @@ test('main', async t => {
 test('production config', async t => {
   await trash(['./dist-cool'])
   await vbuild({
-    config: './example/vbuild.js',
+    config: './example/vue.config.json',
     production: {
       dist: 'dist-cool',
       devtool: false
