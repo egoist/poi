@@ -51,6 +51,7 @@
   },
   "dependencies": {
     "assets-webpack-plugin": "^3.4.0",
+    "autoprefixer": "^6.5.0",
     "babel-helper-vue-jsx-merge-props": "^2.0.1",
     "babel-loader": "^6.2.5",
     "babel-plugin-syntax-jsx": "^6.13.0",
@@ -80,8 +81,8 @@
     "lodash.merge": "^4.6.0",
     "opn": "^4.0.2",
     "pify": "^2.3.0",
-    "postcss-cssnext": "^2.7.0",
     "postcss-loader": "^0.13.0",
+    "postcss-nested": "^1.0.0",
     "style-loader": "^0.13.1",
     "text-table": "^0.2.0",
     "tildify": "^1.2.0",

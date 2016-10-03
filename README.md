@@ -137,12 +137,26 @@ Default: `dist`
 
 Dist directory.
 
-#### browsers
+#### postcss
 
-Type: `array`<br>
-Default: `['> 5%', 'last 2 version', 'ie > 8']`
+Type: `object`
 
-Autoprefixer browser list.
+PostCSS options:
+
+```js
+{
+  "postcss": {
+    // specific custom plugins:
+    "use": ["postcss-mixins"],
+    // set plugin options this way
+    "postcss-mixins": {},
+    // override built-in plugins
+    "append": false
+  }
+}
+```
+
+By default `autoprefixer` and `postcss-nested` are build-in plugins.
 
 #### umd
 
