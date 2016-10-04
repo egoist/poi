@@ -64,7 +64,9 @@ update({pkg}).notify()
 
 const input = cli._
 delete cli._
-cli.entry = input.length === 0 ? ['./src/index.js'] : input
+
+cli.entry = input[0]
+
 main(cli).catch(e => {
   console.log(chalk.red(e.stack))
   if (!cli.dev && !cli.watch) {
