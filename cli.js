@@ -36,6 +36,7 @@ const cli = yargs
     .boolean('cjs')
   .describe('electron', 'Build in Electron mode')
     .boolean('electron')
+  .describe('gzip', 'Prepare compressed versions of assets to serve them with Content-Encoding')
   .describe('silent', 'Do not open browser in dev mode')
     .boolean('silent')
   .describe('browser-sync', 'User browser-sync and specific a port')
