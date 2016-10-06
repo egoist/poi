@@ -1,77 +1,50 @@
 #!/usr/bin/env node
 'use strict'
-
-const yargs = require('yargs')
+const cac = require('cac')
 const chalk = require('chalk')
 const update = require('update-notifier')
 const main = require('./lib')
 const pkg = require('./package')
 
-const cli = yargs
-  .describe('dev', 'Run in dev mode')
-    .alias('dev', 'd')
-    .boolean('dev')
-  .describe('port', 'Port of dev server')
-    .alias('port', 'p')
-  .describe('watch', 'Run in watch mode')
-    .alias('watch', 'w')
-    .boolean('watch')
-  .describe('clean', 'Clean dist directory before bundling')
-    .boolean('clean')
-  .describe('live', 'Live reloading while file changes')
-    .alias('live', 'l')
-    .boolean('live')
-  .describe('devtool', 'Specific the devtool for webpack')
-    .string('devtool')
-  .describe('title', 'HTML title')
-    .alias('title', 't')
-    .string('title')
-  .describe('browsers', 'Set autoprefixer browser list')
-    .alias('browsers', 'b')
-    .array('browsers')
-  .describe('alias', 'User preset webpack alias')
-  .describe('lint', 'Lint your code while building')
-    .boolean('lint')
-  .describe('umd', 'Build in UMD mode and specific a module name')
-    .string('umd')
-  .describe('cjs', 'Build in CommonJS mode')
-    .boolean('cjs')
-  .describe('electron', 'Build in Electron mode')
-    .boolean('electron')
-  .describe('gzip', 'Prepare compressed versions of assets to serve them with Content-Encoding')
-  .describe('silent', 'Do not open browser in dev mode')
-    .boolean('silent')
-  .describe('browser-sync', 'User browser-sync and specific a port')
-  .describe('disable-html', 'Disable HTML output')
-  .describe('output-assets-path', 'Custom name of output webpack-asset.json')
-    .alias('output-assets-path', 'osp')
-  .describe('template', 'Custom path to HTML template')
-  .describe('css-modules', 'Use CSS modules in normal JS files')
-  .describe('config', 'Custom path to config file')
-    .alias('config', 'c')
-  .describe('no-config', 'Disable looking for default config file')
-    .alias('no-config', 'nc')
-  .describe('version', 'Output version number')
-    .alias('version', 'v')
-  .help('h')
-    .alias('h', 'help')
-  .argv
-
-if (cli.version) {
-  console.log(pkg.version)
-  process.exit(0)
-}
-
 update({pkg}).notify()
 
-const input = cli._
-delete cli._
+const cli = cac()
 
-cli.entry = input[0]
+cli
+  .option('dev, d', 'Run in dev mode')
+  .option('port, p', 'Run in dev mode')
+  .option('watch, w', 'Run in watch mode')
+  .option('clean', 'Clean dist directory before bundling')
+  .option('live, l', 'Live reloading while file changes')
+  .option('devtool', 'Specific the devtool for webpack')
+  .option('title, t', 'HTML title')
+  .option('alias', 'User preset webpack alias')
+  .option('lint', 'Lint your code while building')
+  .option('umd', 'Build in UMD mode and specific a module name')
+  .option('cjs', 'Build in CommonJS mode')
+  .option('electron', 'Build in Electron mode')
+  .option('compress', 'Compress bundled files')
+  .option('gzip', 'Prepare compressed versions of assets to serve them with Content-Encoding')
+  .option('notify', 'Use desktop notifier as bundle valid or invalid')
+  .option('silent', 'Do not open browser in dev mode')
+  .option('browser-sync', 'User browser-sync and specific a port')
+  .option('disable-html', 'Disable HTML output')
+  .option('output-assets-path', 'Custom name of output webpack-asset.json')
+  .option('template', 'Custom path to HTML template')
+  .option('css-modules', 'Use CSS modules in normal JS files')
+  .option('config', 'Custom path to config file')
+  .command('*', 'Run vbuild', (input, flags) => {
+    const options = Object.assign({
+      entry: input[0]
+    }, flags)
+    return main(options).catch(e => {
+      console.log(chalk.red(e.stack))
+      if (!cli.dev && !cli.watch) {
+        process.exit(1)
+      }
+    })
+  })
 
-main(cli).catch(e => {
-  console.log(chalk.red(e.stack))
-  if (!cli.dev && !cli.watch) {
-    process.exit(1)
-  }
-})
+cli.usage(`${chalk.yellow('vbuild')} [entry] [options]`)
+cli.example('vbuild --dev --css-modules --template ./template.html')
+cli.parse()
