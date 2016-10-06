@@ -16,6 +16,8 @@ const cli = yargs
   .describe('watch', 'Run in watch mode')
     .alias('watch', 'w')
     .boolean('watch')
+  .describe('clean', 'Clean dist directory before bundling')
+    .boolean('clean')
   .describe('live', 'Live reloading while file changes')
     .alias('live', 'l')
     .boolean('live')
