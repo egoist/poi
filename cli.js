@@ -18,7 +18,8 @@ cli
   .option('live, l', 'Live reloading while file changes')
   .option('devtool', 'Specific the devtool for webpack')
   .option('title, t', 'HTML title')
-  .option('alias', 'User preset webpack alias')
+  .option('alias-default', 'User preset webpack alias')
+  .option('alias', 'Add custom aliases to resolve modules')
   .option('lint', 'Lint your code while building')
   .option('umd', 'Build in UMD mode and specific a module name')
   .option('cjs', 'Build in CommonJS mode')
@@ -33,7 +34,9 @@ cli
   .option('template', 'Custom path to HTML template')
   .option('css-modules', 'Use CSS modules in normal JS files')
   .option('config', 'Custom path to config file')
+  .option('externals', 'Exclude external modules from bundled files')
   .option('stats', 'Generate visualizer stats')
+  .option('target', 'Bundle target, eg: node')
   .command('*', 'Run vbuild', (input, flags) => {
     const options = Object.assign({
       entry: input[0]
