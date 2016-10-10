@@ -33,6 +33,7 @@ cli
   .option('template', 'Custom path to HTML template')
   .option('css-modules', 'Use CSS modules in normal JS files')
   .option('config', 'Custom path to config file')
+  .option('stats', 'Generate visualizer stats')
   .command('*', 'Run vbuild', (input, flags) => {
     const options = Object.assign({
       entry: input[0]
