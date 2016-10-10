@@ -9,7 +9,7 @@ Preset build tool for Vue.js apps.
 - Vue related stuffs, like Vue components, directives, etc.
 - Customizable configuration file.
 
-**Dive into the [website](http://vbuild.js.org/#/guide/home) to see more.** 😋
+**Dive into the [handbook](https://egoist.gitbooks.io/vbuild-handbook/content/) to see more.** 😋
 
 ## Install
 
