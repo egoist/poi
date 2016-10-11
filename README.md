@@ -16,8 +16,10 @@ Preset build tool for Vue.js apps.
 **Install via NPM**, work with Node >= 4 and NPM >=3:
 
 ```bash
-# it takes me 7 minutes to complete the installation
-$ npm install -g vbuild
+# it takes me 7 minutes to complete the installation with npm
+# $ npm install -g vbuild
+# but 23 seconds with yarn!
+$ yarn global add vbuild
 ```
 
 Note: only Vue 2 is supported.
