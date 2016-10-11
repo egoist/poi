@@ -34,7 +34,7 @@
     "nyc": "^8.1.0",
     "path-exists": "^3.0.0",
     "vue": "^2.0.0-beta.2",
-    "xo": "^0.16.0"
+    "xo": "^0.17.0"
   },
   "xo": {
     "semicolon": false,
