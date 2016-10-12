@@ -2410,26 +2410,20 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-egoist-vue@^2.0.3:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/eslint-config-egoist-vue/-/eslint-config-egoist-vue-2.0.4.tgz#00a787cc072ab0c01f0da1061e1d6fdf78aba86b"
+eslint-config-egoist-vue:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/eslint-config-egoist-vue/-/eslint-config-egoist-vue-2.0.5.tgz#cc96e01d21a9a92f31cc004d05b8020b591d4bbe"
   dependencies:
-    eslint-config-egoist "^1.0.2"
+    eslint-config-rem "^2.0.0"
     eslint-plugin-vue "github:vuejs/eslint-plugin-vue"
 
-eslint-config-egoist@^1.0.2:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/eslint-config-egoist/-/eslint-config-egoist-1.0.4.tgz#6bb91673f7c5326f2b2047062d1f0f1d1c6e98e2"
-  dependencies:
-    eslint-config-xo "^0.16.0"
+eslint-config-rem@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-rem/-/eslint-config-rem-2.0.0.tgz#5b5dfd2682760ad7c536bd8178b6ea02070adea3"
 
 eslint-config-xo@^0.15.0:
   version "0.15.4"
   resolved "https://registry.yarnpkg.com/eslint-config-xo/-/eslint-config-xo-0.15.4.tgz#7f99c962ade21c77c7e89932fe8781e74e7e4b13"
-
-eslint-config-xo@^0.16.0:
-  version "0.16.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-xo/-/eslint-config-xo-0.16.0.tgz#c14190e3d9a54d47d3e72e43657ee361507b2a78"
 
 eslint-formatter-pretty@^0.2.1:
   version "0.2.2"
@@ -6566,6 +6560,10 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
+vue:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.0.2.tgz#ae1c01ce74a5d44d41ece96b82849c11e1d45e6d"
+
 vue-hot-reload-api@^2.0.1:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.0.6.tgz#817d4bfb30f55428aa1012d029499e07f3147d21"
@@ -6605,10 +6603,6 @@ vue-template-es2015-compiler@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.0.0.tgz#89add11c41224059c839ef0b9484e97a7f98abc5"
 
-vue@^2.0.0-beta.2:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.0.1.tgz#ea20979eb5440ea7da086097befd598fb548dbc1"
-
 watchpack@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/watchpack/-/watchpack-1.1.0.tgz#42d44627464a2fadffc9308c0f7562cfde795f24"
@@ -6642,9 +6636,9 @@ webpack-hot-server@^0.6.0:
     express "^4.13.3"
     webpack-dev-middleware "^1.4.0"
 
-webpack-livereload-plugin@^0.8.2:
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/webpack-livereload-plugin/-/webpack-livereload-plugin-0.8.2.tgz#9782f2dcff0ab8a6c08e6b9de04b77d7c461f32b"
+webpack-livereload-plugin:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/webpack-livereload-plugin/-/webpack-livereload-plugin-0.9.0.tgz#2cf60d93ff90cb181e8c52402f4dd884b97c80f0"
   dependencies:
     tiny-lr "^0.2.0"
 
