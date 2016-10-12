@@ -2411,8 +2411,8 @@ escope@^3.6.0:
     estraverse "^4.1.1"
 
 eslint-config-egoist-vue:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/eslint-config-egoist-vue/-/eslint-config-egoist-vue-2.0.5.tgz#cc96e01d21a9a92f31cc004d05b8020b591d4bbe"
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/eslint-config-egoist-vue/-/eslint-config-egoist-vue-2.0.6.tgz#1574393178485ad45646e7931a8fa1ab52a2ca46"
   dependencies:
     eslint-config-rem "^2.0.0"
     eslint-plugin-vue "github:vuejs/eslint-plugin-vue"
