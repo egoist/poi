@@ -91,7 +91,7 @@
     "tildify": "^1.2.0",
     "trash": "^4.0.0",
     "update-notifier": "^1.0.2",
-    "vue-loader": "^9.2.0",
+    "vue-loader": "^9.5.3",
     "vue-style-loader": "^1.0.0",
     "webpack": "2.1.0-beta.22",
     "webpack-hot-middleware": "^2.12.2",
