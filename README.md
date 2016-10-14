@@ -24,6 +24,14 @@ $ yarn global add vbuild
 
 Note: only Vue 2 is supported.
 
+## Getting started
+
+Use `vue-cli` to generate a vbuild template is the fatest way, see more [here](https://github.com/egoist/vbuild-simple):
+
+```bash
+$ vue init egoist/vbuild-simple my-project
+```
+
 ## Usage
 
 You can use full-featured ES2015+ and PostCSS in your Vue apps.
