@@ -19,8 +19,7 @@
   "bin": "cli.js",
   "files": [
     "lib",
-    "cli.js",
-    "yarn.lock"
+    "cli.js"
   ],
   "keywords": [
     "vue",
