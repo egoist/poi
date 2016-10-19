@@ -6629,9 +6629,9 @@ webpack-hot-middleware@^2.12.2:
     querystring "^0.2.0"
     strip-ansi "^3.0.0"
 
-webpack-hot-server@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/webpack-hot-server/-/webpack-hot-server-0.6.0.tgz#59d40a6e0acd13d82b94498b1558f83e4346da53"
+webpack-hot-server:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/webpack-hot-server/-/webpack-hot-server-0.6.1.tgz#139e354c09cfe358d4ec5548e19a00b50911279a"
   dependencies:
     express "^4.13.3"
     webpack-dev-middleware "^1.4.0"
