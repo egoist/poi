@@ -18,7 +18,7 @@ cli
   .option('live, l', 'Live reloading while file changes')
   .option('devtool', 'Specific the devtool for webpack')
   .option('title, t', 'HTML title')
-  .option('alias-default', 'User preset webpack alias')
+  .option('resolve-root', 'Resolve modules in your app folder')
   .option('alias', 'Add custom aliases to resolve modules')
   .option('lint', 'Lint your code while building')
   .option('umd', 'Build in UMD mode and specific a module name')
