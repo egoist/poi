@@ -83,7 +83,7 @@
     "lodash.merge": "^4.6.0",
     "opn": "^4.0.2",
     "pify": "^2.3.0",
-    "postcss-loader": "^0.13.0",
+    "postcss-loader": "^1.0.0",
     "postcss-nested": "^1.0.0",
     "style-loader": "^0.13.1",
     "text-table": "^0.2.0",
