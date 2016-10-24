@@ -64,7 +64,6 @@
     "cac": "^2.3.2",
     "chalk": "^1.1.3",
     "co": "^4.6.0",
-    "compression-webpack-plugin": "^0.3.1",
     "css-loader": "^0.25.0",
     "detect-installed": "^1.0.4",
     "detect-port": "^1.0.1",
