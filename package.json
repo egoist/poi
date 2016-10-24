@@ -92,7 +92,6 @@
     "webpack-hot-middleware": "^2.12.2",
     "webpack-hot-server": "^0.6.1",
     "webpack-livereload-plugin": "^0.9.0",
-    "webpack-notifier": "^1.3.2",
-    "webpack-visualizer-plugin": "^0.1.5"
+    "webpack-notifier": "^1.3.2"
   }
 }
