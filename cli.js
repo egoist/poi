@@ -27,7 +27,6 @@ cli
   .option('notify', 'Use desktop notifier as bundle valid or invalid')
   .option('silent', 'Do not open browser in dev mode')
   .option('disable-html', 'Disable HTML output')
-  .option('output-assets-path', 'Custom name of output webpack-asset.json')
   .option('template', 'Custom path to HTML template')
   .option('css-modules', 'Use CSS modules in normal JS files')
   .option('config', 'Custom path to config file')
