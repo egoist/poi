@@ -20,7 +20,6 @@ cli
   .option('title, t', 'HTML title')
   .option('resolve-root', 'Resolve modules in your app folder')
   .option('alias', 'Add custom aliases to resolve modules')
-  .option('lint', 'Lint your code while building')
   .option('umd', 'Build in UMD mode and specific a module name')
   .option('cjs', 'Build in CommonJS mode')
   .option('electron', 'Build in Electron mode')
