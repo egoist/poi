@@ -68,6 +68,7 @@
     "compression-webpack-plugin": "^0.3.1",
     "css-loader": "^0.25.0",
     "detect-installed": "^1.0.4",
+    "detect-port": "^1.0.1",
     "eslint": "^3.6.1",
     "eslint-config-egoist-vue": "^2.0.6",
     "eslint-loader": "^1.5.0",
