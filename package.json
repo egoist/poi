@@ -39,6 +39,7 @@
   "xo": {
     "semicolon": false,
     "space": 2,
+    "esnext": true,
     "rules": {
       "operator-linebreak": [
         2,
