@@ -33,7 +33,6 @@ cli
   .option('css-modules', 'Use CSS modules in normal JS files')
   .option('config', 'Custom path to config file')
   .option('externals', 'Exclude external modules from bundled files')
-  .option('stats', 'Generate visualizer stats')
   .option('target', 'Bundle target, eg: node')
   .command('*', 'Run vbuild', (input, flags) => {
     const options = Object.assign({
