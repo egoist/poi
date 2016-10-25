@@ -2942,9 +2942,9 @@ got@^5.0.0:
     unzip-response "^1.0.0"
     url-parse-lax "^1.0.0"
 
-graceful-copy:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/graceful-copy/-/graceful-copy-0.1.0.tgz#3d1ba9a8b7070461df66317b3157c0d572f4c079"
+graceful-copy@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/graceful-copy/-/graceful-copy-0.1.1.tgz#2eec61c8239630748b14f4a78d96e02edd31c462"
   dependencies:
     async "^2.0.1"
     consolidate "^0.14.1"

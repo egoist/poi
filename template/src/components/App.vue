@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="../assets/images/logo.png" height="400" width="400" alt="">
+    <img src="../assets/images/logo.png" height="100" alt="">
     <h1>{{ projectName }}</h1>
     <p>
       Edit files in <code>./src</code> and save to reload
@@ -11,5 +11,6 @@
 <style>
   body {
     text-align: center;
+    font-family: Helvetica, sans-serif;
   }
 </style>
