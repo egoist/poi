@@ -25,6 +25,8 @@ cli
   .option('cjs', 'Build in CommonJS mode')
   .option('electron', 'Build in Electron mode')
   .option('compress', 'Compress bundled files')
+  .option('gzip', 'Gzip bundled files')
+  .option('eslint', 'Run eslint while bundling')
   .option('notify', 'Use desktop notifier as bundle valid or invalid')
   .option('silent', 'Do not open browser in dev mode')
   .option('disable-html', 'Disable HTML output')
