@@ -24,6 +24,10 @@ When you are ready to deploy your app, run `npm run build` to bundle.
 
 <img src="./media/preview.png" width="540" alt="preview">
 
+## Showcase
+
+[Let us know if you are using vbuild in production!](https://vbuild.js.org/docs/showcase.html)
+
 ## License
 
 MIT © [EGOIST](https://github.com/egoist)
