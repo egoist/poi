@@ -28,7 +28,7 @@ cli
   .option('gzip', 'Gzip bundled files')
   .option('eslint', 'Run eslint while bundling')
   .option('notify', 'Use desktop notifier as bundle valid or invalid')
-  .option('silent', 'Do not open browser in dev mode')
+  .option('open', 'Open browser in dev mode')
   .option('disable-html', 'Disable HTML output')
   .option('template', 'Custom path to HTML template')
   .option('css-modules', 'Use CSS modules in normal JS files')
