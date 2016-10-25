@@ -32,6 +32,7 @@ cli
   .option('config', 'Custom path to config file')
   .option('externals', 'Exclude external modules from bundled files')
   .option('target', 'Bundle target, eg: node')
+  .option('merge-config', 'Merge your custom webpack config file')
   .command('*', 'Run vbuild', (input, flags) => {
     const options = Object.assign({
       entry: input[0]

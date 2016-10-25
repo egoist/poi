@@ -14,7 +14,7 @@
     "node": ">=4"
   },
   "scripts": {
-    "test": "xo lib/*.js"
+    "test": "jest && xo lib/*.js"
   },
   "bin": "cli.js",
   "files": [
@@ -31,6 +31,7 @@
   "devDependencies": {
     "ava": "^0.16.0",
     "coveralls": "^2.11.12",
+    "jest-cli": "^16.0.2",
     "nyc": "^8.1.0",
     "path-exists": "^3.0.0",
     "vue": "^2.0.2",
@@ -86,6 +87,10 @@
     "webpack-hot-middleware": "^2.12.2",
     "webpack-hot-server": "^0.6.1",
     "webpack-livereload-plugin": "^0.9.0",
+    "webpack-merge": "^0.15.0",
     "webpack-notifier": "^1.3.2"
+  },
+  "jestConfig": {
+    "testEnvironment": "node"
   }
 }
