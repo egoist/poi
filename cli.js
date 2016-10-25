@@ -5,6 +5,7 @@ const chalk = require('chalk')
 const update = require('update-notifier')
 const main = require('./lib')
 const pkg = require('./package')
+const init = require('./lib/init')
 
 update({pkg}).notify()
 
@@ -45,6 +46,18 @@ cli
     })
   })
 
+cli.command('init', 'Create a new project', (input, flags) => {
+  const options = Object.assign({
+    projectName: input[1]
+  }, flags)
+  return init(options).catch(err => {
+    console.error(chalk.red(err.stack))
+    process.exit(1)
+  })
+})
+
 cli.usage(`${chalk.yellow('vbuild')} [entry] [options]`)
 cli.example('vbuild --dev --css-modules --template ./template.html')
+
 cli.parse()
+

@@ -6,3 +6,4 @@ node_modules
 coverage
 .nyc_output
 /vbuild-assets.json
+/my-project

@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "name": "{{ projectName }}",
+  "dependencies": {
+    "vue": "^2.0.0"
+  }
+}
