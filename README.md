@@ -2,9 +2,9 @@
 
 ## Philosophy
 
-Install once and build everywhere.
+**Install once and build everywhere.**
 
-`vbuild` is a opinionated but configurable build tool with lots of goodies included, it's inspired by [create-react-app](https://github.com/facebookincubator/create-react-app) and [xo](https://github.com/sindresorhus/xo). No webpack config and other tooling config to manage. It just works!
+`vbuild` is an opinionated but configurable build tool with lots of goodies included, it's inspired by [create-react-app](https://github.com/facebookincubator/create-react-app) and [xo](https://github.com/sindresorhus/xo). No webpack config and other tooling config to manage. It just works!
 
 - [Getting Started](https://vbuild.js.org/docs/getting-started.html) - How to start developing an app **in seconds**
 - [User Guide](https://vbuild.js.org/docs) - The vbuild handbook
