@@ -22,6 +22,8 @@ npm run dev
 Then you will be automatically navigated to http://localhost:4000<br>
 When you are ready to deploy your app, run `npm run build` to bundle.
 
+<img src="./media/preview.png" width="540" alt="preview">
+
 ## License
 
 MIT © [EGOIST](https://github.com/egoist)
