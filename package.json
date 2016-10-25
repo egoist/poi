@@ -41,10 +41,6 @@
     "space": 2,
     "esnext": true,
     "rules": {
-      "operator-linebreak": [
-        2,
-        "before"
-      ],
       "xo/no-abusive-eslint-disable": 0
     }
   },
