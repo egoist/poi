@@ -9,7 +9,7 @@ Install once and build everywhere.
 - [Getting Started](https://vbuild.js.org/docs/getting-started.html) - How to start developing an app **in seconds**
 - [User Guide](https://vbuild.js.org/docs) - The vbuild handbook
 
-## Introduction
+## Quick Start
 
 ```bash
 npm install -g vbuild
