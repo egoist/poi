@@ -43,7 +43,8 @@
     "space": 2,
     "esnext": true,
     "rules": {
-      "xo/no-abusive-eslint-disable": 0
+      "xo/no-abusive-eslint-disable": 0,
+      "xo/no-process-exit": 0
     }
   },
   "dependencies": {
