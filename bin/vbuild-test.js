@@ -4,12 +4,12 @@ const main = require('../lib')
 
 module.exports = (input, flags) => {
   const options = Object.assign({
-    entry: input[0]
+    inputFiles: input,
+    dev: true,
+    test: true
   }, flags)
-  return main(options).catch(e => {
-    console.log(chalk.red(e.stack))
-    if (!cli.dev && !cli.watch) {
-      process.exit(1)
-    }
+  return main(options).catch(err => {
+    console.error(chalk.red(err.stack))
+    process.exit(1)
   })
 }

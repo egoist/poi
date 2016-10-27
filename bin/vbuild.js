@@ -11,7 +11,6 @@ const cli = cac()
 
 cli
   .option('dev, d', 'Run in dev mode')
-  .option('test', 'Run in test mode')
   .option('port, p', 'Run in dev mode')
   .option('watch, w', 'Run in watch mode')
   .option('clean', 'Clean dist directory before bundling')
@@ -42,5 +41,6 @@ cli.example('vbuild --dev --css-modules --template ./template.html')
 
 cli.command('*', 'Run vbuild')
 cli.command('init', 'Create a new project')
+cli.command('test', 'Run tests')
 
 cli.parse()
