@@ -1234,15 +1234,16 @@ bytes@2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-2.4.0.tgz#7d97196f9d5baf7f6935e25985549edd2a6c2339"
 
-cac@^2.3.2:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/cac/-/cac-2.3.2.tgz#8826353e82ea8df6281bb30d8b46d60cbaa2b4fa"
+cac@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/cac/-/cac-3.0.1.tgz#e1c7d20d4e79d8638d6dd29a2c23d51e484cced8"
   dependencies:
     camelcase-keys "^3.0.0"
     chalk "^1.1.3"
     indent-string "^3.0.0"
     minimist "^1.2.0"
     read-pkg-up "^1.0.1"
+    suffix "^0.1.0"
     text-table "^0.2.0"
 
 caching-transform@^1.0.0:
@@ -6200,6 +6201,10 @@ style-loader@^0.13.1:
   resolved "https://registry.yarnpkg.com/style-loader/-/style-loader-0.13.1.tgz#468280efbc0473023cd3a6cd56e33b5a1d7fc3a9"
   dependencies:
     loader-utils "^0.2.7"
+
+suffix@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/suffix/-/suffix-0.1.0.tgz#3e46966de56af17600385e58db8ec659dd797907"
 
 supports-color@^0.2.0:
   version "0.2.0"

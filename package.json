@@ -16,7 +16,7 @@
   "scripts": {
     "test": "jest && xo lib/*.js"
   },
-  "bin": "cli.js",
+  "bin": "bin/vbuild.js",
   "files": [
     "lib",
     "cli.js",
@@ -58,7 +58,7 @@
     "babel-preset-es2015": "^6.16.0",
     "babel-preset-stage-2": "^6.17.0",
     "babel-runtime": "^6.11.6",
-    "cac": "^2.3.2",
+    "cac": "^3.0.1",
     "chalk": "^1.1.3",
     "co": "^4.6.0",
     "compression-webpack-plugin": "^0.3.2",
