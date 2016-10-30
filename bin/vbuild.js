@@ -3,9 +3,7 @@
 const cac = require('cac')
 const chalk = require('chalk')
 const update = require('update-notifier')
-const main = require('./lib')
-const pkg = require('./package')
-const init = require('./lib/init')
+const pkg = require('../package')
 
 update({pkg}).notify()
 
@@ -41,5 +39,8 @@ cli
 cli.usage(`${chalk.yellow('vbuild')} [entry] [options]`)
 cli.example('vbuild --dev --css-modules --template ./template.html')
 
-cli.parse()
+cli.command('*', 'Run vbuild')
+cli.command('init', 'Create a new project')
+cli.command('test', 'Run tests')
 
+cli.parse()
