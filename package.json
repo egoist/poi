@@ -20,7 +20,8 @@
   "files": [
     "lib",
     "cli.js",
-    "template"
+    "template",
+    "bin"
   ],
   "keywords": [
     "vue",
