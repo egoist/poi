@@ -4,8 +4,6 @@
   "scripts": {
     "dev": "vbuild --dev",
     "build": "vbuild"
-  },
-  "dependencies": {
-    "vue": "^2.0.0"
   }
+ }
 }

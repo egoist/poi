@@ -18,7 +18,6 @@ npm install -g vbuild
 
 vbuild init my-project
 cd my-project
-npm install
 npm run dev
 ```
 
