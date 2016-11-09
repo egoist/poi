@@ -92,8 +92,8 @@
     "vue-loader": "^9.8.1",
     "vue-style-loader": "^1.0.0",
     "webpack": "2.1.0-beta.22",
+    "webpack-dev-server": "^1.16.2",
     "webpack-hot-middleware": "^2.12.2",
-    "webpack-hot-server": "^0.6.1",
     "webpack-livereload-plugin": "^0.9.0",
     "webpack-merge": "^0.15.0",
     "webpack-notifier": "^1.3.2"
