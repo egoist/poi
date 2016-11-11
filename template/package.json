@@ -5,5 +5,4 @@
     "dev": "vbuild --dev",
     "build": "vbuild"
   }
- }
 }
