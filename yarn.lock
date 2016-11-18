@@ -6774,9 +6774,9 @@ webpack-livereload-plugin@^0.9.0:
   dependencies:
     tiny-lr "^0.2.0"
 
-webpack-merge@^0.15.0:
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/webpack-merge/-/webpack-merge-0.15.0.tgz#f6a930516d5eccba0baabeb30ea96b6a6737c193"
+webpack-merge:
+  version "0.17.0"
+  resolved "http://registry.npm.taobao.org/webpack-merge/download/webpack-merge-0.17.0.tgz#3548ef319e3a72676f831edfe7cba687aa781c84"
   dependencies:
     lodash.find "^3.2.1"
     lodash.isequal "^4.2.0"

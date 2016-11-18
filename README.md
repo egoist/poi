@@ -10,6 +10,7 @@
 
 - [Getting Started](https://vbuild.js.org/docs/getting-started.html) - How to start developing an app **in seconds**
 - [User Guide](https://vbuild.js.org/docs) - The vbuild handbook
+- [How to use in non-Vue projects](https://vbuild.js.org/docs/non-vue-projects.html) - Gracefully adapted for developing React apps too!
 
 ## Quick Start
 
