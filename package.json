@@ -76,6 +76,7 @@
     "fs-promise": "^0.5.0",
     "graceful-copy": "^1.0.1",
     "html-webpack-plugin": "^2.22.0",
+    "installed-by-yarn-globally": "^0.1.0",
     "json-loader": "^0.5.4",
     "lodash.merge": "^4.6.0",
     "opn": "^4.0.2",

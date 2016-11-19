@@ -3352,6 +3352,12 @@ inquirer@^0.12.0:
     strip-ansi "^3.0.0"
     through "^2.3.6"
 
+installed-by-yarn-globally:
+  version "0.1.0"
+  resolved "http://registry.npm.taobao.org/installed-by-yarn-globally/download/installed-by-yarn-globally-0.1.0.tgz#6b4f874915d2b5bca256e00c8f69b524afb83a9b"
+  dependencies:
+    user-home "^2.0.0"
+
 interpret@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.0.1.tgz#d579fb7f693b858004947af39fa0db49f795602c"
