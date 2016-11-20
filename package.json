@@ -14,7 +14,7 @@
     "node": ">=6"
   },
   "scripts": {
-    "test": "jest && xo lib/*.js"
+    "test": "jest && xo **/lib/**"
   },
   "bin": "bin/vbuild.js",
   "files": [
