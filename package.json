@@ -33,6 +33,7 @@
   "devDependencies": {
     "ava": "^0.16.0",
     "coveralls": "^2.11.12",
+    "cz-conventional-changelog": "^1.2.0",
     "jest-cli": "^16.0.2",
     "nyc": "^8.1.0",
     "path-exists": "^3.0.0",
@@ -103,5 +104,10 @@
   },
   "jestConfig": {
     "testEnvironment": "node"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
