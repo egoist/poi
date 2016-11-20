@@ -11,7 +11,7 @@
   },
   "main": "lib/index.js",
   "engines": {
-    "node": ">=4"
+    "node": ">=6"
   },
   "scripts": {
     "test": "jest && xo lib/*.js"
@@ -79,6 +79,7 @@
     "installed-by-yarn-globally": "^0.1.0",
     "json-loader": "^0.5.4",
     "lodash.merge": "^4.6.0",
+    "log-update": "^1.0.2",
     "opn": "^4.0.2",
     "path-exists": "^3.0.0",
     "pify": "^2.3.0",
@@ -87,6 +88,7 @@
     "style-loader": "^0.13.1",
     "text-table": "^0.2.0",
     "tildify": "^1.2.0",
+    "time-stamp": "^1.0.1",
     "trash": "^4.0.0",
     "update-notifier": "^1.0.2",
     "vue": "^2.0.5",

@@ -15,6 +15,7 @@
 ## Quick Start
 
 ```bash
+# recommend node.js >=6 and npm >= 3
 npm install -g vbuild
 
 vbuild init my-project
