@@ -2,6 +2,8 @@
 
 [![NPM version](https://img.shields.io/npm/v/vbuild.svg?style=flat-square)](https://npmjs.com/package/vbuild) [![NPM downloads](https://img.shields.io/npm/dm/vbuild.svg?style=flat-square)](https://npmjs.com/package/vbuild) [![Build Status](https://img.shields.io/circleci/project/egoist/vbuild/master.svg?style=flat-square)](https://circleci.com/gh/egoist/vbuild)
 
+<img src="./media/preview.gif" alt="preview">
+
 ## Philosophy
 
 **Install once and build everywhere.**
@@ -25,8 +27,6 @@ npm run dev
 
 Then you will be automatically navigated to http://localhost:4000<br>
 When you are ready to deploy your app, run `npm run build` to bundle.
-
-<img src="./media/preview.png" width="540" alt="preview">
 
 ## Showcase
 
