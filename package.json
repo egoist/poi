@@ -85,6 +85,8 @@
     "pify": "^2.3.0",
     "postcss-loader": "^1.0.0",
     "postcss-nested": "^1.0.0",
+    "require-from-string": "^1.2.1",
+    "source-map-support": "^0.4.6",
     "style-loader": "^0.13.1",
     "text-table": "^0.2.0",
     "tildify": "^1.2.0",

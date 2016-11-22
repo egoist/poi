@@ -8,7 +8,7 @@ module.exports = (input, flags) => {
   }, flags)
   return main(options).catch(e => {
     console.log(chalk.red(e.stack))
-    if (!cli.dev && !cli.watch) {
+    if (!flags.dev && !flags.watch) {
       process.exit(1)
     }
   })
