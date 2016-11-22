@@ -25,7 +25,7 @@ cd my-project
 npm run dev
 ```
 
-Then you will be automatically navigated to http://localhost:4000<br>
+Then you can open http://localhost:4000<br>
 When you are ready to deploy your app, run `npm run build` to bundle.
 
 ## Showcase
