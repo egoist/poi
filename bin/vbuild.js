@@ -35,7 +35,6 @@ cli
   .option('target', 'Bundle target, eg: node')
   .option('merge-config', 'Merge your custom webpack config file')
 
-
 cli.usage(`${chalk.yellow('vbuild')} [entry] [options]`)
 cli.example('vbuild --dev --css-modules --template ./template.html')
 
