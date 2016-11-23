@@ -33,6 +33,7 @@ When you are ready to deploy your app, run `npm run build` to bundle.
 - Build regular Vue web app
 - Build server bundle for your app
 - Build your components and directives
+- Build electron app
 - Build non-Vue web apps
 - Build non-Vue commonjs/umd libraries
 - ... use your imagination
