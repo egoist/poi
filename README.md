@@ -28,7 +28,7 @@ npm run dev
 Then you can open http://localhost:4000<br>
 When you are ready to deploy your app, run `npm run build` to bundle.
 
-## Use cases
+## Use Cases
 
 - Build regular Vue web app
 - Build server bundle for your app
