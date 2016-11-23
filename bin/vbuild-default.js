@@ -7,7 +7,11 @@ module.exports = (input, flags) => {
     entry: input[0]
   }, flags)
   return main(options).catch(e => {
-    console.log(chalk.red(e.stack))
+    if (e.name === 'WebpackOptionsValidationError') {
+      console.log(e.message)
+    } else {
+      console.log(chalk.red(e.stack))
+    }
     if (!flags.dev && !flags.watch) {
       process.exit(1)
     }
