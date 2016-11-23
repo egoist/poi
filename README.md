@@ -28,6 +28,23 @@ npm run dev
 Then you can open http://localhost:4000<br>
 When you are ready to deploy your app, run `npm run build` to bundle.
 
+## Use cases
+
+- Build regular Vue web app
+- Build server bundle for your app
+- Build your components and directives
+- Build non-Vue web apps
+- Build non-Vue commonjs/umd libraries
+- ... use your imagination
+
+## What’s Inside?
+
+- Webpack 2.1.0-beta.27
+- Babel
+- PostCSS
+- ESlint (optional)
+- Karma (experimental)
+
 ## Showcase
 
 [Let us know if you are using vbuild in production!](https://vbuild.js.org/docs/showcase.html)
