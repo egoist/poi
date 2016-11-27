@@ -13,8 +13,8 @@ const cli = cac()
 
 cli
   .option('dev, d', 'Run in dev mode')
-  .option('port, p', 'Run in dev mode')
   .option('watch, w', 'Run in watch mode')
+  .option('port, p', 'Port for dev server')
   .option('clean', 'Clean dist directory before bundling')
   .option('live, l', 'Live reloading while file changes')
   .option('devtool', 'Specific the devtool for webpack')
