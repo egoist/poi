@@ -29,7 +29,7 @@ cli
   .option('eslint', 'Run eslint while bundling')
   .option('notify', 'Use desktop notifier as bundle valid or invalid')
   .option('open', 'Open browser in dev mode')
-  .option('disable-html', 'Disable HTML output')
+  .option('html', 'Generate an HTML file', true)
   .option('template', 'Custom path to HTML template')
   .option('css-modules', 'Use CSS modules in normal JS files')
   .option('config', 'Custom path to config file')
