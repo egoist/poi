@@ -2,12 +2,12 @@ machine:
   pre:
     - mkdir ~/.yarn-cache
   node:
-    version: 7
+    version: 6
 
 test:
   override:
-    - nvm use 6 && npm test
-    - nvm use 7 && npm test
+    - npm test
+    - nvm install 7 && npm test
 
 dependencies:
   pre:
