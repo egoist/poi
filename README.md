@@ -24,6 +24,7 @@ npm install -g vbuild
 
 vbuild init my-project
 cd my-project
+npm install # or yarn
 npm run dev
 ```
 

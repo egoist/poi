@@ -100,8 +100,7 @@
     "webpack-hot-middleware": "^2.13.2",
     "webpack-livereload-plugin": "^0.9.0",
     "webpack-merge": "^0.17.0",
-    "webpack-notifier": "^1.3.2",
-    "yarn-install": "^0.2.1"
+    "webpack-notifier": "^1.3.2"
   },
   "jestConfig": {
     "testEnvironment": "node"
