@@ -79,6 +79,7 @@
     "graceful-copy": "^1.0.1",
     "html-webpack-plugin": "^2.22.0",
     "installed-by-yarn-globally": "^0.1.0",
+    "internal-ip": "^1.2.0",
     "json-loader": "^0.5.4",
     "lodash.merge": "^4.6.0",
     "log-update": "^1.0.2",
