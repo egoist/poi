@@ -18,14 +18,13 @@
 
 ```bash
 # recommend node.js >=6 and npm >= 3
-npm install -g vbuild
-# you'd better use Yarn, since it's much faster
-# yarn global add vbuild
+yarn global add vbuild
+# or npm i -g vbuild
 
 vbuild init my-project
 cd my-project
-npm install # or yarn
-npm run dev
+yarn
+yarn dev
 ```
 
 Then you can open http://localhost:4000<br>
