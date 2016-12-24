@@ -88,7 +88,6 @@
     "pify": "^2.3.0",
     "postcss-loader": "^1.0.0",
     "postcss-nested": "^1.0.0",
-    "raw-loader": "^0.5.1",
     "require-from-string": "^1.2.1",
     "rimraf": "^2.5.4",
     "source-map-support": "^0.4.6",
