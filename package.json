@@ -78,6 +78,7 @@
     "fs-promise": "^0.5.0",
     "graceful-copy": "^1.0.1",
     "html-webpack-plugin": "^2.22.0",
+    "http-proxy-middleware": "^0.17.3",
     "installed-by-yarn-globally": "^0.1.0",
     "internal-ip": "^1.2.0",
     "json-loader": "^0.5.4",
