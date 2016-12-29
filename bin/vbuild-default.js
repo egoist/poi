@@ -12,7 +12,7 @@ module.exports = (input, flags) => {
     } else {
       console.log(chalk.red(err.stack))
     }
-    if (!flags.dev && !flags.watch) {
+    if (!flags.dev) {
       process.exit(1)
     }
   })
