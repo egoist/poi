@@ -1,6 +1,6 @@
 {
   "name": "vbuild",
-  "version": "4.4.0",
+  "version": "5.0.0",
   "description": "Preset build tool for Vue.js apps.",
   "license": "MIT",
   "repository": "egoist/vbuild",
