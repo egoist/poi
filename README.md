@@ -1,8 +1,8 @@
-# vbuild
+<h1 align="center">vbuild</h1>
 
-[![NPM version](https://img.shields.io/npm/v/vbuild.svg?style=flat-square)](https://npmjs.com/package/vbuild) [![NPM downloads](https://img.shields.io/npm/dm/vbuild.svg?style=flat-square)](https://npmjs.com/package/vbuild) [![Build Status](https://img.shields.io/circleci/project/egoist/vbuild/master.svg?style=flat-square)](https://circleci.com/gh/egoist/vbuild)
+<p align="center"><a href="https://npmjs.com/package/vbuild"><img src="https://img.shields.io/npm/v/vbuild.svg?style=flat" alt="NPM version"></a> <a href="https://npmjs.com/package/vbuild"><img src="https://img.shields.io/npm/dm/vbuild.svg?style=flat" alt="NPM downloads"></a> <a href="https://circleci.com/gh/egoist/vbuild"><img src="https://img.shields.io/circleci/project/egoist/vbuild/master.svg?style=flat" alt="Build Status"></a></p>
 
-<img src="./media/preview.gif" alt="preview">
+<img src="./media/preview.png" alt="preview">
 
 ## Philosophy
 
