@@ -42,7 +42,7 @@ When you are ready to deploy your app, run `npm run build` to bundle.
 
 ## What’s Inside?
 
-- Webpack 2.1.0-beta.27
+- Webpack 2.2.0-rc.3
 - Babel
 - PostCSS
 - ESlint (optional)
