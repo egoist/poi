@@ -83,7 +83,6 @@
     "http-proxy-middleware": "^0.17.3",
     "installed-by-yarn-globally": "^0.1.0",
     "internal-ip": "^1.2.0",
-    "json-loader": "^0.5.4",
     "lodash.merge": "^4.6.0",
     "log-update": "^1.0.2",
     "opn": "^4.0.2",
