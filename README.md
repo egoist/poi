@@ -2,6 +2,28 @@
 
 [![NPM version](https://img.shields.io/npm/v/vbuild.svg?style=flat)](https://npmjs.com/package/vbuild) [![NPM downloads](https://img.shields.io/npm/dm/vbuild.svg?style=flat)](https://npmjs.com/package/vbuild) [![Build Status](https://img.shields.io/circleci/project/egoist/vbuild/master.svg?style=flat)](https://circleci.com/gh/egoist/vbuild) [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat)](https://github.com/egoist/donate)
 
+Install once, Build everywhere.
+
+<!-- toc -->
+
+- [Install](#install)
+- [How to use](#how-to-use)
+- [Config file](#config-file)
+  * [Arguments](#arguments)
+    + [options](#options)
+    + [req](#req)
+  * [Babel](#babel)
+  * [PostCSS](#postcss)
+  * [Code splitting](#code-splitting)
+  * [Webpack](#webpack)
+  * [Custom build process](#custom-build-process)
+  * [Custom output filename](#custom-output-filename)
+- [FAQ](#faq)
+- [Contributing](#contributing)
+- [Author](#author)
+
+<!-- tocstop -->
+
 ## Install
 
 It works with both Yarn(>=0.17) and npm(>=3):
@@ -100,6 +122,22 @@ You can also set `postcss` option in config file, this way the `autoprefixer` pl
 
 If you want to use PostCSS config file like `postcss.config.js` or whatever [postcss-load-config](https://github.com/michael-ciniawsky/postcss-load-config) supports, please set `postcss` option in config file to `undefined` first.
 
+### Webpack entry
+
+Type: `string` `Array` `Object`
+
+You can set webpack entry from CLI option or `entry` property in config file. If it's an array or string, we add it into `webpackConfig.entry.client` entry, otherwise it will totally override `webpackConfig.entry`
+
+### Hot reloading
+
+By default we add HMR client to `client` entry, you can change it by:
+
+```js
+module.exports = {
+  hmrEntry: ['other-name']
+}
+```
+
 ### Code splitting
 
 To split vendor code and app code, you can set vendor dependencies using `vendor` option:
@@ -127,6 +165,98 @@ module.exports = options => ({
 ```
 
 The value of `webpack` could also be a plain object, this way it will be merged into default webpack config using [webpack-merge](https://github.com/survivejs/webpack-merge).
+
+### Custom HTML output
+
+Type: `Object` `Array` `boolean`
+
+[html-webpack-plugin](https://github.com/ampedandwired/html-webpack-plugin) options, use this option to customize `index.html` output, default value:
+
+```js
+module.exports = {
+  html: {
+    title: 'VBuild',
+    template: path.join(__dirname, '../lib/template.html')
+  }
+}
+```
+
+Check out the [default template](/lib/template.html) file we use. To disable generating html file, you can set `html` to `false`.
+
+### Custom output filename
+
+Set custom filename for js css static files:
+
+```js
+module.exports = {
+  filename: {
+    js: 'index.js',
+    css: 'style.css',
+    static: 'static/[name].[ext]'  
+  }
+}
+```
+
+### Proxy API request
+
+To tell the development server to serve any `/api/*` request to your API server in development, use the `proxy` options:
+
+```js
+module.exports = {
+  proxy: 'http://localhost:8080/api'
+}
+```
+
+This way, when you fetch `/api/todos` in your Vue app, the development server will proxy your request to `http://localhost:8080/api/todos`.
+
+We use [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware) under the hood, so the `proxy` option can also be an object:
+
+```js
+module.exports = {
+  proxy: {
+    '/api/foo': 'http://localhost:8080/api',
+    '/api/fake-data': {
+      target: 'http://jsonplaceholder.typicode.com',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/api/fake-data': ''
+      }
+    }
+  }
+}
+```
+
+Keep in mind that proxy only has effect in development.
+
+### Dev server
+
+#### port
+
+Type: `number`<br>
+Default: `4000`
+
+Port of dev server.
+
+#### host
+
+Type: `string`<br>
+Default: `localhost`
+
+Host of dev server.
+
+### Custom server logic
+
+Perform some custom logic to development server:
+
+```js
+module.exports = {
+  setup(app) {
+    app.get('/api', (req, res) => {
+      res.end('This is the API')
+    })
+  }
+}
+```
 
 ### Custom build process
 

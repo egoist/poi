@@ -17,7 +17,8 @@
   "bin": "bin/vbuild",
   "scripts": {
     "test": "jest && npm run lint",
-    "lint": "xo --fix"
+    "lint": "xo --fix",
+    "toc": "markdown-toc -i README.md"
   },
   "author": "egoist <0x142857@gmail.com>",
   "license": "MIT",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "jest-cli": "^18.1.0",
+    "markdown-toc": "^1.1.0",
     "xo": "^0.17.1"
   },
   "xo": {

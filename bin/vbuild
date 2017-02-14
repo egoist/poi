@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 const path = require('path')
 const spawn = require('cross-spawn')
+const update = require('update-notifier')
+const pkg = require('../package.json')
+
+update({pkg}).notify()
 
 const defaultCommand = 'pack'
 let cmd = process.argv[2]
