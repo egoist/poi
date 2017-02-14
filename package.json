@@ -68,6 +68,7 @@
     "opn": "^4.0.2",
     "post-compile-webpack-plugin": "^0.1.1",
     "postcss-loader": "^1.3.0",
+    "require-uncached": "^1.0.3",
     "rimraf": "^2.5.4",
     "shelljs": "^0.7.6",
     "tildify": "^1.2.0",
