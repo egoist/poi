@@ -33,7 +33,8 @@
     "semicolon": false,
     "esnext": true,
     "ignores": [
-      "examples/**"
+      "examples/**",
+      "template/**"
     ],
     "envs": [
       "jest"
