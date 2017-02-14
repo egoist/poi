@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+const chalk = require('chalk')
+const meow = require('meow')
+
+const cli = meow(`
+  ${chalk.bold('Options:')}
+
+    ${chalk.yellow('--dev, -d')}        ${chalk.dim('Pack in development mode')}
+    ${chalk.yellow('--config, -c')}     ${chalk.dim('Load config file')}
+    ${chalk.yellow('--port, -p')}       ${chalk.dim('Port of dev server')}
+    ${chalk.yellow('--open, -o')}       ${chalk.dim('Open browser')}
+    ${chalk.yellow('--help, -h')}       ${chalk.dim('Output help (You are here!)')}
+    ${chalk.yellow('--version, -v')}    ${chalk.dim('Output version')}
+
+  ${chalk.bold('Commands:')}
+
+    ${chalk.yellow('pack')}        ${chalk.dim('Pack your Vue app (default command)')}
+    ${chalk.yellow('init')}        ${chalk.dim('Initialize an empty project')}
+\t`, {
+  alias: {
+    h: 'help',
+    v: 'version',
+    d: 'dev',
+    c: 'config',
+    o: 'open',
+    p: 'port'
+  }
+})
+
+const options = Object.assign({}, cli.flags)
+
+if (cli.input[0]) {
+  options.entry = options.entry || cli.input[0]
+}
+
+require('../lib')(options)
