@@ -1,7 +1,7 @@
 {
   "name": "vbuild",
   "version": "6.1.1",
-  "description": "Develop Vue app with zero-config.",
+  "description": "Refined webpack development experience for Vue.js",
   "repository": {
     "url": "egoist/vbuild",
     "type": "git"
