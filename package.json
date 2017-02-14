@@ -16,7 +16,7 @@
   "bin": "bin/vbuild",
   "scripts": {
     "test": "jest && npm run lint",
-    "lint": "xo"
+    "lint": "xo --fix"
   },
   "author": "egoist <0x142857@gmail.com>",
   "license": "MIT",
@@ -30,11 +30,21 @@
   "xo": {
     "space": 2,
     "semicolon": false,
+    "esnext": true,
+    "ignores": [
+      "examples/**"
+    ],
     "envs": [
       "jest"
-    ]
+    ],
+    "rules": {
+      "guard-for-in": 0,
+      "import/no-dynamic-require": 0,
+      "unicorn/no-process-exit": 0
+    }
   },
   "dependencies": {
+    "autoprefixer": "^6.7.2",
     "babel-core": "^6.23.1",
     "babel-loader": "^6.2.10",
     "babel-preset-vue-app": "^0.4.0",
