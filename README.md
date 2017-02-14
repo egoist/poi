@@ -142,6 +142,12 @@ You can also set `postcss` option in config file, this way the `autoprefixer` pl
 
 If you want to use PostCSS config file like `postcss.config.js` or whatever [postcss-load-config](https://github.com/michael-ciniawsky/postcss-load-config) supports, please set `postcss` option in config file to `undefined` first.
 
+#### CSS modules
+
+To use CSS modules in single-file component, you can set `module` attribute in `<style></style>` tag.
+
+To use CSS modules in standalone css files, you can set `cssModules` to `true` in config file.
+
 [⬆ back to top](#vbuild)
 
 ### Webpack entry
