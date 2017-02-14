@@ -151,7 +151,7 @@ Supported preprocessors: `sass` `scss` `stylus` `less`, the workflow of CSS is `
 To use a custom CSS preprocessor, you can directly install relevant loader and dependency. For example, to use `scss`:
 
 ```bash
-yarn add node-sass sass-loader
+yarn add node-sass sass-loader --dev
 ```
 
 #### CSS modules
