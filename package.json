@@ -1,6 +1,6 @@
 {
   "name": "vbuild",
-  "version": "0.0.0",
+  "version": "6.0.0",
   "description": "Develop Vue app with zero-config.",
   "repository": {
     "url": "egoist/vbuild",
