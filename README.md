@@ -84,6 +84,8 @@ Build app in production mode (default mode):
 vbuild index.js
 ```
 
+[⬆ back to top](#vbuild)
+
 ## Config file
 
 All CLI options and advanced options can be set here:
@@ -100,21 +102,29 @@ module.exports = (options, req) => ({
 
 To use it, you can add `--config [path]` in CLI arguments. If no path was speified, it defaults to `vbuild.config.js`.
 
+[⬆ back to top](#vbuild)
+
 ### Arguments
 
 #### options
 
 CLI options.
 
+[⬆ back to top](#vbuild)
+
 #### req
 
 The `require` function but context directory is the path to `node_modules/vbuild`, which means you can use it to load vbuild's dependencies, like `webpack`.
+
+[⬆ back to top](#vbuild)
 
 ### Babel
 
 JS files and `script` tags in single-file components are transpiled by Babel. We only use one preset by default: [babel-preset-vue-app](https://github.com/egoist/babel-preset-vue-app).
 
 You can provide custom babel config by setting `babel` in config file or using `.babelrc` or setting `babel` field in `package.json`.
+
+[⬆ back to top](#vbuild)
 
 ### PostCSS
 
@@ -130,11 +140,15 @@ You can also set `postcss` option in config file, this way the `autoprefixer` pl
 
 If you want to use PostCSS config file like `postcss.config.js` or whatever [postcss-load-config](https://github.com/michael-ciniawsky/postcss-load-config) supports, please set `postcss` option in config file to `undefined` first.
 
+[⬆ back to top](#vbuild)
+
 ### Webpack entry
 
 Type: `string` `Array` `Object`
 
 You can set webpack entry from CLI option or `entry` property in config file. If it's an array or string, we add it into `webpackConfig.entry.client` entry, otherwise it will totally override `webpackConfig.entry`
+
+[⬆ back to top](#vbuild)
 
 ### Hot reloading
 
@@ -146,6 +160,8 @@ module.exports = {
 }
 ```
 
+[⬆ back to top](#vbuild)
+
 ### Code splitting
 
 To split vendor code and app code, you can set vendor dependencies using `vendor` option:
@@ -156,6 +172,8 @@ module.exports = {
   vendor: ['vue']
 }
 ```
+
+[⬆ back to top](#vbuild)
 
 ### Webpack
 
@@ -174,6 +192,8 @@ module.exports = options => ({
 
 The value of `webpack` could also be a plain object, this way it will be merged into default webpack config using [webpack-merge](https://github.com/survivejs/webpack-merge).
 
+[⬆ back to top](#vbuild)
+
 ### Custom HTML output
 
 Type: `Object` `Array` `boolean`
@@ -191,6 +211,8 @@ module.exports = {
 
 Check out the [default template](/lib/template.html) file we use. To disable generating html file, you can set `html` to `false`.
 
+[⬆ back to top](#vbuild)
+
 ### Custom output filename
 
 Set custom filename for js css static files:
@@ -204,6 +226,8 @@ module.exports = {
   }
 }
 ```
+
+[⬆ back to top](#vbuild)
 
 ### Proxy API request
 
@@ -236,6 +260,8 @@ module.exports = {
 
 Keep in mind that proxy only has effect in development.
 
+[⬆ back to top](#vbuild)
+
 ### Dev server
 
 #### port
@@ -252,6 +278,8 @@ Default: `localhost`
 
 Host of dev server.
 
+[⬆ back to top](#vbuild)
+
 ### Custom server logic
 
 Perform some custom logic to development server:
@@ -265,6 +293,8 @@ module.exports = {
   }
 }
 ```
+
+[⬆ back to top](#vbuild)
 
 ### Custom build process
 
@@ -284,6 +314,8 @@ module.exports = {
   }
 }
 ```
+
+[⬆ back to top](#vbuild)
 
 ## FAQ
 
