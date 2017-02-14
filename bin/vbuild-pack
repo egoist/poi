@@ -6,6 +6,7 @@ const cli = meow(`
   ${chalk.bold('Options:')}
 
     ${chalk.yellow('--dev, -d')}        ${chalk.dim('Pack in development mode')}
+    ${chalk.yellow('--watch, -w')}      ${chalk.dim('Pack in watch mode')}
     ${chalk.yellow('--config, -c')}     ${chalk.dim('Load config file')}
     ${chalk.yellow('--port, -p')}       ${chalk.dim('Port of dev server')}
     ${chalk.yellow('--open, -o')}       ${chalk.dim('Open browser')}
@@ -27,7 +28,8 @@ const cli = meow(`
     d: 'dev',
     c: 'config',
     o: 'open',
-    p: 'port'
+    p: 'port',
+    w: 'watch'
   }
 })
 

@@ -326,6 +326,11 @@ module.exports = {
 Yes and no, yes is because they all simplified the process of building a complete web app, while `vbuild` is more focusing on building single-page app without the server-side, at least it is for now.
 </details>
 
+<details><summary>Is there a `--watch` mode?</summary>
+
+Sure, you can combine the `--watch` mode with default mode and `--dev` mode, when it's combined with `--dev` mode, it will remove the hot-reloading support.
+</details>
+
 <details><summary>What is this inspired by?</summary>
 
 Despiting that `vbuild` predates `Next.js` `create-react-app` `nwb` `vue-cli`, we're heavily inspired by these projects.
@@ -338,7 +343,6 @@ Despiting that `vbuild` predates `Next.js` `create-react-app` `nwb` `vue-cli`, w
 3. Commit your changes: `git commit -am 'Add some feature'`
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
-
 
 ## Author
 
