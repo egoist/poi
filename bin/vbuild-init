@@ -1,0 +1,63 @@
+#!/usr/bin/env node
+const fs = require('fs')
+const path = require('path')
+const chalk = require('chalk')
+const meow = require('meow')
+const kopy = require('kopy')
+const $ = require('shelljs')
+const tildify = require('tildify')
+const logger = require('../lib/logger')
+const _ = require('../lib/utils')
+
+const cli = meow(`
+  ${chalk.bold('Options:')}
+
+    ${chalk.yellow('--force, -f')}      ${chalk.dim('Override existing folder')}
+    ${chalk.yellow('--help, -h')}       ${chalk.dim('Output help (You are here!)')}
+    ${chalk.yellow('--version, -v')}    ${chalk.dim('Output version')}
+
+  ${chalk.bold('Commands:')}
+
+    ${chalk.yellow('pack')}        ${chalk.dim('Pack your Vue app (default command)')}
+    ${chalk.yellow('init')}        ${chalk.dim('Initialize an empty project')}
+\t`, {
+  alias: {
+    h: 'help',
+    v: 'version',
+    f: 'force'
+  }
+})
+
+const name = cli.input[0]
+
+if (!name) {
+  logger.fatal('A folder name is required to perform this action!')
+}
+
+const dest = _.cwd(name)
+if (!cli.flags.force && fs.existsSync(dest)) {
+  logger.fatal(`${chalk.yellow(tildify(dest))} already exists, you can use \`--force\` option to override it`)
+}
+
+kopy(_.ownDir('template'), dest, {
+  data: {
+    name
+  }
+}).then(({files}) => {
+  console.log()
+  for (const file of files) {
+    console.log(`${chalk.green('Generating')} · ${file}`)
+  }
+  for (const file of ['gitignore', 'editorconfig']) {
+    console.log(`${chalk.magenta('Moving    ')} · ${file} -> .${file}`)
+    $.mv(path.join(dest, file), path.join(dest, `.${file}`))
+  }
+  console.log(`\n${chalk.bgGreen.black(' DONE ')} Successfully generated into ${chalk.yellow(tildify(dest))}!\n`)
+
+  console.log(chalk.bold('To get started:'))
+  console.log(`\n  cd ${name}`)
+  console.log('  npm run dev\n')
+
+  console.log(chalk.bold('To build for production:'))
+  console.log('\n  npm run build\n')
+}).catch(logger.fatal)

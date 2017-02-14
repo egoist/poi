@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "name": "<%= name %>",
+  "version": "0.0.0",
+  "repository": {},
+  "scripts": {
+    "test": "echo lol",
+    "dev": "vbuild -dc",
+    "build": "vbuild -c"
+  },
+  "devDependencies": {
+    "vbuild": "^6.0.0"
+  },
+  "license": "MIT"
+}

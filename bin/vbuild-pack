@@ -16,6 +16,10 @@ const cli = meow(`
 
     ${chalk.yellow('pack')}        ${chalk.dim('Pack your Vue app (default command)')}
     ${chalk.yellow('init')}        ${chalk.dim('Initialize an empty project')}
+
+  ${chalk.bold('To see the help for specific command, you can run:')}
+
+    ${chalk.yellow('vbuild [command] --help')}
 \t`, {
   alias: {
     h: 'help',

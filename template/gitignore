@@ -1,0 +1,6 @@
+node_modules
+*.log
+.DS_Store
+
+# produced by vbuild
+/dist
