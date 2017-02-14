@@ -142,6 +142,16 @@ You can also set `postcss` option in config file, this way the `autoprefixer` pl
 
 If you want to use PostCSS config file like `postcss.config.js` or whatever [postcss-load-config](https://github.com/michael-ciniawsky/postcss-load-config) supports, please set `postcss` option in config file to `undefined` first.
 
+#### Custom CSS preprocessors
+
+Supported preprocessors: `sass` `scss` `stylus` `less`, the workflow of CSS is `custom css preprocessor` -> `postcss-loader` -> `css-loader`.
+
+To use a custom CSS preprocessor, you can directly install relevant loader and dependency. For example, to use `scss`:
+
+```bash
+yarn add node-sass sass-loader
+```
+
 #### CSS modules
 
 To use CSS modules in single-file component, you can set `module` attribute in `<style></style>` tag.
