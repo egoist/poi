@@ -15,7 +15,7 @@ yarn global add vbuild
 ## How to use
 
 <details><summary>The simple way</summary>
-<br>
+
 ```bash
 vbuild init <folder>
 ```
@@ -150,12 +150,12 @@ module.exports = {
 ## FAQ
 
 <details><summary>Is it like Next.js or Nuxt.js?</summary>
-<br>
+
 Yes and no, yes is because they all simplified the process of building a complete web app, while `vbuild` is more focusing on building single-page app without the server-side, at least it is for now.
 </details>
 
 <details><summary>What is this inspired by?</summary>
-<br>
+
 Despiting that `vbuild` predates `Next.js` `create-react-app` `nwb` `vue-cli`, we're heavily inspired by these projects.
 </details>
 
