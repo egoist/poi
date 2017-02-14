@@ -12,7 +12,7 @@
     "template"
   ],
   "engines": {
-    "node": ">= 7"
+    "node": ">= 6"
   },
   "bin": "bin/vbuild",
   "scripts": {
