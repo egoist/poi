@@ -184,14 +184,7 @@ module.exports = {
 
 ### Code splitting
 
-To split vendor code and app code, you can set vendor dependencies using `vendor` option:
-
-```js
-
-module.exports = {
-  vendor: ['vue']
-}
-```
+We enabled code splitting for vendor code and app code by default in production mode, you can set `vendor` option to `false` to disable it. And by default all required modules in `node_modules` will be splitted.
 
 [⬆ back to top](#vbuild)
 
