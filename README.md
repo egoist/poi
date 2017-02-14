@@ -14,7 +14,16 @@ yarn global add vbuild
 
 ## How to use
 
-Populate an entry file, let's say `index.js`:
+<details><summary>The simple way</summary>
+<br>
+```bash
+vbuild init <folder>
+```
+
+Then follow the instructions in terminal.
+</details>
+
+Or manually, populate an entry file, let's say `index.js`:
 
 ```js
 import Vue from 'vue'
