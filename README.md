@@ -124,6 +124,8 @@ JS files and `script` tags in single-file components are transpiled by Babel. We
 
 You can provide custom babel config by setting `babel` in config file or using `.babelrc` or setting `babel` field in `package.json`.
 
+If you want to use custom babel config file, please set `babel` in config file to `undefined` first.
+
 [⬆ back to top](#vbuild)
 
 ### PostCSS
