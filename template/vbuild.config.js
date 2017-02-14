@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = (options, req) => ({
   entry: 'src/index.js',
   html: {
@@ -8,5 +10,9 @@ module.exports = (options, req) => ({
       browsers: ['ie > 8', 'last 4 versions']
     })
   ],
-  vendor: ['vue']
+  vendor: ['vue'],
+  webpack(cfg) {
+    cfg.resolve.modules.push(path.resolve('src'))
+    return cfg
+  }
 })
