@@ -44,7 +44,7 @@ So far we get:
 
 - Automatic transpilation and bundling (with webpack and babel/postcss)
 - Hot code reloading
-- Static file in ./static/ will coppied to ./dist/
+- Static file in `./static/` will coppied to `./dist/`
 
 To see how simple it is, check out [our official website](https://github.com/egoist/vbuild.js.org) which is built with vbuild itself.
 
