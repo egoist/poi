@@ -334,6 +334,7 @@ module.exports = {
 ## Recipes
 
 - [Progressive web app](./docs/recipes/progressive-web-app.md)
+- [Electron app](./docs/recipes/electron-app.md)
 
 ## FAQ
 

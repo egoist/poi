@@ -5,10 +5,34 @@
   "repository": {},
   "scripts": {
     "test": "echo lol",
+    <%_ if (electron) { -%>
+    "app": "electron app/index.js",
+    "dist": "npm run dist:mac && npm run dist:win && npm run dist:linux",
+    "dist:mac": "build --mac",
+    "dist:win": "build --win --ia32",
+    "dist:linux": "build --linux deb tar.xz",
+    "postinstall": "install-app-deps",
+    <%_ } -%>
     "dev": "vbuild -dc",
     "build": "vbuild -c"
   },
+  <%_ if (electron) { -%>
+  "build": {
+    "appId": "com.egoistian.devdocs-app",
+    "category": "public.app-category.developer-tools",
+    "asar": true,
+    "win": {
+      "target": [
+        "squirrel"
+      ]
+    }
+  },
+  <%_ } -%>
   "devDependencies": {
+    <%_ if (electron) { -%>
+    "electron": "^1.4.15",
+    "electron-builder": "^13.7.0",
+    <%_ } -%>
     "vbuild": "^6.0.0"
   },
   "license": "MIT"

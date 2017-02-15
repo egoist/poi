@@ -14,6 +14,7 @@ const cli = meow(`
   ${chalk.bold('Options:')}
 
     ${chalk.yellow('--force, -f')}      ${chalk.dim('Override existing folder')}
+    ${chalk.yellow('--electron')}       ${chalk.dim('Generated Electron app')}
     ${chalk.yellow('--help, -h')}       ${chalk.dim('Output help (You are here!)')}
     ${chalk.yellow('--version, -v')}    ${chalk.dim('Output version')}
 
@@ -40,9 +41,15 @@ if (!cli.flags.force && fs.existsSync(dest)) {
   logger.fatal(`${chalk.yellow(tildify(dest))} already exists, you can use \`--force\` option to override it`)
 }
 
+const data = Object.assign({
+  name,
+  electron: false
+}, cli.flags)
+
 kopy(_.ownDir('template'), dest, {
-  data: {
-    name
+  data,
+  filters: {
+    'app/**': data.electron
   }
 }).then(({files}) => {
   console.log()
@@ -62,6 +69,10 @@ kopy(_.ownDir('template'), dest, {
   console.log(chalk.bold('To get started:'))
   console.log(`\n  cd ${name}`)
   console.log('  npm run dev\n')
+  if (data.electron) {
+    console.log(chalk.bold('In another tab:\n'))
+    console.log('  npm run app\n')
+  }
 
   console.log(chalk.bold('To build for production:'))
   console.log('\n  npm run build\n')
