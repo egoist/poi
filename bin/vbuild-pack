@@ -9,6 +9,7 @@ const cli = meow(`
     ${chalk.yellow('--watch, -w')}      ${chalk.dim('Pack in watch mode')}
     ${chalk.yellow('--config, -c')}     ${chalk.dim('Load config file')}
     ${chalk.yellow('--dist')}           ${chalk.dim('Custom dist directory')}
+    ${chalk.yellow('--eslint, -e')}     ${chalk.dim('Add ESLint support')}
     ${chalk.yellow('--port, -p')}       ${chalk.dim('Port of dev server')}
     ${chalk.yellow('--open, -o')}       ${chalk.dim('Open browser')}
     ${chalk.yellow('--help, -h')}       ${chalk.dim('Output help (You are here!)')}
@@ -30,7 +31,8 @@ const cli = meow(`
     c: 'config',
     o: 'open',
     p: 'port',
-    w: 'watch'
+    w: 'watch',
+    e: 'eslint'
   }
 })
 
