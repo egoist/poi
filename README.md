@@ -363,6 +363,7 @@ module.exports = {
 
 - [Progressive web app](./docs/recipes/progressive-web-app.md)
 - [Electron app](./docs/recipes/electron-app.md)
+- [ESLint](./docs/recipes/eslint.md)
 
 ## FAQ
 
