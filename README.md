@@ -28,6 +28,7 @@ Install once, Build everywhere.
     + [host](#host)
   * [Custom server logic](#custom-server-logic)
   * [Custom build process](#custom-build-process)
+- [Recipes](#recipes)
 - [FAQ](#faq)
 - [Contributing](#contributing)
 - [Author](#author)
@@ -329,6 +330,10 @@ module.exports = {
 ```
 
 [⬆ back to top](#vbuild)
+
+## Recipes
+
+- [Progressive web app](./docs/recipes/progressive-web-app.md)
 
 ## FAQ
 
