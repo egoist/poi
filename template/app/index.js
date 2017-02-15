@@ -21,8 +21,13 @@ function createWindow () {
   const index = isDev ? `http://localhost:4000` : `file://${path.join(__dirname, 'dist/index.html')}`
   mainWindow.loadURL(index)
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  if (isDev) {
+    // Open the DevTools.
+    const installExtension = require('electron-devtools-installer')
+    installExtension.default(installExtension.VUEJS_DEVTOOLS)
+      .then(name => console.log(`Added Extension:  ${name}`))
+      .catch(err => console.log('An error occurred: ', err))
+  }
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
