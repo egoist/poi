@@ -1,4 +1,4 @@
-# Progresss web app
+# Progressive web app
 
 To add [PWA](https://developers.google.com/web/progressive-web-apps/) support, at least you need to:
 
