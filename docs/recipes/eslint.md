@@ -1,38 +1,19 @@
 # ESLint
 
-Adding ESLint support is as simple as adding a pre loader for `.js` and `.vue` file:
-
-```js
-// You config file:
-const path = require('path')
-
-module.exports = options => ({
-  webpack(config) {
-    // Only run eslint in production mode
-    if (!options.dev) {
-      config.module.rules.push({
-        test: /\.(js|vue)$/,
-        loader: 'eslint-loader',
-        enforce: 'pre',
-        exclude: [/node_modules/],
-        options: {
-          configFile: path.resolve('.eslintrc'),
-          useEslintrc: false,
-          fix: true
-        }
-      })
-    }
-    return config
-  }
-})
-```
-
-Don't forget to install `eslint` `eslint-loader` in your project:
+vbuild comes with built-in ESLint support, you can add `--eslint` run ESLint while building in production mode:
 
 ```bash
-yarn add eslint eslint-loader --dev
+vbuild --eslint
 ```
 
-For detailed usages on eslint-loader please refer to https://github.com/MoOx/eslint-loader
+The default config we use for [eslint-loader](https://github.com/MoOx/eslint-loader) is:
 
-Finally you can populate a `.eslintrc` in your project to use custom ESLint rules.
+```js
+{
+  configFile: require.resolve('eslint-config-vue-app'),
+  useEslintrc: false,
+  fix: true
+}
+```
+
+You can set `eslintConfig` in config file to override this.
