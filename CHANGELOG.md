@@ -1,3 +1,16 @@
+## [Version 6.6.0](https://github.com/egoist/vbuild/releases/tag/v6.6.0) (2017-2-15)
+
+### New features
+
+- add config shorthand: [`2dbb0a6`](https://github.com/egoist/vbuild/commit/2dbb0a6)
+
+### Bug fixes
+
+- hide commands in subcommands: [`8f33026`](https://github.com/egoist/vbuild/commit/8f33026)
+- tweaks: [`0261958`](https://github.com/egoist/vbuild/commit/0261958)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.5.1...v6.6.0)
+
 ## [Version 6.5.1](https://github.com/egoist/vbuild/releases/tag/v6.5.1) (2017-2-15)
 
 ### Bug fixes
