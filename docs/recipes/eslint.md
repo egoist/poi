@@ -1,6 +1,6 @@
 # ESLint
 
-vbuild comes with built-in ESLint support, you can add `--eslint` run ESLint while building in production mode:
+vbuild comes with built-in ESLint support, you can add `--eslint` to run ESLint while building in production mode:
 
 ```bash
 vbuild --eslint
