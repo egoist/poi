@@ -2,7 +2,7 @@
 
 [![NPM version](https://img.shields.io/npm/v/vbuild.svg?style=flat)](https://npmjs.com/package/vbuild) [![NPM downloads](https://img.shields.io/npm/dm/vbuild.svg?style=flat)](https://npmjs.com/package/vbuild) [![Build Status](https://img.shields.io/circleci/project/egoist/vbuild/master.svg?style=flat)](https://circleci.com/gh/egoist/vbuild) [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat)](https://github.com/egoist/donate)
 
-Install once, Build everywhere.
+[Developing Vue.js app is like 1,2,3](https://egoistian.com/2017/02/15/vbuild)
 
 <!-- toc -->
 
