@@ -6,6 +6,7 @@ const meow = require('meow')
 const kopy = require('kopy')
 const $ = require('shelljs')
 const tildify = require('tildify')
+const install = require('yarn-install')
 const logger = require('../lib/logger')
 const _ = require('../lib/utils')
 
@@ -52,6 +53,10 @@ kopy(_.ownDir('template'), dest, {
     console.log(`${chalk.magenta('Moving    ')} · ${file} -> .${file}`)
     $.mv(path.join(dest, file), path.join(dest, `.${file}`))
   }
+
+  console.log('\n> Installing vbuild in project:\n')
+  install({cwd: dest})
+
   console.log(`\n${chalk.bgGreen.black(' DONE ')} Successfully generated into ${chalk.yellow(tildify(dest))}!\n`)
 
   console.log(chalk.bold('To get started:'))
