@@ -1,3 +1,15 @@
+## [Version 6.7.0](https://github.com/egoist/vbuild/releases/tag/v6.7.0) (2017-2-15)
+
+### New features
+
+- add built-in eslint support: [`22e56a2`](https://github.com/egoist/vbuild/commit/22e56a2)
+
+### Bug fixes
+
+- make eslint work for all modes: [`369b8c5`](https://github.com/egoist/vbuild/commit/369b8c5)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.6.0...v6.7.0)
+
 ## [Version 6.6.0](https://github.com/egoist/vbuild/releases/tag/v6.6.0) (2017-2-15)
 
 ### New features
