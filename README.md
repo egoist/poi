@@ -133,6 +133,8 @@ module.exports = {
 
 The `production` or `development` config will be assigned into base config using `Object.assign`.
 
+[⬆ back to top](#vbuild)
+
 ### Arguments
 
 #### options
