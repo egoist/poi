@@ -1,3 +1,17 @@
+## [Version 6.5.0](https://github.com/egoist/vbuild/releases/tag/v6.5.0) (2017-2-15)
+
+### New features
+
+- improve template, add default favicon: [`9bd2559`](https://github.com/egoist/vbuild/commit/9bd2559)
+- add electron template: [`d0e00a4`](https://github.com/egoist/vbuild/commit/d0e00a4)
+- add vue-devtools in electron app: [`592c1b0`](https://github.com/egoist/vbuild/commit/592c1b0)
+
+### Bug fixes
+
+- only check default entry: [`d76930e`](https://github.com/egoist/vbuild/commit/d76930e)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.4.2...v6.5.0)
+
 ## [Version 6.4.2](https://github.com/egoist/vbuild/releases/tag/v6.4.2) (2017-2-15)
 
 ### Bug fixes
