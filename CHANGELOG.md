@@ -1,3 +1,11 @@
+## [Version 6.5.1](https://github.com/egoist/vbuild/releases/tag/v6.5.1) (2017-2-15)
+
+### Bug fixes
+
+- adjust log for electron app: [`b1582f7`](https://github.com/egoist/vbuild/commit/b1582f7)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.5.0...v6.5.1)
+
 ## [Version 6.5.0](https://github.com/egoist/vbuild/releases/tag/v6.5.0) (2017-2-15)
 
 ### New features
