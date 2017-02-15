@@ -9,6 +9,7 @@ Install once, Build everywhere.
 - [Install](#install)
 - [How to use](#how-to-use)
 - [Config file](#config-file)
+  * [Shorthand](#shorthand)
   * [Arguments](#arguments)
     + [options](#options)
     + [req](#req)
@@ -106,6 +107,31 @@ module.exports = (options, req) => ({
 To use it, you can add `--config [path]` in CLI arguments. If no path was speified, it defaults to `vbuild.config.js`.
 
 [⬆ back to top](#vbuild)
+
+### Shorthand
+
+To set different config for different mode, you may use `options.dev` like:
+
+```js
+module.exports = options => ({
+  webpack(cfg) {
+    if (options.dev) {}
+    else {}
+    return cfg
+  }
+})
+```
+
+To simplify this, we provide a shorthand to do this:
+
+```js
+module.exports = {
+  production: {}, // used in `!options.dev`
+  development: {} // used in `options.dev`
+}
+```
+
+The `production` or `development` config will be assigned into base config using `Object.assign`.
 
 ### Arguments
 
