@@ -116,7 +116,7 @@ CLI options.
 
 #### req
 
-The `require` function but context directory is the path to `node_modules/vbuild`, which means you can use it to load vbuild's dependencies, like `webpack`.
+The `require` function but context directory is the path to `node_modules/vbuild/lib`, which means you can use it to load vbuild's dependencies, like `webpack`.
 
 [⬆ back to top](#vbuild)
 
