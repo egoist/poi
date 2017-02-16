@@ -406,6 +406,18 @@ No, vue-cli is just a boilerplate generator while vbuild is a Webpack wrapper wh
 Sure, you can combine the `--watch` mode with default mode and `--dev` mode, when it's combined with `--dev` mode, it will remove the hot-reloading support.
 </details>
 
+<details><summary>What are the differences between `--watch` `--dev` and production mode?</summary>
+
+The default mode is production mode, i.e. without `--dev`.
+
+`--dev` mode uses hot reloading by default, when your file does not support hot reloading it fallbacks to live reloading.
+
+`--watch` can be used with/without `-dev` flag:
+
+- with `--dev`: no dev server, no hot reloading, since you may not need to open browser at all. It only rebuilt when file changes, all other features in `dev` are the same.
+- without `--dev`: like production mode but it rebuilt due to file changes.
+</details>
+
 <details><summary>What is this inspired by?</summary>
 
 Despiting that `vbuild` predates `Next.js` `create-react-app` `nwb` `vue-cli`, we're heavily inspired by these projects.
