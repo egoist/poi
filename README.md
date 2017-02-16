@@ -24,6 +24,7 @@
   * [Custom HTML output](#custom-html-output)
   * [Custom output filename](#custom-output-filename)
   * [Define constants at compile time](#define-constants-at-compile-time)
+  * [Load env variables](#load-env-variables)
   * [Proxy API request](#proxy-api-request)
   * [Dev server](#dev-server)
     + [port](#port)
