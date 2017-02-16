@@ -6168,8 +6168,8 @@ vary@~1.1.0:
   resolved "https://registry.npmjs.org/vary/-/vary-1.1.0.tgz#e1e5affbbd16ae768dd2674394b9ad3022653140"
 
 vegito@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/vegito/-/vegito-1.0.1.tgz#2c83c307a755a1039e778348d1fcb588df7ee80f"
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/vegito/-/vegito-1.0.2.tgz#1f28e443b27580c786bc2aef5ddfb89ea46bc67f"
 
 vendors@^1.0.0:
   version "1.0.1"
