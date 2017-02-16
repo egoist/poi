@@ -313,7 +313,7 @@ You can use them in `index.html` and app code:
 
 ```bash
 # .env file
-VUE_APP_SECRET=my awesome project
+VUE_APP_DESCRIPTION=my awesome project
 ```
 
 In template html file which uses [ejs](http://ejs.co) template, you can write:
