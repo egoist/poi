@@ -1,3 +1,11 @@
+## [Version 6.9.1](https://github.com/egoist/vbuild/releases/tag/v6.9.1) (2017-2-16)
+
+### Bug fixes
+
+- add more log: [`5c1660f`](https://github.com/egoist/vbuild/commit/5c1660f)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.9.0...v6.9.1)
+
 ## [Version 6.9.0](https://github.com/egoist/vbuild/releases/tag/v6.9.0) (2017-2-16)
 
 ### New features
