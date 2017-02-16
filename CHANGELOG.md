@@ -1,3 +1,15 @@
+## [Version 6.8.0](https://github.com/egoist/vbuild/releases/tag/v6.8.0) (2017-2-16)
+
+### New features
+
+- merge postcss plugins: [`7411150`](https://github.com/egoist/vbuild/commit/7411150)
+
+### Bug fixes
+
+- tweak for webpack 2: [`034e8dd`](https://github.com/egoist/vbuild/commit/034e8dd)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.7.0...v6.8.0)
+
 ## [Version 6.7.0](https://github.com/egoist/vbuild/releases/tag/v6.7.0) (2017-2-15)
 
 ### New features
