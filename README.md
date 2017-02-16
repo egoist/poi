@@ -297,6 +297,8 @@ if (__DEV__) {
 
 The default constants we add is `process.env.NODE_ENV`. The variables you defined here are only available in app code.
 
+[⬆ back to top](#vbuild)
+
 ### Load env variables
 
 Your project can consume variables declared in your environment as if they were declared locally in your JS files. By default you will have `NODE_ENV` defined.
@@ -330,6 +332,8 @@ const key = process.env.VUE_APP_KEY
 ```
 
 To totally disable this, you can set `env` to `false`.
+
+[⬆ back to top](#vbuild)
 
 ### Proxy API request
 
