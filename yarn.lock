@@ -1968,6 +1968,10 @@ dot-prop@^4.1.0:
   dependencies:
     is-obj "^1.0.0"
 
+dotenv@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npmjs.org/dotenv/-/dotenv-4.0.0.tgz#864ef1379aced55ce6f95debecdce179f7a0cd1d"
+
 duplexer2@^0.1.4:
   version "0.1.4"
   resolved "https://registry.npmjs.org/duplexer2/-/duplexer2-0.1.4.tgz#8b12dab878c0d69e3e7891051662a32fc6bddcc1"
@@ -3143,6 +3147,12 @@ installed-by-yarn-globally@^0.1.2:
   resolved "https://registry.npmjs.org/installed-by-yarn-globally/-/installed-by-yarn-globally-0.1.2.tgz#4f6ddefdcb04d51ec3180ad8fbc05a5ca657b2d9"
   dependencies:
     user-home "^2.0.0"
+
+interpolate-html-plugin@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/interpolate-html-plugin/-/interpolate-html-plugin-1.0.1.tgz#7f31133e9a5d858f302bf995e86cc18c233568f4"
+  dependencies:
+    vegito "^1.0.0"
 
 interpret@^1.0.0:
   version "1.0.1"
@@ -6156,6 +6166,10 @@ validate-npm-package-license@^3.0.1:
 vary@~1.1.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/vary/-/vary-1.1.0.tgz#e1e5affbbd16ae768dd2674394b9ad3022653140"
+
+vegito@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/vegito/-/vegito-1.0.1.tgz#2c83c307a755a1039e778348d1fcb588df7ee80f"
 
 vendors@^1.0.0:
   version "1.0.1"

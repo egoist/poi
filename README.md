@@ -294,7 +294,41 @@ if (__DEV__) {
 }
 ```
 
-The default constants we add is `process.env.NODE_ENV`.
+The default constants we add is `process.env.NODE_ENV`. The variables you defined here are only available in app code.
+
+### Load env variables
+
+Your project can consume variables declared in your environment as if they were declared locally in your JS files. By default you will have `NODE_ENV` defined.
+
+There're three way to define env variables:
+
+- CLI options `--env.VARIABLE_NAME xxx`
+- `env` option in config file
+- `.env` file via [dotenv](https://github.com/motdotla/dotenv)
+
+You can use them in `index.html` and app code:
+
+```bash
+# .env file
+VUE_APP_SECRET=my awesome project
+```
+
+In template html file which uses [ejs](http://ejs.co) template, you can write:
+
+```html
+<body>
+  !!VUE_APP_DESCRIPTION!!
+  <!-- this outputs: foo -->
+</body>
+```
+
+In app code you need to write full reference of the variable:
+
+```js
+const key = process.env.VUE_APP_KEY
+```
+
+To totally disable this, you can set `env` to `false`.
 
 ### Proxy API request
 
