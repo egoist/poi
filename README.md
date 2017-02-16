@@ -319,10 +319,7 @@ VUE_APP_DESCRIPTION=my awesome project
 In template html file which uses [ejs](http://ejs.co) template, you can write:
 
 ```html
-<body>
-  !!VUE_APP_DESCRIPTION!!
-  <!-- this outputs: foo -->
-</body>
+<meta name="description" content="!!VUE_APP_DESCRIPTION!!" />
 ```
 
 In app code you need to write full reference of the variable:
