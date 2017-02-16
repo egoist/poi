@@ -23,6 +23,7 @@
   * [Webpack](#webpack)
   * [Custom HTML output](#custom-html-output)
   * [Custom output filename](#custom-output-filename)
+  * [Define constants at compile time](#define-constants-at-compile-time)
   * [Proxy API request](#proxy-api-request)
   * [Dev server](#dev-server)
     + [port](#port)
@@ -272,6 +273,28 @@ module.exports = {
 ```
 
 [⬆ back to top](#vbuild)
+
+### Define constants at compile time
+
+`define` is a short-hand to add webpack's [DefinePlugin](https://webpack.js.org/plugins/define-plugin/) for settings global constants which can be configured at compile time.
+
+```js
+module.exports = options => ({
+  define: {
+    __DEV__: JSON.stringify(options.dev)
+  }
+})
+```
+
+Then use it in your app code:
+
+```js
+if (__DEV__) {
+  // perform something only in development mode a.k.a `--dev`
+}
+```
+
+The default constants we add is `process.env.NODE_ENV`.
 
 ### Proxy API request
 
