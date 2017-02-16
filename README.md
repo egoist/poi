@@ -372,6 +372,10 @@ module.exports = {
 Yes and no, yes is because they all simplified the process of building a complete web app, while `vbuild` is more focusing on building single-page app without the server-side, at least it is for now.
 </details>
 
+<details><summary>Is it like vue-cli?</summary>
+
+No, vue-cli is just a boilerplate generator while vbuild is a Webpack wrapper which reduces boilerplate code for you.</details>
+
 <details><summary>Is there a `--watch` mode?</summary>
 
 Sure, you can combine the `--watch` mode with default mode and `--dev` mode, when it's combined with `--dev` mode, it will remove the hot-reloading support.
