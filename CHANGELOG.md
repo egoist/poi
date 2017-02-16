@@ -1,3 +1,18 @@
+## [Version 6.9.0](https://github.com/egoist/vbuild/releases/tag/v6.9.0) (2017-2-16)
+
+### New features
+
+- add `define`: [`7aa28d2`](https://github.com/egoist/vbuild/commit/7aa28d2)
+- load env variables: [`0ee6a4b`](https://github.com/egoist/vbuild/commit/0ee6a4b)
+
+### Bug fixes
+
+- stringify env variables: [`31e218d`](https://github.com/egoist/vbuild/commit/31e218d)
+- fix lint: [`150598a`](https://github.com/egoist/vbuild/commit/150598a)
+- update deps: [`fdb61f6`](https://github.com/egoist/vbuild/commit/fdb61f6)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.8.0...v6.9.0)
+
 ## [Version 6.8.0](https://github.com/egoist/vbuild/releases/tag/v6.8.0) (2017-2-16)
 
 ### New features
