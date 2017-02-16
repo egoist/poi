@@ -1,3 +1,12 @@
+## [Version 6.9.2](https://github.com/egoist/vbuild/releases/tag/v6.9.2) (2017-2-17)
+
+### Bug fixes
+
+- force reload when hmr failed: [`2c10592`](https://github.com/egoist/vbuild/commit/2c10592)
+- fix template: [`7672ab0`](https://github.com/egoist/vbuild/commit/7672ab0)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.9.1...v6.9.2)
+
 ## [Version 6.9.1](https://github.com/egoist/vbuild/releases/tag/v6.9.1) (2017-2-16)
 
 ### Bug fixes

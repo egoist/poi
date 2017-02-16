@@ -1,6 +1,6 @@
 {
   "name": "vbuild",
-  "version": "6.9.1",
+  "version": "6.9.2",
   "description": "Refined webpack development experience for Vue.js",
   "repository": {
     "url": "egoist/vbuild",
