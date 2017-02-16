@@ -161,15 +161,17 @@ If you want to use custom babel config file, please set `babel` in config file t
 
 ### PostCSS
 
-Standalone `.css` files and `style` tags in single-file components are transpiled by PostCSS, the only plugin we add by default is `autoprefixer`, and you can use `autoprefixer` option in config file to adjust it, the default value is:
+Standalone `.css` files and `style` tags in single-file components are transpiled by PostCSS, the only plugin we use by default is `autoprefixer`, and you can use `autoprefixer` option in config file to adjust it, here's the config with default value:
 
 ```js
-{
-  browsers: ['ie > 8', 'last 4 versions']
+module.exports = {
+  autoprefixer: {
+    browsers: ['ie > 8', 'last 4 versions']
+  }
 }
 ```
 
-You can also set `postcss` option in config file, this way the `autoprefixer` plugin we added will be overriden.
+You can also set `postcss` option in config file, when it's an `Array` or `Object`, we will prepend `autoprefixer` plugin to it. You can set `autoprefixer: false` to disable this though. 
 
 If you want to use PostCSS config file like `postcss.config.js` or whatever [postcss-load-config](https://github.com/michael-ciniawsky/postcss-load-config) supports, please set `postcss` option in config file to `undefined` first.
 
