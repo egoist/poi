@@ -1,6 +1,17 @@
-# vbuild
+<p align="center">
+  <img src="./media/preview.png" alt="preview" />
+</p>
 
-[![NPM version](https://img.shields.io/npm/v/vbuild.svg?style=flat)](https://npmjs.com/package/vbuild) [![NPM downloads](https://img.shields.io/npm/dm/vbuild.svg?style=flat)](https://npmjs.com/package/vbuild) [![Build Status](https://img.shields.io/circleci/project/egoist/vbuild/master.svg?style=flat)](https://circleci.com/gh/egoist/vbuild) [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat)](https://github.com/egoist/donate)
+## Badges
+
+[![NPM version](https://img.shields.io/npm/v/vbuild.svg?style=flat-square)](https://npmjs.com/package/vbuild) [![NPM downloads](https://img.shields.io/npm/dm/vbuild.svg?style=flat-square)](https://npmjs.com/package/vbuild) [![Build Status](https://img.shields.io/circleci/project/egoist/vbuild/master.svg?style=flat-square)](https://circleci.com/gh/egoist/vbuild) [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat-square)](https://github.com/egoist/donate)
+
+## tl;dr
+
+```bash
+vbuild whatever.js --dev
+# it just works
+```
 
 [Developing Vue.js app is like 1,2,3](https://egoistian.com/2017/02/15/vbuild)
 
