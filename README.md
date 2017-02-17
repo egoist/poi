@@ -468,6 +468,7 @@ try {
 - [Progressive web app](./docs/recipes/progressive-web-app.md)
 - [Electron app](./docs/recipes/electron-app.md)
 - [ESLint](./docs/recipes/eslint.md)
+- [Deployment](./docs/recipes/deployment.md)
 
 ## FAQ
 
