@@ -14,8 +14,6 @@ By default the resource of your app is loaded from root path `/`, if you're goin
 ```js
 module.exports = {
   homepage: '/blog/'
-  // It could also be a full url to your homepage
-  // homepage: 'http://example.com/blog/'
 }
 ```
 
