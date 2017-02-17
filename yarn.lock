@@ -1962,7 +1962,7 @@ dot-prop@^3.0.0:
   dependencies:
     is-obj "^1.0.0"
 
-dot-prop@^4.1.0:
+dot-prop@^4.0.0, dot-prop@^4.1.0:
   version "4.1.0"
   resolved "https://registry.npmjs.org/dot-prop/-/dot-prop-4.1.0.tgz#eb29eac57dfa31fda1edef50ea462ee3d38ff3ab"
   dependencies:
@@ -4711,7 +4711,7 @@ pbkdf2@^3.0.3:
   dependencies:
     create-hmac "^1.1.2"
 
-pify@^2.0.0:
+pify@^2.0.0, pify@^2.3.0:
   version "2.3.0"
   resolved "https://registry.npmjs.org/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
 
@@ -6099,6 +6099,14 @@ update-notifier@^2.0.0:
     lazy-req "^2.0.0"
     semver-diff "^2.0.0"
     xdg-basedir "^3.0.0"
+
+update-pkg@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/update-pkg/-/update-pkg-1.1.0.tgz#559c6bb8e63b6269de16d563b60b62f556012520"
+  dependencies:
+    dot-prop "^4.0.0"
+    mkdirp "^0.5.1"
+    pify "^2.3.0"
 
 upper-case@^1.1.1:
   version "1.1.3"
