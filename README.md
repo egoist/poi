@@ -31,7 +31,7 @@
     + [host](#host)
   * [Custom server logic](#custom-server-logic)
   * [Custom build process](#custom-build-process)
-  * [JavaScript API](#javascript-api)
+- [JavaScript API](#javascript-api)
 - [Recipes](#recipes)
 - [FAQ](#faq)
 - [Contributing](#contributing)
@@ -421,7 +421,7 @@ module.exports = {
 
 [⬆ back to top](#vbuild)
 
-### JavaScript API
+## JavaScript API
 
 You can use vbuild as a Node.js module:
 
