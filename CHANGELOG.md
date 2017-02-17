@@ -1,3 +1,11 @@
+## [Version 6.10.2](https://github.com/egoist/vbuild/releases/tag/v6.10.2) (2017-2-17)
+
+### Bug fixes
+
+- Tweak css loader syntax for webpack 2: [`cd15f07`](https://github.com/egoist/vbuild/commit/cd15f07)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.10.1...v6.10.2)
+
 ## [Version 6.10.1](https://github.com/egoist/vbuild/releases/tag/v6.10.1) (2017-2-17)
 
 ### Bug fixes
