@@ -1,3 +1,15 @@
+## [Version 6.10.0](https://github.com/egoist/vbuild/releases/tag/v6.10.0) (2017-2-17)
+
+### New features
+
+- Expose JavaScript API: [`171ef12`](https://github.com/egoist/vbuild/commit/171ef12)
+
+### Bug fixes
+
+- output info cause it might output error log: [`efb9fca`](https://github.com/egoist/vbuild/commit/efb9fca)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.9.2...v6.10.0)
+
 ## [Version 6.9.2](https://github.com/egoist/vbuild/releases/tag/v6.9.2) (2017-2-17)
 
 ### Bug fixes
