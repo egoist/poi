@@ -469,6 +469,7 @@ try {
 - [Electron app](./docs/recipes/electron-app.md)
 - [ESLint](./docs/recipes/eslint.md)
 - [Deployment](./docs/recipes/deployment.md)
+- [Analyze bundle size](./docs/recipes/bundle-analyzer.md)
 
 ## FAQ
 
