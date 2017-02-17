@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./media/preview.png" alt="preview" />
+  <img src="https://cloud.githubusercontent.com/assets/8784712/23060768/1e3bea76-f53a-11e6-8735-998ee5f87238.png" alt="preview" />
 </p>
 
 ## Badges
