@@ -1,3 +1,11 @@
+## [Version 6.10.3](https://github.com/egoist/vbuild/releases/tag/v6.10.3) (2017-2-17)
+
+### Bug fixes
+
+- split css and es6 files: [`deacca1`](https://github.com/egoist/vbuild/commit/deacca1)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.10.2...v6.10.3)
+
 ## [Version 6.10.2](https://github.com/egoist/vbuild/releases/tag/v6.10.2) (2017-2-17)
 
 ### Bug fixes
