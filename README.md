@@ -229,7 +229,7 @@ module.exports = {
 
 ### Code splitting
 
-We enabled code splitting for vendor code and app code by default in production mode, you can set `vendor` option to `false` to disable it. And by default all required modules in `node_modules` will be splitted.
+We enabled code splitting for vendor code and app code by default in production mode, you can set `vendor` option to `false` to disable it. And by default all required modules in `node_modules` will be split.
 
 [⬆ back to top](#vbuild)
 
