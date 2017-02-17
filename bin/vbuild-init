@@ -7,7 +7,6 @@ const kopy = require('kopy')
 const $ = require('shelljs')
 const tildify = require('tildify')
 const install = require('yarn-install')
-const logger = require('../lib/logger')
 const _ = require('../lib/utils')
 
 const cli = meow(`
@@ -28,12 +27,14 @@ const cli = meow(`
 const name = cli.input[0]
 
 if (!name) {
-  logger.fatal('A folder name is required to perform this action!')
+  console.error(chalk.red('> A folder name is required to perform this action!'))
+  process.exit(1)
 }
 
 const dest = _.cwd(name)
 if (!cli.flags.force && fs.existsSync(dest)) {
-  logger.fatal(`${chalk.yellow(tildify(dest))} already exists, you can use \`--force\` option to override it`)
+  console.error(chalk.red(`${chalk.yellow(tildify(dest))} already exists, you can use \`--force\` option to override it`))
+  process.exit(1)
 }
 
 const data = Object.assign({
@@ -71,4 +72,4 @@ kopy(_.ownDir('template'), dest, {
 
   console.log(chalk.bold('To build for production:'))
   console.log('\n  npm run build\n')
-}).catch(logger.fatal)
+}).catch(console.error)

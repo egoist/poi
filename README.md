@@ -31,6 +31,7 @@
     + [host](#host)
   * [Custom server logic](#custom-server-logic)
   * [Custom build process](#custom-build-process)
+  * [JavaScript API](#javascript-api)
 - [Recipes](#recipes)
 - [FAQ](#faq)
 - [Contributing](#contributing)
@@ -414,6 +415,35 @@ module.exports = {
       // ...Other karma options
     })
     server.start()
+  }
+}
+```
+
+[⬆ back to top](#vbuild)
+
+### JavaScript API
+
+You can use vbuild as a Node.js module:
+
+```js
+const vbuild = require('vbuild')
+
+const res = vbuild(cliOptions)
+//=> console.log(res)
+{
+  webpackConfig, // final webpack config
+  options, // final options
+  server // in dev mode, an instance of `http.Server`
+}
+
+// error catch
+try {
+  vbuild(options)
+} catch (err) {
+  if (err.name === 'AppError') {
+    // error occurs in starting the compilation
+  } else {
+    // other unknown error
   }
 }
 ```

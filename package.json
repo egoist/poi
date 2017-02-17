@@ -6,6 +6,7 @@
     "url": "egoist/vbuild",
     "type": "git"
   },
+  "main": "lib/index.js",
   "files": [
     "bin",
     "lib",
@@ -17,7 +18,7 @@
   "bin": "bin/vbuild",
   "scripts": {
     "test": "jest && npm run lint",
-    "lint": "xo --fix",
+    "lint": "xo",
     "toc": "markdown-toc -i README.md",
     "precommit": "npm test"
   },
@@ -45,8 +46,7 @@
     ],
     "rules": {
       "guard-for-in": 0,
-      "import/no-dynamic-require": 0,
-      "unicorn/no-process-exit": 0
+      "import/no-dynamic-require": 0
     }
   },
   "dependencies": {
