@@ -1,3 +1,11 @@
+## [Version 6.10.1](https://github.com/egoist/vbuild/releases/tag/v6.10.1) (2017-2-17)
+
+### Bug fixes
+
+- don't quit when failed in watch mode: [`b87e8d9`](https://github.com/egoist/vbuild/commit/b87e8d9)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.10.0...v6.10.1)
+
 ## [Version 6.10.0](https://github.com/egoist/vbuild/releases/tag/v6.10.0) (2017-2-17)
 
 ### New features
