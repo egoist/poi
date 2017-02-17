@@ -1,3 +1,15 @@
+## [Version 6.11.0](https://github.com/egoist/vbuild/releases/tag/v6.11.0) (2017-2-17)
+
+### New features
+
+- add `homepage option`: [`d12c3e6`](https://github.com/egoist/vbuild/commit/d12c3e6)
+
+### Bug fixes
+
+- update template: [`b416b10`](https://github.com/egoist/vbuild/commit/b416b10)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.10.3...v6.11.0)
+
 ## [Version 6.10.3](https://github.com/egoist/vbuild/releases/tag/v6.10.3) (2017-2-17)
 
 ### Bug fixes
