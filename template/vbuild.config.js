@@ -7,9 +7,8 @@ module.exports = (options, req) => ({
     title: '<%= name %>'
   },
   postcss: [
-    req('autoprefixer')({
-      browsers: ['ie > 8', 'last 4 versions']
-    })
+    // add more postcss plugins here
+    // by default we have autoprefixer pre added
   ],
   webpack(cfg) {
     cfg.resolve.modules.push(path.resolve('src'))
