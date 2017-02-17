@@ -14,7 +14,7 @@ vbuild whatever.js --dev
 ```
 
 [Developing Vue.js app is like 1,2,3](https://egoistian.com/2017/02/15/vbuild)
-
+<h2 id="toc"></h2>
 <!-- toc -->
 
 - [Install](#install)
@@ -102,7 +102,7 @@ Build app in production mode (default mode):
 vbuild index.js
 ```
 
-[⬆ back to top](#vbuild)
+[⬆ back to top](#toc)
 
 ## Config file
 
@@ -120,7 +120,7 @@ module.exports = (options, req) => ({
 
 To use it, you can add `--config [path]` in CLI arguments. If no path was speified, it defaults to `vbuild.config.js`.
 
-[⬆ back to top](#vbuild)
+[⬆ back to top](#toc)
 
 ### Shorthand
 
@@ -147,7 +147,7 @@ module.exports = {
 
 The `production` or `development` config will be assigned into base config using `Object.assign`.
 
-[⬆ back to top](#vbuild)
+[⬆ back to top](#toc)
 
 ### Arguments
 
@@ -155,13 +155,13 @@ The `production` or `development` config will be assigned into base config using
 
 CLI options.
 
-[⬆ back to top](#vbuild)
+[⬆ back to top](#toc)
 
 #### req
 
 The `require` function but context directory is the path to `node_modules/vbuild/lib`, which means you can use it to load vbuild's dependencies, like `webpack`.
 
-[⬆ back to top](#vbuild)
+[⬆ back to top](#toc)
 
 ### Babel
 
@@ -171,7 +171,7 @@ You can provide custom babel config by setting `babel` in config file or using `
 
 If you want to use custom babel config file, please set `babel` in config file to `undefined` first.
 
-[⬆ back to top](#vbuild)
+[⬆ back to top](#toc)
 
 ### PostCSS
 
@@ -205,7 +205,7 @@ To use CSS modules in single-file component, you can set `module` attribute in `
 
 To use CSS modules in standalone css files, you can set `cssModules` to `true` in config file.
 
-[⬆ back to top](#vbuild)
+[⬆ back to top](#toc)
 
 ### Webpack entry
 
@@ -213,7 +213,7 @@ Type: `string` `Array` `Object`
 
 You can set webpack entry from CLI option or `entry` property in config file. If it's an array or string, we add it into `webpackConfig.entry.client` entry, otherwise it will totally override `webpackConfig.entry`
 
-[⬆ back to top](#vbuild)
+[⬆ back to top](#toc)
 
 ### Hot reloading
 
@@ -225,13 +225,13 @@ module.exports = {
 }
 ```
 
-[⬆ back to top](#vbuild)
+[⬆ back to top](#toc)
 
 ### Code splitting
 
 We enabled code splitting for vendor code and app code by default in production mode, you can set `vendor` option to `false` to disable it. And by default all required modules in `node_modules` will be split.
 
-[⬆ back to top](#vbuild)
+[⬆ back to top](#toc)
 
 ### Webpack
 
@@ -250,7 +250,7 @@ module.exports = options => ({
 
 The value of `webpack` could also be a plain object, this way it will be merged into default webpack config using [webpack-merge](https://github.com/survivejs/webpack-merge).
 
-[⬆ back to top](#vbuild)
+[⬆ back to top](#toc)
 
 ### Custom HTML output
 
@@ -269,7 +269,7 @@ module.exports = {
 
 Check out the [default template](/lib/template.html) file we use. To disable generating html file, you can set `html` to `false`.
 
-[⬆ back to top](#vbuild)
+[⬆ back to top](#toc)
 
 ### Custom output filename
 
@@ -285,7 +285,7 @@ module.exports = {
 }
 ```
 
-[⬆ back to top](#vbuild)
+[⬆ back to top](#toc)
 
 ### Define constants at compile time
 
@@ -309,7 +309,7 @@ if (__DEV__) {
 
 The default constants we add is `process.env.NODE_ENV`. The variables you defined here are only available in app code.
 
-[⬆ back to top](#vbuild)
+[⬆ back to top](#toc)
 
 ### Load env variables
 
@@ -342,7 +342,7 @@ const key = process.env.VUE_APP_KEY
 
 To totally disable this, you can set `env` to `false`.
 
-[⬆ back to top](#vbuild)
+[⬆ back to top](#toc)
 
 ### Proxy API request
 
@@ -375,7 +375,7 @@ module.exports = {
 
 Keep in mind that proxy only has effect in development.
 
-[⬆ back to top](#vbuild)
+[⬆ back to top](#toc)
 
 ### Dev server
 
@@ -393,7 +393,7 @@ Default: `localhost`
 
 Host of dev server.
 
-[⬆ back to top](#vbuild)
+[⬆ back to top](#toc)
 
 ### Custom server logic
 
@@ -409,7 +409,7 @@ module.exports = {
 }
 ```
 
-[⬆ back to top](#vbuild)
+[⬆ back to top](#toc)
 
 ### Custom build process
 
@@ -430,7 +430,7 @@ module.exports = {
 }
 ```
 
-[⬆ back to top](#vbuild)
+[⬆ back to top](#toc)
 
 ## JavaScript API
 
@@ -461,7 +461,7 @@ try {
 }
 ```
 
-[⬆ back to top](#vbuild)
+[⬆ back to top](#toc)
 
 ## Recipes
 
@@ -470,6 +470,8 @@ try {
 - [ESLint](./docs/recipes/eslint.md)
 - [Deployment](./docs/recipes/deployment.md)
 - [Analyze bundle size](./docs/recipes/bundle-analyzer.md)
+
+[⬆ back to top](#toc)
 
 ## FAQ
 
@@ -503,6 +505,8 @@ The default mode is production mode, i.e. without `--dev`.
 
 Despiting that `vbuild` predates `Next.js` `create-react-app` `nwb` `vue-cli`, we're heavily inspired by these projects.
 </details>
+
+[⬆ back to top](#toc)
 
 ## Contributing
 
