@@ -465,6 +465,8 @@ try {
 
 ## Recipes
 
+- [Minimize and sourcemaps](./docs/recipes/minimize-and-sourcemaps.md)
+- [Bundle in CommonJS or UMD format](./docs/recipes/cjs-and-umd-format.md)
 - [Progressive web app](./docs/recipes/progressive-web-app.md)
 - [Electron app](./docs/recipes/electron-app.md)
 - [ESLint](./docs/recipes/eslint.md)

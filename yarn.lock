@@ -6294,6 +6294,10 @@ webpack-merge@^2.6.1:
   dependencies:
     lodash "^4.17.4"
 
+webpack-node-externals@^1.5.4:
+  version "1.5.4"
+  resolved "https://registry.npmjs.org/webpack-node-externals/-/webpack-node-externals-1.5.4.tgz#ea05ba17108a23e776c35c42e7bb0e86c225be00"
+
 webpack-sources@^0.1.0, webpack-sources@^0.1.4:
   version "0.1.4"
   resolved "https://registry.npmjs.org/webpack-sources/-/webpack-sources-0.1.4.tgz#ccc2c817e08e5fa393239412690bb481821393cd"

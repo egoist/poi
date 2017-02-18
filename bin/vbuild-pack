@@ -45,6 +45,7 @@ if (cli.input[0]) {
 try {
   require('../lib')(options)
 } catch (err) {
+  process.stdout.write('\x1Bc')
   console.error(`${chalk.bgRed.black(' ERROR ')} Something went wrong during the build:\n`)
   if (err.name === 'AppError') {
     console.error(chalk.red(err.message))
