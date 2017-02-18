@@ -1,3 +1,15 @@
+## [Version 6.12.0](https://github.com/egoist/vbuild/releases/tag/v6.12.0) (2017-2-18)
+
+### New features
+
+- Support umd and cjs format: [`52a2992`](https://github.com/egoist/vbuild/commit/52a2992)
+
+### Bug fixes
+
+- support json extension: [`cf1b9b7`](https://github.com/egoist/vbuild/commit/cf1b9b7)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.11.0...v6.12.0)
+
 ## [Version 6.11.0](https://github.com/egoist/vbuild/releases/tag/v6.11.0) (2017-2-17)
 
 ### New features
