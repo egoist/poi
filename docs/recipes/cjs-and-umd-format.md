@@ -9,6 +9,8 @@ When you're authoring a library, like a Vue component, you may bundle it in two 
 
 `format` option can be set via CLI option or config file.
 
+Note that when `format` is set, the hash will be excluded from filename.
+
 ### cjs
 
 ```bash
