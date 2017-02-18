@@ -5,17 +5,17 @@ When you're authoring a library, like a Vue component, you may bundle it in two 
 - `cjs` (commonjs2): User will use this format in a build tool, it excludes all modules in `node_modules` folder from bundled files.
 - `umd`: User will use this format directly in browser, all 3rd-party packages will be bundled within.
 
-## format options
+## `format` option
 
 `format` option can be set via CLI option or config file.
 
-## cjs
+### cjs
 
 ```bash
 vbuild --format cjs
 ```
 
-## umd
+### umd
 
 ```bash
 vbuild --format umd --module-name Vuex
