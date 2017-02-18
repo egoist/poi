@@ -1,3 +1,12 @@
+## [Version 6.12.1](https://github.com/egoist/vbuild/releases/tag/v6.12.1) (2017-2-18)
+
+### Bug fixes
+
+- exclude some module that might come from vbuild: [`66a5715`](https://github.com/egoist/vbuild/commit/66a5715)
+- fix hmrEntry: [`73accf3`](https://github.com/egoist/vbuild/commit/73accf3)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.12.0...v6.12.1)
+
 ## [Version 6.12.0](https://github.com/egoist/vbuild/releases/tag/v6.12.0) (2017-2-18)
 
 ### New features
