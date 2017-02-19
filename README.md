@@ -458,7 +458,7 @@ const res = vbuild(cliOptions)
   webpackConfig, // final webpack config
   options, // final options
   compiler, // webpack compiler instance
-  server, // in dev mode, an instance of `http.Server`
+  server, // in dev mode, an instance of `http.Server` without calling `.listen`
   watcher // in watch mode, webpack watcher
 }
 

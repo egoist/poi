@@ -36,7 +36,9 @@ const cli = meow(`
   }
 })
 
-const options = Object.assign({}, cli.flags)
+const options = Object.assign({
+  cli: true // indicates calling from CLI so that in `dev` mode when'll make server listen on a port
+}, cli.flags)
 
 if (cli.input[0]) {
   options.entry = options.entry || cli.input[0]
