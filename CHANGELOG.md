@@ -1,3 +1,11 @@
+## [Version 6.13.0](https://github.com/egoist/vbuild/releases/tag/v6.13.0) (2017-2-19)
+
+### New features
+
+- allow user to configure css extraction: [`7a68b61`](https://github.com/egoist/vbuild/commit/7a68b61)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.12.1...v6.13.0)
+
 ## [Version 6.12.1](https://github.com/egoist/vbuild/releases/tag/v6.12.1) (2017-2-18)
 
 ### Bug fixes
