@@ -287,6 +287,17 @@ module.exports = {
 
 [⬆ back to top](#toc)
 
+### Extracting CSS
+
+The `extract` option is `true` by default in production mode, however you can also set it manually to overrde:
+
+```js
+module.exports = {
+  // always disable extracting css
+  extract: false
+}
+```
+
 ### Define constants at compile time
 
 `define` is a short-hand to add webpack's [DefinePlugin](https://webpack.js.org/plugins/define-plugin/) for settings global constants which can be configured at compile time.
