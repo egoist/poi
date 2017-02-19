@@ -15,6 +15,7 @@ vbuild whatever.js --dev
 
 [Developing Vue.js app is like 1,2,3](https://egoistian.com/2017/02/15/vbuild)
 <h2 id="toc"></h2>
+
 <!-- toc -->
 
 - [Install](#install)
@@ -34,6 +35,7 @@ vbuild whatever.js --dev
   * [Webpack](#webpack)
   * [Custom HTML output](#custom-html-output)
   * [Custom output filename](#custom-output-filename)
+  * [Extracting CSS](#extracting-css)
   * [Define constants at compile time](#define-constants-at-compile-time)
   * [Load env variables](#load-env-variables)
   * [Proxy API request](#proxy-api-request)
