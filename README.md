@@ -485,6 +485,7 @@ try {
 - [ESLint](./docs/recipes/eslint.md)
 - [Deployment](./docs/recipes/deployment.md)
 - [Analyze bundle size](./docs/recipes/bundle-analyzer.md)
+- [Troubleshooting](./docs/troubleshooting.md)
 
 [⬆ back to top](#toc)
 
