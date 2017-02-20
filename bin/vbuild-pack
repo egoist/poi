@@ -53,8 +53,10 @@ const start = () => {
   const result = main(options)
 
   const {host, port, open} = result.options
+  const {server, devMiddleWare} = result
 
-  result.server.listen(port, host, () => {
+  if (server) {
+    server.listen(port, host, () => {
       if (open) {
         require('opn')(`http://${host}:${port}`)
       }
@@ -65,6 +67,8 @@ const start = () => {
       }
       handleError(err)
     })
+  }
+
 
   // watch config file
   if (options.dev || options.watch) {
@@ -78,9 +82,9 @@ const start = () => {
         }
 
         // server in dev mode
-        if (result.server) {
-          result.server.close()
-          result.devMiddleWare.close()
+        if (server) {
+          server.close()
+          devMiddleWare.close()
         }
 
         // watcher for webpack in watch mode
