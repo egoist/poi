@@ -27,6 +27,7 @@ Develop Vue apps with no build configuration until you need.
     + [options](#options)
     + [req](#req)
   * [Babel](#babel)
+    + [Transpile modules](#transpile-modules)
   * [PostCSS](#postcss)
     + [Custom CSS preprocessors](#custom-css-preprocessors)
     + [CSS modules](#css-modules)
@@ -174,6 +175,18 @@ JS files and `script` tags in single-file components are transpiled by Babel. We
 You can provide custom babel config by setting `babel` in config file or using `.babelrc` or setting `babel` field in `package.json`.
 
 If you want to use custom babel config file, please set `babel` in config file to `undefined` first.
+
+[⬆ back to top](#toc)
+
+#### Transpile modules
+
+By default babel will only transpile files outside `node_modules` folder into ES5, but you may use some npm packages that are written in ES2015, then you can tell babel to transpile them as well:
+
+```js
+module.exports = {
+  transpileModules: ['element-ready']
+}
+```
 
 [⬆ back to top](#toc)
 
