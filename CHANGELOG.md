@@ -1,3 +1,15 @@
+## [Version 6.15.0](https://github.com/egoist/vbuild/releases/tag/v6.15.0) (2017-2-21)
+
+### New features
+
+- add `transpileModules` option: [`38f3cc5`](https://github.com/egoist/vbuild/commit/38f3cc5)
+
+### Bug fixes
+
+- update deps: [`046437e`](https://github.com/egoist/vbuild/commit/046437e)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.14.3...v6.15.0)
+
 ## [Version 6.14.3](https://github.com/egoist/vbuild/releases/tag/v6.14.3) (2017-2-20)
 
 ### Bug fixes
