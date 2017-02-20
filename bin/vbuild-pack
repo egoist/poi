@@ -2,6 +2,7 @@
 const chalk = require('chalk')
 const meow = require('meow')
 const chokidar = require('chokidar')
+const AppError = require('../lib/app-error')
 const {getConfigFile} = require('../lib/utils')
 
 const cli = meow(`
@@ -50,6 +51,20 @@ const main = require('../lib')
 
 const start = () => {
   const result = main(options)
+
+  const {host, port, open} = result.options
+
+  result.server.listen(port, host, () => {
+      if (open) {
+        require('opn')(`http://${host}:${port}`)
+      }
+    })
+    .on('error', err => {
+      if (err.code === 'EADDRINUSE') {
+        return handleError(new AppError(`Port ${port} is already in use.\n\nYou can use another one by adding \`--port <port>\` or set it in config file.`))
+      }
+      handleError(err)
+    })
 
   // watch config file
   if (options.dev || options.watch) {
@@ -100,5 +115,6 @@ function handleError(err) {
   } else {
     console.error(err.stack)
   }
+  console.log()
   process.exit(1)
 }
