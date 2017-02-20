@@ -1,3 +1,11 @@
+## [Version 6.14.2](https://github.com/egoist/vbuild/releases/tag/v6.14.2) (2017-2-20)
+
+### Bug fixes
+
+- check if it's running in dev mode: [`0fad783`](https://github.com/egoist/vbuild/commit/0fad783)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.14.1...v6.14.2)
+
 ## [Version 6.14.1](https://github.com/egoist/vbuild/releases/tag/v6.14.1) (2017-2-20)
 
 ### Bug fixes
