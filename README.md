@@ -494,7 +494,7 @@ try {
 
 ## Limitations
 
-- Server-side rendering: [you can generated server bundle though](https://github.com/egoist/vbuild/blob/master/docs/recipes/cjs-and-umd-format.md#server-bundle)
+- Server-side rendering: [you can generate server bundle though](./docs/recipes/cjs-and-umd-format.md#server-bundle)
 - Eject webpack config: [here's an on-going issue](https://github.com/egoist/vbuild/issues/124)
 
 Feel free to request new features.
