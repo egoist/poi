@@ -13,7 +13,8 @@ vbuild whatever.js --dev
 # it just works
 ```
 
-[Developing Vue.js app is like 1,2,3](https://egoistian.com/2017/02/15/vbuild)
+Develop Vue apps with no build configuration until you need.
+
 <h2 id="toc"></h2>
 
 <!-- toc -->
@@ -46,6 +47,7 @@ vbuild whatever.js --dev
   * [Custom build process](#custom-build-process)
 - [JavaScript API](#javascript-api)
 - [Recipes](#recipes)
+- [Limitations](#limitations)
 - [FAQ](#faq)
 - [Contributing](#contributing)
 - [Author](#author)
@@ -489,6 +491,13 @@ try {
 - [Troubleshooting](./docs/troubleshooting.md)
 
 [⬆ back to top](#toc)
+
+## Limitations
+
+- Server-side rendering: [you can generated server bundle though](https://github.com/egoist/vbuild/blob/master/docs/recipes/cjs-and-umd-format.md#server-bundle)
+- Eject webpack config: [here's an on-going issue](https://github.com/egoist/vbuild/issues/124)
+
+Feel free to request new features.
 
 ## FAQ
 
