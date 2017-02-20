@@ -486,6 +486,7 @@ try {
 - [Progressive web app](./docs/recipes/progressive-web-app.md)
 - [Electron app](./docs/recipes/electron-app.md)
 - [ESLint](./docs/recipes/eslint.md)
+- [Testing](./docs/recipes/testing.md)
 - [Deployment](./docs/recipes/deployment.md)
 - [Analyze bundle size](./docs/recipes/bundle-analyzer.md)
 - [Troubleshooting](./docs/troubleshooting.md)
