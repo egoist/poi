@@ -1,3 +1,11 @@
+## [Version 6.14.3](https://github.com/egoist/vbuild/releases/tag/v6.14.3) (2017-2-20)
+
+### Bug fixes
+
+- add readme for template: [`b1a19bd`](https://github.com/egoist/vbuild/commit/b1a19bd)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.14.2...v6.14.3)
+
 ## [Version 6.14.2](https://github.com/egoist/vbuild/releases/tag/v6.14.2) (2017-2-20)
 
 ### Bug fixes
