@@ -72,4 +72,6 @@ kopy(_.ownDir('template'), dest, {
 
   console.log(chalk.bold('To build for production:'))
   console.log('\n  npm run build\n')
+
+  console.log(chalk.dim('For more usage, please view README.md\n'))
 }).catch(console.error)

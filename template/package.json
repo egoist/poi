@@ -5,6 +5,7 @@
   "repository": {},
   "scripts": {
     "test": "echo lol",
+    "lint": "vbuild -c --eslint",
     <%_ if (electron) { -%>
     "app": "electron app/index.js",
     "dist": "npm run dist:mac && npm run dist:win && npm run dist:linux",
