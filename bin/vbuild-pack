@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 const chalk = require('chalk')
 const meow = require('meow')
+const chokidar = require('chokidar')
+const {getConfigFile} = require('../lib/utils')
 
 const cli = meow(`
   ${chalk.bold('Options:')}
@@ -44,9 +46,52 @@ if (cli.input[0]) {
   options.entry = options.entry || cli.input[0]
 }
 
+const main = require('../lib')
+
+const start = () => {
+  const result = main(options)
+
+  // watch config file
+  if (options.dev || options.watch) {
+    const configFile = getConfigFile(options.config)
+    if (configFile) {
+      let watcher = chokidar.watch(configFile)
+
+      watcher.on('change', filename => {
+        if (!result) {
+          return
+        }
+
+        // server in dev mode
+        if (result.server) {
+          result.server.close()
+        }
+
+        // watcher for webpack in watch mode
+        if (result.watcher) {
+          result.watcher.close()
+        }
+
+        // watcher for config file
+        if (watcher) {
+          watcher.close()
+          watcher = null
+        }
+
+        console.log(`> Detect changes from ${chalk.yellow(filename)}, restarting...\n`)
+        start()
+      })
+    }
+  }
+}
+
 try {
-  require('../lib')(options)
+  start()
 } catch (err) {
+  handleError(err)
+}
+
+function handleError(err) {
   process.stdout.write('\x1Bc')
   console.error(`${chalk.bgRed.black(' ERROR ')} Something went wrong during the build:\n`)
   if (err.name === 'AppError') {
