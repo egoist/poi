@@ -1,3 +1,13 @@
+## [Version 6.14.1](https://github.com/egoist/vbuild/releases/tag/v6.14.1) (2017-2-20)
+
+### Bug fixes
+
+- use chokidar instead of fs.watch: [`ddd44bb`](https://github.com/egoist/vbuild/commit/ddd44bb)
+- close devmiddleware before restarting: [`bbfbc0f`](https://github.com/egoist/vbuild/commit/bbfbc0f)
+- better error handling when port is in use: [`0806a58`](https://github.com/egoist/vbuild/commit/0806a58)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.14.0...v6.14.1)
+
 ## [Version 6.14.0](https://github.com/egoist/vbuild/releases/tag/v6.14.0) (2017-2-20)
 
 ### New features
