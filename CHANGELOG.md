@@ -1,3 +1,16 @@
+## [Version 6.14.0](https://github.com/egoist/vbuild/releases/tag/v6.14.0) (2017-2-20)
+
+### New features
+
+- Expose devMiddleware in API: [`682c6a5`](https://github.com/egoist/vbuild/commit/682c6a5)
+
+### Bug fixes
+
+- do not listen on port when using as module: [`da3bc4f`](https://github.com/egoist/vbuild/commit/da3bc4f)
+- apply custom setup before connect-history-api-fallback: [`9640428`](https://github.com/egoist/vbuild/commit/9640428)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.13.0...v6.14.0)
+
 ## [Version 6.13.0](https://github.com/egoist/vbuild/releases/tag/v6.13.0) (2017-2-19)
 
 ### New features
