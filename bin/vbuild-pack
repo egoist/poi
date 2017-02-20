@@ -65,6 +65,7 @@ const start = () => {
         // server in dev mode
         if (result.server) {
           result.server.close()
+          result.devMiddleWare.close()
         }
 
         // watcher for webpack in watch mode
