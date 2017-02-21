@@ -21,6 +21,7 @@ Develop Vue apps with no build configuration until you need.
 
 - [Install](#install)
 - [How to use](#how-to-use)
+- [Commands](#commands)
 - [Config file](#config-file)
   * [Shorthand](#shorthand)
   * [Arguments](#arguments)
@@ -109,6 +110,11 @@ vbuild index.js
 ```
 
 [⬆ back to top](#toc)
+
+## Commands
+
+- `vbuild`: Default command, run build process
+- `vbuild init <folder>`: Generate a template (app template/electron template/component template) 
 
 ## Config file
 
