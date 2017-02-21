@@ -326,7 +326,7 @@ If your want it to copy other folders, use an array instead:
 
 ```js
 module.exports = {
-  // copy ./public/** to ./dist/public
+  // copy ./public to ./dist/public
   copy: [{from: './public', to: './public'}]
 }
 ```
