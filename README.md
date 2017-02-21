@@ -522,7 +522,10 @@ Yes and no, yes is because they all simplified the process of building a complet
 
 <details><summary>Is it like vue-cli?</summary>
 
-No, vue-cli is just a boilerplate generator while vbuild is a Webpack wrapper which reduces boilerplate code for you.</details>
+No, vue-cli is just a boilerplate generator while vbuild is a Webpack wrapper which reduces boilerplate code for you.
+
+You may notice that there's a `vue build` command lying in `vue-cli`, that's actually quite similar to vbuild, but providing less features and vbuild goes far beyond that.
+</details>
 
 <details><summary>Is there a `--watch` mode?</summary>
 
