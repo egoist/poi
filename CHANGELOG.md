@@ -1,3 +1,12 @@
+## [Version 6.16.1](https://github.com/egoist/vbuild/releases/tag/v6.16.1) (2017-2-21)
+
+### Bug fixes
+
+- optimize error class: [`df5c8d8`](https://github.com/egoist/vbuild/commit/df5c8d8)
+- ensure static folder exists: [`16d8bf5`](https://github.com/egoist/vbuild/commit/16d8bf5)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.16.0...v6.16.1)
+
 ## [Version 6.16.0](https://github.com/egoist/vbuild/releases/tag/v6.16.0) (2017-2-21)
 
 ### New features
