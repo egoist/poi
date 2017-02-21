@@ -13,7 +13,8 @@ const cli = meow(`
   ${chalk.bold('Options:')}
 
     ${chalk.yellow('--force, -f')}      ${chalk.dim('Override existing folder')}
-    ${chalk.yellow('--electron')}       ${chalk.dim('Generated Electron app')}
+    ${chalk.yellow('--component')}      ${chalk.dim('Generate a component template')}
+    ${chalk.yellow('--electron')}       ${chalk.dim('Generate an Electron app')}
     ${chalk.yellow('--no-prompts')}     ${chalk.dim('Skip prompts and use default value with CLI options')}
     ${chalk.yellow('--help, -h')}       ${chalk.dim('Output help (You are here!)')}
     ${chalk.yellow('--version, -v')}    ${chalk.dim('Output version')}
@@ -61,12 +62,25 @@ const prompts = [
     default: defaults.component,
     message: 'Is it a component?',
     type: 'confirm'
+  },
+  {
+    name: 'moduleName',
+    message: `What's the exported module name of the component? (in umd format)`,
+    when: answers => answers.component,
+    default(answers) {
+      return answers.name.replace(/[-_.]([\w])/, (_, p1) => p1.toUpperCase())
+    }
   }
 ]
 
 const options = {
   filters: {
-    'app/**': 'electron'
+    'app/**': 'electron',
+    'src-normal/**': '!component',
+    'src-component/**': 'component',
+    'example/**': 'component',
+    'vbuild.config.js': '!component',
+    'vbuild.{example,component}.js': 'component'
   }
 }
 
@@ -83,8 +97,13 @@ kopy(_.ownDir('template'), dest, options).then(({files, merged}) => {
     console.log(`${chalk.green('Generating')} · ${file}`)
   }
   for (const file of ['gitignore', 'editorconfig']) {
-    console.log(`${chalk.magenta('Moving    ')} · ${file} -> .${file}`)
-    $.mv(path.join(dest, file), path.join(dest, `.${file}`))
+    move(dest, file, `.${file}`)
+  }
+  if (merged.component) {
+    move(dest, 'src-component', 'src')
+    move(dest, 'src/Component.vue', `src/${merged.moduleName}.vue`)
+  } else {
+    move(dest, 'src-normal', 'src')
   }
 
   console.log('\n> Installing vbuild in project:\n')
@@ -92,16 +111,36 @@ kopy(_.ownDir('template'), dest, options).then(({files, merged}) => {
 
   console.log(`\n${chalk.bgGreen.black(' DONE ')} Successfully generated into ${chalk.yellow(tildify(dest))}!\n`)
 
-  console.log(chalk.bold('To get started:'))
+  console.log(chalk.green('- To get started:'))
   console.log(`\n  cd ${name}`)
-  console.log('  npm run dev\n')
+  if (merged.component) {
+    console.log('  yarn example\n')
+  } else {
+    console.log('  yarn dev\n')
+  }
   if (merged.electron) {
     console.log(chalk.bold('In another tab:\n'))
-    console.log('  npm run app\n')
+    console.log('  yarn app\n')
   }
 
-  console.log(chalk.bold('To build for production:'))
-  console.log('\n  npm run build\n')
+  if (merged.component) {
+    console.log(chalk.green('- To deploy example:'))
+    console.log(`\n  yarn deploy ${chalk.dim('# build and push to gh-pages')}\n`)
+    console.log(chalk.green('- To distribute component:'))
+    console.log(`\n  yarn build:cjs  ${chalk.dim('# commonjs format')}`)
+    console.log(`  yarn build:umd  ${chalk.dim('# umd format')}`)
+    console.log(`  yarn build      ${chalk.dim('# both format')}\n`)
+  } else {
+    console.log(chalk.green('- To build for production:'))
+    console.log('\n  yarn build\n')
+  }
 
-  console.log(chalk.dim('For more usage, please view README.md\n'))
+  console.log(chalk.dim(`For more usage, please view ${merged.name}/README.md\n`))
 }).catch(console.error)
+
+function move(dir, from, to) {
+  console.log(`${chalk.magenta('Moving    ')} · ${from} -> ${to}`)
+  const dest = path.join(dir, to)
+  $.rm('-rf', dest)
+  $.mv(path.join(dir, from), dest)
+}

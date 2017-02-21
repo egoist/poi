@@ -1,11 +1,16 @@
 {
+  <%_ if (!component) { -%>
   "private": true,
+  <%_ } -%>
   "name": "<%= name %>",
   "version": "0.0.0",
   "repository": {},
+  <%_ if (component) { -%>
+  "main": "dist/<%= name %>.js",
+  "files": ["dist"],
+  <%_ } -%>
   "scripts": {
     "test": "echo lol",
-    "lint": "vbuild -c --eslint",
     <%_ if (electron) { -%>
     "app": "electron app/index.js",
     "dist": "npm run dist:mac && npm run dist:win && npm run dist:linux",
@@ -14,8 +19,18 @@
     "dist:linux": "build --linux deb tar.xz",
     "postinstall": "install-app-deps",
     <%_ } -%>
+    <%_ if (component) { -%>
+    "lint": "vbuild -c vbuild.example.js --eslint",
+    "build": "npm run build:cjs && npm run build:umd",
+    "build:cjs": "vbuild -c vbuild.component.js --format cjs",
+    "build:umd": "vbuild -c vbuild.component.js --format umd",
+    "example": "vbuild -c vbuild.example.js -d",
+    "deploy": "vbuild -c vbuild.example.js && gh-pages -d dist-example"
+    <%_  } else { -%>
+    "lint": "vbuild -c --eslint",
     "dev": "vbuild -dc",
     "build": "vbuild -c"
+    <%_ } -%>
   },
   <%_ if (electron) { -%>
   "build": {
@@ -34,6 +49,9 @@
     "electron": "^1.4.15",
     "electron-builder": "^13.7.0",
     "electron-devtools-installer": "^1.1.5",
+    <%_ } -%>
+    <%_ if (component) { -%>
+    "gh-pages": "^0.12.0",
     <%_ } -%>
     "vbuild": "^6.0.0"
   },

@@ -1,5 +1,6 @@
 const path = require('path')
 
+// this will copy ./static/** to ./dist/**
 module.exports = (options, req) => ({
   entry: 'src/index.js',
   dist: '<% if (electron) { %>app/dist<% } else { %>dist<% } %>',
