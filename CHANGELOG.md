@@ -1,3 +1,11 @@
+## [Version 6.16.2](https://github.com/egoist/vbuild/releases/tag/v6.16.2) (2017-2-22)
+
+### Bug fixes
+
+- remove interpolate-html-plugin, passing variable directly by html-webpack-plugin: [`08c709b`](https://github.com/egoist/vbuild/commit/08c709b)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.16.1...v6.16.2)
+
 ## [Version 6.16.1](https://github.com/egoist/vbuild/releases/tag/v6.16.1) (2017-2-21)
 
 ### Bug fixes
