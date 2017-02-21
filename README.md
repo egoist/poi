@@ -382,19 +382,19 @@ You can use them in `index.html` and app code:
 VUE_APP_DESCRIPTION=my awesome project
 ```
 
-In template html file which uses [ejs](http://ejs.co) template, you can write:
+In template html file which uses [ejs](http://ejs.co) syntax, you can write:
 
 ```html
-<meta name="description" content="!!VUE_APP_DESCRIPTION!!" />
+<meta name="description" content="<%= htmlWebpackPlugin.options.env.VUE_APP_DESCRIPTION %>" />
 ```
 
-In app code you need to write full reference of the variable:
+In app code you access it by:
 
 ```js
 const key = process.env.VUE_APP_KEY
 ```
 
-To totally disable this, you can set `env` to `false`.
+To totally disable loading env variables, you can set `env` to `false`.
 
 [⬆ back to top](#toc)
 
