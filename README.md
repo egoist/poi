@@ -38,6 +38,7 @@ Develop Vue apps with no build configuration until you need.
   * [Custom HTML output](#custom-html-output)
   * [Custom output filename](#custom-output-filename)
   * [Extracting CSS](#extracting-css)
+  * [Copy static files](#copy-static-files)
   * [Define constants at compile time](#define-constants-at-compile-time)
   * [Load env variables](#load-env-variables)
   * [Proxy API request](#proxy-api-request)
@@ -314,6 +315,25 @@ module.exports = {
   extract: false
 }
 ```
+
+[⬆ back to top](#toc)
+
+### Copy static files
+
+By default, all files inside `./static` folder will be copied to dist folder, you can set it to `false` to disable this.
+
+If your want it to copy other folders, use an array instead:
+
+```js
+module.exports = {
+  // copy ./public/** to ./dist/public
+  copy: [{from: './public', to: './public'}]
+}
+```
+
+See more options about this at [copy-webpack-plugin](https://github.com/kevlened/copy-webpack-plugin#pattern-properties).
+
+[⬆ back to top](#toc)
 
 ### Define constants at compile time
 
