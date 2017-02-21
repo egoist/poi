@@ -1,4 +1,4 @@
-// this will copy ./static/** to ./dist/**
+// this will copy ./static/** to ./dist-example/**
 
 module.exports = {
   entry: 'example/index.js',
