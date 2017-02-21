@@ -14,6 +14,7 @@ const cli = meow(`
 
     ${chalk.yellow('--force, -f')}      ${chalk.dim('Override existing folder')}
     ${chalk.yellow('--electron')}       ${chalk.dim('Generated Electron app')}
+    ${chalk.yellow('--no-prompts')}     ${chalk.dim('Skip prompts and use default value with CLI options')}
     ${chalk.yellow('--help, -h')}       ${chalk.dim('Output help (You are here!)')}
     ${chalk.yellow('--version, -v')}    ${chalk.dim('Output version')}
 \t`, {
@@ -37,17 +38,46 @@ if (!cli.flags.force && fs.existsSync(dest)) {
   process.exit(1)
 }
 
-const data = Object.assign({
+const defaults = Object.assign({
   name,
-  electron: false
+  electron: false,
+  component: false
 }, cli.flags)
 
-kopy(_.ownDir('template'), dest, {
-  data,
-  filters: {
-    'app/**': data.electron
+const prompts = [
+  {
+    name: 'name',
+    default: defaults.name,
+    message: 'Choose a name for your new project:'
+  },
+  {
+    name: 'electron',
+    default: defaults.electron,
+    message: 'Is it an Electron app?',
+    type: 'confirm'
+  },
+  {
+    name: 'component',
+    default: defaults.component,
+    message: 'Is it a component?',
+    type: 'confirm'
   }
-}).then(({files}) => {
+]
+
+const options = {
+  filters: {
+    'app/**': 'electron'
+  }
+}
+
+if (cli.flags.prompts === false) {
+  console.log('> Skipping prompts (using default value)')
+  options.data = defaults
+} else {
+  options.prompts = prompts
+}
+
+kopy(_.ownDir('template'), dest, options).then(({files, merged}) => {
   console.log()
   for (const file of files) {
     console.log(`${chalk.green('Generating')} · ${file}`)
@@ -65,7 +95,7 @@ kopy(_.ownDir('template'), dest, {
   console.log(chalk.bold('To get started:'))
   console.log(`\n  cd ${name}`)
   console.log('  npm run dev\n')
-  if (data.electron) {
+  if (merged.electron) {
     console.log(chalk.bold('In another tab:\n'))
     console.log('  npm run app\n')
   }
