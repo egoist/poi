@@ -42,7 +42,8 @@ if (!cli.flags.force && fs.existsSync(dest)) {
 const defaults = Object.assign({
   name,
   electron: false,
-  component: false
+  component: false,
+  moduleName: ''
 }, cli.flags)
 
 const prompts = [
@@ -61,14 +62,13 @@ const prompts = [
     name: 'component',
     default: defaults.component,
     message: 'Is it a component?',
-    type: 'confirm'
+    type: 'confirm',
+    when: answers => !answers.electron,
   },
   {
     name: 'moduleName',
     message: `What's the exported module name of the component? (in umd format)`,
-    when(answers) {
-      return answers.component && !answers.electron
-    },
+    when: answers => answers.component,
     default(answers) {
       return answers.name.replace(/[-_.]([\w])/, (_, p1) => p1.toUpperCase())
     }
@@ -91,6 +91,7 @@ if (cli.flags.prompts === false) {
   options.data = defaults
 } else {
   options.prompts = prompts
+  options.data = defaults
 }
 
 kopy(_.ownDir('template'), dest, options).then(({files, merged}) => {
@@ -121,7 +122,7 @@ kopy(_.ownDir('template'), dest, options).then(({files, merged}) => {
     console.log('  yarn dev\n')
   }
   if (merged.electron) {
-    console.log(chalk.bold('In another tab:\n'))
+    console.log(chalk.green('- In another tab:\n'))
     console.log('  yarn app\n')
   }
 
