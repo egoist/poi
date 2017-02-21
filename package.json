@@ -74,6 +74,7 @@
     "installed-by-yarn-globally": "^0.1.2",
     "kopy": "^5.0.2",
     "meow": "^3.7.0",
+    "node-notifier": "^5.0.2",
     "opn": "^4.0.2",
     "post-compile-webpack-plugin": "^0.1.1",
     "postcss-loader": "^1.3.1",

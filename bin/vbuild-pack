@@ -2,8 +2,9 @@
 const chalk = require('chalk')
 const meow = require('meow')
 const chokidar = require('chokidar')
+const notifier = require('node-notifier')
 const AppError = require('../lib/app-error')
-const {getConfigFile} = require('../lib/utils')
+const {getConfigFile, ownDir} = require('../lib/utils')
 
 const cli = meow(`
   ${chalk.bold('Options:')}
@@ -99,7 +100,11 @@ const start = () => {
         }
 
         console.log(`> Detect changes from ${chalk.yellow(filename)}, restarting...\n`)
-        start()
+        try {
+          start()
+        } catch (err) {
+          handler(err)
+        }
       })
     }
   }
@@ -119,6 +124,11 @@ function handleError(err) {
   } else {
     console.error(err.stack)
   }
+  notifier.notify({
+    title: 'build failed!',
+    message: err.stack,
+    icon: ownDir('lib/icon.png')
+  })
   console.log()
   process.exit(1)
 }
