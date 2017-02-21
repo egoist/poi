@@ -1,3 +1,11 @@
+## [Version 6.16.3](https://github.com/egoist/vbuild/releases/tag/v6.16.3) (2017-2-22)
+
+### Bug fixes
+
+- add notifier when failing to start: [`27d2ce4`](https://github.com/egoist/vbuild/commit/27d2ce4)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.16.2...v6.16.3)
+
 ## [Version 6.16.2](https://github.com/egoist/vbuild/releases/tag/v6.16.2) (2017-2-22)
 
 ### Bug fixes
