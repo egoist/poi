@@ -66,7 +66,9 @@ const prompts = [
   {
     name: 'moduleName',
     message: `What's the exported module name of the component? (in umd format)`,
-    when: answers => answers.component,
+    when(answers) {
+      return answers.component && !answers.electron
+    },
     default(answers) {
       return answers.name.replace(/[-_.]([\w])/, (_, p1) => p1.toUpperCase())
     }
