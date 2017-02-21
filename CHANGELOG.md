@@ -1,3 +1,17 @@
+## [Version 6.16.0](https://github.com/egoist/vbuild/releases/tag/v6.16.0) (2017-2-21)
+
+### New features
+
+- use cli prompts to retrive data: [`afba944`](https://github.com/egoist/vbuild/commit/afba944)
+- add `--component` option for: [`880370a`](https://github.com/egoist/vbuild/commit/880370a)
+
+### Bug fixes
+
+- request moduleName if it's not an electron app: [`d2dd5a6`](https://github.com/egoist/vbuild/commit/d2dd5a6)
+- tweak cli prompts: [`ea2a893`](https://github.com/egoist/vbuild/commit/ea2a893)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.15.0...v6.16.0)
+
 ## [Version 6.15.0](https://github.com/egoist/vbuild/releases/tag/v6.15.0) (2017-2-21)
 
 ### New features
