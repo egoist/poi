@@ -314,7 +314,7 @@ module.exports = {
 
 ### Clean dist files
 
-The files inside dist folder will be removed before your run vbuild run production, because in most cases the output filename will contain `[hash]`, we need to remove old files to keep the directory clean.
+The files inside dist folder will be removed before you run vbuild in production mode, because in most cases the output filename will contain `[hash]`, we need to remove old files to keep the directory clean.
 
 However in some cases you don't need this, then you can disable it by:
 
