@@ -1,3 +1,11 @@
+## [Version 6.16.4](https://github.com/egoist/vbuild/releases/tag/v6.16.4) (2017-2-22)
+
+### Bug fixes
+
+- add option to disable `cleanDist`: [`9997aa5`](https://github.com/egoist/vbuild/commit/9997aa5)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.16.3...v6.16.4)
+
 ## [Version 6.16.3](https://github.com/egoist/vbuild/releases/tag/v6.16.3) (2017-2-22)
 
 ### Bug fixes
