@@ -38,6 +38,7 @@ Develop Vue apps with no build configuration until you need.
   * [Webpack](#webpack)
   * [Custom HTML output](#custom-html-output)
   * [Custom output filename](#custom-output-filename)
+  * [Clean dist files](#clean-dist-files)
   * [Extracting CSS](#extracting-css)
   * [Copy static files](#copy-static-files)
   * [Define constants at compile time](#define-constants-at-compile-time)
@@ -306,6 +307,20 @@ module.exports = {
     css: 'style.css',
     static: 'static/[name].[ext]'  
   }
+}
+```
+
+[⬆ back to top](#toc)
+
+### Clean dist files
+
+The files inside dist folder will be removed before your run vbuild run production, because in most cases the output filename will contain `[hash]`, we need to remove old files to keep the directory clean.
+
+However in some cases you don't need this, then you can disable it by:
+
+```js
+module.exports = {
+  cleanDist: false
 }
 ```
 
