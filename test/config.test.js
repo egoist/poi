@@ -5,7 +5,7 @@ describe('get webpack config', () => {
 
   describe('entry', () => {
     it('use default entry', async () => {
-      const {webpackConfig} = await getConfig()
+      const {webpackConfig} = await getConfig({config: false})
       expect(webpackConfig.entry).toEqual({
         client: ['index.js']
       })
@@ -18,7 +18,7 @@ describe('get webpack config', () => {
         {index: 'entry.js'}
       ]
 
-      const [a, b, c] = await Promise.all(entries.map(entry => getConfig({entry}).then(config => config.webpackConfig)))
+      const [a, b, c] = await Promise.all(entries.map(entry => getConfig({entry, config: false}).then(config => config.webpackConfig)))
 
       expect(a.entry).toEqual({
         client: ['other-entry.js']
