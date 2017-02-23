@@ -3,6 +3,7 @@ const chalk = require('chalk')
 const meow = require('meow')
 const chokidar = require('chokidar')
 const notifier = require('node-notifier')
+const co = require('co')
 const AppError = require('../lib/app-error')
 const {getConfigFile, ownDir} = require('../lib/utils')
 
@@ -50,8 +51,8 @@ if (cli.input[0]) {
 
 const main = require('../lib')
 
-const start = () => {
-  const result = main(options)
+const start = co.wrap(function * () {
+  const result = yield main(options)
 
   const {host, port, open} = result.options
   const {server, devMiddleWare} = result
@@ -100,21 +101,13 @@ const start = () => {
         }
 
         console.log(`> Detect changes from ${chalk.yellow(filename)}, restarting...\n`)
-        try {
-          start()
-        } catch (err) {
-          handler(err)
-        }
+        start().catch(handleError)
       })
     }
   }
-}
+})
 
-try {
-  start()
-} catch (err) {
-  handleError(err)
-}
+start().catch(handleError)
 
 function handleError(err) {
   process.stdout.write('\x1Bc')

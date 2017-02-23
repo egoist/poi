@@ -508,8 +508,8 @@ You can use vbuild as a Node.js module:
 ```js
 const vbuild = require('vbuild')
 
-const res = vbuild(cliOptions)
-//=> console.log(res)
+vbuild(cliOptions).then(res => {})
+//=> res:
 {
   webpackConfig, // final webpack config
   options, // final options
@@ -519,16 +519,24 @@ const res = vbuild(cliOptions)
   devMiddleware // in dev mode, the webpack-dev-middleware instance
 }
 
+// get webpack config and merged options only
+vbuild.getConfig(cliOptions).then(res => {})
+//=> res:
+{
+  webpackConfig,
+  options
+}
+
 // error catch
-try {
-  vbuild(options)
-} catch (err) {
+function handleError(err) {
   if (err.name === 'AppError') {
     // error occurs in starting the compilation
   } else {
     // other unknown error
   }
 }
+
+vbuild(options).catch(handleError)
 ```
 
 [⬆ back to top](#toc)
