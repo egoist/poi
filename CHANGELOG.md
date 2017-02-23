@@ -1,3 +1,17 @@
+## [Version 6.17.0](https://github.com/egoist/vbuild/releases/tag/v6.17.0) (2017-2-23)
+
+### New features
+
+- promisify api: [`8a83327`](https://github.com/egoist/vbuild/commit/8a83327)
+
+### Bug fixes
+
+- load babel/postcss config file by default: [`cb04cc2`](https://github.com/egoist/vbuild/commit/cb04cc2)
+- tweaks: [`578ac48`](https://github.com/egoist/vbuild/commit/578ac48)
+- load vbuild.config.js if it exists: [`891fdcb`](https://github.com/egoist/vbuild/commit/891fdcb)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.16.4...v6.17.0)
+
 ## [Version 6.16.4](https://github.com/egoist/vbuild/releases/tag/v6.16.4) (2017-2-22)
 
 ### Bug fixes
