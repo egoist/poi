@@ -1,3 +1,11 @@
+## [Version 6.17.1](https://github.com/egoist/vbuild/releases/tag/v6.17.1) (2017-2-23)
+
+### Bug fixes
+
+- do not throw when no config specified: [`f50fd92`](https://github.com/egoist/vbuild/commit/f50fd92)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.17.0...v6.17.1)
+
 ## [Version 6.17.0](https://github.com/egoist/vbuild/releases/tag/v6.17.0) (2017-2-23)
 
 ### New features
