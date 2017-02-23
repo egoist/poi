@@ -4,6 +4,7 @@ const meow = require('meow')
 const chokidar = require('chokidar')
 const notifier = require('node-notifier')
 const co = require('co')
+const stripAnsi = require('strip-ansi')
 const AppError = require('../lib/app-error')
 const {getConfigFile, ownDir} = require('../lib/utils')
 
@@ -119,7 +120,7 @@ function handleError(err) {
   }
   notifier.notify({
     title: 'build failed!',
-    message: err.stack,
+    message: stripAnsi(err.stack).replace(/^\s+/gm, ''),
     icon: ownDir('lib/icon.png')
   })
   console.log()

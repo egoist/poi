@@ -131,7 +131,9 @@ module.exports = (options, req) => ({
 // module.exports = {port: 5000}
 ```
 
-To use it, you can add `--config [path]` in CLI arguments. If no path was speified, it defaults to `vbuild.config.js`.
+By default it will load `vbuild.config.js` if it exists. To change the path, you can add `--config [path]` in CLI arguments. 
+
+You can also use `.vbuildrc` or set `vbuild` property in `package.json` when you only need JSON for configurations. See [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for all the supported config files.
 
 [⬆ back to top](#toc)
 
@@ -158,7 +160,7 @@ module.exports = {
 }
 ```
 
-The `production` or `development` config will be assigned into base config using `Object.assign`.
+The `production` or `development` config will be assigned into base config using `lodash.merge`.
 
 [⬆ back to top](#toc)
 
