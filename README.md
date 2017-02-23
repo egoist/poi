@@ -180,9 +180,7 @@ The `require` function but context directory is the path to `node_modules/vbuild
 
 JS files and `script` tags in single-file components are transpiled by Babel. We only use one preset by default: [babel-preset-vue-app](https://github.com/egoist/babel-preset-vue-app).
 
-You can provide custom babel config by setting `babel` in config file or using `.babelrc` or setting `babel` field in `package.json`.
-
-If you want to use custom babel config file, please set `babel` in config file to `undefined` first.
+vbuild will use `.babelrc` if it exists, you can also set `babelrc` option in config file to disable config file, check out [full reference](https://babeljs.io/docs/usage/api/#options) for `babel` option.
 
 [⬆ back to top](#toc)
 
@@ -210,9 +208,9 @@ module.exports = {
 }
 ```
 
-You can also set `postcss` option in config file, when it's an `Array` or `Object`, we will prepend `autoprefixer` plugin to it. You can set `autoprefixer: false` to disable this though. 
+You can use PostCSS config file like `postcss.config.js` or whatever [postcss-load-config](https://github.com/michael-ciniawsky/postcss-load-config) supports. `postcss` option is also available in config file.
 
-If you want to use PostCSS config file like `postcss.config.js` or whatever [postcss-load-config](https://github.com/michael-ciniawsky/postcss-load-config) supports, please set `postcss` option in config file to `undefined` first.
+Note that we only add autoprefixer when you use an `Array` or `Object` as postcss option.
 
 #### Custom CSS preprocessors
 
