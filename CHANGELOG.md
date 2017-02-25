@@ -1,3 +1,18 @@
+## [Version 6.18.0](https://github.com/egoist/vbuild/releases/tag/v6.18.0) (2017-2-25)
+
+### New features
+
+- use cosmiconfig: [`c2e85da`](https://github.com/egoist/vbuild/commit/c2e85da)
+- infer html title and template, description. closed [#130](https://github.com/egoist/vbuild/issues/130): [`639c37f`](https://github.com/egoist/vbuild/commit/639c37f)
+
+### Bug fixes
+
+- only throw when user explictly sets config file: [`78f3459`](https://github.com/egoist/vbuild/commit/78f3459)
+- check config file: [`af0fdc3`](https://github.com/egoist/vbuild/commit/af0fdc3)
+- adjust template filename: [`48599df`](https://github.com/egoist/vbuild/commit/48599df)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.17.1...v6.18.0)
+
 ## [Version 6.17.1](https://github.com/egoist/vbuild/releases/tag/v6.17.1) (2017-2-23)
 
 ### Bug fixes
