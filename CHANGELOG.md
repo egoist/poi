@@ -1,3 +1,11 @@
+## [Version 6.18.1](https://github.com/egoist/vbuild/releases/tag/v6.18.1) (2017-2-25)
+
+### Bug fixes
+
+- simplify template config: [`b5be623`](https://github.com/egoist/vbuild/commit/b5be623)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.18.0...v6.18.1)
+
 ## [Version 6.18.0](https://github.com/egoist/vbuild/releases/tag/v6.18.0) (2017-2-25)
 
 ### New features
