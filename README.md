@@ -281,7 +281,7 @@ The value of `webpack` could also be a plain object, this way it will be merged 
 
 Type: `Object` `Array` `boolean`
 
-[html-webpack-plugin](https://github.com/ampedandwired/html-webpack-plugin) options, use this option to customize `index.html` output, default value:
+[html-webpack-plugin](https://github.com/ampedandwired/html-webpack-plugin) options, use this option to customize generated `index.html`, default value:
 
 ```js
 module.exports = {
@@ -289,12 +289,12 @@ module.exports = {
     // `pkg` indicates the data in `package.json`
     title: pkg.title || pkg.productionName || pkg.name,
     description: pkg.description,
-    template: // defaults to $cwd/template.html if it exists, otherwise use built-in template
+    template: // defaults to $cwd/index.html if it exists, otherwise use built-in template
   }
 }
 ```
 
-Check out the [built-in template](/lib/template.html) file we use. To disable generating html file, you can set `html` to `false`.
+Check out the [built-in template](/lib/index.html) file we use. To disable generating html file, you can set `html` to `false`.
 
 The options for html-webpack-plugin are available in template file as `htmlWebpackPlugin.options` and you can use `htmlWebpackPlugin.options.pkg` to access the data of `package.json`.
 
