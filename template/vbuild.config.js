@@ -2,11 +2,8 @@ const path = require('path')
 
 // this will copy ./static/** to ./dist/**
 module.exports = (options, req) => ({
-  entry: 'src/index.js',
-  dist: '<% if (electron) { %>app/dist<% } else { %>dist<% } %>',
-  html: {
-    title: '<%= name %>'
-  },
+  entry: 'src/index.js',<% if (electron) { %>
+  dist: 'app/dist',<% } %>
   postcss: [
     // add more postcss plugins here
     // by default we have autoprefixer pre added
