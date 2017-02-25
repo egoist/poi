@@ -286,13 +286,17 @@ Type: `Object` `Array` `boolean`
 ```js
 module.exports = {
   html: {
-    title: 'VBuild',
-    template: path.join(__dirname, '../lib/template.html')
+    // `pkg` indicates the data in `package.json`
+    title: pkg.title || pkg.productionName || pkg.name,
+    description: pkg.description,
+    template: // defaults to $cwd/template.html if it exists, otherwise use built-in template
   }
 }
 ```
 
-Check out the [default template](/lib/template.html) file we use. To disable generating html file, you can set `html` to `false`.
+Check out the [built-in template](/lib/template.html) file we use. To disable generating html file, you can set `html` to `false`.
+
+The options for html-webpack-plugin are available in template file as `htmlWebpackPlugin.options` and you can use `htmlWebpackPlugin.options.pkg` to access the data of `package.json`.
 
 [⬆ back to top](#toc)
 
@@ -397,7 +401,7 @@ You can use them in `index.html` and app code:
 VUE_APP_DESCRIPTION=my awesome project
 ```
 
-In template html file which uses [ejs](http://ejs.co) syntax, you can write:
+In template html file which uses [lodash.template](https://lodash.com/docs/4.17.4#template) syntax, you can write:
 
 ```html
 <meta name="description" content="<%= htmlWebpackPlugin.options.env.VUE_APP_DESCRIPTION %>" />
