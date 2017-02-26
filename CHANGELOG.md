@@ -1,3 +1,16 @@
+## [Version 6.19.0](https://github.com/egoist/vbuild/releases/tag/v6.19.0) (2017-2-26)
+
+### New features
+
+- support using `main` field in package.json as entry: [`1a01145`](https://github.com/egoist/vbuild/commit/1a01145)
+- update deps: [`0caf499`](https://github.com/egoist/vbuild/commit/0caf499)
+
+### Bug fixes
+
+- allow to disable config file: [`ae95907`](https://github.com/egoist/vbuild/commit/ae95907)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.18.1...v6.19.0)
+
 ## [Version 6.18.1](https://github.com/egoist/vbuild/releases/tag/v6.18.1) (2017-2-25)
 
 ### Bug fixes
