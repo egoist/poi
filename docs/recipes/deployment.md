@@ -9,13 +9,18 @@
 
 <!-- tocstop -->
 
-By default the resource of your app is loaded from root path `/`, if you're going to deploy the app to a sub path like: `http://example.com/blog`, you need to configure the path to `/blog/` in config file or CLI options:
+By default in production environment the resource of your app is loaded from root path `/` if `homepage` field was not found in `package.json`. When you're going to deploy the app to a sub path like: `http://example.com/blog`, you need to configure the `homepage` to `/blog/`:
 
 ```js
-module.exports = {
-  homepage: '/blog/'
+// package.json
+{
+  "homepage": "/blog/"
 }
 ```
+
+You can also configure `homepage` via CLI or config file, but as `package.json` supports [homepage](https://yarnpkg.com/lang/en/docs/package-json/#toc-homepage) field natively, it looks more semantic this way.
+
+**Note**: this will only take effect in production environment, it's always `/` in development mode.
 
 ## Deploy to GitHub pages
 
