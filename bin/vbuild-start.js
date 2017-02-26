@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+/* eslint-disable unicorn/no-process-exit */
 const chalk = require('chalk')
 const chokidar = require('chokidar')
 const notifier = require('node-notifier')
@@ -6,7 +6,6 @@ const co = require('co')
 const stripAnsi = require('strip-ansi')
 const AppError = require('../lib/app-error')
 const {getConfigFile, ownDir} = require('../lib/utils')
-
 const main = require('../lib')
 
 module.exports = function (options) {
