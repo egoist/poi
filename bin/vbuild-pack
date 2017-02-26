@@ -74,7 +74,7 @@ const start = co.wrap(function * () {
 
 
   // watch config file
-  if (options.dev || options.watch) {
+  if (options.config !== false && (options.dev || options.watch)) {
     const configFile = getConfigFile(options.config)
     if (configFile) {
       let watcher = chokidar.watch(configFile)
