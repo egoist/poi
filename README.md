@@ -70,10 +70,12 @@ yarn global add vbuild
 
 ## How to use
 
-<details><summary>The simple way</summary>
+<details><summary>The simple way (using create-vue-app)</summary>
 
 ```bash
-vbuild init <folder>
+yarn global add create-vue-app
+create-vue-app my-app
+# or `cva my-app`
 ```
 
 Then follow the instructions in terminal.
@@ -111,11 +113,6 @@ vbuild index.js
 ```
 
 [⬆ back to top](#toc)
-
-## Commands
-
-- `vbuild`: Default command, run build process
-- `vbuild init <folder>`: Generate a template (app template/electron template/component template) 
 
 ## Config file
 
