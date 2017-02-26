@@ -1,3 +1,11 @@
+## [Version 6.19.1](https://github.com/egoist/vbuild/releases/tag/v6.19.1) (2017-2-26)
+
+### Bug fixes
+
+- read homepage from package.json and disable it in dev mode: [`4c38fb1`](https://github.com/egoist/vbuild/commit/4c38fb1)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.19.0...v6.19.1)
+
 ## [Version 6.19.0](https://github.com/egoist/vbuild/releases/tag/v6.19.0) (2017-2-26)
 
 ### New features
