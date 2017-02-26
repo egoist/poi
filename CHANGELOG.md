@@ -1,3 +1,15 @@
+## [Version 6.20.0](https://github.com/egoist/vbuild/releases/tag/v6.20.0) (2017-2-27)
+
+### New features
+
+- refactor cli: [`9848fb4`](https://github.com/egoist/vbuild/commit/9848fb4)
+
+### Bug fixes
+
+- no need to clean dist if format is set: [`cc17be3`](https://github.com/egoist/vbuild/commit/cc17be3)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.19.1...v6.20.0)
+
 ## [Version 6.19.1](https://github.com/egoist/vbuild/releases/tag/v6.19.1) (2017-2-26)
 
 ### Bug fixes
