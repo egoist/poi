@@ -43,14 +43,14 @@ const argv = yargs
 const entry = argv._[0]
 delete argv._
 
-for (const key in argv) {
-  if (argv[key] === undefined) {
-    delete argv[key]
-  }
-}
-
 const options = Object.assign({
   entry
 }, argv)
+
+for (const key in options) {
+  if (options[key] === undefined) {
+    delete options[key]
+  }
+}
 
 require('./vbuild-start')(options)
