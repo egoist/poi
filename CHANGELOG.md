@@ -1,3 +1,11 @@
+## [Version 6.20.1](https://github.com/egoist/vbuild/releases/tag/v6.20.1) (2017-2-27)
+
+### Bug fixes
+
+- remove undefined cli options: [`12e951d`](https://github.com/egoist/vbuild/commit/12e951d)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.20.0...v6.20.1)
+
 ## [Version 6.20.0](https://github.com/egoist/vbuild/releases/tag/v6.20.0) (2017-2-27)
 
 ### New features
