@@ -509,11 +509,12 @@ You can use vbuild as a Node.js module:
 ```js
 const vbuild = require('vbuild')
 
-vbuild(cliOptions).then(res => {})
+const config = require('./vbuild.config')
+vbuild(config).then(res => {})
 //=> res:
 {
   webpackConfig, // final webpack config
-  options, // final options
+  options, // final options (merged config with default values)
   compiler, // webpack compiler instance
   watcher, // in watch mode, webpack watcher
   server, // in dev mode, an instance of `http.Server` without calling `.listen`
@@ -521,7 +522,7 @@ vbuild(cliOptions).then(res => {})
 }
 
 // get webpack config and merged options only
-vbuild.getConfig(cliOptions).then(res => {})
+vbuild.getConfig(config).then(res => {})
 //=> res:
 {
   webpackConfig,
@@ -537,7 +538,7 @@ function handleError(err) {
   }
 }
 
-vbuild(options).catch(handleError)
+vbuild(config).catch(handleError)
 ```
 
 [⬆ back to top](#toc)

@@ -6,10 +6,14 @@ const co = require('co')
 const stripAnsi = require('strip-ansi')
 const AppError = require('../lib/app-error')
 const {getConfigFile, ownDir} = require('../lib/utils')
+const loadConfig = require('../lib/load-config')
 const main = require('../lib')
 
-module.exports = function (options) {
+module.exports = function (cliOptions) {
   const start = co.wrap(function * () {
+    const config = yield loadConfig(cliOptions)
+    const options = Object.assign({}, config, cliOptions)
+
     const result = yield main(options)
 
     const {host, port, open} = result.options
