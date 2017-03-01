@@ -456,6 +456,10 @@ babel-jest@^19.0.0:
     babel-plugin-istanbul "^4.0.0"
     babel-preset-jest "^19.0.0"
 
+babel-load-config@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/babel-load-config/-/babel-load-config-0.1.0.tgz#27280b4a90830c47a1fbbc7baaac4c002cd8c8bd"
+
 babel-loader@^6.3.2:
   version "6.3.2"
   resolved "https://registry.npmjs.org/babel-loader/-/babel-loader-6.3.2.tgz#18de4566385578c1b4f8ffe6cbc668f5e2a5ef03"
@@ -2044,6 +2048,10 @@ escope@^3.6.0:
     es6-weak-map "^2.0.1"
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
+
+eslint-config-rem@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/eslint-config-rem/-/eslint-config-rem-3.0.0.tgz#ab963a991f7f7fd266e5dc0906d7551ce33be559"
 
 eslint-config-vue-app@^1.1.0:
   version "1.1.0"

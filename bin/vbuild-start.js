@@ -1,23 +1,96 @@
 /* eslint-disable unicorn/no-process-exit */
+const fs = require('fs')
 const chalk = require('chalk')
 const chokidar = require('chokidar')
 const notifier = require('node-notifier')
 const co = require('co')
 const stripAnsi = require('strip-ansi')
+const dotenv = require('dotenv')
+const tildify = require('tildify')
+const findBabelConfig = require('babel-load-config')
+const findPostcssConfig = require('postcss-load-config')
 const AppError = require('../lib/app-error')
-const {getConfigFile, ownDir} = require('../lib/utils')
+const { getConfigFile, ownDir } = require('../lib/utils')
 const loadConfig = require('../lib/load-config')
 const main = require('../lib')
 
+const loadPostCSSConfig = co.wrap(function * () {
+  let defaultPostcssOptions = {}
+  try {
+    defaultPostcssOptions = yield findPostcssConfig()
+      .then(res => {
+        console.log('> Using extenal postcss configuration')
+        console.log(`> location: "${tildify(res.file)}"`)
+        return Object.assign({ plugins: res.plugins }, res.options)
+      })
+  } catch (err) {
+    if (err.message.indexOf('No PostCSS Config found') === -1) {
+      throw err
+    }
+  }
+  return defaultPostcssOptions
+})
+
+const loadBabelConfig = function () {
+  const defaultBabelOptions = {
+    babelrc: true,
+    cacheDirectory: true
+  }
+
+  const externalBabelConfig = findBabelConfig(process.cwd())
+  if (externalBabelConfig) {
+    console.log(`> Using external babel configuration`)
+    console.log(`> location: "${tildify(externalBabelConfig.loc)}"`)
+    // It's possible to turn off babelrc support via babelrc itself.
+    // In that case, we should add our default preset.
+    // That's why we need to do this.
+    const { options } = externalBabelConfig
+    defaultBabelOptions.babelrc = options.babelrc !== false
+  } else {
+    defaultBabelOptions.babelrc = false
+  }
+
+  // Add our default preset if the no "babelrc" found.
+  if (!defaultBabelOptions.babelrc) {
+    defaultBabelOptions.presets = [require.resolve('babel-preset-vue-app')]
+  }
+
+  return defaultBabelOptions
+}
+
+const loadEnv = co.wrap(function * (options) {
+  // load env variables from
+  let env = {}
+  if (options.env !== false) {
+    if (fs.existsSync('.env')) {
+      console.log('>  Using .env file')
+      env = dotenv.parse(yield fs.readFile('.env', 'utf8'))
+    }
+    if (typeof options.env === 'object') {
+      Object.assign(env, options.env)
+    }
+  }
+  env.NODE_ENV = options.dev ? 'development' : 'production'
+  return env
+})
+
 module.exports = function (cliOptions) {
   const start = co.wrap(function * () {
+    const defaultBabelOptions = loadBabelConfig()
+    const defaultPostcssOptions = yield loadPostCSSConfig()
+    const defaultEnv = yield loadEnv(cliOptions)
     const config = yield loadConfig(cliOptions)
-    const options = Object.assign({}, config, cliOptions)
 
-    const result = yield main(options)
+    const options = Object.assign({
+      babel: defaultBabelOptions,
+      postcss: defaultPostcssOptions,
+      env: defaultEnv
+    }, config, cliOptions)
 
-    const {host, port, open} = result.options
-    const {server, devMiddleWare} = result
+    const result = main(options)
+
+    const { host, port, open } = result.options
+    const { server, devMiddleWare } = result
 
     if (server) {
       server.listen(port, host, () => {

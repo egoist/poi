@@ -35,6 +35,7 @@
     "babel-preset-stage-2": "^6.22.0",
     "babel-runtime": "^6.23.0",
     "cross-spawn": "^5.0.1",
+    "eslint-config-rem": "^3.0.0",
     "husky": "^0.13.1",
     "jest-cli": "^19.0.2",
     "markdown-toc": "^1.1.0",
@@ -42,9 +43,8 @@
     "xo": "^0.17.1"
   },
   "xo": {
-    "space": 2,
-    "semicolon": false,
     "esnext": true,
+    "extends": "rem",
     "ignores": [
       "examples/**",
       "template/**"
@@ -64,6 +64,7 @@
   "dependencies": {
     "autoprefixer": "^6.7.5",
     "babel-core": "^6.23.1",
+    "babel-load-config": "^0.1.0",
     "babel-loader": "^6.3.2",
     "babel-preset-vue-app": "^0.4.0",
     "chalk": "^1.1.3",

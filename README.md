@@ -510,7 +510,7 @@ You can use vbuild as a Node.js module:
 const vbuild = require('vbuild')
 
 const config = require('./vbuild.config')
-vbuild(config).then(res => {})
+const result = vbuild(config)
 //=> res:
 {
   webpackConfig, // final webpack config
@@ -522,7 +522,7 @@ vbuild(config).then(res => {})
 }
 
 // get webpack config and merged options only
-vbuild.getConfig(config).then(res => {})
+const result = vbuild.getConfig(config)
 //=> res:
 {
   webpackConfig,
@@ -538,7 +538,11 @@ function handleError(err) {
   }
 }
 
-vbuild(config).catch(handleError)
+try {
+  vbuild(config)
+} catch (err) {
+  handleError(err)
+}
 ```
 
 [⬆ back to top](#toc)

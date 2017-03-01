@@ -4,7 +4,7 @@ const yargs = require('yargs')
 const update = require('update-notifier')
 const pkg = require('../package.json')
 
-update({pkg}).notify()
+update({ pkg }).notify()
 
 const argv = yargs
   .usage(`\n${chalk.yellow('vbuild')} [command] [options]`)
