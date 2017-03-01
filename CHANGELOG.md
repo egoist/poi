@@ -1,3 +1,13 @@
+## [Version 6.21.0](https://github.com/egoist/vbuild/releases/tag/v6.21.0) (2017-3-2)
+
+### New features
+
+- only load config in cli: [`7fc480d`](https://github.com/egoist/vbuild/commit/7fc480d)
+- add option to generate webpack stats: [`32963f8`](https://github.com/egoist/vbuild/commit/32963f8)
+- move logs to cli: [`4c2c129`](https://github.com/egoist/vbuild/commit/4c2c129)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.20.1...v6.21.0)
+
 ## [Version 6.20.1](https://github.com/egoist/vbuild/releases/tag/v6.20.1) (2017-2-27)
 
 ### Bug fixes
