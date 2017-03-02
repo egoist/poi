@@ -1,3 +1,12 @@
+## [Version 6.22.0](https://github.com/egoist/vbuild/releases/tag/v6.22.0) (2017-3-3)
+
+### New features
+
+- use @ to resolve src folder: [`d804dd1`](https://github.com/egoist/vbuild/commit/d804dd1)
+- add option to include template compiler: [`18917d7`](https://github.com/egoist/vbuild/commit/18917d7)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.21.0...v6.22.0)
+
 ## [Version 6.21.0](https://github.com/egoist/vbuild/releases/tag/v6.21.0) (2017-3-2)
 
 ### New features
