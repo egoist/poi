@@ -26,6 +26,9 @@ const argv = yargs
   .option('eslint', {
     description: 'Run ESLint to check code during bundling.'
   })
+  .option('template-compiler', {
+    description: 'Include the Vue template compiler'
+  })
   .option('json', {
     description: 'Generate webpack stats in a json file'
   })
