@@ -21,7 +21,6 @@ Develop Vue apps with no build configuration until you need.
 
 - [Install](#install)
 - [How to use](#how-to-use)
-- [Commands](#commands)
 - [Config file](#config-file)
   * [Shorthand](#shorthand)
   * [Arguments](#arguments)
