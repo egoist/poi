@@ -548,6 +548,7 @@ try {
 
 ## Recipes
 
+- [Resolve modules without dot hell](./docs/reciped/resolve-modules.md)
 - [Minimize and sourcemaps](./docs/recipes/minimize-and-sourcemaps.md)
 - [Bundle in CommonJS or UMD format](./docs/recipes/cjs-and-umd-format.md)
 - [Progressive web app](./docs/recipes/progressive-web-app.md)
