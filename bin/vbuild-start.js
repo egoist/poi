@@ -17,13 +17,14 @@ const main = require('../lib')
 const loadPostCSSConfig = co.wrap(function * () {
   let defaultPostcssOptions = {}
   try {
-    defaultPostcssOptions = yield findPostcssConfig()
+    defaultPostcssOptions = yield findPostcssConfig({}, null, { argv: false })
       .then(res => {
-        console.log('> Using extenal postcss configuration')
-        console.log(`> location: "${tildify(res.file)}"`)
+        console.log(chalk.bold('> Using extenal postcss configuration'))
+        console.log(chalk.dim(`> location: "${tildify(res.file)}"`))
         return Object.assign({ plugins: res.plugins }, res.options)
       })
   } catch (err) {
+    console.log(err)
     if (err.message.indexOf('No PostCSS Config found') === -1) {
       throw err
     }
@@ -40,7 +41,7 @@ const loadBabelConfig = function () {
   const externalBabelConfig = findBabelConfig(process.cwd())
   if (externalBabelConfig) {
     console.log(`> Using external babel configuration`)
-    console.log(`> location: "${tildify(externalBabelConfig.loc)}"`)
+    console.log(chalk.dim(`> location: "${tildify(externalBabelConfig.loc)}"`))
     // It's possible to turn off babelrc support via babelrc itself.
     // In that case, we should add our default preset.
     // That's why we need to do this.
@@ -134,13 +135,14 @@ module.exports = function (cliOptions) {
             watcher = null
           }
 
-          console.log(`> Detect changes from ${chalk.yellow(filename)}, restarting...\n`)
+          console.log(`> Detected changes from ${chalk.yellow(filename)}, restarting...\n`)
           start().catch(handleError)
         })
       }
     }
   })
 
+  console.log(chalk.dim('> Starting...'))
   start().catch(handleError)
 }
 
