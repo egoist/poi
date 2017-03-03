@@ -1,3 +1,11 @@
+## [Version 6.22.1](https://github.com/egoist/vbuild/releases/tag/v6.22.1) (2017-3-3)
+
+### Bug fixes
+
+- improve cli output: [`1bd2cf1`](https://github.com/egoist/vbuild/commit/1bd2cf1)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.22.0...v6.22.1)
+
 ## [Version 6.22.0](https://github.com/egoist/vbuild/releases/tag/v6.22.0) (2017-3-3)
 
 ### New features
