@@ -24,7 +24,6 @@ const loadPostCSSConfig = co.wrap(function * () {
         return Object.assign({ plugins: res.plugins }, res.options)
       })
   } catch (err) {
-    console.log(err)
     if (err.message.indexOf('No PostCSS Config found') === -1) {
       throw err
     }
