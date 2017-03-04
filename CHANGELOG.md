@@ -1,3 +1,11 @@
+## [Version 6.22.2](https://github.com/egoist/vbuild/releases/tag/v6.22.2) (2017-3-5)
+
+### Bug fixes
+
+- clean up: [`471a610`](https://github.com/egoist/vbuild/commit/471a610)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.22.1...v6.22.2)
+
 ## [Version 6.22.1](https://github.com/egoist/vbuild/releases/tag/v6.22.1) (2017-3-3)
 
 ### Bug fixes
