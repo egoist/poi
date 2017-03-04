@@ -1,3 +1,11 @@
+## [Version 6.22.3](https://github.com/egoist/vbuild/releases/tag/v6.22.3) (2017-3-5)
+
+### Bug fixes
+
+- do not handle vue-specfic task: [`bf669d5`](https://github.com/egoist/vbuild/commit/bf669d5)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.22.2...v6.22.3)
+
 ## [Version 6.22.2](https://github.com/egoist/vbuild/releases/tag/v6.22.2) (2017-3-5)
 
 ### Bug fixes
