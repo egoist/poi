@@ -13,7 +13,7 @@ vbuild whatever.js --dev
 # it just works
 ```
 
-Develop Vue apps with no build configuration until you need.
+Develop web apps with no build configuration until you need.
 
 <h2 id="toc"></h2>
 
@@ -110,6 +110,8 @@ Build app in production mode (default mode):
 ```bash
 vbuild index.js
 ```
+
+**Note:** You can use vbuild with many frameworks easily, check out [examples](./examples).
 
 [⬆ back to top](#toc)
 
@@ -423,7 +425,7 @@ module.exports = {
 }
 ```
 
-This way, when you fetch `/api/todos` in your Vue app, the development server will proxy your request to `http://localhost:8080/api/todos`.
+This way, when you fetch `/api/todos` in your app, the development server will proxy your request to `http://localhost:8080/api/todos`.
 
 We use [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware) under the hood, so the `proxy` option can also be an object:
 
