@@ -1,0 +1,4 @@
+{
+  "presets": ["react-app"],
+  "plugins": ["react-require", "react-hot-loader/babel"]
+}
