@@ -132,7 +132,6 @@ module.exports = function (cliOptions) {
     }
   })
 
-  console.log(chalk.dim('> Starting...'))
   start().catch(handleError)
 }
 
