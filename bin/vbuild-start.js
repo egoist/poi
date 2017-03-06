@@ -78,8 +78,8 @@ module.exports = function (cliOptions) {
   const start = co.wrap(function * () {
     const defaultBabelOptions = loadBabelConfig()
     const defaultPostcssOptions = yield loadPostCSSConfig()
-    const defaultEnv = yield loadEnv(cliOptions)
     const config = yield loadConfig(cliOptions)
+    const defaultEnv = yield loadEnv(cliOptions)
 
     const options = Object.assign({
       babel: defaultBabelOptions,
