@@ -37,7 +37,7 @@ const loadBabelConfig = function () {
 
   const externalBabelConfig = findBabelConfig(process.cwd())
   if (externalBabelConfig) {
-    console.log(`> Using external babel configuration`)
+    console.log(chalk.bold(`> Using external babel configuration`))
     console.log(chalk.dim(`> location: "${tildify(externalBabelConfig.loc)}"`))
     // It's possible to turn off babelrc support via babelrc itself.
     // In that case, we should add our default preset.
