@@ -41,7 +41,7 @@ Develop web apps with no build configuration until you need.
   * [Extracting CSS](#extracting-css)
   * [Copy static files](#copy-static-files)
   * [Define constants at compile time](#define-constants-at-compile-time)
-  * [Load env variables](#load-env-variables)
+  * [Define env variables](#define-env-variables)
   * [Proxy API request](#proxy-api-request)
   * [Dev server](#dev-server)
     + [port](#port)
