@@ -74,7 +74,6 @@
     "copy-webpack-plugin": "^4.0.1",
     "cosmiconfig": "^2.1.1",
     "css-loader": "^0.26.2",
-    "dotenv": "^4.0.0",
     "eslint": "^3.16.1",
     "eslint-config-vue-app": "^1.1.0",
     "eslint-loader": "^1.6.3",

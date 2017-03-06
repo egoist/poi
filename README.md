@@ -378,40 +378,45 @@ if (__DEV__) {
 }
 ```
 
-The default constants we add is `process.env.NODE_ENV`. The variables you defined here are only available in app code.
+The default constant we add is `process.env.NODE_ENV`. The variables you defined here are only available in app code.
 
 [⬆ back to top](#toc)
 
-### Load env variables
+### Define env variables
 
-Your project can consume variables declared in your environment as if they were declared locally in your JS files. By default you will have `NODE_ENV` defined.
+This is a shorthand for define a constant and set environment variable.
 
-There're three way to define env variables:
+By default you will have `NODE_ENV` defined.
+
+There're two ways to define env variables:
 
 - CLI options `--env.VARIABLE_NAME xxx`
 - `env` option in config file
-- `.env` file via [dotenv](https://github.com/motdotla/dotenv)
 
-You can use them in `index.html` and app code:
+For example, when you have such configs:
 
-```bash
-# .env file
-VUE_APP_DESCRIPTION=my awesome project
+```js
+module.exports = {
+  env: {
+    APP_DESCRIPTION: 'my superb app'
+  }
+}
 ```
 
 In template html file which uses [lodash.template](https://lodash.com/docs/4.17.4#template) syntax, you can write:
 
 ```html
-<meta name="description" content="<%= htmlWebpackPlugin.options.env.VUE_APP_DESCRIPTION %>" />
+<meta name="description" content="<%= process.env.APP_DESCRIPTION %>" />
 ```
 
-In app code you access it by:
+The value of each env variable is automatically stringified and passed down to [webpack.DefinePlugin](https://webpack.js.org/plugins/define-plugin/).
+
+In your app, similarly:
 
 ```js
-const key = process.env.VUE_APP_KEY
+const description = process.env.APP_DESCRIPTION
+// do something
 ```
-
-To totally disable loading env variables, you can set `env` to `false`.
 
 [⬆ back to top](#toc)
 

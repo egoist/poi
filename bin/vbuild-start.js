@@ -1,11 +1,9 @@
 /* eslint-disable unicorn/no-process-exit */
-const fs = require('fs')
 const chalk = require('chalk')
 const chokidar = require('chokidar')
 const notifier = require('node-notifier')
 const co = require('co')
 const stripAnsi = require('strip-ansi')
-const dotenv = require('dotenv')
 const tildify = require('tildify')
 const findBabelConfig = require('babel-load-config')
 const findPostcssConfig = require('postcss-load-config')
@@ -58,34 +56,27 @@ const loadBabelConfig = function () {
   return defaultBabelOptions
 }
 
-const loadEnv = co.wrap(function * (options) {
-  // load env variables from
-  let env = {}
-  if (options.env !== false) {
-    if (fs.existsSync('.env')) {
-      console.log('>  Using .env file')
-      env = dotenv.parse(yield fs.readFile('.env', 'utf8'))
-    }
-    if (typeof options.env === 'object') {
-      Object.assign(env, options.env)
+const applyEnv = function (env = {}) {
+  for (const key in env) {
+    if (typeof process.env[key] === 'undefined') {
+      process.env[key] = env[key]
     }
   }
-  env.NODE_ENV = options.dev ? 'development' : 'production'
-  return env
-})
+}
 
 module.exports = function (cliOptions) {
   const start = co.wrap(function * () {
     const defaultBabelOptions = loadBabelConfig()
     const defaultPostcssOptions = yield loadPostCSSConfig()
-    const defaultEnv = yield loadEnv(cliOptions)
     const config = yield loadConfig(cliOptions)
 
     const options = Object.assign({
       babel: defaultBabelOptions,
       postcss: defaultPostcssOptions,
-      env: defaultEnv
+      env: { NODE_ENV: cliOptions.dev ? 'development' : 'production' }
     }, config, cliOptions)
+
+    applyEnv(options.env)
 
     const result = main(options)
 
