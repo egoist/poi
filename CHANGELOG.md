@@ -1,3 +1,16 @@
+## [Version 6.23.0](https://github.com/egoist/vbuild/releases/tag/v6.23.0) (2017-3-6)
+
+### New features
+
+- remove dotenv support: [`2b83538`](https://github.com/egoist/vbuild/commit/2b83538)
+
+### Bug fixes
+
+- tweak cli output: [`d263c8a`](https://github.com/egoist/vbuild/commit/d263c8a)
+- show hint after console is cleaned: [`67d3835`](https://github.com/egoist/vbuild/commit/67d3835)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.22.3...v6.23.0)
+
 ## [Version 6.22.3](https://github.com/egoist/vbuild/releases/tag/v6.22.3) (2017-3-5)
 
 ### Bug fixes
