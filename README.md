@@ -31,6 +31,7 @@ Develop web apps with no build configuration until you need.
   * [PostCSS](#postcss)
     + [Custom CSS preprocessors](#custom-css-preprocessors)
     + [CSS modules](#css-modules)
+  * [Vue](#vue)
   * [Webpack entry](#webpack-entry)
   * [Hot reloading](#hot-reloading)
   * [Code splitting](#code-splitting)
@@ -184,6 +185,8 @@ JS files and `script` tags in single-file components are transpiled by Babel. We
 
 vbuild will use `.babelrc` if it exists, you can also set `babelrc` option in config file to disable config file, check out [full reference](https://babeljs.io/docs/usage/api/#options) for `babel` option.
 
+Feel free to use [babel-preset-react-app](https://github.com/facebookincubator/create-react-app/blob/master/packages/babel-preset-react-app) or [babel-preset-preact-app](https://github.com/developit/babel-preset-preact) and so on to work with other frameworks.
+
 [⬆ back to top](#toc)
 
 #### Transpile modules
@@ -229,6 +232,14 @@ yarn add node-sass sass-loader --dev
 To use CSS modules in single-file component, you can set `module` attribute in `<style></style>` tag.
 
 To use CSS modules in standalone css files, you can set `cssModules` to `true` in config file.
+
+[⬆ back to top](#toc)
+
+### Vue
+
+As a fact that we're using `babel-preset-vue-app` by default, you will have built-in support for Vue JSX.
+
+Besides this, single-file component (hot reload, preprocessors, css extraction) is fully supported.
 
 [⬆ back to top](#toc)
 
