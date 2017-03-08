@@ -1,3 +1,11 @@
+## [Version 6.23.1](https://github.com/egoist/vbuild/releases/tag/v6.23.1) (2017-3-8)
+
+### Bug fixes
+
+- fix output: [`de1551d`](https://github.com/egoist/vbuild/commit/de1551d)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.23.0...v6.23.1)
+
 ## [Version 6.23.0](https://github.com/egoist/vbuild/releases/tag/v6.23.0) (2017-3-6)
 
 ### New features
