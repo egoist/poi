@@ -1,3 +1,11 @@
+## [Version 6.23.2](https://github.com/egoist/vbuild/releases/tag/v6.23.2) (2017-3-8)
+
+### Bug fixes
+
+- ensure no empty entry: [`9188dc0`](https://github.com/egoist/vbuild/commit/9188dc0)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.23.1...v6.23.2)
+
 ## [Version 6.23.1](https://github.com/egoist/vbuild/releases/tag/v6.23.1) (2017-3-8)
 
 ### Bug fixes
