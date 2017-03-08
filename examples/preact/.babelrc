@@ -1,15 +1,5 @@
 {
   "presets": [
-    ["env", {
-      "targets": {
-        "browsers": ["ie > 8", "last 2 versions"]
-      }
-    }],
-    "stage-3"
-  ],
-  "plugins": [
-    "transform-runtime",
-    ["transform-react-jsx", {"pragma": "h"}],
-    "preact-require"
+    "preact-app"
   ]
 }
