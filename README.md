@@ -87,7 +87,9 @@ import Vue from 'vue'
 
 new Vue({
   el: '#app',
-  render: h => <h1>Hello World!</h1>
+  render(h) {
+    return h('h1', 'hello world')
+  }
 })
 ```
 
