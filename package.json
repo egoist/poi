@@ -1,7 +1,7 @@
 {
   "name": "vbuild",
   "version": "6.23.2",
-  "description": "Refined webpack development experience for Vue.js",
+  "description": "Fast prototype and distribute modern web apps like a pro.",
   "repository": {
     "url": "egoist/vbuild",
     "type": "git"
