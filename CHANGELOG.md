@@ -1,3 +1,12 @@
+## [Version 6.23.3](https://github.com/egoist/vbuild/releases/tag/v6.23.3) (2017-3-9)
+
+### Bug fixes
+
+- use yarn in cli suggestions: [`fae6916`](https://github.com/egoist/vbuild/commit/fae6916)
+- tweak pkg description: [`5cc32ba`](https://github.com/egoist/vbuild/commit/5cc32ba)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.23.2...v6.23.3)
+
 ## [Version 6.23.2](https://github.com/egoist/vbuild/releases/tag/v6.23.2) (2017-3-8)
 
 ### Bug fixes
