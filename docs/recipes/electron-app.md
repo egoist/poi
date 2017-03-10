@@ -1,6 +1,6 @@
 # Electron app
 
-The simplest way is to run `vbuild init my-app --electron` to generate an Electron app.
+The simplest way is to run `create-vue-app my-app` to generate an Electron app. (If you want a Vue app :D)
 
 Basically, comparing to a normal web app, it:
 
