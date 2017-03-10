@@ -119,6 +119,13 @@ Type: `object`
 
 Short hand for using `webpack.DefinePlugin` to define contants under `process.env`. By default `process.env.NODE_ENV` is defined for you.
 
+### appDir
+
+Type: `string`<br>
+Default: `src`
+
+You can use `@` to resolve `src` dir, eg: `import App from '@/components/App'` is equal to `import App from '$project/src/components/App'`.
+
 ## Production
 
 ### cleanDist
@@ -140,6 +147,34 @@ Type: `boolean`<br>
 Default: `true`
 
 Automatically split vendor code (all imported modules in `node_modules`) into `vendor` chunk.
+
+### sourceMap
+
+Type: `boolean`<br>
+Default: `true`
+
+Generate sourcemaps.
+
+### minimize
+
+Type: `boolean`<br>
+Default: `true`
+
+Minimize JS and CSS files.
+
+### extract
+
+Type: `boolean`<br>
+Default: `true`
+
+Extract CSS into a single file.
+
+### homepage
+
+Type: `string`<br>
+Default: `/`
+
+The path to load resource from, it's useful when your site is located at a subpatch like `http://example.com/blog`, you need to set `homepage` to `/blog/` in this situation.
 
 ## Development
 
