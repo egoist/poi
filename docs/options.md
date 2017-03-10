@@ -1,5 +1,7 @@
 # Options
 
+Options are available in both CLI arguments and config file.
+
 ## General
 
 ### entry
