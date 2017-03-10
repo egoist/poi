@@ -1,5 +1,5 @@
 import 'eventsource-polyfill'
-import hotClient from 'webpack-hot-middleware/client?reload=true'
+import hotClient from '__WEBPACK_HOT_MIDDLEWARE_CLIENT__'
 
 hotClient.subscribe(event => {
   if (event.action === 'reload') {
