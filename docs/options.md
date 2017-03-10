@@ -134,6 +134,13 @@ Type: `boolean` `string`
 
 Output webpack stats to `stats.json` or a custom path.
 
+### vendor
+
+Type: `boolean`<br>
+Default: `true`
+
+Automatically split vendor code (all imported modules in `node_modules`) into `vendor` chunk.
+
 ## Development
 
 ### port
