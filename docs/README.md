@@ -202,7 +202,7 @@ module.exports = {
 }
 ```
 
-Check out the [built-in template](/lib/index.html) file we use. To disable generating html file, you can set `html` to `false`.
+Check out the [built-in template](https://github.com/egoist/vbuild/blob/master/lib/index.html) file we use. To disable generating html file, you can set `html` to `false`.
 
 The options for html-webpack-plugin are available in template file as `htmlWebpackPlugin.options` and you can use `htmlWebpackPlugin.options.pkg` to access the data of `package.json`.
 
