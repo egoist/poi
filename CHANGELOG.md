@@ -1,3 +1,17 @@
+## [Version 6.24.0](https://github.com/egoist/vbuild/releases/tag/v6.24.0) (2017-3-11)
+
+### New features
+
+- add `hmrLog` option to toggle hmr logs: [`0279566`](https://github.com/egoist/vbuild/commit/0279566)
+
+### Bug fixes
+
+- Display correct host in PostCompilePlugin: [`4beb220`](https://github.com/egoist/vbuild/commit/4beb220) ([#139](https://github.com/egoist/vbuild/issues/139))
+- tweaks: [`e1f1201`](https://github.com/egoist/vbuild/commit/e1f1201)
+- use minimal default eslint config: [`d6f78e8`](https://github.com/egoist/vbuild/commit/d6f78e8)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.23.3...v6.24.0)
+
 ## [Version 6.23.3](https://github.com/egoist/vbuild/releases/tag/v6.23.3) (2017-3-9)
 
 ### Bug fixes
