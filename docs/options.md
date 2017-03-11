@@ -176,6 +176,25 @@ Default: `/`
 
 The path to load resource from, it's useful when your site is located at a subpatch like `http://example.com/blog`, you need to set `homepage` to `/blog/` in this situation.
 
+### eslint
+
+Type: `boolean`<br>
+Default: `false`
+
+Lint JS and Vue files with ESLint.
+
+### eslintConfig
+
+Type: `object`
+
+Default value:
+
+```js
+{
+  configFile: require.resolve('eslint-config-vue-app')
+}
+```
+
 ## Development
 
 ### port
