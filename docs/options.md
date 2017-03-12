@@ -7,7 +7,7 @@ Options are available in both CLI arguments and config file.
 ### entry
 
 Type: `string` `Array` `object`<br>
-Default: value of pkg.main of `index.js`
+Default: value of pkg.main or `index.js`
 
 The path to entry file.
 
