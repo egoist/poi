@@ -1,3 +1,11 @@
+## [Version 6.24.2](https://github.com/egoist/vbuild/releases/tag/v6.24.2) (2017-3-13)
+
+### Bug fixes
+
+- explicitly set babel-loader for vue-loader, fix [#142](https://github.com/egoist/vbuild/issues/142): [`2115771`](https://github.com/egoist/vbuild/commit/2115771)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.24.0...v6.24.2)
+
 ## [Version 6.24.1](https://github.com/egoist/vbuild/releases/tag/v6.24.1) (2017-3-12)
 
 ### Bug fixes
