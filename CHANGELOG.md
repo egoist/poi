@@ -1,3 +1,11 @@
+## [Version 6.24.3](https://github.com/egoist/vbuild/releases/tag/v6.24.3) (2017-3-14)
+
+### Bug fixes
+
+- show logs for webpack warnings: [`89194fb`](https://github.com/egoist/vbuild/commit/89194fb)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.24.2...v6.24.3)
+
 ## [Version 6.24.2](https://github.com/egoist/vbuild/releases/tag/v6.24.2) (2017-3-13)
 
 ### Bug fixes
