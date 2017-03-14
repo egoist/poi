@@ -34,6 +34,19 @@ It searches for `.babelrc` or `babel` field in `package.json`, if none of them e
 
 You can use this option to override it if you don't want extra config file for babel.
 
+### transpileModules
+
+Type: `Array`
+
+By default Babel will ignore modules in `node_modules` directory, addtionally you can specific the modules you want to transpile, eg:
+
+```js
+module.exports = {
+  // since the package `element-ready` is written in ES6
+  transpileModules: ['element-ready']
+}
+```
+
 ### postcss
 
 Type: `Array` `object` `function`
@@ -126,6 +139,12 @@ Default: `src`
 
 You can use `@` to resolve `src` dir, eg: `import App from '@/components/App'` is equal to `import App from '$project/src/components/App'`.
 
+### run
+
+Type: `function`
+
+See [custom build process](/#custom-build-process) for usages.
+
 ## Production
 
 ### cleanDist
@@ -207,9 +226,17 @@ Default: `4000`
 Type: `string`<br>
 Default: `localhost`
 
+### setup
+
+Type: `function`
+
+See [custom server login](/#custom-server-logic) for usages.
+
 ### proxy
 
 Type: `string` `object`
+
+See [proxy api request](/#proxy-api-request) for usages.
 
 ### hot
 
