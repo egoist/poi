@@ -1,3 +1,11 @@
+## [Version 6.24.4](https://github.com/egoist/vbuild/releases/tag/v6.24.4) (2017-3-15)
+
+### Bug fixes
+
+- stop checkin ifg entry file exists: [`a55bd34`](https://github.com/egoist/vbuild/commit/a55bd34)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.24.3...v6.24.4)
+
 ## [Version 6.24.3](https://github.com/egoist/vbuild/releases/tag/v6.24.3) (2017-3-14)
 
 ### Bug fixes
