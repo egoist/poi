@@ -1,3 +1,11 @@
+## [Version 6.24.5](https://github.com/egoist/vbuild/releases/tag/v6.24.5) (2017-3-15)
+
+### Bug fixes
+
+- merge options: [`b972ac6`](https://github.com/egoist/vbuild/commit/b972ac6)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.24.4...v6.24.5)
+
 ## [Version 6.24.4](https://github.com/egoist/vbuild/releases/tag/v6.24.4) (2017-3-15)
 
 ### Bug fixes
