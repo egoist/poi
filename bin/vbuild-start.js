@@ -5,6 +5,7 @@ const notifier = require('node-notifier')
 const co = require('co')
 const stripAnsi = require('strip-ansi')
 const tildify = require('tildify')
+const merge = require('lodash.merge')
 const findBabelConfig = require('babel-load-config')
 const findPostcssConfig = require('postcss-load-config')
 const AppError = require('../lib/app-error')
@@ -70,7 +71,7 @@ module.exports = function (cliOptions) {
     const defaultPostcssOptions = yield loadPostCSSConfig()
     const config = yield loadConfig(cliOptions)
 
-    const options = Object.assign({
+    const options = merge({
       babel: defaultBabelOptions,
       postcss: defaultPostcssOptions,
       env: { NODE_ENV: cliOptions.dev ? 'development' : 'production' }
