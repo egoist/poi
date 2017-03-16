@@ -195,6 +195,13 @@ Default: `/`
 
 The path to load resource from, it's useful when your site is located at a subpatch like `http://example.com/blog`, you need to set `homepage` to `/blog/` in this situation.
 
+### progress
+
+Type: `boolean`<br>
+Default: `true`
+
+Show bundle progress in terminal.
+
 ### eslint
 
 Type: `boolean`<br>
