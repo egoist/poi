@@ -1,3 +1,12 @@
+## [Version 6.24.6](https://github.com/egoist/vbuild/releases/tag/v6.24.6) (2017-3-16)
+
+### Bug fixes
+
+- use productName instead of productionName: [`9af1e82`](https://github.com/egoist/vbuild/commit/9af1e82)
+- add option to disable progress: [`f4d8ed7`](https://github.com/egoist/vbuild/commit/f4d8ed7)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.24.5...v6.24.6)
+
 ## [Version 6.24.5](https://github.com/egoist/vbuild/releases/tag/v6.24.5) (2017-3-15)
 
 ### Bug fixes
