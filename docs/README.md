@@ -195,7 +195,7 @@ Type: `Object` `Array` `boolean`
 module.exports = {
   html: {
     // `pkg` indicates the data in `package.json`
-    title: pkg.title || pkg.productionName || pkg.name,
+    title: pkg.title || pkg.productName || pkg.name,
     description: pkg.description,
     template: // defaults to $cwd/index.html if it exists, otherwise use built-in template
   }
