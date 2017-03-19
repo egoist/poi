@@ -1,3 +1,11 @@
+## [Version 6.24.7](https://github.com/egoist/vbuild/releases/tag/v6.24.7) (2017-3-19)
+
+### Bug fixes
+
+- fix path for webpack-hot-middleware: [`423dde5`](https://github.com/egoist/vbuild/commit/423dde5)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.24.6...v6.24.7)
+
 ## [Version 6.24.6](https://github.com/egoist/vbuild/releases/tag/v6.24.6) (2017-3-16)
 
 ### Bug fixes
