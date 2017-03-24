@@ -20,7 +20,7 @@ const loadPostCSSConfig = co.wrap(function * () {
       .then(res => {
         console.log(chalk.bold('> Using extenal postcss configuration'))
         console.log(chalk.dim(`> location: "${tildify(res.file)}"`))
-        return Object.assign({ plugins: res.plugins }, res.options)
+        return res
       })
   } catch (err) {
     if (err.message.indexOf('No PostCSS Config found') === -1) {
