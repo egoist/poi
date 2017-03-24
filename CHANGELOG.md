@@ -1,3 +1,11 @@
+## [Version 6.24.8](https://github.com/egoist/vbuild/releases/tag/v6.24.8) (2017-3-24)
+
+### Bug fixes
+
+- fix postcss options: [`b5cefe8`](https://github.com/egoist/vbuild/commit/b5cefe8)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.24.7...v6.24.8)
+
 ## [Version 6.24.7](https://github.com/egoist/vbuild/releases/tag/v6.24.7) (2017-3-19)
 
 ### Bug fixes
