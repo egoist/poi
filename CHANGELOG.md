@@ -1,3 +1,11 @@
+## [Version 6.24.9](https://github.com/egoist/vbuild/releases/tag/v6.24.9) (2017-3-28)
+
+### Bug fixes
+
+- extract css in all chunks: [`b58ba7a`](https://github.com/egoist/vbuild/commit/b58ba7a)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.24.8...v6.24.9)
+
 ## [Version 6.24.8](https://github.com/egoist/vbuild/releases/tag/v6.24.8) (2017-3-24)
 
 ### Bug fixes
