@@ -70,6 +70,7 @@ module.exports = function (cliOptions) {
     const defaultBabelOptions = loadBabelConfig()
     const defaultPostcssOptions = yield loadPostCSSConfig()
     const config = yield loadConfig(cliOptions)
+    const defaultEnv = yield loadEnv(cliOptions)
 
     const options = merge({
       babel: defaultBabelOptions,
