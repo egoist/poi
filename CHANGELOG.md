@@ -1,3 +1,11 @@
+## [Version 6.24.10](https://github.com/egoist/vbuild/releases/tag/v6.24.10) (2017-3-30)
+
+### Bug fixes
+
+- update deps: [`88d94b7`](https://github.com/egoist/vbuild/commit/88d94b7)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.24.9...v6.24.10)
+
 ## [Version 6.24.9](https://github.com/egoist/vbuild/releases/tag/v6.24.9) (2017-3-28)
 
 ### Bug fixes
