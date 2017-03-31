@@ -1,3 +1,11 @@
+## [Version 6.24.13](https://github.com/egoist/vbuild/releases/tag/v6.24.13) (2017-3-31)
+
+### Bug fixes
+
+- Prevent from possible CSS duplication: [`658a73e`](https://github.com/egoist/vbuild/commit/658a73e)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.24.12...v6.24.13)
+
 ## [Version 6.24.12](https://github.com/egoist/vbuild/releases/tag/v6.24.12) (2017-3-31)
 
 ### Bug fixes
