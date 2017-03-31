@@ -1,3 +1,11 @@
+## [Version 6.24.11](https://github.com/egoist/vbuild/releases/tag/v6.24.11) (2017-3-31)
+
+### Bug fixes
+
+- set unique chunk file name: [`316fef8`](https://github.com/egoist/vbuild/commit/316fef8)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.24.10...v6.24.11)
+
 ## [Version 6.24.10](https://github.com/egoist/vbuild/releases/tag/v6.24.10) (2017-3-30)
 
 ### Bug fixes
