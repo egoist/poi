@@ -1,3 +1,11 @@
+## [Version 6.24.12](https://github.com/egoist/vbuild/releases/tag/v6.24.12) (2017-3-31)
+
+### Bug fixes
+
+- remove domain in webpack-hot-middleware socket path: [`7d55eed`](https://github.com/egoist/vbuild/commit/7d55eed)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.24.11...v6.24.12)
+
 ## [Version 6.24.11](https://github.com/egoist/vbuild/releases/tag/v6.24.11) (2017-3-31)
 
 ### Bug fixes
