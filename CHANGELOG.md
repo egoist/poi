@@ -1,3 +1,11 @@
+## [Version 6.24.14](https://github.com/egoist/vbuild/releases/tag/v6.24.14) (2017-4-3)
+
+### Bug fixes
+
+- ensure postcss plugins, fixed [#145](https://github.com/egoist/vbuild/issues/145): [`a4aabfe`](https://github.com/egoist/vbuild/commit/a4aabfe)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.24.13...v6.24.14)
+
 ## [Version 6.24.13](https://github.com/egoist/vbuild/releases/tag/v6.24.13) (2017-3-31)
 
 ### Bug fixes
