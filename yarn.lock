@@ -545,7 +545,7 @@ babel-plugin-transform-async-to-generator@^6.22.0, babel-plugin-transform-async-
     babel-plugin-syntax-async-functions "^6.8.0"
     babel-runtime "^6.22.0"
 
-babel-plugin-transform-class-properties@^6.22.0, babel-plugin-transform-class-properties@^6.23.0:
+babel-plugin-transform-class-properties@^6.22.0:
   version "6.23.0"
   resolved "https://registry.npmjs.org/babel-plugin-transform-class-properties/-/babel-plugin-transform-class-properties-6.23.0.tgz#187b747ee404399013563c993db038f34754ac3b"
   dependencies:
@@ -842,7 +842,7 @@ babel-preset-jest@^19.0.0:
   dependencies:
     babel-plugin-jest-hoist "^19.0.0"
 
-babel-preset-stage-2@^6.18.0, babel-preset-stage-2@^6.22.0:
+babel-preset-stage-2@^6.22.0:
   version "6.22.0"
   resolved "https://registry.npmjs.org/babel-preset-stage-2/-/babel-preset-stage-2-6.22.0.tgz#ccd565f19c245cade394b21216df704a73b27c07"
   dependencies:
@@ -861,16 +861,14 @@ babel-preset-stage-3@^6.22.0:
     babel-plugin-transform-exponentiation-operator "^6.22.0"
     babel-plugin-transform-object-rest-spread "^6.22.0"
 
-babel-preset-vue-app@^1.0.0:
-  version "1.0.0"
-  resolved "http://registry.npm.taobao.org/babel-preset-vue-app/download/babel-preset-vue-app-1.0.0.tgz#a4cbe0e27cba89770c0edd5803da7ad87ff68c74"
+babel-preset-vue-app@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/babel-preset-vue-app/-/babel-preset-vue-app-1.1.1.tgz#2976357df9fa68f1f48e9e315a0d77f29f8f944f"
   dependencies:
-    babel-plugin-transform-class-properties "^6.23.0"
+    babel-plugin-syntax-dynamic-import "^6.18.0"
     babel-plugin-transform-object-rest-spread "^6.23.0"
-    babel-plugin-transform-regenerator "^6.22.0"
     babel-plugin-transform-runtime "^6.15.0"
     babel-preset-env "^1.2.1"
-    babel-preset-stage-2 "^6.18.0"
     babel-preset-vue "^0.1.0"
     babel-runtime "^6.20.0"
 
