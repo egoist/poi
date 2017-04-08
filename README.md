@@ -75,6 +75,13 @@ vbuild index.js
 
 **For full documentation, please head to https://vbuild.js.org**
 
+## Who is using vbuild?
+
+- [codepan](https://github.com/egoist/codepan) - Like codepen and jsbin but works offline.
+- [jsx-editor](https://github.com/egoist/jsx-editor) - JSX Live Editor
+- [vstar](https://github.com/sinchang/vstar) - A simple web app to show your or others GitHub repos stars
+- Feel free to submit yours via pull request :D
+
 ## FAQ
 
 <details><summary>Is it like Next.js or Nuxt.js?</summary>
