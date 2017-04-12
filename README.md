@@ -33,6 +33,8 @@ yarn global add vbuild
 
 ```bash
 yarn global add create-vue-app
+# or npm install create-vue-app -g
+
 create-vue-app my-app
 # or `cva my-app`
 ```
