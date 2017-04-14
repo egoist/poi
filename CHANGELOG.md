@@ -1,3 +1,11 @@
+## [Version 6.24.16](https://github.com/egoist/vbuild/releases/tag/v6.24.16) (2017-4-14)
+
+### Bug fixes
+
+- remove optimize-css-assets-webpack-plugin: [`4eb50eb`](https://github.com/egoist/vbuild/commit/4eb50eb)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.24.14...v6.24.16)
+
 ## [Version 6.24.14](https://github.com/egoist/vbuild/releases/tag/v6.24.14) (2017-4-3)
 
 ### Bug fixes
