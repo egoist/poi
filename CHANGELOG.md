@@ -1,3 +1,11 @@
+## [Version 6.24.15](https://github.com/egoist/vbuild/releases/tag/v6.24.15) (2017-4-14)
+
+### Bug fixes
+
+- fix css sourcemap: [`b63821e`](https://github.com/egoist/vbuild/commit/b63821e)
+
+[...full changes](https://github.com/egoist/vbuild/compare/v6.24.14...v6.24.15)
+
 ## [Version 6.24.14](https://github.com/egoist/vbuild/releases/tag/v6.24.14) (2017-4-3)
 
 ### Bug fixes

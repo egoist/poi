@@ -1,6 +1,6 @@
 {
   "name": "vbuild",
-  "version": "6.24.14",
+  "version": "6.24.15",
   "description": "Fast prototype and distribute modern web apps like a pro.",
   "repository": {
     "url": "egoist/vbuild",
