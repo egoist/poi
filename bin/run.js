@@ -1,6 +1,5 @@
 /* eslint-disable unicorn/no-process-exit */
 const chalk = require('chalk')
-const chokidar = require('chokidar')
 const notifier = require('node-notifier')
 const co = require('co')
 const stripAnsi = require('strip-ansi')
@@ -9,9 +8,10 @@ const merge = require('lodash.merge')
 const findBabelConfig = require('babel-load-config')
 const findPostcssConfig = require('postcss-load-config')
 const AppError = require('../lib/app-error')
-const { getConfigFile, ownDir } = require('../lib/utils')
+const { ownDir } = require('../lib/utils')
 const loadConfig = require('../lib/load-config')
-const main = require('../lib')
+const vbuild = require('../lib')
+const terminal = require('../lib/terminal-utils')
 
 const loadPostCSSConfig = co.wrap(function * () {
   let defaultPostcssOptions = {}
@@ -57,84 +57,60 @@ const loadBabelConfig = function () {
   return defaultBabelOptions
 }
 
-const applyEnv = function (env = {}) {
-  for (const key in env) {
-    if (typeof process.env[key] === 'undefined') {
-      process.env[key] = env[key]
-    }
-  }
-}
+module.exports = co.wrap(function * (cliOptions) {
+  console.log(chalk.bold(`> Running in ${cliOptions.mode} mode`))
 
-module.exports = function (cliOptions) {
-  const start = co.wrap(function * () {
-    const defaultBabelOptions = loadBabelConfig()
-    const defaultPostcssOptions = yield loadPostCSSConfig()
-    const config = yield loadConfig(cliOptions)
+  const defaultBabelOptions = loadBabelConfig()
+  const [defaultPostcssOptions, config] = yield Promise.all([
+    loadPostCSSConfig(),
+    loadConfig(cliOptions)
+  ])
 
-    const options = merge({
-      babel: defaultBabelOptions,
-      postcss: defaultPostcssOptions,
-      env: { NODE_ENV: cliOptions.dev ? 'development' : 'production' }
-    }, config, cliOptions)
+  const options = merge({
+    babel: defaultBabelOptions,
+    postcss: defaultPostcssOptions
+  }, config, cliOptions)
 
-    applyEnv(options.env)
+  const app = vbuild(options)
 
-    const result = main(options)
-
-    const { host, port, open } = result.options
-    const { server, devMiddleWare } = result
-
-    if (server) {
-      server.listen(port, host, () => {
-        if (open) {
-          require('opn')(`http://${host}:${port}`)
+  if (options.mode === 'production' || options.mode === 'test') {
+    app.build()
+      .then(printStats)
+      .then(() => {
+        if (options.mode === 'test') {
+          terminal.clear()
         }
       })
-      .on('error', err => {
-        if (err.code === 'EADDRINUSE') {
-          return handleError(new AppError(`Port ${port} is already in use.\n\nYou can use another one by adding \`--port <port>\` or set it in config file.`))
-        }
-        handleError(err)
-      })
-    }
+      .catch(handleError)
+  } else if (options.mode === 'watch') {
+    app.watch()
+    app.on('compile-done', printStats)
+  } else if (options.mode === 'development') {
+    const { server, host, port } = app.prepare()
 
-    // watch config file
-    if (options.config !== false && (options.dev || options.watch)) {
-      const configFile = getConfigFile(options.config)
-      if (configFile) {
-        let watcher = chokidar.watch(configFile)
-
-        watcher.on('change', filename => {
-          if (!result) {
-            return
-          }
-
-          // server in dev mode
-          if (server) {
-            server.close()
-            devMiddleWare.close()
-          }
-
-          // watcher for webpack in watch mode
-          if (result.watcher) {
-            result.watcher.close()
-          }
-
-          // watcher for config file
-          if (watcher) {
-            watcher.close()
-            watcher = null
-          }
-
-          console.log(`> Detected changes from ${chalk.yellow(filename)}, restarting...\n`)
-          start().catch(handleError)
-        })
+    server.listen(port, host)
+    .on('error', err => {
+      if (err.code === 'EADDRINUSE') {
+        return handleError(new AppError(`Port ${port} is already in use.\n\nYou can use another one by adding \`--devServer.port <port>\` or set it in config file.`))
       }
-    }
-  })
+      handleError(err)
+    })
 
-  start().catch(handleError)
-}
+    app.on('compile-done', stats => {
+      printStats(stats)
+      console.log()
+      if (stats.hasErrors()) {
+        console.log(`${chalk.bgRed.black(' ERROR ')} Compiled with Errors!`)
+      } else if (stats.hasWarnings()) {
+        console.log(`${chalk.bgYellow.black(' WARN ')} Compiled with Warnings!`)
+      } else {
+        console.log(chalk.bold(`> Open http://${host}:${port}`))
+        console.log(`\n${chalk.bgGreen.black(' DONE ')} Compiled successfully!`)
+      }
+      console.log()
+    })
+  }
+})
 
 function handleError(err) {
   process.stdout.write('\x1Bc')
@@ -151,4 +127,20 @@ function handleError(err) {
   })
   console.log()
   process.exit(1)
+}
+
+function printStats(stats) {
+  terminal.clear()
+  if (stats.hasErrors() || stats.hasWarnings()) {
+    console.log(stats.toString('errors-only'))
+    process.exitCode = 1
+  } else {
+    console.log(stats.toString({
+      colors: true,
+      chunks: false,
+      modules: false,
+      children: false
+    }))
+    process.exitCode = 0
+  }
 }

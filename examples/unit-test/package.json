@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "test": "vbuild test test.js && jest vbuild_output/test/test.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "ava": "^0.19.1",
+    "browser-env": "^2.0.30",
+    "jest-cli": "^19.0.2"
+  }
+}

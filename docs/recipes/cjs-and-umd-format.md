@@ -24,13 +24,3 @@ vbuild --format umd --module-name Vuex
 ```
 
 When using `umd` format, you need to set `moduleName` so that user can access it via `window.moduleName`.
-
-## Server bundle
-
-Set webpack target to `node` when using `cjs` format:
-
-```bash
-vbuild --format cjs --webpack.target node
-```
-
-You can find a typical `server-entry` file [here](https://github.com/vuejs/vue-hackernews-2.0/blob/master/src/server-entry.js).

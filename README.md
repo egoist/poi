@@ -9,7 +9,7 @@
 ## tl;dr
 
 ```bash
-vbuild whatever.js --dev
+vbuild dev whatever.js
 # it just works
 ```
 
@@ -29,20 +29,7 @@ yarn global add vbuild
 
 ## How to use
 
-<details><summary>The simple way (using create-vue-app)</summary>
-
-```bash
-yarn global add create-vue-app
-# or `npm install create-vue-app -g`
-
-create-vue-app my-app
-# or `cva my-app`
-```
-
-Then follow the instructions in terminal.
-</details>
-
-Or manually, populate an entry file, let's say `index.js`:
+Populate an entry file, let's say `index.js`:
 
 ```js
 import Vue from 'vue'
@@ -58,7 +45,7 @@ new Vue({
 Run app in dev mode:
 
 ```bash
-vbuild index.js --dev
+vbuild dev index.js
 ```
 
 So far we get:
@@ -96,28 +83,6 @@ Yes and no, yes is because they all simplified the process of building a complet
 No, vue-cli is just a boilerplate generator while vbuild is a Webpack wrapper which reduces boilerplate code for you.
 
 You may notice that there's a `vue build` command lying in `vue-cli`, that's actually quite similar to vbuild, but providing less features and vbuild goes far beyond that.
-</details>
-
-<details><summary>Is there a `--watch` mode?</summary>
-
-Sure, you can combine the `--watch` mode with default mode and `--dev` mode, when it's combined with `--dev` mode, it will remove the hot-reloading support.
-</details>
-
-<details><summary>What are the differences between `--watch` `--dev` and production mode?</summary>
-
-The default mode is production mode, i.e. without `--dev`.
-
-`--dev` mode uses hot reloading by default, when your file does not support hot reloading it fallbacks to live reloading.
-
-`--watch` can be used with/without `-dev` flag:
-
-- with `--dev`: no dev server, no hot reloading, since you may not need to open browser at all. It only rebuilt when file changes, all other features in `dev` are the same.
-- without `--dev`: like production mode but it rebuilt due to file changes.
-</details>
-
-<details><summary>What is this inspired by?</summary>
-
-Despiting that `vbuild` predates `Next.js` `create-react-app` `nwb` `vue-cli`, we're heavily inspired by these projects.
 </details>
 
 ## Contributing

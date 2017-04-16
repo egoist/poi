@@ -39,12 +39,12 @@ App manifest could enable the `Add to Home screen` feature to your app.
 const OfflinePlugin = require('offline-plugin')
 
 module.exports = options => ({
-  webpack(cfg) {
+  extendWebpack(config) {
     // we only need pwa support in production mode
-    if (!options.dev) {
-      cfg.plugins.push(new OfflinePlugin())
+    if (options.mode === 'production') {
+      config.plugin('offline')
+        .use(OfflinePlugin)
     }
-    return cfg
   }
 })
 ```

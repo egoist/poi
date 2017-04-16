@@ -12,10 +12,13 @@
     "lib",
     "template"
   ],
+  "publishConfig": {
+    "tag": "next"
+  },
   "engines": {
     "node": ">= 6"
   },
-  "bin": "bin/vbuild.js",
+  "bin": "bin/cli.js",
   "scripts": {
     "test": "jest && npm run lint",
     "lint": "xo",
@@ -26,21 +29,21 @@
   "author": "egoist <0x142857@gmail.com>",
   "license": "MIT",
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testMatch": ["**/test/**/*.test.js"]
   },
   "devDependencies": {
     "babel-jest": "^19.0.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2015": "^6.24.0",
-    "babel-preset-stage-2": "^6.22.0",
+    "babel-preset-stage-2": "^6.24.1",
     "babel-runtime": "^6.23.0",
     "cross-spawn": "^5.1.0",
     "eslint-config-rem": "^3.0.0",
-    "husky": "^0.13.2",
+    "husky": "^0.13.3",
     "jest-cli": "^19.0.2",
     "markdown-toc": "^1.1.0",
-    "update-pkg": "^1.1.0",
-    "xo": "^0.17.1"
+    "xo": "^0.18.1"
   },
   "xo": {
     "esnext": true,
@@ -58,35 +61,35 @@
       "max-nested-callbacks": [
         "error",
         6
-      ]
+      ],
+      "capitalized-comments": 0,
+      "no-multi-assign": 0,
+      "complexity": 0
     }
   },
   "dependencies": {
+    "@ream/babel-loader": "^7.0.0",
     "autoprefixer": "^6.7.7",
-    "babel-core": "^6.24.0",
+    "babel-core": "^6.24.1",
     "babel-load-config": "^0.1.0",
-    "babel-loader": "^6.4.1",
     "babel-preset-vue-app": "^1.1.1",
     "chalk": "^1.1.3",
-    "chokidar": "^1.6.1",
     "co": "^4.6.0",
     "connect-history-api-fallback": "^1.3.0",
     "copy-webpack-plugin": "^4.0.1",
     "cosmiconfig": "^2.1.1",
     "css-loader": "^0.28.0",
-    "eslint": "^3.17.1",
-    "eslint-config-vue-app": "^1.2.1",
     "eslint-loader": "^1.6.3",
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.15.2",
     "extract-text-webpack-plugin": "^2.1.0",
-    "file-loader": "^0.10.1",
+    "file-loader": "^0.11.1",
     "html-webpack-plugin": "^2.28.0",
     "http-proxy-middleware": "^0.17.4",
     "installed-by-yarn-globally": "^0.1.2",
     "lodash.merge": "^4.6.0",
     "mz": "^2.6.0",
-    "node-notifier": "^5.0.2",
+    "node-notifier": "^5.1.2",
     "opn": "^4.0.2",
     "post-compile-webpack-plugin": "^0.1.1",
     "postcss-load-config": "^1.2.0",
@@ -96,17 +99,19 @@
     "tildify": "^1.2.0",
     "update-notifier": "^2.1.0",
     "url-loader": "^0.5.8",
-    "vue": "^2.2.2",
+    "vue": "^2.2.6",
     "vue-loader": "^11.3.4",
-    "vue-template-compiler": "^2.2.2",
-    "webpack": "^2.3.2",
+    "vue-template-compiler": "^2.2.6",
+    "webpack": "^2.4.1",
+    "webpack-chain": "^3.2.0",
     "webpack-dev-middleware": "^1.10.1",
-    "webpack-hot-middleware": "^2.17.1",
+    "webpack-hot-middleware": "^2.18.0",
     "webpack-merge": "^4.1.0",
     "webpack-node-externals": "^1.5.4",
-    "yargs": "^7.0.2"
+    "yargs": "^7.1.0"
   },
   "babel": {
+    "babelrc": false,
     "env": {
       "test": {
         "presets": [

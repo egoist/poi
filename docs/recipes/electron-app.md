@@ -5,7 +5,7 @@ The simplest way is to run `create-vue-app my-app` to generate an Electron app. 
 Basically, comparing to a normal web app, it:
 
 - Set webpack [target](https://webpack.js.org/configuration/target/#target) to `electron-renderer` to exclude native electron modules
-- The dist folder is set to `app/dist`, app folder contains the code for electron main process, and you may distribute the folder using [electron-builder](https://github.com/electron-userland/electron-builder)
+- The dist folder is set to `app/vbuild_output/dist`, app folder contains the code for electron main process, and you may distribute the folder using [electron-builder](https://github.com/electron-userland/electron-builder)
 - The main process load different `index.html` in different mode:
   - In dev mode, it loads `http://localhost:port/index.html` (for hot reloading)
   - In production mode, where your distributed app runs, it loads `app/dist/index.html`

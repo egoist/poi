@@ -17,28 +17,22 @@ To add it in your config file:
 ```js
 // vbuild.config.js
 module.exports = options => ({
-  webpack(config) {
-    // apply this plugin when using `--stats`
-    if (options.stats) {
-      const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
-
-      config.plugins.push(new BundleAnalyzerPlugin())
-    }
-
-    return config
+  extendWebpack(config) {
+    config.plugin('analyzer')
+      .use(BundleAnalyzerPlugin)
   }
 })
 ```
 
-Then run `vbuild -c --stats` it will open browser for you to preview the stats.
+Then run `vbuild -c` it will open browser for you to preview the stats.
 
 ## Use as CLI tool
 
-Alternatively, you don't need to add the plugin to your webpack config, instead you can run `vbuild --json` to generate webpack stats to `./stats.json` file, and then run `webpack-bundle-analyzer` CLI to analyze it:
+Alternatively, you don't need to add the plugin to your webpack config, instead you can run `vbuild --generate-stats` to generate webpack stats to `./stats.json` file, and then run `webpack-bundle-analyzer` CLI to analyze it:
 
 ```bash
 yarn global add webpack-bundle-analyzer
-vbuild --json
+vbuild --generate-stats stats.json
 webpack-bundle-analyzer stats.json
 ```
 

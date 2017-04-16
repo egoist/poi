@@ -9,7 +9,7 @@
 ## tl;dr
 
 ```bash
-vbuild whatever.js --dev
+vbuild dev whatever.js
 # it just works
 ```
 
@@ -21,12 +21,12 @@ All CLI options and advanced options can be set here:
 
 ```js
 module.exports = (options, req) => ({
-  port: 5000
+  entry: './src/index.js'
   // Other options
 })
 
 // Note that you can directly export an object too:
-// module.exports = {port: 5000}
+// module.exports = { devServer: { port: 5000 } }
 ```
 
 By default it will load `vbuild.config.js` if it exists. To change the path, you can add `--config [path]` in CLI arguments. 
