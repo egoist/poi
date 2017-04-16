@@ -7,6 +7,7 @@ const tildify = require('tildify')
 const merge = require('lodash.merge')
 const findBabelConfig = require('babel-load-config')
 const findPostcssConfig = require('postcss-load-config')
+const copy = require('clipboardy')
 const AppError = require('../lib/app-error')
 const { ownDir } = require('../lib/utils')
 const loadConfig = require('../lib/load-config')
@@ -96,6 +97,8 @@ module.exports = co.wrap(function * (cliOptions) {
       handleError(err)
     })
 
+    let copied
+
     app.on('compile-done', stats => {
       printStats(stats)
       console.log()
@@ -104,7 +107,15 @@ module.exports = co.wrap(function * (cliOptions) {
       } else if (stats.hasWarnings()) {
         console.log(`${chalk.bgYellow.black(' WARN ')} Compiled with Warnings!`)
       } else {
-        console.log(chalk.bold(`> Open http://${host}:${port}`))
+        const url = `http://${host}:${port}`
+        if (copied) {
+          console.log(chalk.bold(`> Open ${url}`))
+        } else {
+          copied = true
+          copy.writeSync(url)
+          console.log(chalk.bold(`> Open ${url}`), '(copied!)')
+        }
+
         console.log(`\n${chalk.bgGreen.black(' DONE ')} Compiled successfully!`)
       }
       console.log()
