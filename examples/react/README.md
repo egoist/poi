@@ -3,5 +3,5 @@
 ```bash
 # cd into this dir and run
 yarn install
-vbuild --dev
+vbuild dev
 ```
