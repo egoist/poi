@@ -3,4 +3,5 @@ node_modules
 *.log
 dist
 examples/*/yarn.lock
-vbuild_output
+dist
+output_test

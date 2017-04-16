@@ -53,4 +53,33 @@ describe('get webpack config', () => {
       })
     })
   })
+
+  describe('output dir', () => {
+    it('default dir', () => {
+      const config = vbuild().getWebpackConfig()
+
+      expect(config.output.path).toBe(path.resolve('dist'))
+    })
+
+    it('custom dir', () => {
+      const config = vbuild({ outputDir: 'foo/bar' }).getWebpackConfig()
+
+      expect(config.output.path).toBe(path.resolve('foo/bar'))
+    })
+
+    it('test mode', () => {
+      const config = vbuild({ mode: 'test' }).getWebpackConfig()
+
+      expect(config.output.path).toBe(path.resolve('output_test'))
+    })
+
+    it('test mode with custom dir', () => {
+      const config = vbuild({
+        mode: 'test',
+        outputDir: 'foo/bar'
+      }).getWebpackConfig()
+
+      expect(config.output.path).toBe(path.resolve('foo/bar'))
+    })
+  })
 })
