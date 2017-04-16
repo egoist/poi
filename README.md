@@ -75,7 +75,7 @@ vbuild index.js
 
 **Note:** You can use vbuild with many frameworks easily, check out [examples](./examples).
 
-**For full documentation, please head to https://vbuild.js.org**
+**For full documentation, please head to https://vbuild6.surge.sh**
 
 ## Who is using vbuild?
 

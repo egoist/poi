@@ -21,7 +21,8 @@
     "lint": "xo",
     "lint:fix": "xo --fix",
     "toc": "markdown-toc -i README.md && markdown-toc -i docs/recipes/deployment.md && markdown-toc -i docs/troubleshooting.md",
-    "precommit": "npm test"
+    "precommit": "npm test",
+    "deploy": "surge -d vbuild6.surge.sh -p docs"
   },
   "author": "egoist <0x142857@gmail.com>",
   "license": "MIT",
