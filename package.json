@@ -21,6 +21,7 @@
   "bin": "bin/cli.js",
   "scripts": {
     "test": "jest && npm run lint",
+    "test:cov": "jest --coverage && npm run lint",
     "lint": "xo",
     "lint:fix": "xo --fix",
     "toc": "markdown-toc -i README.md && markdown-toc -i docs/recipes/deployment.md && markdown-toc -i docs/troubleshooting.md",
