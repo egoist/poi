@@ -83,7 +83,6 @@
     "copy-webpack-plugin": "^4.0.1",
     "cosmiconfig": "^2.1.1",
     "css-loader": "^0.28.0",
-    "eslint-loader": "^1.6.3",
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.15.2",
     "extract-text-webpack-plugin": "^2.1.0",
