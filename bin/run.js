@@ -151,6 +151,8 @@ module.exports = co.wrap(function * (cliOptions) {
   }
 })
 
+module.exports.handleError = handleError
+
 function handleError(err) {
   process.stdout.write('\x1Bc')
   console.error(`${chalk.bgRed.black(' ERROR ')} Something went wrong during the build:\n`)

@@ -27,7 +27,10 @@ function getOpts(argv, mode) {
 }
 
 function createHandler(mode) {
-  return argv => require('./run')(getOpts(argv, mode))
+  return argv => {
+    const run = require('./run')
+    run(getOpts(argv, mode)).catch(run.handleError)
+  }
 }
 
 const sharedOptions = {
