@@ -9,7 +9,7 @@ const findBabelConfig = require('babel-load-config')
 const findPostcssConfig = require('postcss-load-config')
 const copy = require('clipboardy')
 const AppError = require('../lib/app-error')
-const { ownDir } = require('../lib/utils')
+const { ownDir, inferHTML } = require('../lib/utils')
 const loadConfig = require('../lib/load-config')
 const vbuild = require('../lib')
 const terminal = require('../lib/terminal-utils')
@@ -71,6 +71,10 @@ module.exports = co.wrap(function * (cliOptions) {
     babel: defaultBabelOptions,
     postcss: defaultPostcssOptions
   }, config, cliOptions)
+
+  if (options.html === undefined) {
+    options.html = inferHTML(options)
+  }
 
   const app = vbuild(options)
 
