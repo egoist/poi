@@ -35,8 +35,8 @@ yarn add gh-pages --dev
 ```json
 {
   "scripts": {
-    "dev": "vbuild dev -c",
-    "build": "vbuild -c",
+    "dev": "vbuild dev",
+    "build": "vbuild",
     "deploy": "npm run build && gh-pages -d dist"
   }
 }

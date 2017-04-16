@@ -2,7 +2,7 @@
 
 ## Unit testing
 
-The recommended workflow is `karma` + `jasmine` + `phantomjs`, you can easily setup this feature by using [vbuild-karma](https://github.com/egoist/vbuild-karma).
+[TODO]
 
 ## E2E testing
 
