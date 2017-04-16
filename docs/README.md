@@ -1,3 +1,7 @@
+<p class="warning">
+  If you're looking docs for vbuild 6, please visit https://vbuild6.surge.sh, this is the docs for vbuild 7.
+</p>
+
 <p align="center">
   <img src="https://cloud.githubusercontent.com/assets/8784712/23060768/1e3bea76-f53a-11e6-8735-998ee5f87238.png" alt="preview" />
 </p>
