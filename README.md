@@ -15,8 +15,6 @@ vbuild dev whatever.js
 
 Develop web apps with no build configuration until you need.
 
-<h2></h2>
-
 ## Install
 
 It works with both Yarn(>=0.17) and npm(>=3):
@@ -26,6 +24,8 @@ yarn global add vbuild
 # You can also install it locally
 # yarn add vbuild --dev
 ```
+
+Come from vbuild 6? Check out the 2-minute [migration guide](https://gist.github.com/egoist/e3caa03010e16be194c56af7c468edf5).
 
 ## How to use
 
