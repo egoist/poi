@@ -1,7 +1,6 @@
 module.exports = {
   entry: 'src/index.js',
-  webpack(config) {
-    config.entry.client.unshift('react-hot-loader/patch')
-    return config
+  extendWebpack(config) {
+    config.entry('client').prepend('react-hot-loader/patch')
   }
 }

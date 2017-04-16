@@ -22,7 +22,7 @@ Target folder for bundled files
 
 Type: `Object`
 
-It searches for `.babelrc` or `babel` field in `package.json`, if none of them exists, it uses default babel config:
+If you're using CLI, it searches for `.babelrc` or `babel` field in `package.json`, if none of them exists, it uses default babel config:
 
 ```js
 {
@@ -34,24 +34,11 @@ It searches for `.babelrc` or `babel` field in `package.json`, if none of them e
 
 You can use this option to override it if you don't want extra config file for babel.
 
-### transpileModules
-
-Type: `Array`
-
-By default Babel will ignore modules in `node_modules` directory, addtionally you can specific the modules you want to transpile, eg:
-
-```js
-module.exports = {
-  // since the package `element-ready` is written in ES6
-  transpileModules: ['element-ready']
-}
-```
-
 ### postcss
 
-Type: `Array` `object` `function`
+Type: `Array` `object`
 
-It searches for custom postcss config file using [postcss-load-config](https://github.com/michael-ciniawsky/postcss-load-config), and add `autoprefixer` to the top of it when `postcss` is an array or object.
+If you're using CLI, it searches for custom postcss config file using [postcss-load-config](https://github.com/michael-ciniawsky/postcss-load-config), and add `autoprefixer` to the top of it when `postcss` is an array or object.
 
 You can use this option to override it if you don't want extra config file for postcss.
 
@@ -87,7 +74,8 @@ Default value:
   // `pkg` indicates the data in `package.json`
   title: pkg.title || pkg.productName || pkg.name,
   description: pkg.description,
-  template: // defaults to $cwd/index.html if it exists, otherwise use built-in template
+  env: {}, // env option
+  template: // defaults to $cwd/index.html if it exists, otherwise use built-in template,
 }
 ```
 
@@ -103,28 +91,17 @@ filename of output files, eg:
 filename: {
   js: 'index.js',
   css: 'style.css',
-  static: 'static/[name].[ext]'  
+  static: 'static/[name].[ext]',
+  chunk: '[id].chunk.js' 
 }
 ```
 
 ### copy
 
-Type: `Array`
+Type: `boolean`<br>
+Default: `true`
 
-Default value:
-
-```js
-// copy static/*\*/* to dist folder
-[{ from: 'static', to: './' }]
-```
-
-Options for [copy-webpack-plugin](https://github.com/kevlened/copy-webpack-plugin).
-
-### define
-
-Type: `object`
-
-Options for [webpack.DefinePlugin](https://webpack.js.org/plugins/define-plugin/)
+Options for [copy-webpack-plugin](https://github.com/kevlened/copy-webpack-plugin), by default it will copy `static/*` to `dist/*`
 
 ### env
 
@@ -132,29 +109,10 @@ Type: `object`
 
 Short hand for using `webpack.DefinePlugin` to define contants under `process.env`. By default `process.env.NODE_ENV` is defined for you.
 
-### appDir
-
-Type: `string`<br>
-Default: `src`
-
-You can use `@` to resolve `src` dir, eg: `import App from '@/components/App'` is equal to `import App from '$project/src/components/App'`.
-
-### run
-
-Type: `function`
-
-See [custom build process](/#custom-build-process) for usages.
 
 ## Production
 
-### cleanDist
-
-Type: `boolean`<br>
-Default: `true`
-
-Remove all files in dist folder (but keeps that folder itself).
-
-### json
+### generateStats
 
 Type: `boolean` `string`
 
@@ -181,7 +139,7 @@ Default: `true`
 
 Minimize JS and CSS files.
 
-### extract
+### extractCSS
 
 Type: `boolean`<br>
 Default: `true`
@@ -195,32 +153,6 @@ Default: `/`
 
 The path to load resource from, it's useful when your site is located at a subpatch like `http://example.com/blog`, you need to set `homepage` to `/blog/` in this situation.
 
-### progress
-
-Type: `boolean`<br>
-Default: `true`
-
-Show bundle progress in terminal.
-
-### eslint
-
-Type: `boolean`<br>
-Default: `false`
-
-Lint JS and Vue files with ESLint.
-
-### eslintConfig
-
-Type: `object`
-
-Default value:
-
-```js
-{
-  configFile: require.resolve('eslint-config-vue-app')
-}
-```
-
 ## Development
 
 ### port
@@ -233,7 +165,7 @@ Default: `4000`
 Type: `string`<br>
 Default: `localhost`
 
-### setup
+### setupDevServer
 
 Type: `function`
 
@@ -244,24 +176,3 @@ See [custom server login](/#custom-server-logic) for usages.
 Type: `string` `object`
 
 See [proxy api request](/#proxy-api-request) for usages.
-
-### hot
-
-Type: `boolean`<br>
-Default: `true`
-
-Enable hot reloading (with live reloading fallback)
-
-### hmrEntry
-
-Type: `Array`<br>
-Default: `['client']`
-
-Add `webpack-hot-middleware` client to given entries.
-
-### hmrLog
-
-Type: `boolean`<br>
-Default: `true`
-
-Output informational log for `webpack-hot-middleware`.

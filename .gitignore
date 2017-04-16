@@ -3,3 +3,6 @@ node_modules
 *.log
 dist
 examples/*/yarn.lock
+dist
+output_test
+stats.json

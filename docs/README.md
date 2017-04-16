@@ -1,3 +1,7 @@
+<p class="warning">
+  If you're looking docs for vbuild 6, please visit https://vbuild6.surge.sh, this is the docs for vbuild 7.
+</p>
+
 <p align="center">
   <img src="https://cloud.githubusercontent.com/assets/8784712/23060768/1e3bea76-f53a-11e6-8735-998ee5f87238.png" alt="preview" />
 </p>
@@ -9,7 +13,7 @@
 ## tl;dr
 
 ```bash
-vbuild whatever.js --dev
+vbuild dev whatever.js
 # it just works
 ```
 
@@ -21,44 +25,17 @@ All CLI options and advanced options can be set here:
 
 ```js
 module.exports = (options, req) => ({
-  port: 5000
+  entry: './src/index.js'
   // Other options
 })
 
 // Note that you can directly export an object too:
-// module.exports = {port: 5000}
+// module.exports = { devServer: { port: 5000 } }
 ```
 
 By default it will load `vbuild.config.js` if it exists. To change the path, you can add `--config [path]` in CLI arguments. 
 
 You can also use `.vbuildrc` or set `vbuild` property in `package.json` when you only need JSON for configurations. See [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for all the supported config files.
-
-[⬆ back to top](#app)
-
-### Shorthand
-
-To set different config for different mode, you may use `options.dev` like:
-
-```js
-module.exports = options => ({
-  webpack(cfg) {
-    if (options.dev) {}
-    else {}
-    return cfg
-  }
-})
-```
-
-To simplify this, we provide a shorthand to do this:
-
-```js
-module.exports = {
-  production: {}, // used in `!options.dev`
-  development: {} // used in `options.dev`
-}
-```
-
-The `production` or `development` config will be assigned into base config using `lodash.merge`.
 
 [⬆ back to top](#app)
 
@@ -80,21 +57,9 @@ The `require` function but context directory is the path to `node_modules/vbuild
 
 JS files and `script` tags in single-file components are transpiled by Babel. We only use one preset by default: [babel-preset-vue-app](https://github.com/egoist/babel-preset-vue-app).
 
-vbuild will use `.babelrc` if it exists, you can also set `babelrc` option in config file to disable config file, check out [full reference](https://babeljs.io/docs/usage/api/#options) for `babel` option.
+vbuild will use `.babelrc` if it exists, you can also set `babelrc` option in config file to disable itself, check out [full reference](https://babeljs.io/docs/usage/api/#options) for `babel` option.
 
 Feel free to use [babel-preset-react-app](https://github.com/facebookincubator/create-react-app/blob/master/packages/babel-preset-react-app) or [babel-preset-preact-app](https://github.com/developit/babel-preset-preact) and so on to work with other frameworks.
-
-[⬆ back to top](#app)
-
-#### Transpile modules
-
-By default babel will only transpile files outside `node_modules` folder into ES5, but you may use some npm packages that are written in ES2015, then you can tell babel to transpile them as well:
-
-```js
-module.exports = {
-  transpileModules: ['element-ready']
-}
-```
 
 [⬆ back to top](#app)
 
@@ -105,14 +70,12 @@ Standalone `.css` files and `style` tags in single-file components are transpile
 ```js
 module.exports = {
   autoprefixer: {
-    browsers: ['ie > 8', 'last 4 versions']
+    browsers: ['ie > 8', 'last 3 versions']
   }
 }
 ```
 
 You can use PostCSS config file like `postcss.config.js` or whatever [postcss-load-config](https://github.com/michael-ciniawsky/postcss-load-config) supports. `postcss` option is also available in config file.
-
-Note that we only add autoprefixer when you use an `Array` or `Object` as postcss option.
 
 #### Custom CSS preprocessors
 
@@ -148,18 +111,6 @@ You can set webpack entry from CLI option or `entry` property in config file. If
 
 [⬆ back to top](#app)
 
-### Hot reloading
-
-By default we add HMR client to `client` entry, you can change it by:
-
-```js
-module.exports = {
-  hmrEntry: ['other-name']
-}
-```
-
-[⬆ back to top](#app)
-
 ### Code splitting
 
 We enabled code splitting for vendor code and app code by default in production mode, you can set `vendor` option to `false` to disable it. And by default all required modules in `node_modules` will be split.
@@ -168,20 +119,16 @@ We enabled code splitting for vendor code and app code by default in production 
 
 ### Webpack
 
-Mutate webpack config as you wish:
+Change webpack config using [webpack-chain](https://github.com/mozilla-rpweb/webpack-chain):
 
 ```js
-module.exports = options => ({
-  webpack(webpackConfig) {
-    if (options.dev) {
-      // Apply some changes to webpackConfig
-    }
-    return webpackConfig
+module.exports = {
+  extendWebpack(config) {
+    // Disable progress bar while building
+    config.plugins.delete('progress-bar')
   }
-})
+}
 ```
-
-The value of `webpack` could also be a plain object, this way it will be merged into default webpack config using [webpack-merge](https://github.com/survivejs/webpack-merge).
 
 [⬆ back to top](#app)
 
@@ -195,7 +142,7 @@ Type: `Object` `Array` `boolean`
 module.exports = {
   html: {
     // `pkg` indicates the data in `package.json`
-    title: pkg.title || pkg.productName || pkg.name,
+    title: pkg.productName || pkg.name,
     description: pkg.description,
     template: // defaults to $cwd/index.html if it exists, otherwise use built-in template
   }
@@ -217,22 +164,9 @@ module.exports = {
   filename: {
     js: 'index.js',
     css: 'style.css',
-    static: 'static/[name].[ext]'  
+    static: 'static/[name].[ext]',
+    chunk: '[id].chunk.js'
   }
-}
-```
-
-[⬆ back to top](#app)
-
-### Clean dist files
-
-The files inside dist folder will be removed before you run vbuild in production mode, because in most cases the output filename will contain `[hash]`, we need to remove old files to keep the directory clean.
-
-However in some cases you don't need this, then you can disable it by:
-
-```js
-module.exports = {
-  cleanDist: false
 }
 ```
 
@@ -240,12 +174,12 @@ module.exports = {
 
 ### Extracting CSS
 
-The `extract` option is `true` by default in production mode, however you can also set it manually to overrde:
+The `extractCSS` option is `true` by default in production mode, however you can also set it manually to overrde:
 
 ```js
 module.exports = {
   // always disable extracting css
-  extract: false
+  extractCSS: false
 }
 ```
 
@@ -253,50 +187,13 @@ module.exports = {
 
 ### Copy static files
 
-By default, all files inside `./static` folder will be copied to dist folder, you can set it to `false` to disable this.
-
-If your want it to copy other folders, use an array instead:
-
-```js
-module.exports = {
-  // copy ./public to ./dist/public
-  copy: [{from: './public', to: './public'}]
-}
-```
-
-See more options about this at [copy-webpack-plugin](https://github.com/kevlened/copy-webpack-plugin#pattern-properties).
-
-[⬆ back to top](#app)
-
-### Define constants at compile time
-
-`define` is a short-hand to add webpack's [DefinePlugin](https://webpack.js.org/plugins/define-plugin/) for settings global constants which can be configured at compile time.
-
-```js
-module.exports = options => ({
-  define: {
-    __DEV__: JSON.stringify(options.dev)
-  }
-})
-```
-
-Then use it in your app code:
-
-```js
-if (__DEV__) {
-  // perform something only in development mode a.k.a `--dev`
-}
-```
-
-The default constant we add is `process.env.NODE_ENV`. The variables you defined here are only available in app code.
+By default, all files inside `./static` folder will be copied to dist folder, you can set `copy` to `false` to disable this.
 
 [⬆ back to top](#app)
 
 ### Define env variables
 
-This is a shorthand for define a constant and set environment variable.
-
-By default you will have `NODE_ENV` defined.
+By default you will have `process.env.NODE_ENV` defined.
 
 There're two ways to define env variables:
 
@@ -313,19 +210,19 @@ module.exports = {
 }
 ```
 
-In template html file which uses [lodash.template](https://lodash.com/docs/4.17.4#template) syntax, you can write:
-
-```html
-<meta name="description" content="<%= process.env.APP_DESCRIPTION %>" />
-```
-
 The value of each env variable is automatically stringified and passed down to [webpack.DefinePlugin](https://webpack.js.org/plugins/define-plugin/).
 
-In your app, similarly:
+In your app:
 
 ```js
 const description = process.env.APP_DESCRIPTION
 // do something
+```
+
+In template html file which uses [lodash.template](https://lodash.com/docs/4.17.4#template) syntax, you can also access it under `htmlWebpackPlugin.options.env`:
+
+```html
+<meta name="description" content="<%= htmlWebpackPlugin.options.env.APP_DESCRIPTION %>" />
 ```
 
 [⬆ back to top](#app)
@@ -387,31 +284,10 @@ Perform some custom logic to development server:
 
 ```js
 module.exports = {
-  setup(app) {
+  setupDevServer(app) {
     app.get('/api', (req, res) => {
       res.end('This is the API')
     })
-  }
-}
-```
-
-[⬆ back to top](#app)
-
-### Custom build process
-
-Insead of letting vbuild run webpack as the build process, you can perform a custom one by using `run` function in config file:
-
-```js
-// For example, run tests with Karma
-const Server = require('karma').Server
-
-module.exports = {
-  run(webpackConfig) {
-    const server = new Server({
-      webpack: webpackConfig,
-      // ...Other karma options
-    })
-    server.start()
   }
 }
 ```
