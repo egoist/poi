@@ -12,9 +12,6 @@
     "lib",
     "template"
   ],
-  "publishConfig": {
-    "tag": "next"
-  },
   "engines": {
     "node": ">= 6"
   },
