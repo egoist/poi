@@ -62,7 +62,7 @@ describe('get webpack config', () => {
     })
 
     it('custom dir', () => {
-      const config = vbuild({ outputDir: 'foo/bar' }).getWebpackConfig()
+      const config = vbuild({ dist: 'foo/bar' }).getWebpackConfig()
 
       expect(config.output.path).toBe(path.resolve('foo/bar'))
     })
@@ -76,7 +76,7 @@ describe('get webpack config', () => {
     it('test mode with custom dir', () => {
       const config = vbuild({
         mode: 'test',
-        outputDir: 'foo/bar'
+        dist: 'foo/bar'
       }).getWebpackConfig()
 
       expect(config.output.path).toBe(path.resolve('foo/bar'))

@@ -1,5 +1,6 @@
 {
   "title": "app",
   "productName": "My App",
-  "description": "This is my awesome app"
+  "description": "This is my awesome app",
+  "main": "entry.js"
 }

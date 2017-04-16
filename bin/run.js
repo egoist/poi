@@ -1,4 +1,5 @@
 /* eslint-disable unicorn/no-process-exit */
+const fs = require('fs')
 const chalk = require('chalk')
 const notifier = require('node-notifier')
 const co = require('co')
@@ -8,8 +9,9 @@ const merge = require('lodash.merge')
 const findBabelConfig = require('babel-load-config')
 const findPostcssConfig = require('postcss-load-config')
 const copy = require('clipboardy')
+const opn = require('opn')
 const AppError = require('../lib/app-error')
-const { ownDir, inferHTML } = require('../lib/utils')
+const { cwd, ownDir, inferHTML, readPkg } = require('../lib/utils')
 const loadConfig = require('../lib/load-config')
 const vbuild = require('../lib')
 const terminal = require('../lib/terminal-utils')
@@ -19,7 +21,7 @@ const loadPostCSSConfig = co.wrap(function * () {
   try {
     defaultPostcssOptions = yield findPostcssConfig({}, null, { argv: false })
       .then(res => {
-        console.log(chalk.bold('> Using extenal postcss configuration'))
+        console.log('> Using extenal postcss configuration')
         console.log(chalk.dim(`> location: "${tildify(res.file)}"`))
         return res
       })
@@ -39,7 +41,7 @@ const loadBabelConfig = function () {
 
   const externalBabelConfig = findBabelConfig(process.cwd())
   if (externalBabelConfig) {
-    console.log(chalk.bold(`> Using external babel configuration`))
+    console.log('> Using external babel configuration')
     console.log(chalk.dim(`> location: "${tildify(externalBabelConfig.loc)}"`))
     // It's possible to turn off babelrc support via babelrc itself.
     // In that case, we should add our default preset.
@@ -59,7 +61,7 @@ const loadBabelConfig = function () {
 }
 
 module.exports = co.wrap(function * (cliOptions) {
-  console.log(chalk.bold(`> Running in ${cliOptions.mode} mode`))
+  console.log(`> Running in ${cliOptions.mode} mode`)
 
   const defaultBabelOptions = loadBabelConfig()
   const [defaultPostcssOptions, config] = yield Promise.all([
@@ -73,17 +75,33 @@ module.exports = co.wrap(function * (cliOptions) {
   }, config, cliOptions)
 
   if (options.html === undefined) {
+    console.log(`> Using inferred value from package.json for HTML file`)
     options.html = inferHTML(options)
+  }
+
+  if (options.entry === undefined) {
+    const mainField = readPkg().main
+    if (mainField) {
+      console.log(`> Using main field in package.json as entry point`)
+      options.entry = mainField
+    }
   }
 
   const app = vbuild(options)
 
   if (options.mode === 'production' || options.mode === 'test') {
     app.build()
-      .then(printStats)
-      .then(() => {
+      .then(stats => {
+        printStats(stats)
         if (options.mode === 'test') {
           terminal.clear()
+        } else if (options.mode === 'production') {
+          if (options.generateStats) {
+            const statsFile = cwd(options.cwd, typeof options.generateStats === 'string' ? options.generateStats : 'stats.json')
+            console.log('> Generating webpack stats file')
+            fs.writeFileSync(statsFile, JSON.stringify(stats.toJson()), 'utf8')
+            console.log(chalk.dim(`> location: "${tildify(statsFile)}"`))
+          }
         }
       })
       .catch(handleError)
@@ -96,12 +114,19 @@ module.exports = co.wrap(function * (cliOptions) {
     server.listen(port, host)
     .on('error', err => {
       if (err.code === 'EADDRINUSE') {
-        return handleError(new AppError(`Port ${port} is already in use.\n\nYou can use another one by adding \`--devServer.port <port>\` or set it in config file.`))
+        return handleError(new AppError(`Port ${port} is already in use.\n\nYou can use another one by adding \`--port <port>\` or set it in config file.`))
       }
       handleError(err)
     })
 
+    const url = `http://${host}:${port}`
     let copied
+
+    app.once('compile-done', () => {
+      if (options.open) {
+        opn(url)
+      }
+    })
 
     app.on('compile-done', stats => {
       printStats(stats)
@@ -111,7 +136,6 @@ module.exports = co.wrap(function * (cliOptions) {
       } else if (stats.hasWarnings()) {
         console.log(`${chalk.bgYellow.black(' WARN ')} Compiled with Warnings!`)
       } else {
-        const url = `http://${host}:${port}`
         if (copied) {
           console.log(chalk.bold(`> Open ${url}`))
         } else {
