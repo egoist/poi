@@ -69,6 +69,7 @@ vbuild index.js
 - [codepan](https://github.com/egoist/codepan) - Like codepen and jsbin but works offline.
 - [jsx-editor](https://github.com/egoist/jsx-editor) - JSX Live Editor
 - [vstar](https://github.com/sinchang/vstar) - A simple web app to show your or others GitHub repos stars
+- [npmarket](https://github.com/qingwei-li/npmarket) - More efficient search for node packages
 - Feel free to submit yours via pull request :D
 
 ## FAQ
