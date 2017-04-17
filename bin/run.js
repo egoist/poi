@@ -54,7 +54,11 @@ const loadBabelConfig = function () {
 
   // Add our default preset if the no "babelrc" found.
   if (!defaultBabelOptions.babelrc) {
-    defaultBabelOptions.presets = [require.resolve('babel-preset-vue-app')]
+    defaultBabelOptions.presets = [
+      [require.resolve('babel-preset-vue-app'), {
+        useBuiltIns: true
+      }]
+    ]
   }
 
   return defaultBabelOptions
