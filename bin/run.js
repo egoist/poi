@@ -90,6 +90,10 @@ module.exports = co.wrap(function * (cliOptions) {
   const app = vbuild(options)
 
   if (options.mode === 'production' || options.mode === 'test') {
+    if (options.mode === 'production') {
+      terminal.clear()
+      console.log('> Creating an optimized production build:\n')
+    }
     app.build()
       .then(stats => {
         printStats(stats)
