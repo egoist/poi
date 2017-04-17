@@ -103,12 +103,33 @@ Default: `true`
 
 Options for [copy-webpack-plugin](https://github.com/kevlened/copy-webpack-plugin), by default it will copy `static/*` to `dist/*`
 
+### define
+
+Type: `object`
+
+Use `webpack.DefinePlugin` to replace string in source files, each value is stringified by default, eg:
+
+```js
+module.exports = {
+  define: {
+    __VERSION__: '1.0.0'
+  }
+}
+```
+
 ### env
 
 Type: `object`
 
-Short hand for using `webpack.DefinePlugin` to define contants under `process.env`. By default `process.env.NODE_ENV` is defined for you.
+Short hand for the `define` option to define contants under `process.env`. By default `process.env.NODE_ENV` is defined for you, eg:
 
+```js
+module.exports = {
+  env: {
+    SECRET: '******'
+  }
+}
+```
 
 ## Production
 
@@ -176,3 +197,10 @@ See [custom server login](/#custom-server-logic) for usages.
 Type: `string` `object`
 
 See [proxy api request](/#proxy-api-request) for usages.
+
+### hotReload
+
+Type: `boolean`<br>
+Default: `true`
+
+Enable Hot Mode Reloading.
