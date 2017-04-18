@@ -70,6 +70,7 @@ vbuild index.js
 - [jsx-editor](https://github.com/egoist/jsx-editor) - JSX Live Editor
 - [vstar](https://github.com/sinchang/vstar) - A simple web app to show your or others GitHub repos stars
 - [npmarket](https://github.com/qingwei-li/npmarket) - More efficient search for node packages
+- [sublog](https://github.com/sinchang/sublog) - Build a static blog website from GitHub Issues
 - Feel free to submit yours via pull request :D
 
 ## FAQ
