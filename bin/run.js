@@ -10,6 +10,7 @@ const findBabelConfig = require('babel-load-config')
 const findPostcssConfig = require('postcss-load-config')
 const copy = require('clipboardy')
 const opn = require('opn')
+const req = require('req-cwd')
 const AppError = require('../lib/app-error')
 const { cwd, ownDir, inferHTML, readPkg } = require('../lib/utils')
 const loadConfig = require('../lib/load-config')
@@ -69,6 +70,20 @@ module.exports = co.wrap(function * (cliOptions) {
 
   const config = yield loadConfig(cliOptions)
   const options = merge(config, cliOptions)
+
+  if (options.presets) {
+    options.presets = options.presets.map(preset => {
+      if (typeof preset === 'string') {
+        preset = req(`vbuild-preset-${preset}`)
+        if (typeof preset === 'function') {
+          preset = preset()
+        }
+      } else if (Array.isArray(preset)) {
+        preset = req(`vbuild-preset-${preset[0]}`)(preset[1])
+      }
+      return preset
+    })
+  }
 
   if (options.babel === undefined) {
     options.babel = loadBabelConfig()

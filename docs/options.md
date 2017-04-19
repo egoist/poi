@@ -67,7 +67,7 @@ Process CSS using [css modules](https://github.com/css-modules/css-modules).
 
 Type: `Object` `Array` `boolean`
 
-Default value: 
+Default value:
 
 ```js
 {
@@ -92,7 +92,7 @@ filename: {
   js: 'index.js',
   css: 'style.css',
   static: 'static/[name].[ext]',
-  chunk: '[id].chunk.js' 
+  chunk: '[id].chunk.js'
 }
 ```
 

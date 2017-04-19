@@ -82,4 +82,37 @@ describe('get webpack config', () => {
       expect(config.output.path).toBe(path.resolve('foo/bar'))
     })
   })
+
+  describe('use preset', () => {
+    it('in default mode', () => {
+      const preset = {
+        extendWebpack(config) {
+          config.entry('foo')
+            .add(path.resolve(this.options.cwd, 'haha.js'))
+        }
+      }
+      const config = vbuild({
+        cwd: 'foo',
+        presets: preset
+      }).getWebpackConfig()
+
+      expect(config.entry.foo).toEqual([path.resolve('foo', 'haha.js')])
+    })
+
+    it('in development mode', () => {
+      const preset = {
+        mode: 'random',
+        extendWebpack(config) {
+          config.entry('foo')
+            .add(path.resolve(this.options.cwd, 'haha.js'))
+        }
+      }
+      const config = vbuild({
+        mode: 'development',
+        presets: preset
+      }).webpackConfig
+
+      expect(config.entryPoints.has('foo')).toBe(false)
+    })
+  })
 })
