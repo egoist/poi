@@ -71,15 +71,14 @@ module.exports = co.wrap(function * (cliOptions) {
   const config = yield loadConfig(cliOptions)
   const options = merge(config, cliOptions)
 
-  if (options.presets) {
-    options.presets = options.presets.map(preset => {
+  let presets = options.presets
+  if (presets) {
+    presets = Array.isArray(presets) ? presets : [presets]
+    options.presets = presets.map(preset => {
       if (typeof preset === 'string') {
-        preset = req(`vbuild-preset-${preset}`)
-        if (typeof preset === 'function') {
-          preset = preset()
-        }
+        preset = loadPreset(preset)
       } else if (Array.isArray(preset)) {
-        preset = req(`vbuild-preset-${preset[0]}`)(preset[1])
+        preset = loadPreset(preset[0], preset[1])
       }
       return preset
     })
@@ -207,4 +206,24 @@ function printStats(stats) {
     }))
     process.exitCode = 0
   }
+}
+
+function loadPreset(name, options) {
+  if (typeof name === 'string') {
+    let preset
+    try {
+      preset = /^(\.|\/)/.test(name) ? name : `vbuild-preset-${name}`
+      name = req(preset)
+    } catch (err) {
+      if (/missing path/.test(err.message)) {
+        throw new AppError(`Cannot find module ${preset} in current working directory!`)
+      } else {
+        throw err
+      }
+    }
+  }
+  if (typeof name === 'function') {
+    name = name(options)
+  }
+  return name
 }

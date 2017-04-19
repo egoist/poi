@@ -6,3 +6,4 @@ examples/*/yarn.lock
 dist
 output_test
 stats.json
+packages/*/yarn.lock
