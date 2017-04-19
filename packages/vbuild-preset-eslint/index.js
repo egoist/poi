@@ -2,7 +2,7 @@ module.exports = function (options) {
   return {
     extendWebpack(config) {
       config.module.rule('eslint')
-        .test(/\.jsx?$/)
+        .test(/\.(js|jsx|vue)$/)
         .exclude
           .add(/node_modules/)
           .end()
