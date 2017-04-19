@@ -67,16 +67,16 @@ const loadBabelConfig = function () {
 module.exports = co.wrap(function * (cliOptions) {
   console.log(`> Running in ${cliOptions.mode} mode`)
 
-  const defaultBabelOptions = loadBabelConfig()
-  const [defaultPostcssOptions, config] = yield Promise.all([
-    loadPostCSSConfig(),
-    loadConfig(cliOptions)
-  ])
+  const config = yield loadConfig(cliOptions)
+  const options = merge(config, cliOptions)
 
-  const options = merge({
-    babel: defaultBabelOptions,
-    postcss: defaultPostcssOptions
-  }, config, cliOptions)
+  if (options.babel === undefined) {
+    options.babel = loadBabelConfig()
+  }
+
+  if (options.postcss === undefined) {
+    options.postcss = yield loadPostCSSConfig()
+  }
 
   if (options.html === undefined) {
     console.log(`> Using inferred value from package.json for HTML file`)
