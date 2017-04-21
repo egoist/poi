@@ -15,6 +15,7 @@
   "files": [
     "index.js"
   ],
+  "xo": false,
   "vbuild": {
     "presets": [
       [

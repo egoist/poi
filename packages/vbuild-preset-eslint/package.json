@@ -15,6 +15,7 @@
   "eslintConfig": {
     "extends": "vue-app"
   },
+  "xo": "false",
   "dependencies": {
     "eslint": "^3.19.0",
     "eslint-config-vue-app": "^1.2.1",

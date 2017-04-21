@@ -20,6 +20,7 @@
       ]
     ]
   },
+  "xo": false,
   "peerDependencies": {
     "typescript": "^2.2.2"
   },
