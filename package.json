@@ -3,6 +3,7 @@
   "name": "vbuild-monorepo",
   "version": "0.0.0",
   "scripts": {
+    "precommit": "npm test",
     "test": "lerna bootstrap && lerna run test && xo",
     "test:cov": "lerna bootstrap && cd packages/vbuild && npm run test:cov && xo"
   },
@@ -36,6 +37,7 @@
   "license": "MIT",
   "devDependencies": {
     "eslint-config-rem": "^3.0.1",
+    "husky": "^0.13.3",
     "lerna": "^2.0.0-rc.3",
     "xo": "^0.18.1"
   }

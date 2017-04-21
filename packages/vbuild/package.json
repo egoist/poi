@@ -21,8 +21,7 @@
     "test": "jest",
     "test:cov": "jest --coverage",
     "lint": "xo",
-    "lint:fix": "xo --fix",
-    "precommit": "npm test"
+    "lint:fix": "xo --fix"
   },
   "author": "egoist <0x142857@gmail.com>",
   "license": "MIT",
@@ -40,7 +39,6 @@
     "babel-runtime": "^6.23.0",
     "cross-spawn": "^5.1.0",
     "eslint-config-rem": "^3.0.0",
-    "husky": "^0.13.3",
     "jest-cli": "^19.0.2"
   },
   "dependencies": {
