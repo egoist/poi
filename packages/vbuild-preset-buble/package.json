@@ -12,6 +12,7 @@
   "scripts": {
     "example": "vbuild dev example/index.js"
   },
+  "files": ["index.js"],
   "vbuild": {
     "presets": [
       ["./index.js", {
