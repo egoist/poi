@@ -1,0 +1,29 @@
+{
+  "name": "vbuild-preset-typescript",
+  "version": "0.1.0",
+  "author": "EGOIST <0x142857@gmail.com>",
+  "repo": "egoist/vbuild",
+  "dependencies": {
+    "ts-loader": "^2.0.3"
+  },
+  "scripts": {
+    "example": "vbuild dev example/index.ts"
+  },
+  "files": [
+    "index.js"
+  ],
+  "vbuild": {
+    "presets": [
+      [
+        "./index.js",
+        {}
+      ]
+    ]
+  },
+  "peerDependencies": {
+    "typescript": "^2.2.2"
+  },
+  "devDependencies": {
+    "typescript": "^2.2.2"
+  }
+}
