@@ -1,6 +1,6 @@
 {
   "name": "vbuild-preset-eslint",
-  "version": "0.1.1",
+  "version": "7.1.0",
   "description": "Run eslint as building app using vbuild",
   "main": "index.js",
   "scripts": {
