@@ -3,8 +3,8 @@
   "name": "vbuild-monorepo",
   "version": "0.0.0",
   "scripts": {
-    "test": "xo && lerna bootstrap && lerna run test",
-    "test:cov": "xo && lerna bootstrap && cd packages/vbuild && npm run test:cov"
+    "test": "lerna bootstrap && lerna run test && xo",
+    "test:cov": "lerna bootstrap && cd packages/vbuild && npm run test:cov && xo"
   },
   "main": "index.js",
   "xo": {
