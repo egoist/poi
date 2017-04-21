@@ -1,6 +1,6 @@
 {
   "name": "vbuild-preset-buble",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Use buble to compile js files",
   "main": "index.js",
   "repository": "egoist/vbuild",
@@ -12,12 +12,17 @@
   "scripts": {
     "example": "vbuild dev example/index.js"
   },
-  "files": ["index.js"],
+  "files": [
+    "index.js"
+  ],
   "vbuild": {
     "presets": [
-      ["./index.js", {
-        "objectAssign": "assign"
-      }]
+      [
+        "./index.js",
+        {
+          "objectAssign": "assign"
+        }
+      ]
     ]
   }
 }
