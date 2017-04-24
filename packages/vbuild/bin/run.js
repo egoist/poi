@@ -162,8 +162,12 @@ module.exports = co.wrap(function * (cliOptions) {
           console.log(chalk.bold(`> Open ${url}`))
         } else {
           copied = true
-          copy.writeSync(url)
-          console.log(chalk.bold(`> Open ${url}`), '(copied!)')
+          try {
+            copy.writeSync(url)
+            console.log(chalk.bold(`> Open ${url}`), '(copied!)')
+          } catch (err) {
+            console.log(chalk.bold(`> Open ${url}`))
+          }
         }
 
         console.log(`\n${chalk.bgGreen.black(' DONE ')} Compiled successfully!`)
