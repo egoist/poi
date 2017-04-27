@@ -32,9 +32,7 @@ const loadPostCSSConfig = co.wrap(function * () {
       throw err
     }
   }
-  if (!defaultPostcssOptions.plugins) {
-    defaultPostcssOptions.plugins = []
-  }
+
   return defaultPostcssOptions
 })
 

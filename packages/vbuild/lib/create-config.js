@@ -109,6 +109,13 @@ module.exports = function ({
       .add(path.resolve(cwd, 'node_modules'))
       .add(ownDir('node_modules'))
 
+  postcss.plugins = postcss.plugins || []
+  if (autoprefixer !== false) {
+    postcss.plugins.unshift(require('autoprefixer')(Object.assign({
+      browsers: ['ie > 8', 'last 3 versions']
+    }, autoprefixer)))
+  }
+
   const cssOptions = {
     minimize,
     exract: extractCSS,
@@ -182,13 +189,6 @@ module.exports = function ({
         env
       }
     }, define && stringifyObject(define))])
-
-  postcss.plugins = postcss.plugins || []
-  if (autoprefixer !== false) {
-    postcss.plugins.unshift(require('autoprefixer')(Object.assign({
-      browsers: ['ie > 8', 'last 3 versions']
-    }, autoprefixer)))
-  }
 
   if (format === 'cjs' || mode === 'test') {
     config.output.libraryTarget('commonjs2')
