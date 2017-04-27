@@ -1,5 +1,3 @@
-// https://github.com/vuejs-templates/webpack/blob/master/template/build/utils.js
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HandleCSSLoader = require('webpack-handle-css-loader')
 
 const LANGS = ['css', 'stylus', 'styl', 'sass', 'scss', 'less']
