@@ -1,5 +1,7 @@
 {
   "devDependencies": {
+    "node-sass": "^4.5.2",
+    "sass-loader": "^6.0.3",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1"
   }

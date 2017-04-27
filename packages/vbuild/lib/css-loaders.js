@@ -1,89 +1,35 @@
 // https://github.com/vuejs-templates/webpack/blob/master/template/build/utils.js
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HandleCSSLoader = require('webpack-handle-css-loader')
 
-const LOADERS = {
-  css: ['css-loader', 'postcss-loader'],
-  less: ['css-loader', 'postcss-loader'],
-  sass: ['css-loader', 'postcss-loader', 'sass-loader'],
-  scss: ['css-loader', 'postcss-loader', 'sass-loader?indentedSyntax'],
-  stylus: ['css-loader', 'postcss-loader', 'stylus-loader'],
-  styl: ['css-loader', 'postcss-loader', 'stylus-loader']
-}
+const LANGS = ['css', 'stylus', 'styl', 'sass', 'scss', 'less']
 
 exports.vue = function (options) {
+  // vue-loader has postcss built-in
+  // so here we don't need to add a postcss-loader
+  options = Object.assign({}, options, { postcss: false })
+  const handleLoader = new HandleCSSLoader(options)
   const result = {}
-  for (const extension in LOADERS) {
-    const loaders = LOADERS[extension]
-    const rules = loaders
-      .filter(loader => loader !== 'postcss-loader')
-      .map(loader => getRule(loader, options))
-    if (options.extractCSS) {
-      result[extension] = ExtractTextPlugin.extract({
-        use: rules,
-        fallback: 'vue-style-loader'
-      })
-    } else {
-      result[extension] = ['vue-style-loader'].concat(rules)
-    }
+  for (const lang of LANGS) {
+    result[lang] = handleLoader[lang]().use
   }
   return result
 }
 
 // Generate loaders for standalone style files (outside of .vue)
 exports.standalone = function (config, options) {
-  for (const extension in LOADERS) {
-    const loaders = LOADERS[extension]
-    const thisRule = config.module
-      .rule(extension)
-      .test(new RegExp(`\\.${extension}$`))
-    let rules = loaders.map(loader => getRule(loader, options))
-    if (options.extractCSS) {
-      rules = ExtractTextPlugin.extract({
-        use: rules,
-        fallback: 'vue-style-loader'
-      })
-    } else {
-      thisRule.use('style').loader('vue-style-loader')
-    }
-    rules.forEach(rule => {
-      thisRule.use(rule.loader)
-        .loader(rule.loader)
-        .options(rule.options)
+  const handleLoader = new HandleCSSLoader(options)
+  for (const lang of LANGS) {
+    const rule = handleLoader[lang]()
+    const context = config.module
+      .rule(lang)
+      .test(rule.test)
+
+    rule.use.forEach(use => {
+      context
+        .use(use.loader)
+          .loader(use.loader)
+          .options(use.options)
     })
-  }
-}
-
-function getRule(loader, {
-  minimize,
-  sourceMap,
-  cssModules,
-  postcss
-} = {}) {
-  const options = {
-    sourceMap
-  }
-
-  if (loader === 'css-loader') {
-    options.minimize = minimize
-    if (cssModules) {
-      options.modules = true
-      options.importLoaders = 1
-      options.localIdentName = '[name]_[local]__[hash:base64:5]'
-    }
-  }
-
-  if (loader === 'postcss-loader') {
-    if (Array.isArray(postcss)) {
-      options.plugins = postcss
-    } else if (typeof postcss === 'object') {
-      Object.assign(options, postcss)
-    }
-    // Never let postcss-loader load config file
-    options.plugins = options.plugins || []
-  }
-
-  return {
-    loader,
-    options
   }
 }

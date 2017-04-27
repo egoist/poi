@@ -111,10 +111,11 @@ module.exports = function ({
 
   const cssOptions = {
     minimize,
-    extractCSS,
+    exract: extractCSS,
     sourceMap: Boolean(sourceMap),
     postcss,
-    cssModules
+    cssModules,
+    fallbackLoader: 'vue-style-loader'
   }
 
   cssLoaders.standalone(config, cssOptions)
