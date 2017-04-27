@@ -1,5 +1,4 @@
 const rl = require('readline')
-const chalk = require('chalk')
 
 const _ = module.exports = {}
 
