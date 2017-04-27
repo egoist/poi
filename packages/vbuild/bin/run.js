@@ -16,6 +16,7 @@ const { cwd, ownDir, inferHTML, readPkg } = require('../lib/utils')
 const loadConfig = require('../lib/load-config')
 const vbuild = require('../lib')
 const terminal = require('../lib/terminal-utils')
+const logger = require('../lib/logger')
 
 const loadPostCSSConfig = co.wrap(function * () {
   let defaultPostcssOptions = {}
@@ -71,6 +72,55 @@ module.exports = co.wrap(function * (cliOptions) {
   const config = yield loadConfig(cliOptions)
   const options = merge(config, cliOptions)
 
+  const clear = () => options.clear !== false && terminal.clear()
+
+  const printStats = stats => {
+    clear()
+    if (stats.hasErrors() || stats.hasWarnings()) {
+      console.log(stats.toString('errors-only').trim())
+      process.exitCode = 1
+    } else {
+      console.log(stats.toString({
+        colors: true,
+        chunks: false,
+        modules: false,
+        children: false,
+        version: false,
+        hash: false,
+        timings: false
+      }).trim())
+      process.exitCode = 0
+    }
+  }
+
+  let copied
+
+  const printOutro = (stats, url) => {
+    console.log()
+    if (stats.hasErrors()) {
+      logger.error('Compiled with Errors!')
+    } else if (stats.hasWarnings()) {
+      logger.warn('Compiled with Warnings!')
+    } else {
+      if (options.mode === 'development') {
+        if (copied) {
+          console.log(chalk.bold(`> Open ${url}`))
+        } else {
+          copied = true
+          try {
+            copy.writeSync(url)
+            console.log(chalk.bold(`> Open ${url}`), '(copied!)')
+          } catch (err) {
+            console.log(chalk.bold(`> Open ${url}`))
+          }
+        }
+        console.log()
+      }
+      logger.success(`Build ${stats.hash.slice(0, 6)} finished in ${stats.endTime - stats.startTime} ms`)
+    }
+    console.log()
+  }
+
   let presets = options.presets
   if (presets) {
     presets = Array.isArray(presets) ? presets : [presets]
@@ -109,15 +159,16 @@ module.exports = co.wrap(function * (cliOptions) {
 
   if (options.mode === 'production' || options.mode === 'test') {
     if (options.mode === 'production') {
-      terminal.clear()
+      clear()
       console.log('> Creating an optimized production build:\n')
     }
     app.build()
       .then(stats => {
         printStats(stats)
         if (options.mode === 'test') {
-          terminal.clear()
+          clear()
         } else if (options.mode === 'production') {
+          printOutro(stats)
           if (options.generateStats) {
             const statsFile = cwd(options.cwd, typeof options.generateStats === 'string' ? options.generateStats : 'stats.json')
             console.log('> Generating webpack stats file')
@@ -129,7 +180,13 @@ module.exports = co.wrap(function * (cliOptions) {
       .catch(handleError)
   } else if (options.mode === 'watch') {
     app.watch()
-    app.on('compile-done', printStats)
+    app.once('compile-done', () => {
+      console.log()
+    })
+    app.on('compile-done', stats => {
+      printStats(stats)
+      printOutro(stats)
+    })
   } else if (options.mode === 'development') {
     const { server, host, port } = app.prepare()
 
@@ -142,9 +199,9 @@ module.exports = co.wrap(function * (cliOptions) {
     })
 
     const url = `http://${host}:${port}`
-    let copied
 
     app.once('compile-done', () => {
+      console.log(`> Bundled with Webpack ${require('webpack/package.json').version}:\n`)
       if (options.open) {
         opn(url)
       }
@@ -152,27 +209,7 @@ module.exports = co.wrap(function * (cliOptions) {
 
     app.on('compile-done', stats => {
       printStats(stats)
-      console.log()
-      if (stats.hasErrors()) {
-        console.log(`${chalk.bgRed.black(' ERROR ')} Compiled with Errors!`)
-      } else if (stats.hasWarnings()) {
-        console.log(`${chalk.bgYellow.black(' WARN ')} Compiled with Warnings!`)
-      } else {
-        if (copied) {
-          console.log(chalk.bold(`> Open ${url}`))
-        } else {
-          copied = true
-          try {
-            copy.writeSync(url)
-            console.log(chalk.bold(`> Open ${url}`), '(copied!)')
-          } catch (err) {
-            console.log(chalk.bold(`> Open ${url}`))
-          }
-        }
-
-        console.log(`\n${chalk.bgGreen.black(' DONE ')} Compiled successfully!`)
-      }
-      console.log()
+      printOutro(stats, url)
     })
   }
 })
@@ -180,12 +217,10 @@ module.exports = co.wrap(function * (cliOptions) {
 module.exports.handleError = handleError
 
 function handleError(err) {
-  process.stdout.write('\x1Bc')
-  console.error(`${chalk.bgRed.black(' ERROR ')} Something went wrong during the build:\n`)
   if (err.name === 'AppError') {
     console.error(chalk.red(err.message))
   } else {
-    console.error(err.stack)
+    console.error(err.stack.trim())
   }
   notifier.notify({
     title: 'build failed!',
@@ -193,23 +228,9 @@ function handleError(err) {
     icon: ownDir('lib/icon.png')
   })
   console.log()
+  logger.error('Failed to start!')
+  console.log()
   process.exit(1)
-}
-
-function printStats(stats) {
-  terminal.clear()
-  if (stats.hasErrors() || stats.hasWarnings()) {
-    console.log(stats.toString('errors-only'))
-    process.exitCode = 1
-  } else {
-    console.log(stats.toString({
-      colors: true,
-      chunks: false,
-      modules: false,
-      children: false
-    }))
-    process.exitCode = 0
-  }
 }
 
 function loadPreset(name, options) {

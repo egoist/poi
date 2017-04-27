@@ -44,6 +44,9 @@ const sharedOptions = {
   },
   templateCompiler: {
     desc: 'Use full build of Vue'
+  },
+  'no-clear': {
+    desc: 'Do not clear screen'
   }
 }
 

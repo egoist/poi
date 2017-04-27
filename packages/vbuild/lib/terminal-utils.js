@@ -34,6 +34,5 @@ _.prompt = function (question, isYesDefault) {
 }
 
 _.clear = function () {
-  console.log(chalk.dim('---------------------'))
   process.stdout.write('\x1Bc')
 }
