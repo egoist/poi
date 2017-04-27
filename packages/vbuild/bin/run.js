@@ -88,7 +88,7 @@ module.exports = co.wrap(function * (cliOptions) {
         version: false,
         hash: false,
         timings: false
-      }).trim())
+      }))
       process.exitCode = 0
     }
   }
@@ -116,7 +116,7 @@ module.exports = co.wrap(function * (cliOptions) {
         }
         console.log()
       }
-      logger.success(`Build ${stats.hash.slice(0, 6)} finished in ${stats.endTime - stats.startTime} ms`)
+      logger.success(`Build ${stats.hash.slice(0, 6)} finished in ${stats.endTime - stats.startTime} ms!`)
     }
     console.log()
   }
@@ -156,6 +156,8 @@ module.exports = co.wrap(function * (cliOptions) {
   }
 
   const app = vbuild(options)
+
+  console.log(`> Bundling with Webpack ${require('webpack/package.json').version}`)
 
   if (options.mode === 'production' || options.mode === 'test') {
     if (options.mode === 'production') {
@@ -201,7 +203,6 @@ module.exports = co.wrap(function * (cliOptions) {
     const url = `http://${host}:${port}`
 
     app.once('compile-done', () => {
-      console.log(`> Bundled with Webpack ${require('webpack/package.json').version}:\n`)
       if (options.open) {
         opn(url)
       }
