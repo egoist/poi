@@ -118,7 +118,7 @@ module.exports = function ({
 
   const cssOptions = {
     minimize,
-    exract: extractCSS,
+    extract: extractCSS,
     sourceMap: Boolean(sourceMap),
     postcss,
     cssModules,
