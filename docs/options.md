@@ -131,6 +131,38 @@ module.exports = {
 }
 ```
 
+### webpack
+
+Type: `function`
+
+Mutate raw webpack config and you must return the updated config:
+
+```js
+module.exports = {
+  webpack(config) {
+    config.plugins = config.plugins.filter(removeSomePlugin) // ...
+    return config
+  }
+}
+```
+
+### extendWebpack
+
+Type: `function`
+
+Using [webpack-chain](https://github.com/mozilla-rpweb/webpack-chain) to modify webpack config in a predictable way:
+
+```js
+module.exports = {
+  extendWebpack(config) {
+    // Remove progress bar when building in production
+    config.plugins.delete('progress-bar')
+  }
+}
+```
+
+More details about internal namings are coming soon.
+
 ## Production
 
 ### generateStats

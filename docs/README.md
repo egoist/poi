@@ -119,7 +119,18 @@ We enabled code splitting for vendor code and app code by default in production 
 
 ### Webpack
 
-Change webpack config using [webpack-chain](https://github.com/mozilla-rpweb/webpack-chain):
+You can directly mutate webpack config via `webpack` options:
+
+```js
+module.exports = {
+  webpack(config) {
+    config.plugins.push(new MyWebpackPlugin())
+    return config // <-- Important, must return it
+  }
+}
+```
+
+Or change webpack config using [webpack-chain](https://github.com/mozilla-rpweb/webpack-chain):
 
 ```js
 module.exports = {
@@ -129,6 +140,8 @@ module.exports = {
   }
 }
 ```
+
+Using webpack-chain is more verbose but you gain more control with it.
 
 [⬆ back to top](#app)
 
