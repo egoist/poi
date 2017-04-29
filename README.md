@@ -78,16 +78,17 @@ poi build index.js
 <details><summary>What does <strong>Poi</strong> mean?</summary><br>
 
 <img src="https://img.moegirl.org/common/b/bd/%E5%A6%96%E6%A2%A6poi.jpg" width="200" />
-</details>
 
 First of all, it's Poi, not POI or poi.
 
 Poi is usually used to express emotions like `I don't know why but it actually works this way.` Thinking of such conversation:
 
-> How's it going?
-> Not bad, Poi.
-> What's that? Poi?
+> How's it going?<br>
+> Not bad, Poi.<br>
+> What's that? Poi?<br>
 > No idea, sounds cute though, Poi!
+
+</details>
 
 <details><summary>Is it like Yeoman?</summary><br>
 
