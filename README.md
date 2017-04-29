@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://ooo.0o0.ooo/2017/04/29/590453ab0b951.png" alt="preview" />
+  <img src="https://ooo.0o0.ooo/2017/04/29/59045594e0617.png" alt="preview" />
 </p>
 
 ## Badges
