@@ -9,7 +9,7 @@
 ## tl;dr
 
 ```bash
-poi dev whatever.js
+poi whatever.js
 # it just works
 ```
 

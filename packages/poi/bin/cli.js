@@ -15,7 +15,7 @@ function getOpts(argv, mode) {
   }, {})
   const cmd = argv._[0]
   let entry
-  if (['bundle', 'dev', 'watch', 'test'].indexOf(cmd) > -1) {
+  if (['build', 'dev', 'watch', 'test'].indexOf(cmd) > -1) {
     entry = argv._.slice(1)
   } else {
     entry = argv._
@@ -52,14 +52,14 @@ const sharedOptions = {
 
 yargs // eslint-disable-line no-unused-expressions
   .usage(`\n${chalk.yellow('poi')} [command] [options]`)
-  .command(['*', 'bundle'], 'Build App in Production mode', cli => {
+  .command(['build'], 'Build App in Production mode', cli => {
     cli.options(Object.assign({}, sharedOptions, {
       generateStats: {
         desc: 'Generate webpack stats for the bundle file'
       }
     }))
   }, createHandler('production'))
-  .command('dev', 'Run App in development mode', cli => {
+  .command(['*', 'dev'], 'Run App in development mode', cli => {
     cli.options(Object.assign({}, sharedOptions, {
       port: {
         desc: 'Custom dev server port',
