@@ -1,9 +1,9 @@
-# vbuild-preset-eslint
+# poi-preset-eslint
 
 ## Install
 
 ```bash
-yarn add vbuild-preset-eslint --dev
+yarn add poi-preset-eslint --dev
 ```
 
 ## Usage
@@ -11,7 +11,7 @@ yarn add vbuild-preset-eslint --dev
 To use eslint during building, simply:
 
 ```bash
-vbuild --presets eslint
+poi --presets eslint
 ```
 
 To config eslint, you can set `eslintConfig` in `package.json` or use a standalone config file like `.eslintrc`.

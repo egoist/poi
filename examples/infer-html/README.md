@@ -1,4 +1,4 @@
-vbuild (cli) could infer options for html-webpack-plugin from your `package.json`:
+Poi (cli) could infer options for html-webpack-plugin from your `package.json`:
 
 ```js
 {
@@ -8,4 +8,4 @@ vbuild (cli) could infer options for html-webpack-plugin from your `package.json
 }
 ```
 
-For the `template` path, vbuild will use `$cwd/index.html` if it exists, otherwise it fallbacks to [built-in template](/lib/index.html).
+For the `template` path, Poi will use `$cwd/index.html` if it exists, otherwise it fallbacks to [built-in template](/lib/index.html).

@@ -14,7 +14,7 @@ const req = require('req-cwd')
 const AppError = require('../lib/app-error')
 const { cwd, ownDir, inferHTML, readPkg } = require('../lib/utils')
 const loadConfig = require('../lib/load-config')
-const vbuild = require('../lib')
+const poi = require('../lib')
 const terminal = require('../lib/terminal-utils')
 const logger = require('../lib/logger')
 
@@ -156,7 +156,7 @@ module.exports = co.wrap(function * (cliOptions) {
     }
   }
 
-  const app = vbuild(options)
+  const app = poi(options)
 
   console.log(`> Bundling with Webpack ${require('webpack/package.json').version}`)
 
@@ -239,7 +239,7 @@ function loadPreset(name, options) {
   if (typeof name === 'string') {
     let preset
     try {
-      preset = /^(\.|\/)/.test(name) ? name : `vbuild-preset-${name}`
+      preset = /^(\.|\/)/.test(name) ? name : `poi-preset-${name}`
       name = req(preset)
     } catch (err) {
       if (/missing path/.test(err.message)) {

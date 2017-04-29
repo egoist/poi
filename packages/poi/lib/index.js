@@ -17,7 +17,7 @@ function runWebpack(compiler) {
   })
 }
 
-class VBuild extends EventEmitter {
+class Poi extends EventEmitter {
   constructor(options = {}) {
     super()
     this.options = options
@@ -77,4 +77,4 @@ class VBuild extends EventEmitter {
   }
 }
 
-module.exports = options => new VBuild(options)
+module.exports = options => new Poi(options)

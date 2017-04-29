@@ -1,5 +1,5 @@
 <p class="warning">
-  If you're looking docs for vbuild 6, please visit https://vbuild6.surge.sh, this is the docs for vbuild 7.
+  If you're looking docs for Poi 6, please visit https://poi6.surge.sh, this is the docs for Poi latest version.
 </p>
 
 <p align="center">
@@ -8,12 +8,12 @@
 
 ## Badges
 
-[![NPM version](https://img.shields.io/npm/v/vbuild.svg?style=flat-square)](https://npmjs.com/package/vbuild) [![NPM downloads](https://img.shields.io/npm/dm/vbuild.svg?style=flat-square)](https://npmjs.com/package/vbuild) [![Build Status](https://img.shields.io/circleci/project/egoist/vbuild/master.svg?style=flat-square)](https://circleci.com/gh/egoist/vbuild) [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat-square)](https://github.com/egoist/donate) [![twitter](https://img.shields.io/badge/twitter-@vbuildjs-1da1f2.svg?style=flat-square)](https://twitter.com/vbuildjs)
+[![NPM version](https://img.shields.io/npm/v/poi.svg?style=flat-square)](https://npmjs.com/package/poi) [![NPM downloads](https://img.shields.io/npm/dm/poi.svg?style=flat-square)](https://npmjs.com/package/poi) [![Build Status](https://img.shields.io/circleci/project/egoist/poi/master.svg?style=flat-square)](https://circleci.com/gh/egoist/poi) [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat-square)](https://github.com/egoist/donate) [![twitter](https://img.shields.io/badge/twitter-@poijs-1da1f2.svg?style=flat-square)](https://twitter.com/poijs)
 
 ## tl;dr
 
 ```bash
-vbuild dev whatever.js
+poi dev whatever.js
 # it just works
 ```
 
@@ -33,9 +33,9 @@ module.exports = (options, req) => ({
 // module.exports = { devServer: { port: 5000 } }
 ```
 
-By default it will load `vbuild.config.js` if it exists. To change the path, you can add `--config [path]` in CLI arguments. 
+By default it will load `poi.config.js` if it exists. To change the path, you can add `--config [path]` in CLI arguments. 
 
-You can also use `.vbuildrc` or set `vbuild` property in `package.json` when you only need JSON for configurations. See [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for all the supported config files.
+You can also use `.poirc` or set `poi` property in `package.json` when you only need JSON for configurations. See [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for all the supported config files.
 
 [⬆ back to top](#app)
 
@@ -49,7 +49,7 @@ CLI options.
 
 #### req
 
-The `require` function but context directory is the path to `node_modules/vbuild/lib`, which means you can use it to load vbuild's dependencies, like `webpack`.
+The `require` function but context directory is the path to `node_modules/poi/lib`, which means you can use it to load poi's dependencies, like `webpack`.
 
 [⬆ back to top](#app)
 
@@ -57,7 +57,7 @@ The `require` function but context directory is the path to `node_modules/vbuild
 
 JS files and `script` tags in single-file components are transpiled by Babel. We only use one preset by default: [babel-preset-vue-app](https://github.com/egoist/babel-preset-vue-app).
 
-vbuild will use `.babelrc` if it exists, you can also set `babelrc` option in config file to disable itself, check out [full reference](https://babeljs.io/docs/usage/api/#options) for `babel` option.
+poi will use `.babelrc` if it exists, you can also set `babelrc` option in config file to disable itself, check out [full reference](https://babeljs.io/docs/usage/api/#options) for `babel` option.
 
 Feel free to use [babel-preset-react-app](https://github.com/facebookincubator/create-react-app/blob/master/packages/babel-preset-react-app) or [babel-preset-preact-app](https://github.com/developit/babel-preset-preact) and so on to work with other frameworks.
 
@@ -162,7 +162,7 @@ module.exports = {
 }
 ```
 
-Check out the [built-in template](https://github.com/egoist/vbuild/blob/master/packages/vbuild/lib/index.html) file we use. To disable generating html file, you can set `html` to `false`.
+Check out the [built-in template](https://github.com/egoist/poi/blob/master/packages/poi/lib/index.html) file we use. To disable generating html file, you can set `html` to `false`.
 
 The options for html-webpack-plugin are available in template file as `htmlWebpackPlugin.options` and you can use `htmlWebpackPlugin.options.pkg` to access the data of `package.json`.
 

@@ -14,13 +14,13 @@ Note that when `format` is set, the hash will be excluded from filename.
 ### cjs
 
 ```bash
-vbuild --format cjs
+poi build --format cjs
 ```
 
 ### umd
 
 ```bash
-vbuild --format umd --module-name Vuex
+poi build --format umd --module-name Vuex
 ```
 
 When using `umd` format, you need to set `moduleName` so that user can access it via `window.moduleName`.

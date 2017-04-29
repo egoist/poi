@@ -51,7 +51,7 @@ const sharedOptions = {
 }
 
 yargs // eslint-disable-line no-unused-expressions
-  .usage(`\n${chalk.yellow('vbuild')} [command] [options]`)
+  .usage(`\n${chalk.yellow('poi')} [command] [options]`)
   .command(['*', 'bundle'], 'Build App in Production mode', cli => {
     cli.options(Object.assign({}, sharedOptions, {
       generateStats: {
@@ -84,7 +84,6 @@ yargs // eslint-disable-line no-unused-expressions
   .version(pkg.version)
   .alias('version', 'v')
   .alias('help', 'h')
-  // v6 docs is moved to vbuild6.surge.sh
-  .epilogue('for more information, find our manual at https://vbuild.js.org')
+  .epilogue('for more information, find our manual at https://poi.js.org')
   .help()
   .argv

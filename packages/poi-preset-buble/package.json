@@ -1,22 +1,22 @@
 {
-  "name": "vbuild-preset-buble",
+  "name": "poi-preset-buble",
   "version": "7.1.0",
   "description": "Use buble to compile js files",
   "main": "index.js",
-  "repository": "egoist/vbuild",
+  "repository": "egoist/poi",
   "author": "EGOIST <0x142857@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "buble-loader": "^0.4.1"
   },
   "scripts": {
-    "example": "vbuild dev example/index.js"
+    "example": "poi example/index.js"
   },
   "files": [
     "index.js"
   ],
   "xo": false,
-  "vbuild": {
+  "poi": {
     "presets": [
       [
         "./index.js",

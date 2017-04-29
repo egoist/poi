@@ -1,9 +1,9 @@
 {
-  "name": "vbuild",
+  "name": "poi",
   "version": "7.2.4",
   "description": "Fast prototype and distribute modern web apps like a pro.",
   "repository": {
-    "url": "egoist/vbuild",
+    "url": "egoist/poi",
     "type": "git"
   },
   "main": "lib/index.js",

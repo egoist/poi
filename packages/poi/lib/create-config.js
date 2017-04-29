@@ -292,7 +292,7 @@ module.exports = function ({
     html = html || {}
     const htmls = Array.isArray(html) ? html : [html]
     const defaultHtml = {
-      title: 'vbuild',
+      title: 'Poi',
       template: ownDir('lib/index.html'),
       env
     }

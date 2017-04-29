@@ -13,7 +13,7 @@ exports.ownDir = function (...args) {
 }
 
 exports.getConfigFile = function (config) {
-  return exports.cwd(typeof config === 'string' ? config : 'vbuild.config.js')
+  return exports.cwd(typeof config === 'string' ? config : 'poi.config.js')
 }
 
 exports.getPublicPath = function (mode, homepage) {
@@ -38,7 +38,7 @@ exports.inferHTML = function (options) {
   const minimize = exports.inferProductionValue(options.minimize, options.mode)
 
   const result = {
-    title: 'VBuild App',
+    title: 'Poi App',
     template: exports.ownDir('lib/index.html'),
     minify: {
       collapseWhitespace: minimize,

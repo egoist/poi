@@ -15,24 +15,26 @@ With this plugin you can:
 To add it in your config file:
 
 ```js
-// vbuild.config.js
+// poi.config.js
 module.exports = options => ({
   extendWebpack(config) {
-    config.plugin('analyzer')
+    if (options.analyze) {
+      config.plugin('analyzer')
       .use(BundleAnalyzerPlugin)
+    }
   }
 })
 ```
 
-Then run `vbuild -c` it will open browser for you to preview the stats.
+Then run `poi build --analyze` it will open browser for you to preview the stats.
 
 ## Use as CLI tool
 
-Alternatively, you don't need to add the plugin to your webpack config, instead you can run `vbuild --generate-stats` to generate webpack stats to `./stats.json` file, and then run `webpack-bundle-analyzer` CLI to analyze it:
+Alternatively, you don't need to add the plugin to your webpack config, instead you can run `poi --generate-stats` to generate webpack stats to `./stats.json` file, and then run `webpack-bundle-analyzer` CLI to analyze it:
 
 ```bash
 yarn global add webpack-bundle-analyzer
-vbuild --generate-stats stats.json
+poi build --generate-stats stats.json
 webpack-bundle-analyzer stats.json
 ```
 

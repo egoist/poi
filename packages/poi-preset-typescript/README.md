@@ -1,16 +1,16 @@
-# vbuild-preset-typescript
+# poi-preset-typescript
 
 ## Install
 
 ```bash
-yarn add typescript vbuild-preset-typescript --dev
+yarn add typescript poi-preset-typescript --dev
 ```
 
 ## Configure
 
 ```js
 {
-  "vbuild": {
+  "poi": {
     "presets": [
       "typescript"
     ]
@@ -19,7 +19,7 @@ yarn add typescript vbuild-preset-typescript --dev
 
 // or with options for ts-loader
 {
-  "vbuild": {
+  "poi": {
     "presets": [
       ["typescript", options]
     ]

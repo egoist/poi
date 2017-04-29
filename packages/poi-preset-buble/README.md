@@ -1,18 +1,18 @@
-# vbuild-preset-buble
+# poi-preset-buble
 
 Use buble instead of babel to transpile `.js` `.es6` and script tag in `.vue` files
 
 ## Install
 
 ```bash
-yarn add vbuild-preset-buble --dev
+yarn add poi-preset-buble --dev
 ```
 
 ## Usage
 
 ```js
 {
-  "vbuild": {
+  "poi": {
     "presets": [
       ["buble", bubleLoaderOptions]
     ]

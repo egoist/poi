@@ -13,11 +13,11 @@ module.exports = function (options) {
 
   const configFile = getConfigFile(options.config)
   const useConfig = fs.existsSync(configFile) ? configFile : null
-  return cosmiconfig('vbuild', { cache: false, argv: false })
+  return cosmiconfig('poi', { cache: false, argv: false })
   .load(cwd(options.cwd), useConfig) // directly use configFile when it exists
   .then(result => {
     if (result && result.filepath) {
-      console.log(`> Using external vbuild config file`)
+      console.log(`> Using external Poi config file`)
       console.log(chalk.dim(`> location: "${tildify(result.filepath)}"`))
       return handleConfig(result.config, options)
     }

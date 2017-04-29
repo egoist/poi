@@ -3,7 +3,7 @@
   "name": "unit-test",
   "version": "0.0.0",
   "scripts": {
-    "test": "vbuild test test.js && jest output_test/test.js"
+    "test": "poi test test.js && jest output_test/test.js"
   },
   "dependencies": {},
   "devDependencies": {

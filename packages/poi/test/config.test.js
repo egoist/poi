@@ -1,12 +1,12 @@
 import path from 'path'
-import vbuild from '../lib'
+import poi from '../lib'
 
 describe('get webpack config', () => {
   process.chdir('./test/fixture')
 
   describe('entry', () => {
     it('use default entry', () => {
-      const config = vbuild().getWebpackConfig()
+      const config = poi().getWebpackConfig()
       expect(config.entry).toEqual({
         client: [path.resolve('index.js')]
       })
@@ -20,7 +20,7 @@ describe('get webpack config', () => {
         { foo: ['foo.js', 'bar.js'] }
       ]
 
-      const [a, b, c, d] = entries.map(entry => vbuild({ entry }).getWebpackConfig())
+      const [a, b, c, d] = entries.map(entry => poi({ entry }).getWebpackConfig())
 
       expect(a.entry).toEqual({
         client: [path.resolve(entries[0])]
@@ -40,7 +40,7 @@ describe('get webpack config', () => {
     })
 
     it('add hmr entry', () => {
-      const config = vbuild({
+      const config = poi({
         entry: 'index.js',
         mode: 'development'
       }).getWebpackConfig()
@@ -56,25 +56,25 @@ describe('get webpack config', () => {
 
   describe('output dir', () => {
     it('default dir', () => {
-      const config = vbuild().getWebpackConfig()
+      const config = poi().getWebpackConfig()
 
       expect(config.output.path).toBe(path.resolve('dist'))
     })
 
     it('custom dir', () => {
-      const config = vbuild({ dist: 'foo/bar' }).getWebpackConfig()
+      const config = poi({ dist: 'foo/bar' }).getWebpackConfig()
 
       expect(config.output.path).toBe(path.resolve('foo/bar'))
     })
 
     it('test mode', () => {
-      const config = vbuild({ mode: 'test' }).getWebpackConfig()
+      const config = poi({ mode: 'test' }).getWebpackConfig()
 
       expect(config.output.path).toBe(path.resolve('output_test'))
     })
 
     it('test mode with custom dir', () => {
-      const config = vbuild({
+      const config = poi({
         mode: 'test',
         dist: 'foo/bar'
       }).getWebpackConfig()
@@ -91,7 +91,7 @@ describe('get webpack config', () => {
             .add(path.resolve(this.options.cwd, 'haha.js'))
         }
       }
-      const config = vbuild({
+      const config = poi({
         cwd: 'foo',
         presets: preset
       }).getWebpackConfig()
@@ -107,7 +107,7 @@ describe('get webpack config', () => {
             .add(path.resolve(this.options.cwd, 'haha.js'))
         }
       }
-      const config = vbuild({
+      const config = poi({
         mode: 'development',
         presets: preset
       }).webpackConfig

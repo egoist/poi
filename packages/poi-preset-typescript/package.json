@@ -1,18 +1,18 @@
 {
-  "name": "vbuild-preset-typescript",
+  "name": "poi-preset-typescript",
   "version": "7.1.0",
   "author": "EGOIST <0x142857@gmail.com>",
-  "repo": "egoist/vbuild",
+  "repo": "egoist/poi",
   "dependencies": {
     "ts-loader": "^2.0.3"
   },
   "scripts": {
-    "example": "vbuild dev example/index.ts"
+    "example": "poi example/index.ts"
   },
   "files": [
     "index.js"
   ],
-  "vbuild": {
+  "poi": {
     "presets": [
       [
         "./index.js",
