@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/8784712/23060768/1e3bea76-f53a-11e6-8735-998ee5f87238.png" alt="preview" />
+  <img src="https://ooo.0o0.ooo/2017/04/29/590453ab0b951.png" alt="preview" />
 </p>
 
 ## Badges
@@ -76,9 +76,6 @@ poi build index.js
 ## FAQ
 
 <details><summary>What does <strong>Poi</strong> mean?</summary><br>
-
-<img src="https://img.moegirl.org/common/b/bd/%E5%A6%96%E6%A2%A6poi.jpg" width="200" />
-
 First of all, it's Poi, not POI or poi.
 
 Poi is usually used to express emotions like `I don't know why but it actually works this way.` Thinking of such conversation:
