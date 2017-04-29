@@ -75,26 +75,26 @@ poi build index.js
 
 ## FAQ
 
-<details><summary>What does <strong>Poi</strong> mean?</summary>
+<details><summary>What does <strong>Poi</strong> mean?</summary><br>
+
+<img src="https://img.moegirl.org/common/b/bd/%E5%A6%96%E6%A2%A6poi.jpg" width="200" />
+</details>
 
 First of all, it's Poi, not POI or poi.
 
 Poi is usually used to express emotions like `I don't know why but it actually works this way.` Thinking of such conversation:
 
-- How's it going?
-- Not bad, Poi.
-- What's that? Poi?
-- No idea, sounds cute though, Poi!
+> How's it going?
+> Not bad, Poi.
+> What's that? Poi?
+> No idea, sounds cute though, Poi!
 
-<img src="https://img.moegirl.org/common/b/bd/%E5%A6%96%E6%A2%A6poi.jpg" width="400" />
-</details>
-
-<details><summary>Is it like Yeoman?</summary>
+<details><summary>Is it like Yeoman?</summary><br>
 
 No, Yeoman is just a boilerplate generator while Poi is a Webpack wrapper which reduces boilerplate code for you.
 </details>
 
-<details><summary>Is it like create-react-app?</summary>
+<details><summary>Is it like create-react-app?</summary><br>
 
 Yes and No.
 
