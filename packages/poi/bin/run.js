@@ -1,5 +1,6 @@
 /* eslint-disable unicorn/no-process-exit */
 const fs = require('fs')
+const path = require('path')
 const chalk = require('chalk')
 const notifier = require('node-notifier')
 const co = require('co')
@@ -10,7 +11,6 @@ const findBabelConfig = require('babel-load-config')
 const findPostcssConfig = require('postcss-load-config')
 const copy = require('clipboardy')
 const opn = require('opn')
-const req = require('req-cwd')
 const AppError = require('../lib/app-error')
 const { cwd, ownDir, inferHTML, readPkg } = require('../lib/utils')
 const loadConfig = require('../lib/load-config')
@@ -219,6 +219,7 @@ module.exports = co.wrap(function * (cliOptions) {
 module.exports.handleError = handleError
 
 function handleError(err) {
+  console.log()
   if (err.name === 'AppError') {
     console.error(chalk.red(err.message))
   } else {
@@ -240,10 +241,10 @@ function loadPreset(name, options) {
     let preset
     try {
       preset = /^(\.|\/)/.test(name) ? name : `poi-preset-${name}`
-      name = req(preset)
+      name = require(path.join(process.cwd(), preset))
     } catch (err) {
-      if (/missing path/.test(err.message)) {
-        throw new AppError(`Cannot find module ${preset} in current working directory!`)
+      if (err.code === 'MODULE_NOT_FOUND') {
+        throw new AppError(`Cannot find module "${preset}" in current working directory!\n\nYou may need to run: yarn add ${preset} --dev`)
       } else {
         throw err
       }
