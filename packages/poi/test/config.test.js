@@ -85,11 +85,9 @@ describe('get webpack config', () => {
 
   describe('use preset', () => {
     it('in default mode', () => {
-      const preset = {
-        extendWebpack(config) {
-          config.entry('foo')
-            .add(path.resolve(this.options.cwd, 'haha.js'))
-        }
+      const preset = ctx => {
+        ctx.webpackConfig.entry('foo')
+            .add(path.resolve(ctx.options.cwd, 'haha.js'))
       }
       const config = poi({
         cwd: 'foo',

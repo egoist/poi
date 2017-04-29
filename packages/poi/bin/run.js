@@ -160,29 +160,23 @@ module.exports = co.wrap(function * (cliOptions) {
 
   console.log(`> Bundling with Webpack ${require('webpack/package.json').version}`)
 
-  if (options.mode === 'production' || options.mode === 'test') {
-    if (options.mode === 'production') {
-      clear()
-      console.log('> Creating an optimized production build:\n')
-    }
-    app.build()
-      .then(stats => {
-        printStats(stats)
-        if (options.mode === 'test') {
-          clear()
-        } else if (options.mode === 'production') {
-          printOutro(stats)
-          if (options.generateStats) {
-            const statsFile = cwd(options.cwd, typeof options.generateStats === 'string' ? options.generateStats : 'stats.json')
-            console.log('> Generating webpack stats file')
-            fs.writeFileSync(statsFile, JSON.stringify(stats.toJson()), 'utf8')
-            console.log(chalk.dim(`> location: "${tildify(statsFile)}"`))
-          }
-        }
-      })
-      .catch(handleError)
+  if (options.mode === 'production') {
+    clear()
+    console.log('> Creating an optimized production build:\n')
+    yield app.build()
+
+    app.on('compile-done', stats => {
+      printStats(stats)
+      printOutro(stats)
+      if (options.generateStats) {
+        const statsFile = cwd(options.cwd, typeof options.generateStats === 'string' ? options.generateStats : 'stats.json')
+        console.log('> Generating webpack stats file')
+        fs.writeFileSync(statsFile, JSON.stringify(stats.toJson()), 'utf8')
+        console.log(chalk.dim(`> location: "${tildify(statsFile)}"`))
+      }
+    })
   } else if (options.mode === 'watch') {
-    app.watch()
+    yield app.watch()
     app.once('compile-done', () => {
       console.log()
     })
@@ -191,7 +185,7 @@ module.exports = co.wrap(function * (cliOptions) {
       printOutro(stats)
     })
   } else if (options.mode === 'development') {
-    const { server, host, port } = app.prepare()
+    const { server, host, port } = yield app.dev()
 
     server.listen(port, host)
     .on('error', err => {
@@ -213,6 +207,8 @@ module.exports = co.wrap(function * (cliOptions) {
       printStats(stats)
       printOutro(stats, url)
     })
+  } else if (options.mode === 'test') {
+    app.test().catch(handleError)
   }
 })
 

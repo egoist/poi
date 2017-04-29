@@ -1,26 +1,26 @@
 module.exports = function (options) {
-  return {
-    extendWebpack(config) {
-      config.resolve.extensions
-        .add('.ts')
-        .add('.tsx')
+  return poi => {
+    const config = poi.webpackConfig
 
-      config.module.rule('typescript')
-        .test(/\.tsx?$/)
-        .use('ts')
-          .loader(require.resolve('ts-loader'))
-          .options(options)
+    config.resolve.extensions
+      .add('.ts')
+      .add('.tsx')
 
-      // Vue support is not working properly now
-      config.module.rule('vue')
-        .use('vue')
-          .tap(vueOptions => {
-            vueOptions.loaders.ts = [{
-              loader: require.resolve('ts-loader'),
-              options
-            }]
-            return vueOptions
-          })
-    }
+    config.module.rule('typescript')
+      .test(/\.tsx?$/)
+      .use('ts')
+        .loader(require.resolve('ts-loader'))
+        .options(options)
+
+    // Vue support is not working properly now
+    config.module.rule('vue')
+      .use('vue')
+        .tap(vueOptions => {
+          vueOptions.loaders.ts = [{
+            loader: require.resolve('ts-loader'),
+            options
+          }]
+          return vueOptions
+        })
   }
 }
