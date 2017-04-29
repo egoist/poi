@@ -35,7 +35,7 @@ yarn add gh-pages --dev
 ```json
 {
   "scripts": {
-    "dev": "poi dev",
+    "dev": "poi",
     "build": "poi build",
     "deploy": "npm run build && gh-pages -d dist"
   }

@@ -25,7 +25,7 @@ yarn global add poi
 # yarn add poi --dev
 ```
 
-Come from poi 6? Check out the 2-minute [migration guide](https://gist.github.com/egoist/e3caa03010e16be194c56af7c468edf5).
+Come from Poi 6? Check out the 2-minute [migration guide](https://gist.github.com/egoist/e3caa03010e16be194c56af7c468edf5).
 
 ## How to use
 
@@ -42,10 +42,10 @@ new Vue({
 })
 ```
 
-Run app in dev mode:
+Run app in dev mode (default mode):
 
 ```bash
-poi dev index.js
+poi index.js
 ```
 
 So far we get:
@@ -54,13 +54,13 @@ So far we get:
 - Hot code reloading
 - Static file in `./static/` will be copied to `./dist/`
 
-Build app in production mode (default mode):
+Build app in production mode (optimized and minified):
 
 ```bash
-poi index.js
+poi build index.js
 ```
 
-**Note:** You can use poi with many frameworks easily, check out [examples](./examples).
+**Note:** You can use Poi with many frameworks easily, check out [examples](./examples).
 
 **For full documentation, please head to https://poi.js.org**
 
