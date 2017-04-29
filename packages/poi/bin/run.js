@@ -163,18 +163,15 @@ module.exports = co.wrap(function * (cliOptions) {
   if (options.mode === 'production') {
     clear()
     console.log('> Creating an optimized production build:\n')
-    yield app.build()
-
-    app.on('compile-done', stats => {
-      printStats(stats)
-      printOutro(stats)
-      if (options.generateStats) {
-        const statsFile = cwd(options.cwd, typeof options.generateStats === 'string' ? options.generateStats : 'stats.json')
-        console.log('> Generating webpack stats file')
-        fs.writeFileSync(statsFile, JSON.stringify(stats.toJson()), 'utf8')
-        console.log(chalk.dim(`> location: "${tildify(statsFile)}"`))
-      }
-    })
+    const stats = yield app.build()
+    printStats(stats)
+    printOutro(stats)
+    if (options.generateStats) {
+      const statsFile = cwd(options.cwd, typeof options.generateStats === 'string' ? options.generateStats : 'stats.json')
+      console.log('> Generating webpack stats file')
+      fs.writeFileSync(statsFile, JSON.stringify(stats.toJson()), 'utf8')
+      console.log(chalk.dim(`> location: "${tildify(statsFile)}"`))
+    }
   } else if (options.mode === 'watch') {
     yield app.watch()
     app.once('compile-done', () => {
