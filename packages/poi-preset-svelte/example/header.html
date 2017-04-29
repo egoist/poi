@@ -1,0 +1,18 @@
+<h1>{{ salutation }}, counted to {{ count }} already!</h1>
+
+<script>
+  import { hello } from './helpers';
+  export default {
+    data() {
+      return {
+        dude: 'Unknown',
+        count: 0
+      }
+    },
+    computed: {
+      salutation(dude) {
+        return hello(dude);
+      }
+    }
+  };
+</script>

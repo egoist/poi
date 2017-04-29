@@ -39,7 +39,7 @@ exports.inferHTML = function (options) {
 
   const result = {
     title: 'Poi App',
-    template: exports.ownDir('lib/index.html'),
+    template: exports.ownDir('lib/index.ejs'),
     minify: {
       collapseWhitespace: minimize,
       minifyCSS: minimize,
@@ -52,7 +52,7 @@ exports.inferHTML = function (options) {
   result.title = pkg.productName || pkg.name
   result.description = pkg.description
 
-  const templatePath = path.resolve(options.cwd || process.cwd(), 'index.html')
+  const templatePath = path.resolve(options.cwd || process.cwd(), 'index.ejs')
   if (fs.existsSync(templatePath)) {
     console.log(`> Using external HTML template file`)
     console.log(chalk.dim(`> location: "${tildify(templatePath)}"`))

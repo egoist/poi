@@ -293,7 +293,7 @@ module.exports = function ({
     const htmls = Array.isArray(html) ? html : [html]
     const defaultHtml = {
       title: 'Poi',
-      template: ownDir('lib/index.html'),
+      template: ownDir('lib/index.ejs'),
       env
     }
     htmls.forEach((h, i) => {

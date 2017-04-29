@@ -1,0 +1,24 @@
+{
+  "name": "poi-preset-svelte",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "poi example/index.js"
+  },
+  "poi": {
+    "presets": ["./index.js"],
+    "html": {
+      "title": "Counter Example",
+      "template": "./example/template.ejs"
+    }
+  },
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "svelte": "^1.18.1",
+    "svelte-loader": "^2.0.1"
+  },
+  "devDependencies": {
+    "poi": "*"
+  }
+}
