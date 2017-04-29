@@ -75,16 +75,30 @@ poi build index.js
 
 ## FAQ
 
-<details><summary>Is it like Next.js or Nuxt.js?</summary>
+<details><summary>What does <strong>Poi</strong> mean?</summary>
 
-Yes and no, yes is because they all simplified the process of building a complete web app, while `poi` is more focusing on building single-page app without the server-side, at least it is for now.
+First of all, it's Poi, not POI or poi.
+
+Poi is usually used to express emotions like `I don't know why but it actually works this way.` Thinking of such conversation:
+
+- How's it going?
+- Not bad, Poi.
+- What's that? Poi?
+- No idea, sounds cute though, Poi!
+
+<img src="https://img.moegirl.org/common/b/bd/%E5%A6%96%E6%A2%A6poi.jpg" width="400" />
 </details>
 
-<details><summary>Is it like vue-cli?</summary>
+<details><summary>Is it like Yeoman?</summary>
 
-No, vue-cli is just a boilerplate generator while poi is a Webpack wrapper which reduces boilerplate code for you.
+No, Yeoman is just a boilerplate generator while Poi is a Webpack wrapper which reduces boilerplate code for you.
+</details>
 
-You may notice that there's a `vue build` command lying in `vue-cli`, that's actually quite similar to poi, but providing less features and poi goes far beyond that.
+<details><summary>Is it like create-react-app?</summary>
+
+Yes and No.
+
+Yes is because they both simplify the development setup, but `create-react-app` is tied to `React` ecosystem and could not be configured programmatically using config file.
 </details>
 
 ## Contributing
