@@ -1,6 +1,14 @@
 const loaderPath = require.resolve('buble-loader')
 
 module.exports = options => {
+  options = Object.assign({
+    transforms: {
+      dangerousForOf: true,
+      generator: false
+    },
+    objectAssign: 'Object.assign'
+  }, options)
+
   return poi => {
     const config = poi.webpackConfig
 

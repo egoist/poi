@@ -18,12 +18,7 @@
   "xo": false,
   "poi": {
     "presets": [
-      [
-        "./index.js",
-        {
-          "objectAssign": "assign"
-        }
-      ]
+      "./index.js"
     ]
   }
 }

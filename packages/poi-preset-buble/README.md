@@ -19,3 +19,15 @@ yarn add poi-preset-buble --dev
   }
 }
 ```
+
+Default Buble options:
+
+```js
+{
+  transforms: {
+    dangerousForOf: true,
+    generator: false,
+  },
+  objectAssign: 'Object.assign'
+}
+```
