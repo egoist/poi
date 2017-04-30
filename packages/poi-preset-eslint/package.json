@@ -1,6 +1,6 @@
 {
   "name": "poi-preset-eslint",
-  "version": "7.3.0",
+  "version": "8.0.0-rc.1",
   "description": "Run eslint as building app using Poi",
   "main": "index.js",
   "scripts": {
