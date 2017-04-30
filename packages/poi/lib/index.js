@@ -7,7 +7,7 @@ const rm = require('rimraf')
 const series = require('promise.series')
 const createConfig = require('./create-config')
 const createServer = require('./server')
-const { promisify } = require('./utils')
+const { promisify, readPkg } = require('./utils')
 
 function runWebpack(compiler) {
   return new Promise((resolve, reject) => {
@@ -28,6 +28,7 @@ class Poi extends EventEmitter {
       build: [],
       watch: []
     }
+    this.manifest = readPkg()
     this.webpackConfig = createConfig(this.options)
     this.webpackConfig.plugin('compile-notifier')
       .use(PostCompilePlugin, [stats => {
@@ -46,7 +47,8 @@ class Poi extends EventEmitter {
           }
         },
         options: this.options,
-        webpackConfig: this.webpackConfig
+        webpackConfig: this.webpackConfig,
+        manifest: this.manifest
       }
       for (const preset of presets) {
         if (!preset.mode || (preset.mode === this.options.mode)) {
