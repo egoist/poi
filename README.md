@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://ooo.0o0.ooo/2017/04/29/59045594e0617.png" alt="preview" />
+  <img src="https://ooo.0o0.ooo/2017/04/30/5905ba6f1f3ee.png" alt="preview" />
 </p>
 
 ## Badges
@@ -74,18 +74,6 @@ poi build index.js
 - Feel free to submit yours via pull request :D
 
 ## FAQ
-
-<details><summary>What does <strong>Poi</strong> mean?</summary><br>
-First of all, it's Poi, not POI or poi.
-
-Poi is usually used to express emotions like `I don't know why but it actually works this way.` Thinking of such conversation:
-
-> How's it going?<br>
-> Not bad, Poi.<br>
-> What's that? Poi?<br>
-> No idea, sounds cute though, Poi!
-
-</details>
 
 <details><summary>Is it like Yeoman?</summary><br>
 
