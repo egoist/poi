@@ -1,6 +1,5 @@
 /* eslint-disable unicorn/no-process-exit */
 const fs = require('fs')
-const path = require('path')
 const chalk = require('chalk')
 const notifier = require('node-notifier')
 const co = require('co')
@@ -12,7 +11,7 @@ const findPostcssConfig = require('postcss-load-config')
 const copy = require('clipboardy')
 const opn = require('opn')
 const AppError = require('../lib/app-error')
-const { cwd, ownDir, inferHTML, readPkg } = require('../lib/utils')
+const { cwd, ownDir, inferHTML, readPkg, parsePresets } = require('../lib/utils')
 const loadConfig = require('../lib/load-config')
 const poi = require('../lib')
 const terminal = require('../lib/terminal-utils')
@@ -122,17 +121,8 @@ module.exports = co.wrap(function * (cliOptions) {
     console.log()
   }
 
-  let presets = options.presets
-  if (presets) {
-    presets = Array.isArray(presets) ? presets : [presets]
-    options.presets = presets.map(preset => {
-      if (typeof preset === 'string') {
-        preset = loadPreset(preset)
-      } else if (Array.isArray(preset)) {
-        preset = loadPreset(preset[0], preset[1])
-      }
-      return preset
-    })
+  if (options.presets) {
+    options.presets = parsePresets(options.presets)
   }
 
   if (options.babel === undefined) {
@@ -227,24 +217,4 @@ function handleError(err) {
   logger.error('Failed to start!')
   console.log()
   process.exit(1)
-}
-
-function loadPreset(name, options) {
-  if (typeof name === 'string') {
-    let preset
-    try {
-      preset = /^(\.|\/)/.test(name) ? name : `poi-preset-${name}`
-      name = require(path.join(process.cwd(), preset))
-    } catch (err) {
-      if (err.code === 'MODULE_NOT_FOUND' && err.message.indexOf(name) > -1) {
-        throw new AppError(`Cannot find module "${preset}" in current working directory!\n\nYou may need to run: yarn add ${preset} --dev`)
-      } else {
-        throw err
-      }
-    }
-  }
-  if (typeof name === 'function') {
-    name = name(options)
-  }
-  return name
 }

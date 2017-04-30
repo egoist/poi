@@ -4,7 +4,8 @@ module.exports = options => {
   options = Object.assign({
     transforms: {
       dangerousForOf: true,
-      generator: false
+      generator: false,
+      modules: false
     },
     objectAssign: 'Object.assign'
   }, options)

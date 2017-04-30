@@ -110,6 +110,7 @@ module.exports = function ({
       .add(ownDir('node_modules'))
 
   postcss.plugins = postcss.plugins || []
+
   if (autoprefixer !== false) {
     postcss.plugins.unshift(require('autoprefixer')(Object.assign({
       browsers: ['ie > 8', 'last 3 versions']
