@@ -85,10 +85,7 @@ class Poi extends EventEmitter {
     return this.runActions('watch')
       .then(() => {
         const compiler = webpack(this.getWebpackConfig())
-        return compiler.watch({}, (err, stats) => {
-          if (err) return this.emit('compile-error', err)
-          this.emit('compile-done', stats)
-        })
+        return compiler.watch({}, () => {})
       })
   }
 
