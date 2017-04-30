@@ -6,65 +6,84 @@
 
 [![NPM version](https://img.shields.io/npm/v/poi.svg?style=flat-square)](https://npmjs.com/package/poi) [![NPM downloads](https://img.shields.io/npm/dm/poi.svg?style=flat-square)](https://npmjs.com/package/poi) [![Build Status](https://img.shields.io/circleci/project/egoist/poi/master.svg?style=flat-square)](https://circleci.com/gh/egoist/poi) [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat-square)](https://github.com/egoist/donate) [![twitter](https://img.shields.io/badge/twitter-@poijs-1da1f2.svg?style=flat-square)](https://twitter.com/poijs)
 
-## tl;dr
+## Introduction
+
+Start writing an app with a single `.js` file, Poi could handle all the development setups for you, no more configuration hell.
+
+One devDependency to rule them all:
 
 ```bash
-poi whatever.js
-# it just works
-```
-
-Develop web apps with no build configuration until you need.
-
-## Install
-
-It works with both Yarn(>=0.17) and npm(>=3):
-
-```bash
+# Either globally
 yarn global add poi
-# You can also install it locally
-# yarn add poi --dev
+# Or locally (preferred)
+yarn add poi --dev
 ```
 
-Come from Poi 6? Check out the 2-minute [migration guide](https://gist.github.com/egoist/e3caa03010e16be194c56af7c468edf5).
+Then populating an `index.js` and writing with your faviorite framework like one of:
 
-## How to use
+<p>
+<details><summary>React / Preact</summary><br>
 
-Populate an entry file, let's say `index.js`:
+```js
+import React from 'react'
+import { render } from 'react-dom'
+
+const App = () => <h1>Hello React.</h1>
+
+render(<App />, document.getElementById('app'))
+```
+
+Note: You need to install `react` `react-dom` and desired babel preset like `babel-preset-react-app`.
+
+It's similar for other React-like framework.
+</details>
+
+<details><summary>Vue</summary><br>
 
 ```js
 import Vue from 'vue'
 
 new Vue({
   el: '#app',
-  render(h) {
-    return h('h1', 'hello world')
+  render() {
+    return <h1>Hello Vue.</h1>
   }
 })
 ```
 
-Run app in dev mode (default mode):
+Note: You don't need to install any dependencies, `vue` is already brought by `Poi`. And single-file component is also supported by default.
+</details>
 
-```bash
-poi index.js
-```
+<details><summary>Other</summary><br>
+
+You can write your app with any framework :P
+</details>
+</p>
+
+To develop this file, run `poi` in your terminal and you can open `http://localhost:4000` to preview!
 
 So far we get:
 
 - Automatic transpilation and bundling (with webpack and babel/postcss)
 - Hot code reloading
-- Static file in `./static/` will be copied to `./dist/`
+- Static file in `./static/` is served as static files.
 
 Build app in production mode (optimized and minified):
 
 ```bash
-poi build index.js
+poi build
 ```
 
-**Note:** You can use Poi with many frameworks easily, check out [examples](./examples).
+To change the path of entry file:
+
+```bash
+poi src/my-entry.js # development
+poi build src/my-entry.js # production
+```
 
 **For full documentation, please head to https://poi.js.org**
 
-## Who is using poi?
+## Who is using Poi?
 
 - [codepan](https://github.com/egoist/codepan) - Like codepen and jsbin but works offline.
 - [jsx-editor](https://github.com/egoist/jsx-editor) - JSX Live Editor
