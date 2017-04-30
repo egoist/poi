@@ -1,0 +1,24 @@
+{
+  "name": "poi-preset-buble",
+  "version": "7.3.0",
+  "description": "Use buble to compile js files",
+  "main": "index.js",
+  "repository": "egoist/poi",
+  "author": "EGOIST <0x142857@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "buble-loader": "^0.4.1"
+  },
+  "scripts": {
+    "example": "poi example/index.js"
+  },
+  "files": [
+    "index.js"
+  ],
+  "xo": false,
+  "poi": {
+    "presets": [
+      "./index.js"
+    ]
+  }
+}

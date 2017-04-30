@@ -1,9 +1,9 @@
-# preact + vbuild
+# Preact + Poi
 
 ```bash
 # cd into this dir and run:
 yarn install
-vbuild dev
+poi
 ```
 
-Check out [.babelrc](https://github.com/egoist/vbuild/blob/master/examples/preact/.babelrc) for configuations.
+Check out [.babelrc](https://github.com/egoist/poi/blob/master/examples/preact/.babelrc) for configuations.

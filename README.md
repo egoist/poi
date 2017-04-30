@@ -1,70 +1,89 @@
 <p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/8784712/23060768/1e3bea76-f53a-11e6-8735-998ee5f87238.png" alt="preview" />
+  <img src="https://ooo.0o0.ooo/2017/04/30/5905ba6f1f3ee.png" alt="preview" />
 </p>
 
 ## Badges
 
-[![NPM version](https://img.shields.io/npm/v/vbuild.svg?style=flat-square)](https://npmjs.com/package/vbuild) [![NPM downloads](https://img.shields.io/npm/dm/vbuild.svg?style=flat-square)](https://npmjs.com/package/vbuild) [![Build Status](https://img.shields.io/circleci/project/egoist/vbuild/master.svg?style=flat-square)](https://circleci.com/gh/egoist/vbuild) [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat-square)](https://github.com/egoist/donate) [![twitter](https://img.shields.io/badge/twitter-@vbuildjs-1da1f2.svg?style=flat-square)](https://twitter.com/vbuildjs)
+[![NPM version](https://img.shields.io/npm/v/poi.svg?style=flat-square)](https://npmjs.com/package/poi) [![NPM downloads](https://img.shields.io/npm/dm/poi.svg?style=flat-square)](https://npmjs.com/package/poi) [![Build Status](https://img.shields.io/circleci/project/egoist/poi/master.svg?style=flat-square)](https://circleci.com/gh/egoist/poi) [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat-square)](https://github.com/egoist/donate) [![twitter](https://img.shields.io/badge/twitter-@poijs-1da1f2.svg?style=flat-square)](https://twitter.com/poijs)
 
-## tl;dr
+## Introduction
 
-```bash
-vbuild dev whatever.js
-# it just works
-```
+Start writing an app with a single `.js` file, Poi could handle all the development setups for you, no more configuration hell.
 
-Develop web apps with no build configuration until you need.
-
-## Install
-
-It works with both Yarn(>=0.17) and npm(>=3):
+One devDependency to rule them all:
 
 ```bash
-yarn global add vbuild
-# You can also install it locally
-# yarn add vbuild --dev
+# Either globally
+yarn global add poi
+# Or locally (preferred)
+yarn add poi --dev
 ```
 
-Come from vbuild 6? Check out the 2-minute [migration guide](https://gist.github.com/egoist/e3caa03010e16be194c56af7c468edf5).
+Then populating an `index.js` and writing with your faviorite framework like one of:
 
-## How to use
+<p>
+<details><summary>React / Preact</summary><br>
 
-Populate an entry file, let's say `index.js`:
+```js
+import React from 'react'
+import { render } from 'react-dom'
+
+const App = () => <h1>Hello React.</h1>
+
+render(<App />, document.getElementById('app'))
+```
+
+Note: You need to install `react` `react-dom` and desired babel preset like `babel-preset-react-app`.
+
+It's similar for other React-like framework.
+</details>
+
+<details><summary>Vue</summary><br>
 
 ```js
 import Vue from 'vue'
 
 new Vue({
   el: '#app',
-  render(h) {
-    return h('h1', 'hello world')
+  render() {
+    return <h1>Hello Vue.</h1>
   }
 })
 ```
 
-Run app in dev mode:
+Note: You don't need to install any dependencies, `vue` is already brought by `Poi`. And single-file component is also supported by default.
+</details>
 
-```bash
-vbuild dev index.js
-```
+<details><summary>Other</summary><br>
+
+You can write your app with any framework :P
+</details>
+</p>
+
+To develop this file, run `poi` in your terminal and you can open `http://localhost:4000` to preview!
 
 So far we get:
 
 - Automatic transpilation and bundling (with webpack and babel/postcss)
 - Hot code reloading
-- Static file in `./static/` will be copied to `./dist/`
+- Static file in `./static/` is served as static files.
 
-Build app in production mode (default mode):
+Build app in production mode (optimized and minified):
 
 ```bash
-vbuild index.js
+poi build
 ```
 
-**Note:** You can use vbuild with many frameworks easily, check out [examples](./examples).
+To change the path of entry file:
 
-**For full documentation, please head to https://vbuild.js.org**
+```bash
+poi src/my-entry.js # development
+poi build src/my-entry.js # production
+```
 
-## Who is using vbuild?
+**For full documentation, please head to https://poi.js.org**
+
+## Who is using Poi?
 
 - [codepan](https://github.com/egoist/codepan) - Like codepen and jsbin but works offline.
 - [jsx-editor](https://github.com/egoist/jsx-editor) - JSX Live Editor
@@ -75,16 +94,16 @@ vbuild index.js
 
 ## FAQ
 
-<details><summary>Is it like Next.js or Nuxt.js?</summary>
+<details><summary>Is it like Yeoman?</summary><br>
 
-Yes and no, yes is because they all simplified the process of building a complete web app, while `vbuild` is more focusing on building single-page app without the server-side, at least it is for now.
+No, Yeoman is just a boilerplate generator while Poi is a Webpack wrapper which reduces boilerplate code for you.
 </details>
 
-<details><summary>Is it like vue-cli?</summary>
+<details><summary>Is it like create-react-app?</summary><br>
 
-No, vue-cli is just a boilerplate generator while vbuild is a Webpack wrapper which reduces boilerplate code for you.
+Yes and No.
 
-You may notice that there's a `vue build` command lying in `vue-cli`, that's actually quite similar to vbuild, but providing less features and vbuild goes far beyond that.
+Yes is because they both simplify the development setup, but `create-react-app` is tied to `React` ecosystem and could not be configured programmatically using config file.
 </details>
 
 ## Contributing
@@ -97,7 +116,7 @@ You may notice that there's a `vue build` command lying in `vue-cli`, that's act
 
 ## Author
 
-**vbuild** © [EGOIST](https://github.com/egoist), Released under the [MIT](./LICENSE) License.<br>
-Authored and maintained by egoist with help from contributors ([list](https://github.com/egoist/vbuild/contributors)).
+**poi** © [EGOIST](https://github.com/egoist), Released under the [MIT](./LICENSE) License.<br>
+Authored and maintained by egoist with help from contributors ([list](https://github.com/egoist/poi/contributors)).
 
 > [egoistian.com](https://egoistian.com) · GitHub [@egoist](https://github.com/egoist) · Twitter [@rem_rin_rin](https://twitter.com/rem_rin_rin)

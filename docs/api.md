@@ -1,3 +1,0 @@
-## JavaScript API
-
-[TODO]

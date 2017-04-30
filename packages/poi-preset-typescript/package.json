@@ -1,0 +1,30 @@
+{
+  "name": "poi-preset-typescript",
+  "version": "7.3.0",
+  "author": "EGOIST <0x142857@gmail.com>",
+  "repo": "egoist/poi",
+  "dependencies": {
+    "ts-loader": "^2.0.3"
+  },
+  "scripts": {
+    "example": "poi example/index.ts"
+  },
+  "files": [
+    "index.js"
+  ],
+  "poi": {
+    "presets": [
+      [
+        "./index.js",
+        {}
+      ]
+    ]
+  },
+  "xo": false,
+  "peerDependencies": {
+    "typescript": "^2.2.2"
+  },
+  "devDependencies": {
+    "typescript": "^2.2.2"
+  }
+}

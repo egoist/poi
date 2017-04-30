@@ -1,7 +1,7 @@
-# React + vbuild
+# React + Poi
 
 ```bash
 # cd into this dir and run
 yarn install
-vbuild dev
+poi
 ```
