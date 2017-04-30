@@ -1,6 +1,6 @@
 {
   "name": "poi-preset-svelte",
-  "version": "8.0.0-rc.1",
+  "version": "8.0.0-rc.2",
   "scripts": {
     "dev": "poi example/index.js"
   },
@@ -21,6 +21,6 @@
     "svelte-loader": "^2.0.1"
   },
   "devDependencies": {
-    "poi": "^8.0.0-rc.1"
+    "poi": "^8.0.0-rc.2"
   }
 }
