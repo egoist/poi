@@ -86,10 +86,11 @@ poi build src/my-entry.js # production
 ## Who is using Poi?
 
 - [codepan](https://github.com/egoist/codepan) - Like codepen and jsbin but works offline.
-- [jsx-editor](https://github.com/egoist/jsx-editor) - JSX Live Editor
-- [vstar](https://github.com/sinchang/vstar) - A simple web app to show your or others GitHub repos stars
-- [npmarket](https://github.com/qingwei-li/npmarket) - More efficient search for node packages
-- [sublog](https://github.com/sinchang/sublog) - Build a static blog website from GitHub Issues
+- [jsx-editor](https://github.com/egoist/jsx-editor) - JSX Live Editor.
+- [vstar](https://github.com/sinchang/vstar) - A simple web app to show your or others GitHub repos stars.
+- [npmarket](https://github.com/qingwei-li/npmarket) - More efficient search for node packages.
+- [sublog](https://github.com/sinchang/sublog) - Build a static blog website from GitHub Issues.
+- [emoji.js.org](https://emoji.js.org) - Unfancy emoji searcher.
 - Feel free to submit yours via pull request :D
 
 ## FAQ
