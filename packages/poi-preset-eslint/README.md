@@ -10,7 +10,7 @@ yarn add poi-preset-eslint --dev
 
 To use eslint during building:
 
-```bash
+```js
 module.exports = options => {
   const presets = []
 
