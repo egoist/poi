@@ -11,12 +11,12 @@ yarn add poi-preset-buble --dev
 ## Usage
 
 ```js
-{
-  "poi": {
-    "presets": [
-      ["buble", bubleLoaderOptions]
-    ]
-  }
+// poi.config.js
+module.exports = {
+  presets: [
+    require('poi-preset-buble')(options)
+    // options is for buble
+  ]
 }
 ```
 
@@ -27,6 +27,7 @@ Default Buble options:
   transforms: {
     dangerousForOf: true,
     generator: false,
+    modules: false
   },
   objectAssign: 'Object.assign'
 }
