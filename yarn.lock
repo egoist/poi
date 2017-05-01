@@ -2582,15 +2582,7 @@ wrappy@1:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/wrappy/download/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
 
-write-file-atomic@^1.1.2:
-  version "1.3.2"
-  resolved "http://registry.npm.taobao.org/write-file-atomic/download/write-file-atomic-1.3.2.tgz#f80ac5e06d3a38996ab51b5d310db57102deb902"
-  dependencies:
-    graceful-fs "^4.1.11"
-    imurmurhash "^0.1.4"
-    slide "^1.1.5"
-
-write-file-atomic@^1.3.3:
+write-file-atomic@^1.1.2, write-file-atomic@^1.3.3:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/write-file-atomic/-/write-file-atomic-1.3.4.tgz#f807a4f0b1d9e913ae7a48112e6cc3af1991b45f"
   dependencies:

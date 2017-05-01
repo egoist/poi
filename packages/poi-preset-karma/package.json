@@ -1,0 +1,29 @@
+{
+  "name": "poi-preset-karma",
+  "version": "0.0.0",
+  "scripts": {
+    "example": "poi test"
+  },
+  "poi": {
+    "presets": {
+      "./index.js": {
+        "testFiles": "example/*.test.js"
+      }
+    }
+  },
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "jasmine-core": "^2.6.1",
+    "karma": "^1.6.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-spec-reporter": "^0.0.31",
+    "karma-webpack": "^2.0.3"
+  },
+  "devDependencies": {
+    "poi": "^8.0.0-rc.2"
+  }
+}

@@ -47,7 +47,7 @@ describe('get webpack config', () => {
 
       expect(config.entry).toEqual({
         client: [
-          path.join(__dirname, '../lib/dev-client.es6'),
+          path.join(__dirname, '../app/dev-client.es6'),
           path.resolve('index.js')
         ]
       })
@@ -63,21 +63,6 @@ describe('get webpack config', () => {
 
     it('custom dir', () => {
       const config = poi({ dist: 'foo/bar' }).getWebpackConfig()
-
-      expect(config.output.path).toBe(path.resolve('foo/bar'))
-    })
-
-    it('test mode', () => {
-      const config = poi({ mode: 'test' }).getWebpackConfig()
-
-      expect(config.output.path).toBe(path.resolve('output_test'))
-    })
-
-    it('test mode with custom dir', () => {
-      const config = poi({
-        mode: 'test',
-        dist: 'foo/bar'
-      }).getWebpackConfig()
 
       expect(config.output.path).toBe(path.resolve('foo/bar'))
     })

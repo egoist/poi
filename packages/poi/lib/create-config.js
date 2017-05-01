@@ -191,7 +191,7 @@ module.exports = function ({
       }
     }, define && stringifyObject(define))])
 
-  if (format === 'cjs' || mode === 'test') {
+  if (format === 'cjs') {
     config.output.libraryTarget('commonjs2')
     config.externals([
       nodeExternals({
@@ -222,16 +222,6 @@ module.exports = function ({
         .end()
       .plugin('progress-bar')
         .use(ProgressPlugin)
-        .end()
-  }
-
-  // Customizations for test mode
-  if (mode === 'test') {
-    config
-      .target('node')
-      .output
-        .path(path.resolve(cwd, dist || 'output_test'))
-        .filename('test.js')
         .end()
   }
 
@@ -275,7 +265,7 @@ module.exports = function ({
 
   if (hotReload !== false && mode === 'development' && config.entryPoints.has('client')) {
     config.entry('client')
-      .prepend(ownDir('lib/dev-client.es6'))
+      .prepend(ownDir('app/dev-client.es6'))
     config.plugin('hmr')
       .use(webpack.HotModuleReplacementPlugin)
   }

@@ -10,7 +10,7 @@
   "files": [
     "bin",
     "lib",
-    "template"
+    "app"
   ],
   "engines": {
     "node": ">= 6"
@@ -26,10 +26,7 @@
   "author": "egoist <0x142857@gmail.com>",
   "license": "MIT",
   "jest": {
-    "testEnvironment": "node",
-    "testMatch": [
-      "**/test/**/*.test.js"
-    ]
+    "testEnvironment": "node"
   },
   "devDependencies": {
     "babel-jest": "^19.0.0",
