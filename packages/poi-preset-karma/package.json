@@ -1,6 +1,6 @@
 {
   "name": "poi-preset-karma",
-  "version": "0.0.0",
+  "version": "8.0.0-rc.3",
   "scripts": {
     "example": "poi test"
   },
@@ -24,6 +24,6 @@
     "karma-webpack": "^2.0.3"
   },
   "devDependencies": {
-    "poi": "^8.0.0-rc.2"
+    "poi": "^8.0.0-rc.3"
   }
 }
