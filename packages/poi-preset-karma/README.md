@@ -47,3 +47,10 @@ Default: `['jasmine']`
 
 Type: `Array`<br>
 Default: `['PhantomJS']`
+
+### singleRun
+
+Type: `boolean`<br>
+Default: `process.env.CI`
+
+Exit right way when tests are completed.

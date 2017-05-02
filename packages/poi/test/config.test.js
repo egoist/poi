@@ -69,33 +69,47 @@ describe('get webpack config', () => {
   })
 
   describe('use preset', () => {
-    it('in default mode', () => {
-      const preset = ctx => {
-        ctx.webpackConfig.entry('foo')
-            .add(path.resolve(ctx.options.cwd, 'haha.js'))
+    it('in default mode', async () => {
+      const preset = poi => {
+        poi.webpackConfig.entry('foo')
+            .add(path.resolve(poi.options.cwd, 'haha.js'))
       }
-      const config = poi({
+      const p = await poi({
         cwd: 'foo',
         presets: preset
-      }).getWebpackConfig()
+      })
 
-      expect(config.entry.foo).toEqual([path.resolve('foo', 'haha.js')])
+      await p.process()
+
+      const config = p.webpackConfig
+
+      expect(config.entry('foo').values()).toEqual([path.resolve('foo', 'haha.js')])
     })
 
-    it('in development mode', () => {
-      const preset = {
-        mode: 'random',
-        extendWebpack(config) {
-          config.entry('foo')
-            .add(path.resolve(this.options.cwd, 'haha.js'))
+    it('in dev command', async () => {
+      const presets = [
+        poi => {
+          if (poi.options.mode === 'development') {
+            poi.webpackConfig.entry('foo').add('foo')
+          }
+        },
+        poi => {
+          if (poi.options.mode === 'development') {
+            poi.webpackConfig.entry('foo').add('bar')
+          }
         }
-      }
-      const config = poi({
-        mode: 'development',
-        presets: preset
-      }).webpackConfig
+      ]
 
-      expect(config.entryPoints.has('foo')).toBe(false)
+      const p = poi({
+        mode: 'development',
+        presets
+      })
+
+      await p.process()
+
+      const config = p.webpackConfig
+
+      expect(config.entry('foo').values()).toEqual(['foo', 'bar'])
     })
   })
 })

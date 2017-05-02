@@ -4,7 +4,7 @@ const webpack = require('webpack')
 const PostCompilePlugin = require('post-compile-webpack-plugin')
 const webpackMerge = require('webpack-merge')
 const rm = require('rimraf')
-const series = require('promise.series')
+const ware = require('ware')
 const createConfig = require('./create-config')
 const createServer = require('./server')
 const { promisify, readPkg } = require('./utils')
@@ -22,12 +22,7 @@ class Poi extends EventEmitter {
   constructor(options = {}) {
     super()
     this.options = options
-    this.actions = {
-      test: [],
-      dev: [],
-      build: [],
-      watch: []
-    }
+    this.mode = options.mode
     this.manifest = readPkg()
     this.webpackConfig = createConfig(this.options)
     this.webpackConfig.plugin('compile-notifier')
@@ -36,26 +31,6 @@ class Poi extends EventEmitter {
           this.emit('compile-done', stats)
         }
       }])
-    if (this.options.presets) {
-      const presets = Array.isArray(this.options.presets) ? this.options.presets : [this.options.presets]
-      const context = {
-        command: (cmd, fn) => {
-          if (typeof cmd === 'string') {
-            this.actions[cmd].push(fn)
-          } else if (Array.isArray(cmd)) {
-            cmd.forEach(name => this.actions[name].push(fn))
-          }
-        },
-        options: this.options,
-        webpackConfig: this.webpackConfig,
-        manifest: this.manifest
-      }
-      for (const preset of presets) {
-        if (!preset.mode || (preset.mode === this.options.mode)) {
-          preset(context)
-        }
-      }
-    }
   }
 
   getWebpackConfig() {
@@ -70,7 +45,7 @@ class Poi extends EventEmitter {
 
   build() {
     let compiler
-    return this.runActions('build')
+    return this.process()
       .then(() => {
         compiler = webpack(this.getWebpackConfig())
         // Only remove dist file when name contains hash
@@ -82,7 +57,7 @@ class Poi extends EventEmitter {
   }
 
   watch() {
-    return this.runActions('watch')
+    return this.process()
       .then(() => {
         const compiler = webpack(this.getWebpackConfig())
         return compiler.watch({}, () => {})
@@ -90,7 +65,7 @@ class Poi extends EventEmitter {
   }
 
   dev() {
-    return this.runActions('dev')
+    return this.process()
       .then(() => {
         const compiler = webpack(this.getWebpackConfig())
         return createServer(compiler, this.options)
@@ -98,14 +73,26 @@ class Poi extends EventEmitter {
   }
 
   test() {
-    return this.runActions('test')
+    return this.process()
   }
 
-  runActions(name) {
+  process() {
     if (this.options.extendWebpack) {
       this.options.extendWebpack.call(this, this.webpackConfig)
     }
-    return series(this.actions[name].map(fn => () => fn()))
+
+    if (!this.options.presets) {
+      return Promise.resolve()
+    }
+
+    return new Promise((resolve, reject) => {
+      ware()
+        .use(this.options.presets)
+        .run(this, err => {
+          if (err) return reject(err)
+          resolve()
+        })
+    })
   }
 }
 

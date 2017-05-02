@@ -4,13 +4,14 @@ module.exports = ({
   port = 5001,
   testFiles = ['test/unit/**/*.test.js'],
   testFrameworks = ['jasmine'],
-  browsers = ['PhantomJS']
+  browsers = ['PhantomJS'],
+  singleRun = process.env.CI
 } = {}) => {
   if (!Array.isArray(testFiles)) {
     testFiles = [testFiles]
   }
   return poi => {
-    poi.command('test', () => {
+    if (poi.mode === 'test') {
       const karmaConfig = {
         port,
         browsers,
@@ -26,7 +27,7 @@ module.exports = ({
           stats: 'errors-only',
           noInfo: true
         },
-        singleRun: process.env.CI // single-run mode in CI
+        singleRun // single-run mode in CI
       }
 
       const webpackConfig = poi.webpackConfig.toConfig()
@@ -37,6 +38,6 @@ module.exports = ({
       const server = new Server(karmaConfig)
 
       server.start()
-    })
+    }
   }
 }
