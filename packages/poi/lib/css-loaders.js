@@ -3,15 +3,8 @@ const HandleCSSLoader = require('webpack-handle-css-loader')
 const LANGS = ['css', 'stylus', 'styl', 'sass', 'scss', 'less']
 
 exports.vue = function (options) {
-  // vue-loader has postcss built-in
-  // so here we don't need to add a postcss-loader
-  options = Object.assign({}, options, { postcss: false })
   const handleLoader = new HandleCSSLoader(options)
-  const result = {}
-  for (const lang of LANGS) {
-    result[lang] = handleLoader[lang]().use
-  }
-  return result
+  return handleLoader.vue()
 }
 
 // Generate loaders for standalone style files (outside of .vue)
