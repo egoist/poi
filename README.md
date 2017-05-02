@@ -19,7 +19,7 @@ yarn global add poi
 yarn add poi --dev
 ```
 
-Then populating an `index.js` and writing with your faviorite framework like one of:
+Then populating an `index.js` and writing with your favorite framework like one of:
 
 <p>
 <details><summary>React / Preact</summary><br>
