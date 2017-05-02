@@ -209,9 +209,9 @@ function handleError(err) {
     console.error(err.stack.trim())
   }
   notifier.notify({
-    title: 'build failed!',
+    title: 'Poi: error!',
     message: stripAnsi(err.stack).replace(/^\s+/gm, ''),
-    icon: ownDir('lib/icon.png')
+    icon: ownDir('bin/error.png')
   })
   console.log()
   logger.error('Failed to start!')
