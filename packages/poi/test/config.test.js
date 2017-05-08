@@ -89,19 +89,19 @@ describe('get webpack config', () => {
     it('in dev command', async () => {
       const presets = [
         poi => {
-          poi.mode('dev', () => {
+          poi.mode('development', () => {
             poi.webpackConfig.entry('foo').add('foo')
           })
         },
         poi => {
-          poi.mode('dev', () => {
+          poi.mode('development', () => {
             poi.webpackConfig.entry('foo').add('bar')
           })
         }
       ]
 
       const p = poi({
-        mode: 'dev',
+        mode: 'development',
         presets
       })
 
