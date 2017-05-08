@@ -65,17 +65,21 @@ module.exports = function ({
   }
   config.devtool(sourceMap)
 
+  const handleEntryPath = entry => {
+    return /^\[.+\]$/.test(entry) ? entry : path.resolve(entry)
+  }
+
   if (typeof entry === 'string') {
-    config.entry('client').add(path.resolve(cwd, entry))
+    config.entry('client').add(handleEntryPath(entry))
   } else if (Array.isArray(entry)) {
-    config.entry('client').merge(entry.map(e => path.resolve(cwd, e)))
+    config.entry('client').merge(entry.map(e => handleEntryPath(e)))
   } else if (typeof entry === 'object') {
     Object.keys(entry).forEach(k => {
       const v = entry[k]
       if (Array.isArray(v)) {
-        config.entry(k).merge(v.map(e => path.resolve(cwd, e)))
+        config.entry(k).merge(v.map(e => handleEntryPath(e)))
       } else {
-        config.entry(k).add(path.resolve(cwd, v))
+        config.entry(k).add(handleEntryPath(v))
       }
     })
   }
@@ -263,9 +267,15 @@ module.exports = function ({
       }])
   }
 
-  if (hotReload !== false && mode === 'development' && config.entryPoints.has('client')) {
-    config.entry('client')
-      .prepend(ownDir('app/dev-client.es6'))
+  if (hotReload !== false && mode === 'development') {
+    const devClient = ownDir('app/dev-client.es6')
+
+    config.entryPoints.store.forEach((v, k) => {
+      if (k === 'client' || v.has('[hot]')) {
+        v.delete('[hot]').prepend(devClient)
+      }
+    })
+
     config.plugin('hmr')
       .use(webpack.HotModuleReplacementPlugin)
   }
