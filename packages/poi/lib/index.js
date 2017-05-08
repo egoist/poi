@@ -6,6 +6,7 @@ const PostCompilePlugin = require('post-compile-webpack-plugin')
 const webpackMerge = require('webpack-merge')
 const rm = require('rimraf')
 const ware = require('ware')
+const merge = require('lodash.merge')
 const createConfig = require('./create-config')
 const createServer = require('./server')
 const { promisify, readPkg } = require('./utils')
@@ -93,7 +94,8 @@ class Poi extends EventEmitter {
       },
       webpackConfig: this.webpackConfig,
       options: this.options,
-      argv: this.options.argv
+      argv: this.options.argv,
+      merge
     }
 
     const presets = Array.isArray(this.options.presets) ? this.options.presets : [this.options.presets]

@@ -20,13 +20,13 @@ module.exports = (options = {}) => {
         return fallback
       }
 
-      let testFiles = inferValue('testFiles', ['test/unit/**/*.test.js'])
-      testFiles = ensureArray(testFiles)
+      let files = inferValue('files', ['test/unit/**/*.test.js'])
+      files = ensureArray(files)
 
       const port = inferValue('port', 5001)
 
-      let testFrameworks = inferValue('testFrameworks', ['mocha'])
-      testFrameworks = ensureArray(testFrameworks)
+      let frameworks = inferValue('frameworks', ['mocha'])
+      frameworks = ensureArray(frameworks)
 
       const watch = inferValue('watch', false)
 
@@ -36,11 +36,11 @@ module.exports = (options = {}) => {
 
       const coverage = inferValue('coverage')
 
-      const karmaConfig = {
+      const defaultConfig = {
         port,
-        frameworks: testFrameworks,
+        frameworks,
         basePath: process.cwd(),
-        files: testFiles,
+        files,
         reporters: ['mocha'].concat(coverage ? ['coverage'] : []),
         coverageReporter: {
           dir: 'coverage',
@@ -52,7 +52,7 @@ module.exports = (options = {}) => {
             subdir: 'report-lcov'
           }]
         },
-        preprocessors: testFiles.reduce((current, next) => {
+        preprocessors: files.reduce((current, next) => {
           current[next] = ['webpack', 'sourcemap']
           return current
         }, {}),
@@ -65,8 +65,9 @@ module.exports = (options = {}) => {
       }
 
       const webpackConfig = poi.webpackConfig.toConfig()
-
       delete webpackConfig.entry
+
+      const karmaConfig = poi.merge(defaultConfig, poi.options.karma)
       karmaConfig.webpack = webpackConfig
 
       const server = new Server(karmaConfig)

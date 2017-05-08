@@ -35,12 +35,12 @@ Or run `poi test --watch` to run Karma in watch mode.
 Type: `number`<br>
 Default: `5001`
 
-### testFiles
+### files
 
 Type: `Array` `string`<br>
 Default: `['test/unit/**/*.test.js']`
 
-### testFrameworks
+### frameworks
 
 Type: `Array` `string`<br>
 Default: `['mocha']`
@@ -74,3 +74,18 @@ Type: `boolean`<br>
 Default: `false`
 
 Generate code coverage.
+
+## Advanced
+
+This preset can also directly read Karma config from `karma` property in `poi.config.js`, and it will be merged with default karma config we use:
+
+```js
+// poi.config.js
+module.exports = {
+  karma: {
+    frameworks: ['chai']
+  }
+}
+```
+
+Then the `frameworks` we finally got would be `['mocha', 'chai']`.

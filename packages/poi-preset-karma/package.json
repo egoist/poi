@@ -7,7 +7,7 @@
   "poi": {
     "presets": {
       "./index.js": {
-        "testFiles": "example/*.test.js"
+        "files": "example/*.test.js"
       }
     }
   },
