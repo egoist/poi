@@ -41,7 +41,7 @@ module.exports = (options = {}) => {
         frameworks: testFrameworks,
         basePath: process.cwd(),
         files: testFiles,
-        reporters: ['spec'].concat(coverage ? ['coverage'] : []),
+        reporters: ['mocha'].concat(coverage ? ['coverage'] : []),
         coverageReporter: {
           dir: 'coverage',
           reporters: [{
