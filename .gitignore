@@ -7,3 +7,4 @@ dist
 output_test
 stats.json
 packages/*/yarn.lock
+coverage/

@@ -15,7 +15,8 @@
       "examples/**",
       "template/**",
       "packages/*/dist/**",
-      "packages/*/example/**"
+      "packages/*/example/**",
+      "**/coverage/**"
     ],
     "envs": [
       "jest"

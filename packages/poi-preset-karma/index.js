@@ -25,7 +25,7 @@ module.exports = (options = {}) => {
 
       const port = inferValue('port', 5001)
 
-      let testFrameworks = inferValue('testFrameworks', ['jasmine'])
+      let testFrameworks = inferValue('testFrameworks', ['mocha'])
       testFrameworks = ensureArray(testFrameworks)
 
       const watch = inferValue('watch', false)
@@ -34,12 +34,24 @@ module.exports = (options = {}) => {
       let browsers = inferValue('browsers') || defaultBrowser
       browsers = ensureArray(browsers)
 
+      const coverage = inferValue('coverage')
+
       const karmaConfig = {
         port,
         frameworks: testFrameworks,
         basePath: process.cwd(),
         files: testFiles,
-        reporters: ['spec'],
+        reporters: ['spec'].concat(coverage ? ['coverage'] : []),
+        coverageReporter: {
+          dir: 'coverage',
+          reporters: [{
+            type: 'html',
+            subdir: 'report-html'
+          }, {
+            type: 'lcov',
+            subdir: 'report-lcov'
+          }]
+        },
         preprocessors: testFiles.reduce((current, next) => {
           current[next] = ['webpack', 'sourcemap']
           return current

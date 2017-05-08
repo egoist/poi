@@ -43,7 +43,7 @@ Default: `['test/unit/**/*.test.js']`
 ### testFrameworks
 
 Type: `Array` `string`<br>
-Default: `['jasmine']`
+Default: `['mocha']`
 
 ### browsers
 
@@ -67,3 +67,10 @@ Type: `boolean`<br>
 Default: `false`
 
 Run karma in watch mode.
+
+### coverage
+
+Type: `boolean`<br>
+Default: `false`
+
+Generate code coverage.

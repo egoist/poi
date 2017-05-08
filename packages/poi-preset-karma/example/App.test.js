@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import App from './App.vue'
+import assert from 'assert'
 
 it('ok', () => {
   const Ctor = Vue.extend(App)
   const vm = new Ctor().$mount()
-  expect(vm.$el.textContent).toBe('0')
+  assert(vm.$el.textContent === '0')
 })
