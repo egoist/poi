@@ -1,21 +1,41 @@
 const { Server } = require('karma')
 
-module.exports = ({
-  port = 5001,
-  testFiles = ['test/unit/**/*.test.js'],
-  testFrameworks = ['jasmine'],
-  browsers = ['PhantomJS'],
-  singleRun = process.env.CI
-} = {}) => {
+function ensureArray(v) {
+  if (!Array.isArray(v)) {
+    return [v]
+  }
+  return v
+}
+
+module.exports = (options = {}) => {
   return poi => {
     poi.mode('test', () => {
-      if (!Array.isArray(testFiles)) {
-        testFiles = [testFiles]
+      const inferValue = (key, fallback) => {
+        if (typeof poi.argv[key] !== 'undefined') {
+          return poi.argv[key]
+        }
+        if (typeof options[key] !== 'undefined') {
+          return options[key]
+        }
+        return fallback
       }
+
+      let testFiles = inferValue('testFiles', ['test/unit/**/*.test.js'])
+      testFiles = ensureArray(testFiles)
+
+      const port = inferValue('port', 5001)
+
+      let testFrameworks = inferValue('testFrameworks', ['jasmine'])
+      testFrameworks = ensureArray(testFrameworks)
+
+      const watch = inferValue('watch', false)
+
+      const defaultBrowser = inferValue('headless') ? 'ChromeHeadless' : 'Chrome'
+      let browsers = inferValue('browsers') || defaultBrowser
+      browsers = ensureArray(browsers)
 
       const karmaConfig = {
         port,
-        browsers,
         frameworks: testFrameworks,
         basePath: process.cwd(),
         files: testFiles,
@@ -28,7 +48,8 @@ module.exports = ({
           stats: 'errors-only',
           noInfo: true
         },
-        singleRun // single-run mode in CI
+        browsers,
+        singleRun: !watch
       }
 
       const webpackConfig = poi.webpackConfig.toConfig()

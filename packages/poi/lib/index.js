@@ -1,5 +1,6 @@
 const path = require('path')
 const EventEmitter = require('events')
+const yargs = require('yargs')
 const webpack = require('webpack')
 const PostCompilePlugin = require('post-compile-webpack-plugin')
 const webpackMerge = require('webpack-merge')
@@ -22,7 +23,8 @@ class Poi extends EventEmitter {
   constructor(options) {
     super()
     this.options = Object.assign({
-      cwd: '.'
+      cwd: '.',
+      argv: yargs.argv
     }, options)
     this.manifest = readPkg()
     this.webpackConfig = createConfig(this.options)
@@ -90,7 +92,8 @@ class Poi extends EventEmitter {
         }
       },
       webpackConfig: this.webpackConfig,
-      options: this.options
+      options: this.options,
+      argv: this.options.argv
     }
 
     const presets = Array.isArray(this.options.presets) ? this.options.presets : [this.options.presets]

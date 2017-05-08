@@ -26,6 +26,8 @@ module.exports = {
 
 Then run `poi test`, this preset will only be activated in test mode.
 
+Or run `poi test --watch` to run Karma in watch mode.
+
 ## Options
 
 ### port
@@ -40,17 +42,28 @@ Default: `['test/unit/**/*.test.js']`
 
 ### testFrameworks
 
-Type: `Array`<br>
+Type: `Array` `string`<br>
 Default: `['jasmine']`
 
 ### browsers
 
-Type: `Array`<br>
-Default: `['PhantomJS']`
+Type: `Array` `string`<br>
+Default: `['Chrome']`
 
-### singleRun
+You can use `headless` option to switch it to `ChromeHeadless` which is only available when you have Chrome>=59 installed.
+
+You can also directly set `browsers` option to override it.
+
+### headless
 
 Type: `boolean`<br>
-Default: `process.env.CI`
+Default: `false`
 
-Exit right way when tests are completed.
+Switch `browsers` to `ChromeHeadless`.
+
+### watch
+
+Type: `boolean`<br>
+Default: `false`
+
+Run karma in watch mode.
