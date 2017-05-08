@@ -57,7 +57,7 @@ yargs // eslint-disable-line no-unused-expressions
         desc: 'Generate webpack stats for the bundle file'
       }
     }))
-  }, createHandler('production'))
+  }, createHandler('prod'))
   .command(['*', 'dev'], 'Run App in development mode', cli => {
     cli.options(Object.assign({}, sharedOptions, {
       port: {
@@ -77,7 +77,7 @@ yargs // eslint-disable-line no-unused-expressions
         desc: 'Open App after compiling'
       }
     }))
-  }, createHandler('development'))
+  }, createHandler('dev'))
   .command('watch', 'Run App in watch mode', () => {}, createHandler('watch'))
   .command('test', 'Compile test files', () => {}, createHandler('test'))
   .version(pkg.version)

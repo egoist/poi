@@ -150,7 +150,7 @@ module.exports = co.wrap(function * (cliOptions) {
 
   console.log(`> Bundling with Webpack ${require('webpack/package.json').version}`)
 
-  if (options.mode === 'production') {
+  if (options.mode === 'prod') {
     clear()
     console.log('> Creating an optimized production build:\n')
     const stats = yield app.build()
@@ -171,7 +171,7 @@ module.exports = co.wrap(function * (cliOptions) {
       printStats(stats)
       printOutro(stats)
     })
-  } else if (options.mode === 'development') {
+  } else if (options.mode === 'dev') {
     const { server, host, port } = yield app.dev()
 
     server.listen(port, host)

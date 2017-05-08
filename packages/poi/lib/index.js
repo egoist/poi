@@ -19,10 +19,11 @@ function runWebpack(compiler) {
 }
 
 class Poi extends EventEmitter {
-  constructor(options = {}) {
+  constructor(options) {
     super()
-    this.options = options
-    this.mode = options.mode
+    this.options = Object.assign({
+      cwd: '.'
+    }, options)
     this.manifest = readPkg()
     this.webpackConfig = createConfig(this.options)
     this.webpackConfig.plugin('compile-notifier')
@@ -76,19 +77,39 @@ class Poi extends EventEmitter {
     return this.process()
   }
 
-  process() {
+  process(mode = this.options.mode) {
+    const middlewares = []
+
+    const presetContext = {
+      mode: (modes, fn) => {
+        const wildcard = modes === '*'
+        const isMode = typeof modes === 'string' && modes === mode
+        const hasMode = Array.isArray(modes) && modes.indexOf(mode) > -1
+        if (wildcard || isMode || hasMode) {
+          middlewares.push(fn)
+        }
+      },
+      webpackConfig: this.webpackConfig,
+      options: this.options
+    }
+
+    const presets = Array.isArray(this.options.presets) ? this.options.presets : [this.options.presets]
+    if (presets) {
+      presets.forEach(preset => preset(presetContext))
+    }
+
     if (this.options.extendWebpack) {
       this.options.extendWebpack.call(this, this.webpackConfig)
     }
 
-    if (!this.options.presets) {
+    if (!middlewares || middlewares.length === 0) {
       return Promise.resolve()
     }
 
     return new Promise((resolve, reject) => {
       ware()
-        .use(this.options.presets)
-        .run(this, err => {
+        .use(middlewares)
+        .run(err => {
           if (err) return reject(err)
           resolve()
         })

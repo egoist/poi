@@ -7,11 +7,12 @@ module.exports = ({
   browsers = ['PhantomJS'],
   singleRun = process.env.CI
 } = {}) => {
-  if (!Array.isArray(testFiles)) {
-    testFiles = [testFiles]
-  }
   return poi => {
-    if (poi.mode === 'test') {
+    poi.mode('test', () => {
+      if (!Array.isArray(testFiles)) {
+        testFiles = [testFiles]
+      }
+
       const karmaConfig = {
         port,
         browsers,
@@ -38,6 +39,6 @@ module.exports = ({
       const server = new Server(karmaConfig)
 
       server.start()
-    }
+    })
   }
 }
