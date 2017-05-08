@@ -1,8 +1,10 @@
 #!/usr/bin/env node
-const importLocal = require('import-local')
+const importLocalFile = require('import-local-file')
 
-if (importLocal(__filename)) {
+const localFile = importLocalFile(__filename)
+if (localFile) {
   console.log('> Using local installed version of Poi')
+  require(localFile)
 } else {
   // Code for both global and local version
   require('./main') // eslint-disable-line import/no-unassigned-import
