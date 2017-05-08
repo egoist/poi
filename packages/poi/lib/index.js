@@ -95,6 +95,7 @@ class Poi extends EventEmitter {
       webpackConfig: this.webpackConfig,
       options: this.options,
       argv: this.options.argv,
+      manifest: this.manifest,
       merge
     }
 
