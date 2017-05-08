@@ -98,9 +98,13 @@ class Poi extends EventEmitter {
       merge
     }
 
-    const presets = Array.isArray(this.options.presets) ? this.options.presets : [this.options.presets]
+    const presets = this.options.presets
     if (presets) {
-      presets.forEach(preset => preset(presetContext))
+      if (Array.isArray(presets)) {
+        presets.forEach(preset => preset(presetContext))
+      } else {
+        presets(presetContext)
+      }
     }
 
     if (this.options.extendWebpack) {
