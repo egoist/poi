@@ -54,14 +54,14 @@ const sharedOptions = {
 
 yargs // eslint-disable-line no-unused-expressions
   .usage(`\n${chalk.yellow('poi')} [command] [options]`)
-  .command(['build'], 'Build App in Production mode', cli => {
+  .command(['build'], 'Build app in production mode', cli => {
     cli.options(Object.assign({}, sharedOptions, {
       generateStats: {
         desc: 'Generate webpack stats for the bundle file'
       }
     }))
   }, createHandler('production'))
-  .command(['*', 'dev'], 'Run App in development mode', cli => {
+  .command(['*', 'dev'], 'Run app in development mode', cli => {
     cli.options(Object.assign({}, sharedOptions, {
       port: {
         desc: 'Custom dev server port',
@@ -81,7 +81,7 @@ yargs // eslint-disable-line no-unused-expressions
       }
     }))
   }, createHandler('development'))
-  .command('watch', 'Run App in watch mode', () => {}, createHandler('watch'))
+  .command('watch', 'Run app in watch mode', () => {}, createHandler('watch'))
   .command('test', 'Run app in test mode', () => {}, createHandler('test'))
   .version(pkg.version)
   .alias('version', 'v')
