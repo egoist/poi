@@ -7,11 +7,13 @@ const webpackMerge = require('webpack-merge')
 const rm = require('rimraf')
 const ware = require('ware')
 const merge = require('lodash.merge')
+const webpackUtils = require('./webpack-utils')
 const createConfig = require('./create-config')
 const createServer = require('./server')
 const { promisify, readPkg } = require('./utils')
 
-function runWebpack(compiler) {
+function runWebpack(webpackConfig) {
+  const compiler = webpack(webpackConfig)
   return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
       if (err) return reject(err)
@@ -48,16 +50,16 @@ class Poi extends EventEmitter {
   }
 
   build() {
-    let compiler
+    let webpackConfig
     return this.process()
       .then(() => {
-        compiler = webpack(this.getWebpackConfig())
+        webpackConfig = this.getWebpackConfig()
         // Only remove dist file when name contains hash
-        if (compiler.options.output.filename.indexOf('hash]') > -1) {
-          return promisify(rm)(path.join(compiler.options.output.path, '*'))
+        if (webpackConfig.output.filename.indexOf('hash]') > -1) {
+          return promisify(rm)(path.join(webpackConfig.output.path, '*'))
         }
       })
-      .then(() => runWebpack(compiler))
+      .then(() => runWebpack(webpackConfig))
   }
 
   watch() {
@@ -96,6 +98,8 @@ class Poi extends EventEmitter {
       options: this.options,
       argv: this.options.argv,
       manifest: this.manifest,
+      webpackUtils,
+      runWebpack,
       merge
     }
 
@@ -108,10 +112,6 @@ class Poi extends EventEmitter {
       }
     }
 
-    if (this.options.extendWebpack) {
-      this.options.extendWebpack.call(this, this.webpackConfig)
-    }
-
     if (!middlewares || middlewares.length === 0) {
       return Promise.resolve()
     }
@@ -121,6 +121,11 @@ class Poi extends EventEmitter {
         .use(middlewares)
         .run(err => {
           if (err) return reject(err)
+
+          if (this.options.extendWebpack) {
+            this.options.extendWebpack.call(this, this.webpackConfig)
+          }
+
           resolve()
         })
     })

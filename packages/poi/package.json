@@ -60,6 +60,7 @@
     "import-local-file": "^0.2.0",
     "installed-by-yarn-globally": "^0.1.2",
     "lodash.merge": "^4.6.0",
+    "loud-rejection": "^1.6.0",
     "mz": "^2.6.0",
     "node-notifier": "^5.1.2",
     "opn": "^5.0.0",

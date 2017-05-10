@@ -1,7 +1,10 @@
 const chalk = require('chalk')
 const yargs = require('yargs')
+const loudRejection = require('loud-rejection')
 const update = require('update-notifier')
 const pkg = require('../package.json')
+
+loudRejection()
 
 update({ pkg }).notify()
 

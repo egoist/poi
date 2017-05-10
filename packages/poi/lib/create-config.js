@@ -3,12 +3,12 @@ const path = require('path')
 const webpack = require('webpack')
 const Config = require('webpack-chain')
 const merge = require('lodash.merge')
-const nodeExternals = require('webpack-node-externals')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const HtmlPlugin = require('html-webpack-plugin')
 const isYarn = require('installed-by-yarn-globally')
 const cssLoaders = require('./css-loaders')
+const webpackUtils = require('./webpack-utils')
 const {
   getFileNames,
   getPublicPath,
@@ -201,13 +201,7 @@ module.exports = function ({
 
   if (format === 'cjs') {
     config.output.libraryTarget('commonjs2')
-    config.externals([
-      nodeExternals({
-        whitelist: [/\.(?!(?:jsx?|json)$).{1,5}$/i]
-      }),
-      'vue',
-      'babel-runtime'
-    ])
+    webpackUtils.externalize(config)
   } else if (format === 'umd') {
     config.output.libraryTarget('umd').library(moduleName)
   }

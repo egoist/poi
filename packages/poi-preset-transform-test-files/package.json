@@ -1,0 +1,24 @@
+{
+  "name": "poi-preset-transform-test-files",
+  "version": "0.0.0",
+  "licenst": "MIT",
+  "author": "EGOIST <0x142857@gmail.com>",
+  "repo": "egoist/poi",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "ava": "poi test && ava output_test/test.js",
+    "jest": "poi test && jest output_test/test.js"
+  },
+  "poi": {
+    "presets": "./index.js"
+  },
+  "dependencies": {
+    "globby": "^6.1.0"
+  },
+  "devDependencies": {
+    "ava": "^0.19.1",
+    "jest": "^20.0.0"
+  }
+}
