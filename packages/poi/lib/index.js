@@ -37,6 +37,9 @@ class Poi extends EventEmitter {
           this.emit('compile-done', stats)
         }
       }])
+    if (this.options.extendWebpack) {
+      this.options.extendWebpack.call(this, this.webpackConfig)
+    }
   }
 
   getWebpackConfig() {
@@ -121,10 +124,6 @@ class Poi extends EventEmitter {
         .use(middlewares)
         .run(err => {
           if (err) return reject(err)
-
-          if (this.options.extendWebpack) {
-            this.options.extendWebpack.call(this, this.webpackConfig)
-          }
 
           resolve()
         })
