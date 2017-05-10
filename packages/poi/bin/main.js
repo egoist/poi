@@ -82,7 +82,7 @@ yargs // eslint-disable-line no-unused-expressions
     }))
   }, createHandler('development'))
   .command('watch', 'Run App in watch mode', () => {}, createHandler('watch'))
-  .command('test', 'Compile test files', () => {}, createHandler('test'))
+  .command('test', 'Run app in test mode', () => {}, createHandler('test'))
   .version(pkg.version)
   .alias('version', 'v')
   .alias('help', 'h')
