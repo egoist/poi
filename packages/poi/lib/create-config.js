@@ -61,7 +61,11 @@ module.exports = function ({
   }
 
   if (typeof sourceMap === 'undefined') {
-    sourceMap = mode === 'production' ? 'source-map' : 'eval-source-map'
+    sourceMap = mode === 'production' ?
+      'source-map' :
+      mode === 'test' ?
+      'inline-source-map' :
+      'eval-source-map'
   }
   config.devtool(sourceMap)
 
