@@ -1,6 +1,6 @@
 {
   "name": "poi-preset-karma",
-  "version": "8.0.0-rc.7",
+  "version": "8.0.0-rc.8",
   "scripts": {
     "example": "poi test"
   },
@@ -26,6 +26,6 @@
     "mocha": "^3.3.0"
   },
   "devDependencies": {
-    "poi": "^8.0.0-rc.7"
+    "poi": "^8.0.0-rc.8"
   }
 }
