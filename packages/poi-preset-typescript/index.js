@@ -10,12 +10,12 @@ module.exports = function (options) {
       .test(/\.tsx?$/)
       .use('ts')
         .loader(require.resolve('ts-loader'))
-        .options(options)
+        .options(Object.assign({ appendTsSuffixTo: [/\.vue$/] }, options))
 
-    // Vue support is not working properly now
     config.module.rule('vue')
       .use('vue')
         .tap(vueOptions => {
+          vueOptions.esModule = true
           vueOptions.loaders.ts = [{
             loader: require.resolve('ts-loader'),
             options
