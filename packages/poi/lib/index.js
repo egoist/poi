@@ -55,7 +55,7 @@ class Poi extends EventEmitter {
       .then(() => {
         webpackConfig = this.getWebpackConfig()
         // Only remove dist file when name contains hash
-        if (webpackConfig.output.filename.indexOf('hash]') > -1) {
+        if (/\[(chunk)?hash:?\d?\]/.test(webpackConfig.output.filename)) {
           return promisify(rm)(path.join(webpackConfig.output.path, '*'))
         }
       })
