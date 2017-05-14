@@ -24,8 +24,5 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.3",
     "mocha": "^3.3.0"
-  },
-  "devDependencies": {
-    "poi": "^8.0.0-rc.9"
   }
 }

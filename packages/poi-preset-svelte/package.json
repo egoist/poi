@@ -19,8 +19,5 @@
   "dependencies": {
     "svelte": "^1.18.1",
     "svelte-loader": "^2.0.1"
-  },
-  "devDependencies": {
-    "poi": "^8.0.0-rc.9"
   }
 }
