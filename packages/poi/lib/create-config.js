@@ -279,13 +279,26 @@ module.exports = function ({
       .use(webpack.HotModuleReplacementPlugin)
   }
 
-  if (copy !== false && fs.existsSync(path.resolve(cwd, 'static'))) {
-    config.plugin('copy-static-files')
-      .use(CopyPlugin, [[{
+  if (copy !== false) {
+    let copyOptions = []
+    if (fs.existsSync(path.resolve(cwd, 'static'))) {
+      copyOptions.push({
         from: path.resolve(cwd, 'static'),
         to: '.',
         ignore: ['.DS_Store']
-      }]])
+      })
+    }
+    if (typeof copy === 'object') {
+      if (Array.isArray(copy)) {
+        copyOptions = copyOptions.concat(copy)
+      } else {
+        copyOptions.push(copy)
+      }
+    }
+    if (copyOptions.length > 0) {
+      config.plugin('copy-static-files')
+        .use(CopyPlugin, [copyOptions])
+    }
   }
 
   if (html !== false && mode !== 'test') {

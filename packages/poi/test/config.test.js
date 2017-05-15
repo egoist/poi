@@ -1,9 +1,17 @@
 import path from 'path'
 import poi from '../lib'
 
-describe('get webpack config', () => {
-  process.chdir('./test/fixture')
+const oldCwd = process.cwd()
 
+beforeAll(() => {
+  process.chdir('./test/fixture')
+})
+
+afterAll(() => {
+  process.chdir(oldCwd)
+})
+
+describe('get webpack config', () => {
   describe('entry', () => {
     it('use default entry', () => {
       const config = poi().getWebpackConfig()
@@ -65,6 +73,43 @@ describe('get webpack config', () => {
       const config = poi({ dist: 'foo/bar' }).getWebpackConfig()
 
       expect(config.output.path).toBe(path.resolve('foo/bar'))
+    })
+  })
+
+  describe('copy static files', () => {
+    it('copy existing static folder', async () => {
+      const p = await poi()
+      const config = p.webpackConfig
+      expect(config.plugins.has('copy-static-files')).toBe(true)
+      expect(config.plugins.get('copy-static-files').get('args')[0].length)
+        .toBe(1)
+    })
+
+    it('accepts object', async () => {
+      const p = await poi({
+        copy: {}
+      })
+      const config = p.webpackConfig
+      expect(config.plugins.get('copy-static-files').get('args')[0].length)
+        .toBe(2)
+    })
+
+    it('accepts array', async () => {
+      const p = await poi({
+        copy: [{}, {}]
+      })
+      const config = p.webpackConfig
+      expect(config.plugins.get('copy-static-files').get('args')[0].length)
+        .toBe(3)
+    })
+
+    it('could be disabled', async () => {
+      const p = await poi({
+        copy: false
+      })
+      const config = p.webpackConfig
+      expect(config.plugins.has('copy-static-files'))
+        .toBe(false)
     })
   })
 
