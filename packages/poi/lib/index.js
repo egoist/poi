@@ -27,7 +27,10 @@ class Poi extends EventEmitter {
     super()
     this.options = Object.assign({
       cwd: '.',
-      argv: yargs.argv
+      argv: yargs.argv,
+      // Required for cloud IDE like cloud9
+      host: process.env.HOST || '0.0.0.0',
+      port: process.env.PORT || 4000
     }, options)
     this.manifest = readPkg()
     this.webpackConfig = createConfig(this.options)

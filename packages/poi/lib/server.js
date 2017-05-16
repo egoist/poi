@@ -5,8 +5,8 @@ const proxyMiddleware = require('http-proxy-middleware')
 module.exports = function (compiler, options = {}) {
   const server = express()
 
-  const port = options.port || 4000
-  const host = options.host || 'localhost'
+  const port = options.port
+  const host = options.host
 
   const devMiddleWare = require('webpack-dev-middleware')(compiler, {
     quiet: true,
