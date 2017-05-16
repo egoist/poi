@@ -60,14 +60,14 @@ module.exports = function ({
     ]
   }
 
-  if (typeof sourceMap === 'undefined') {
+  if (sourceMap === true || sourceMap === undefined) {
     sourceMap = mode === 'production' ?
       'source-map' :
       mode === 'test' ?
       'inline-source-map' :
       'eval-source-map'
+    config.devtool(sourceMap)
   }
-  config.devtool(sourceMap)
 
   const handleEntryPath = entry => {
     return /^\[.+\]$/.test(entry) ? entry : path.resolve(entry)
