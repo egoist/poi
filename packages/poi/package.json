@@ -39,6 +39,7 @@
     "jest-cli": "^20.0.0"
   },
   "dependencies": {
+    "address": "^1.0.1",
     "autoprefixer": "^7.0.1",
     "babel-core": "^6.24.1",
     "babel-load-config": "^0.1.0",

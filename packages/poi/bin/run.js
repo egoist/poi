@@ -1,10 +1,12 @@
 /* eslint-disable unicorn/no-process-exit */
 const fs = require('fs')
+const url = require('url')
 const chalk = require('chalk')
 const notifier = require('node-notifier')
 const co = require('co')
 const stripAnsi = require('strip-ansi')
 const tildify = require('tildify')
+const address = require('address')
 const merge = require('lodash.merge')
 const findBabelConfig = require('babel-load-config')
 const findPostcssConfig = require('postcss-load-config')
@@ -16,6 +18,8 @@ const loadConfig = require('../lib/load-config')
 const poi = require('../lib')
 const terminal = require('../lib/terminal-utils')
 const logger = require('../lib/logger')
+
+const unspecifiedAddress = host => host === '0.0.0.0' || host === '::'
 
 const loadPostCSSConfig = co.wrap(function * () {
   let defaultPostcssOptions = {}
@@ -94,8 +98,9 @@ module.exports = co.wrap(function * (cliOptions) {
   }
 
   let copied
+  let lanIP
 
-  const printOutro = (stats, url) => {
+  const printOutro = (stats, host, port) => {
     console.log()
     if (stats.hasErrors()) {
       logger.error('Compiled with Errors!')
@@ -103,16 +108,30 @@ module.exports = co.wrap(function * (cliOptions) {
       logger.warn('Compiled with Warnings!')
     } else {
       if (options.mode === 'development') {
+        const isUnspecifiedAddress = unspecifiedAddress(host)
+        const localURL = url.format({
+          protocol: 'http',
+          hostname: isUnspecifiedAddress ? 'localhost' : host,
+          port
+        })
         if (copied) {
-          console.log(chalk.bold(`> Open ${url}`))
+          console.log(chalk.bold(`> Open ${localURL}`))
         } else {
           copied = true
           try {
-            copy.writeSync(url)
-            console.log(chalk.bold(`> Open ${url}`), '(copied!)')
+            copy.writeSync(localURL)
+            console.log(chalk.bold(`> Open ${localURL}`), chalk.dim('(copied!)'))
           } catch (err) {
-            console.log(chalk.bold(`> Open ${url}`))
+            console.log(chalk.bold(`> Open ${localURL}`))
           }
+        }
+        if (isUnspecifiedAddress) {
+          const lanURL = url.format({
+            protocol: 'http',
+            hostname: lanIP || (lanIP = address.ip()),
+            port
+          })
+          console.log(chalk.dim(`> On Your Network: ${lanURL}`))
         }
         console.log()
       }
@@ -182,17 +201,19 @@ module.exports = co.wrap(function * (cliOptions) {
       handleError(err)
     })
 
-    const url = `http://${host}:${port}`
-
     app.once('compile-done', () => {
       if (options.open) {
-        opn(url)
+        opn(url.format({
+          protocol: 'http',
+          hostname: unspecifiedAddress(host) ? 'localhost' : host,
+          port
+        }))
       }
     })
 
     app.on('compile-done', stats => {
       printStats(stats)
-      printOutro(stats, url)
+      printOutro(stats, host, port)
     })
   } else if (options.mode === 'test') {
     app.test().catch(handleError)
