@@ -1,10 +1,12 @@
 {
   "name": "poi-preset-react",
-  "version": "0.0.0",
+  "version": "8.0.0-rc.12",
   "main": "index.js",
   "license": "MIT",
   "repo": "egoist/poi",
-  "files": ["index.js"],
+  "files": [
+    "index.js"
+  ],
   "dependencies": {
     "babel-plugin-react-require": "^3.0.0",
     "babel-preset-react-app": "^2.2.0",
