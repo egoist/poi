@@ -1,0 +1,17 @@
+{
+  "name": "poi-preset-react",
+  "version": "0.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "repo": "egoist/poi",
+  "files": ["index.js"],
+  "dependencies": {
+    "babel-plugin-react-require": "^3.0.0",
+    "babel-preset-react-app": "^2.2.0",
+    "react-hot-loader": "next"
+  },
+  "devDependencies": {
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  }
+}
