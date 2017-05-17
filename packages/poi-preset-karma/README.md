@@ -75,6 +75,21 @@ Default: `false`
 
 Generate code coverage.
 
+### extendWebpack
+
+Type: `function`<br>
+Default: `undefined`
+
+Extend webpack config using webpack-chain:
+
+```js
+require('poi-preset-karma')({
+  extendWebpack(config) {
+    config.some.action()
+  }
+})
+```
+
 ## Advanced
 
 This preset can also directly read Karma config from `karma` property in `poi.config.js`, and it will be merged with default karma config we use:

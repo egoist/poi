@@ -64,6 +64,10 @@ module.exports = (options = {}) => {
         singleRun: !watch
       }
 
+      if (typeof options.extendWebpack === 'function') {
+        options.extendWebpack(poi.webpackConfig)
+      }
+
       const webpackConfig = poi.webpackConfig.toConfig()
       delete webpackConfig.entry
 
