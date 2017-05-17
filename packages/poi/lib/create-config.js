@@ -149,26 +149,26 @@ module.exports = function ({
         })
         .end()
       .use('babel')
-        .loader(require.resolve('babel-loader'))
+        .loader('babel-loader')
         .options(babel)
         .end()
       .end()
     .rule('es')
       .test(/\.es6?$/)
       .use('babel')
-        .loader(require.resolve('babel-loader'))
+        .loader('babel-loader')
         .options(babel)
         .end()
       .end()
     .rule('vue')
       .test(/\.vue$/)
       .use('vue')
-        .loader(require.resolve('vue-loader'))
+        .loader('vue-loader')
         .options({
           postcss,
           loaders: Object.assign(cssLoaders.vue(cssOptions), {
             js: {
-              loader: require.resolve('babel-loader'),
+              loader: 'babel-loader',
               options: babel
             }
           })
@@ -178,7 +178,7 @@ module.exports = function ({
     .rule('static')
       .test(/\.(ico|jpg|png|gif|eot|otf|webp|ttf|woff|woff2)(\?.*)?$/)
       .use('file')
-        .loader(require.resolve('file-loader'))
+        .loader('file-loader')
         .options({
           name: filename.static
         })
@@ -187,7 +187,7 @@ module.exports = function ({
     .rule('svg')
       .test(/\.(svg)(\?.*)?$/)
       .use('file')
-        .loader(require.resolve('file-loader'))
+        .loader('file-loader')
         .options({
           name: filename.static
         })
