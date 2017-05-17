@@ -5,7 +5,7 @@
   "scripts": {
     "precommit": "npm test",
     "test": "lerna bootstrap && lerna run test && xo",
-    "test:cov": "lerna bootstrap && cd packages/poi && npm run test:cov && xo"
+    "test:cov": "lerna bootstrap && lerna run test:cov && xo"
   },
   "main": "index.js",
   "xo": {
