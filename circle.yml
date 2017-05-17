@@ -9,9 +9,3 @@ dependencies:
     - yarn
   cache_directories:
     - ~/.cache/yarn
-
-test:
-  override:
-    - yarn test:cov
-  post:
-    - bash <(curl -s https://codecov.io/bash)

@@ -19,7 +19,6 @@
   "bin": "bin/cli.js",
   "scripts": {
     "test": "jest",
-    "test:cov": "jest --coverage",
     "lint": "xo",
     "lint:fix": "xo --fix"
   },

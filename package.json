@@ -4,8 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "precommit": "npm test",
-    "test": "lerna bootstrap && lerna run test && xo",
-    "test:cov": "lerna bootstrap && lerna run test:cov && xo"
+    "test": "lerna bootstrap && lerna run test && xo"
   },
   "main": "index.js",
   "xo": {
