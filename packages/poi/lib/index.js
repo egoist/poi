@@ -7,13 +7,13 @@ const webpackMerge = require('webpack-merge')
 const rm = require('rimraf')
 const ware = require('ware')
 const merge = require('lodash.merge')
+const MemoryFS = require('memory-fs')
 const webpackUtils = require('./webpack-utils')
 const createConfig = require('./create-config')
 const createServer = require('./server')
 const { promisify, readPkg } = require('./utils')
 
-function runWebpack(webpackConfig) {
-  const compiler = webpack(webpackConfig)
+function runWebpack(compiler) {
   return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
       if (err) return reject(err)
@@ -56,36 +56,44 @@ class Poi extends EventEmitter {
   }
 
   build() {
-    let webpackConfig
     return this.process()
       .then(() => {
-        webpackConfig = this.getWebpackConfig()
+        this.createCompiler()
+        const { filename, path: outputPath } = this.compiler.options.output
         // Only remove dist file when name contains hash
-        if (/\[(chunk)?hash:?\d?\]/.test(webpackConfig.output.filename)) {
-          return promisify(rm)(path.join(webpackConfig.output.path, '*'))
+        if (/\[(chunk)?hash:?\d?\]/.test(filename)) {
+          return promisify(rm)(path.join(outputPath, '*'))
         }
       })
-      .then(() => runWebpack(webpackConfig))
+      .then(() => runWebpack(this.compiler))
   }
 
   watch() {
     return this.process()
       .then(() => {
-        const compiler = webpack(this.getWebpackConfig())
-        return compiler.watch({}, () => {})
+        this.createCompiler()
+        return this.compiler.watch({}, () => {})
       })
   }
 
   dev() {
     return this.process()
       .then(() => {
-        const compiler = webpack(this.getWebpackConfig())
-        return createServer(compiler, this.options)
+        this.createCompiler()
+        return createServer(this.compiler, this.options)
       })
   }
 
   test() {
     return this.process()
+  }
+
+  createCompiler(webpackConfig = this.getWebpackConfig()) {
+    this.compiler = webpack(webpackConfig)
+    if (this.options.inMemory) {
+      this.compiler.outputFileSystem = new MemoryFS()
+    }
+    return this
   }
 
   process(mode = this.options.mode) {
