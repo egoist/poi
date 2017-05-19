@@ -18,7 +18,7 @@ module.exports = {
   presets: [
     require('poi-preset-karma')({
       port: 5001, // default
-      testFiles: ['test/unit/*.test.js'] // default
+      files: ['test/unit/*.test.js'] // default
     })
   ]
 }
