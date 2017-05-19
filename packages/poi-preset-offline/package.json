@@ -1,6 +1,6 @@
 {
   "name": "poi-preset-offline",
-  "version": "8.0.1",
+  "version": "8.0.2",
   "main": "index.js",
   "license": "MIT",
   "repository": "egoist/poi",
