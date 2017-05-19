@@ -39,7 +39,8 @@ module.exports = function ({
   moduleName,
   cssModules,
   copy,
-  hotReload
+  hotReload,
+  polyfills = [path.join(__dirname, '../app/polyfills.es6')]
 } = {}) {
   const config = new Config()
 
@@ -71,6 +72,11 @@ module.exports = function ({
 
   const handleEntryPath = entry => {
     return /^\[.+\]$/.test(entry) ? entry : path.resolve(entry)
+  }
+
+  if (Array.isArray(polyfills)) {
+    config.entry('polyfills')
+      .merge(polyfills)
   }
 
   if (typeof entry === 'string') {

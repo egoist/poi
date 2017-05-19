@@ -3,6 +3,10 @@ import poi from '../lib'
 
 const oldCwd = process.cwd()
 
+function root(...args) {
+  return path.join(__dirname, '../', ...args)
+}
+
 beforeAll(() => {
   process.chdir('./test/fixture')
 })
@@ -14,10 +18,13 @@ afterAll(() => {
 describe('get webpack config', () => {
   describe('entry', () => {
     it('use default entry', () => {
-      const config = poi().getWebpackConfig()
-      expect(config.entry).toEqual({
-        client: [path.resolve('index.js')]
-      })
+      const config = poi().webpackConfig
+
+      expect(config.entry('client').values())
+        .toEqual([path.resolve('index.js')])
+
+      expect(config.entry('polyfills').values())
+        .toEqual([root('app/polyfills.es6')])
     })
 
     it('use custom entry', () => {
@@ -28,37 +35,32 @@ describe('get webpack config', () => {
         { foo: ['foo.js', 'bar.js'] }
       ]
 
-      const [a, b, c, d] = entries.map(entry => poi({ entry }).getWebpackConfig())
+      const [a, b, c, d] = entries.map(entry => poi({ entry }).webpackConfig)
 
-      expect(a.entry).toEqual({
-        client: [path.resolve(entries[0])]
-      })
+      expect(a.entry('client').values())
+        .toEqual([path.resolve(entries[0])])
 
-      expect(b.entry).toEqual({
-        client: entries[1].map(v => path.resolve(v))
-      })
+      expect(b.entry('client').values())
+        .toEqual(entries[1].map(v => path.resolve(v)))
 
-      expect(c.entry).toEqual({
-        index: [path.resolve('entry.js')]
-      })
+      expect(c.entry('index').values())
+        .toEqual([path.resolve('entry.js')])
 
-      expect(d.entry).toEqual({
-        foo: ['foo.js', 'bar.js'].map(v => path.resolve(v))
-      })
+      expect(d.entry('foo').values())
+        .toEqual(['foo.js', 'bar.js'].map(v => path.resolve(v)))
     })
 
     it('add hmr entry', () => {
       const config = poi({
         entry: 'index.js',
         mode: 'development'
-      }).getWebpackConfig()
+      }).webpackConfig
 
-      expect(config.entry).toEqual({
-        client: [
+      expect(config.entry('client').values())
+        .toEqual([
           path.join(__dirname, '../app/dev-client.es6'),
           path.resolve('index.js')
-        ]
-      })
+        ])
     })
   })
 
