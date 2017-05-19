@@ -105,6 +105,8 @@ No, Yeoman is just a boilerplate generator while Poi is a Webpack wrapper which 
 Yes and No.
 
 Yes is because they both simplify the development setup, but `create-react-app` is tied to `React` ecosystem and could not be configured programmatically using config file.
+
+There's also [create-vue-app](https://github.com/egoist/create-vue-app) which is similar to `create-react-app` but built upon Poi :P
 </details>
 
 ## Contributing
