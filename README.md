@@ -33,7 +33,7 @@ const App = () => <h1>Hello React.</h1>
 render(<App />, document.getElementById('app'))
 ```
 
-Note: You need to install `react` `react-dom` and desired babel preset like `babel-preset-react-app`.
+Note: You need to install `react` `react-dom` and desired babel preset like `babel-preset-react-app`. For convenience, here's also [poi-preset-react](https://github.com/egoist/poi/tree/master/packages/poi-preset-react) you can use.
 
 It's similar for other React-like framework.
 </details>
