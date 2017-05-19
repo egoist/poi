@@ -42,6 +42,9 @@ module.exports = ({
         throw new Error(`Entry "${entry}"" was not found.`)
       }
 
+      config.module.rule('js')
+        .include.add(pwa)
+
       config.plugin('offline')
         .use(OfflinePlugin, [Object.assign({
           ServiceWorker: {
