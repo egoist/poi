@@ -1,0 +1,21 @@
+{
+  "name": "poi-preset-offline",
+  "version": "0.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "repository": "egoist/poi",
+  "scripts": {
+    "example": "poi build example/index.js --presets ./index.js",
+    "docs": "documentation readme index.js -s API"
+  },
+  "files": [
+    "*.js"
+  ],
+  "dependencies": {
+    "offline-plugin": "^4.8.0"
+  },
+  "devDependencies": {
+    "documentation": "^4.0.0-rc.1",
+    "webpack": "^2.5.1"
+  }
+}
