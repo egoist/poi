@@ -1,4 +1,12 @@
-module.exports = function (options) {
+/**
+ * Add TypeScript support
+ * @name presetTypescript
+ * @param {Object} options
+ * @param {any} [options.loaderOptions=undefined] - Options for ts-loader.
+ */
+module.exports = ({
+  loaderOptions
+} = {}) => {
   return poi => {
     const config = poi.webpackConfig
 
@@ -10,7 +18,7 @@ module.exports = function (options) {
       .test(/\.tsx?$/)
       .use('ts')
         .loader(require.resolve('ts-loader'))
-        .options(Object.assign({ appendTsSuffixTo: [/\.vue$/] }, options))
+        .options(Object.assign({ appendTsSuffixTo: [/\.vue$/] }, loaderOptions))
 
     config.module.rule('vue')
       .use('vue')
@@ -18,7 +26,7 @@ module.exports = function (options) {
           vueOptions.esModule = true
           vueOptions.loaders.ts = [{
             loader: require.resolve('ts-loader'),
-            options
+            options: loaderOptions
           }]
           return vueOptions
         })

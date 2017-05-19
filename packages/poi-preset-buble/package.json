@@ -10,7 +10,8 @@
     "buble-loader": "^0.4.1"
   },
   "scripts": {
-    "example": "poi example/index.js"
+    "example": "poi example/index.js",
+    "docs": "documentation readme index.js -s API"
   },
   "files": [
     "index.js"
@@ -20,5 +21,8 @@
     "presets": [
       "./index.js"
     ]
+  },
+  "devDependencies": {
+    "documentation": "^4.0.0-rc.1"
   }
 }

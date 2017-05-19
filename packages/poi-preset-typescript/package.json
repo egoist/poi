@@ -7,7 +7,8 @@
     "ts-loader": "^2.0.3"
   },
   "scripts": {
-    "example": "poi example/index.ts"
+    "example": "poi example/index.ts",
+    "docs": "documentation readme index.js -s API"
   },
   "files": [
     "index.js"

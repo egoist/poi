@@ -1,4 +1,12 @@
-module.exports = function (options) {
+/**
+ * Add Svelte support
+ * @name presetSvelte
+ * @param {Object} options
+ * @param {any} [options.loaderOptions=undefined] - Options for svelte-loader.
+ */
+module.exports = function ({
+  loaderOptions
+} = {}) {
   return poi => {
     const config = poi.webpackConfig
 
@@ -38,7 +46,7 @@ module.exports = function (options) {
           .end()
         .use('svelte')
           .loader(require.resolve('svelte-loader'))
-          .options(options)
+          .options(loaderOptions)
     }
   }
 }
