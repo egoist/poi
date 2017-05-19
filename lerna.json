@@ -3,5 +3,13 @@
   "packages": [
     "packages/*"
   ],
-  "version": "independent"
+  "version": "independent",
+  "commands": {
+    "publish": {
+      "ignore": [
+        "*.md",
+        "example/**"
+      ]
+    }
+  }
 }
