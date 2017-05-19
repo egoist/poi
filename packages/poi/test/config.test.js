@@ -3,10 +3,6 @@ import poi from '../lib'
 
 const oldCwd = process.cwd()
 
-function root(...args) {
-  return path.join(__dirname, '../', ...args)
-}
-
 beforeAll(() => {
   process.chdir('./test/fixture')
 })
@@ -23,8 +19,21 @@ describe('get webpack config', () => {
       expect(config.entry('client').values())
         .toEqual([path.resolve('index.js')])
 
+      expect(config.entryPoints.has('polyfills')).toBe(false)
+    })
+
+    it('use default polyfills', () => {
+      const config = poi({ polyfills: true }).webpackConfig
+
       expect(config.entry('polyfills').values())
-        .toEqual([root('app/polyfills.es6')])
+        .toEqual([require.resolve('web-polyfill')])
+    })
+
+    it('use custom polyfills', () => {
+      const config = poi({ polyfills: ['foo.js'] }).webpackConfig
+
+      expect(config.entry('polyfills').values())
+        .toEqual(['foo.js'])
     })
 
     it('use custom entry', () => {

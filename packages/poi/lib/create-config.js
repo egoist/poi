@@ -40,7 +40,7 @@ module.exports = function ({
   cssModules,
   copy,
   hotReload,
-  polyfills = [path.join(__dirname, '../app/polyfills.es6')]
+  polyfills
 } = {}) {
   const config = new Config()
 
@@ -74,9 +74,9 @@ module.exports = function ({
     return /^\[.+\]$/.test(entry) ? entry : path.resolve(entry)
   }
 
-  if (Array.isArray(polyfills)) {
+  if (polyfills) {
     config.entry('polyfills')
-      .merge(polyfills)
+      .merge(polyfills === true ? [require.resolve('web-polyfill')] : polyfills)
   }
 
   if (typeof entry === 'string') {

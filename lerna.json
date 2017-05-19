@@ -8,7 +8,8 @@
     "publish": {
       "ignore": [
         "*.md",
-        "example/**"
+        "example/**",
+        "test/**"
       ]
     }
   }
