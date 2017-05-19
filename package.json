@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "scripts": {
     "precommit": "npm test",
-    "test": "lerna bootstrap && lerna run test && xo"
+    "test": "lerna bootstrap && lerna run test && npm run lint",
+    "lint": "xo"
   },
   "main": "index.js",
   "xo": {
@@ -15,7 +16,8 @@
       "template/**",
       "packages/*/dist/**",
       "packages/*/example/**",
-      "**/coverage/**"
+      "**/coverage/**",
+      "**/output*/**"
     ],
     "envs": [
       "jest"
