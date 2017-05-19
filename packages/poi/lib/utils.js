@@ -35,16 +35,9 @@ exports.readPkg = function () {
 }
 
 exports.inferHTML = function (options) {
-  const minimize = exports.inferProductionValue(options.minimize, options.mode)
-
   const result = {
     title: 'Poi App',
-    template: exports.ownDir('lib/index.ejs'),
-    minify: {
-      collapseWhitespace: minimize,
-      minifyCSS: minimize,
-      minifyJS: minimize
-    }
+    template: exports.ownDir('lib/index.ejs')
   }
 
   const pkg = exports.readPkg()

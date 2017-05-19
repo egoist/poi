@@ -165,6 +165,10 @@ module.exports = co.wrap(function * (cliOptions) {
     }
   }
 
+  if (options.homepage === undefined && options.mode === 'production') {
+    options.homepage = readPkg().homepage
+  }
+
   const app = poi(options)
 
   console.log(`> Bundling with Webpack ${require('webpack/package.json').version}`)

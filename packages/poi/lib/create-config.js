@@ -311,7 +311,13 @@ module.exports = function ({
     }
     htmls.forEach((h, i) => {
       config.plugin(`html-${i}`)
-        .use(HtmlPlugin, [Object.assign({}, defaultHtml, h)])
+        .use(HtmlPlugin, [Object.assign({
+          minify: {
+            collapseWhitespace: minimize,
+            minifyCSS: minimize,
+            minifyJS: minimize
+          }
+        }, defaultHtml, h)])
     })
   }
 
