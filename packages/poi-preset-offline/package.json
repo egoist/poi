@@ -11,11 +11,12 @@
   "files": [
     "*.js"
   ],
-  "dependencies": {
-    "offline-plugin": "^4.8.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "documentation": "^4.0.0-rc.1",
     "webpack": "^2.5.1"
+  },
+  "peerDependencies": {
+    "offline-plugin": "^4.8.0"
   }
 }

@@ -5,6 +5,7 @@ Add offline support to your app.
 ## Install
 
 ```bash
+yarn add offline-plugin
 yarn add poi-preset-offline --dev
 ```
 
