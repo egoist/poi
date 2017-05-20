@@ -172,6 +172,10 @@ module.exports = function ({
         .loader('vue-loader')
         .options({
           postcss,
+          cssModules: {
+            localIdentName: '[name]__[local]___[hash:base64:5]',
+            camelCase: true
+          },
           loaders: Object.assign(cssLoaders.vue(cssOptions), {
             js: {
               loader: 'babel-loader',
