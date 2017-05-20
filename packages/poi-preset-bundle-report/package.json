@@ -1,6 +1,6 @@
 {
   "name": "poi-preset-bundle-report",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "main": "index.js",
   "files": [
     "index.js"
