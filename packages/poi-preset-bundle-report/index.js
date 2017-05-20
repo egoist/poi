@@ -7,9 +7,11 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 module.exports = pluginOptions => {
   return poi => {
     poi.mode('production', () => {
-      poi.webpackConfig
-        .plugin('bundle-report')
-        .use(BundleAnalyzerPlugin, [pluginOptions])
+      if (poi.argv.bundleReport) {
+        poi.webpackConfig
+          .plugin('bundle-report')
+          .use(BundleAnalyzerPlugin, [pluginOptions])
+      }
     })
   }
 }
