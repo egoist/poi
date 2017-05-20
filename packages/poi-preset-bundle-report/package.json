@@ -1,0 +1,20 @@
+{
+  "name": "poi-preset-bundle-report",
+  "version": "0.0.0",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "example": "poi build example/index.js --presets ./index.js",
+    "docs": "documentation readme index.js -s API"
+  },
+  "license": "MIT",
+  "xo": false,
+  "dependencies": {
+    "webpack-bundle-analyzer": "^2.8.2"
+  },
+  "devDependencies": {
+    "documentation": "^4.0.0-rc.1"
+  }
+}

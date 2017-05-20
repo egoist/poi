@@ -44,20 +44,7 @@ Use Buble to transpile JS files
 
 -   `options` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
     -   `options.loaderOptions` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options for buble-loader.
-
-**Examples**
-
-```javascript
-{
-transforms: {
-dangerousForOf: true,
-generator: false,
-modules: false
-},
-objectAssign: 'Object.assign'
-}
-If this option is preset, it will be assigned to default buble options.
-```
+        If this option is preset, it will be assigned to default buble options.
 
 ## License
 
