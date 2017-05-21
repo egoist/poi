@@ -10,7 +10,7 @@ const findPostcssConfig = require('postcss-load-config')
 module.exports = class LoadConfig {
   /**
    * @param options
-   * @param {string} [options.cwd=process.cwd] The path to find config file
+   * @param {string} [options.cwd=process.cwd()] The path to find config file
    */
   constructor(options) {
     this.options = Object.assign({
