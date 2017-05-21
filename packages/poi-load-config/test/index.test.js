@@ -1,10 +1,11 @@
 const path = require('path')
+const buildConfigChain = require('babel-core/lib/transformation/file/options/build-config-chain')
 const LoadConfig = require('../')
 
 describe('babel', () => {
   it('has no config file', () => {
     const loadConfig = new LoadConfig()
-    return loadConfig.babel()
+    return loadConfig.babel(buildConfigChain)
       .then(config => {
         expect(config.useConfig).toBe(false)
         expect(config.file).toBeFalsy()
@@ -16,7 +17,7 @@ describe('babel', () => {
       cwd: path.join(__dirname, 'fixture/babelrc')
     })
 
-    return loadConfig.babel()
+    return loadConfig.babel(buildConfigChain)
       .then(config => {
         expect(config.file).toBe(path.join(__dirname, 'fixture/babelrc/.babelrc'))
         expect(config.useConfig).toEqual(true)

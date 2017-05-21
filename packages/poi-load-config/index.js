@@ -20,12 +20,13 @@ module.exports = class LoadConfig {
 
   /**
    * Check if babel config exists and whether to use it
+   * @param {function} buildConfigChain
    * @return {Promise<BabelConfig>}
    */
-  babel() {
+  babel(buildConfigChain) {
     // Check direct and parent directory
     return new Promise(resolve => {
-      const config = babelLoadConfig(this.options.cwd)
+      const config = babelLoadConfig(this.options.cwd, buildConfigChain)
 
       // No config file
       if (!config) {

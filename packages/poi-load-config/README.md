@@ -16,11 +16,15 @@ Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
 **Parameters**
 
 -   `options`  
-    -   `options.cwd` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The path to find config file (optional, default `process.cwd`)
+    -   `options.cwd` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The path to find config file (optional, default `process.cwd()`)
 
 ### babel
 
 Check if babel config exists and whether to use it
+
+**Parameters**
+
+-   `buildConfigChain` **[function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** 
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;BabelConfig>** 
 
