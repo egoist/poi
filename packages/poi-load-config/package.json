@@ -1,0 +1,28 @@
+{
+  "name": "poi-load-config",
+  "version": "0.0.0",
+  "repository": "egoist/poi",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "test": "jest",
+    "docs": "documentation readme index.js -s API"
+  },
+  "keywords": [
+    "poi",
+    "utils",
+    "postcss",
+    "babel"
+  ],
+  "dependencies": {
+    "find-babel-config": "^1.1.0",
+    "postcss-load-config": "^1.2.0"
+  },
+  "devDependencies": {
+    "documentation": "^4.0.0-rc.1",
+    "jest": "^20.0.3"
+  },
+  "license": "MIT",
+  "author": "EGOIST <0x142857@gmail.com>"
+}

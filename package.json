@@ -17,7 +17,8 @@
       "packages/*/dist/**",
       "packages/*/example/**",
       "**/coverage/**",
-      "**/output*/**"
+      "**/output*/**",
+      "**/fixture/**"
     ],
     "envs": [
       "jest"
