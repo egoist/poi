@@ -10,10 +10,34 @@ exports.vue = function (options) {
 // Generate loaders for standalone style files (outside of .vue)
 exports.standalone = function (config, options) {
   const handleLoader = new HandleCSSLoader(options)
+
   for (const lang of LANGS) {
     const rule = handleLoader[lang]()
     const context = config.module
       .rule(lang)
+      .test(filepath => {
+        // Match the `test` but not ends with `.module.xxx`
+        return rule.test.test(filepath) && !/\.module\.[a-z]+$/.test(filepath)
+      })
+
+    rule.use.forEach(use => {
+      context
+        .use(use.loader)
+          .loader(use.loader)
+          .options(use.options)
+    })
+  }
+
+  handleLoader.set('cssModules', true)
+
+  const cssModulesLangs = LANGS.map(lang => [lang, new RegExp(`\\.module\\.${lang}`)])
+
+  for (const cssModulesLang of cssModulesLangs) {
+    const [lang, test] = cssModulesLang
+
+    const rule = handleLoader[lang](test)
+    const context = config.module
+      .rule(`${lang}-module`)
       .test(rule.test)
 
     rule.use.forEach(use => {
