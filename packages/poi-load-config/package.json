@@ -16,7 +16,8 @@
     "babel"
   ],
   "dependencies": {
-    "find-babel-config": "^1.1.0",
+    "babel-core": "^6.24.1",
+    "babel-load-config": "^0.1.0",
     "postcss-load-config": "^1.2.0"
   },
   "devDependencies": {

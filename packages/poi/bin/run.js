@@ -8,10 +8,9 @@ const stripAnsi = require('strip-ansi')
 const tildify = require('tildify')
 const address = require('address')
 const merge = require('lodash.merge')
-const findBabelConfig = require('babel-load-config')
-const findPostcssConfig = require('postcss-load-config')
 const copy = require('clipboardy')
 const opn = require('opn')
+const LoadExternalConfig = require('poi-load-config')
 const AppError = require('../lib/app-error')
 const { cwd, ownDir, inferHTML, readPkg, parsePresets } = require('../lib/utils')
 const loadConfig = require('../lib/load-config')
@@ -20,55 +19,6 @@ const terminal = require('../lib/terminal-utils')
 const logger = require('../lib/logger')
 
 const unspecifiedAddress = host => host === '0.0.0.0' || host === '::'
-
-const loadPostCSSConfig = co.wrap(function * () {
-  let defaultPostcssOptions = {}
-  try {
-    defaultPostcssOptions = yield findPostcssConfig({}, null, { argv: false })
-      .then(res => {
-        console.log('> Using extenal postcss configuration')
-        console.log(chalk.dim(`> location: "${tildify(res.file)}"`))
-        return res
-      })
-  } catch (err) {
-    if (err.message.indexOf('No PostCSS Config found') === -1) {
-      throw err
-    }
-  }
-
-  return defaultPostcssOptions
-})
-
-const loadBabelConfig = function () {
-  const defaultBabelOptions = {
-    babelrc: true,
-    cacheDirectory: true
-  }
-
-  const externalBabelConfig = findBabelConfig(process.cwd())
-  if (externalBabelConfig) {
-    console.log('> Using external babel configuration')
-    console.log(chalk.dim(`> location: "${tildify(externalBabelConfig.loc)}"`))
-    // It's possible to turn off babelrc support via babelrc itself.
-    // In that case, we should add our default preset.
-    // That's why we need to do this.
-    const { options } = externalBabelConfig
-    defaultBabelOptions.babelrc = options.babelrc !== false
-  } else {
-    defaultBabelOptions.babelrc = false
-  }
-
-  // Add our default preset if the no "babelrc" found.
-  if (!defaultBabelOptions.babelrc) {
-    defaultBabelOptions.presets = [
-      [require.resolve('babel-preset-vue-app'), {
-        useBuiltIns: true
-      }]
-    ]
-  }
-
-  return defaultBabelOptions
-}
 
 module.exports = co.wrap(function * (cliOptions) {
   console.log(`> Running in ${cliOptions.mode} mode`)
@@ -140,16 +90,36 @@ module.exports = co.wrap(function * (cliOptions) {
     console.log()
   }
 
+  const loadExternalConfig = new LoadExternalConfig({ cwd: options.cwd })
+
   if (options.presets) {
     options.presets = parsePresets(options.presets)
   }
 
   if (options.babel === undefined) {
-    options.babel = loadBabelConfig()
+    const { useConfig, file } = yield loadExternalConfig.babel()
+    if (useConfig) {
+      console.log('> Using external babel configuration')
+      console.log(chalk.dim(`> location: "${tildify(file)}"`))
+      options.babel = {
+        cacheDirectory: true,
+        babelrc: true
+      }
+    } else {
+      options.babel = {
+        cacheDirectory: true,
+        babelrc: false
+      }
+    }
   }
 
   if (options.postcss === undefined) {
-    options.postcss = yield loadPostCSSConfig()
+    const postcssConfig = yield loadExternalConfig.postcss()
+    if (postcssConfig.file) {
+      console.log('> Using extenal postcss configuration')
+      console.log(chalk.dim(`> location: "${tildify(postcssConfig.file)}"`))
+      options.postcss = postcssConfig
+    }
   }
 
   if (options.html === undefined) {

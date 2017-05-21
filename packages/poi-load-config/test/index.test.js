@@ -6,7 +6,7 @@ describe('babel', () => {
     const loadConfig = new LoadConfig()
     return loadConfig.babel()
       .then(config => {
-        expect(config.useConfig).toBeFalsy()
+        expect(config.useConfig).toBe(false)
         expect(config.file).toBeFalsy()
       })
   })

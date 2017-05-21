@@ -1,4 +1,4 @@
-const findBabelConfig = require('find-babel-config')
+const babelLoadConfig = require('babel-load-config')
 const findPostcssConfig = require('postcss-load-config')
 
 /**
@@ -12,10 +12,10 @@ module.exports = class LoadConfig {
    * @param options
    * @param {string} [options.cwd=process.cwd()] The path to find config file
    */
-  constructor(options) {
-    this.options = Object.assign({
-      cwd: process.cwd()
-    }, options)
+  constructor(options = {}) {
+    this.options = {
+      cwd: options.cwd || process.cwd()
+    }
   }
 
   /**
@@ -24,13 +24,22 @@ module.exports = class LoadConfig {
    */
   babel() {
     // Check direct and parent directory
-    return findBabelConfig(this.options.cwd, 1)
-      .then(({ file, config }) => {
-        return {
-          file,
-          useConfig: config && config.babelrc !== false
-        }
+    return new Promise(resolve => {
+      const config = babelLoadConfig(this.options.cwd)
+
+      // No config file
+      if (!config) {
+        return resolve({
+          file: null,
+          useConfig: false
+        })
+      }
+
+      resolve({
+        file: config.loc,
+        useConfig: Boolean(config.options && config.options.babelrc !== false)
       })
+    })
   }
 
   /**
