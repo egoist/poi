@@ -70,8 +70,9 @@ module.exports = function ({
     config.devtool(sourceMap)
   }
 
+  // Do not resolve path like `:hot:` and `[hot]`
   const handleEntryPath = entry => {
-    return /^\[.+\]$/.test(entry) ? entry : path.resolve(entry)
+    return /^[[:].+[\]:]$/.test(entry) ? entry : path.resolve(entry)
   }
 
   if (polyfills) {
@@ -279,9 +280,11 @@ module.exports = function ({
   if (hotReload !== false && mode === 'development') {
     const devClient = ownDir('app/dev-client.es6')
 
+    // Add hmr entry to `client` entry
+    // And replace keyword with hmr entry
     config.entryPoints.store.forEach((v, k) => {
-      if (k === 'client' || v.has('[hot]')) {
-        v.delete('[hot]').prepend(devClient)
+      if (k === 'client' || v.has('[hot]') || v.has(':hot:')) {
+        v.delete('[hot]').delete(':hot:').prepend(devClient)
       }
     })
 

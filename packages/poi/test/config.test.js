@@ -71,6 +71,28 @@ describe('get webpack config', () => {
           path.resolve('index.js')
         ])
     })
+
+    it('add hmr entry using keyword', () => {
+      const config = poi({
+        entry: {
+          foo: [':hot:', 'foo.js'],
+          bar: ['[hot]', 'bar.js']
+        },
+        mode: 'development'
+      }).webpackConfig
+
+      expect(config.entry('foo').values())
+        .toEqual([
+          path.join(__dirname, '../app/dev-client.es6'),
+          path.resolve('foo.js')
+        ])
+
+      expect(config.entry('bar').values())
+        .toEqual([
+          path.join(__dirname, '../app/dev-client.es6'),
+          path.resolve('bar.js')
+        ])
+    })
   })
 
   describe('output dir', () => {
