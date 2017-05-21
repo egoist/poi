@@ -97,9 +97,14 @@ module.exports = function ({
 
   config.output
     .path(path.resolve(cwd, dist || 'dist'))
+    // Add /* filename */ comments to generated require()s in the output.
+    .pathinfo(true)
     .filename(filename.js)
     .chunkFilename(filename.chunk)
     .publicPath(getPublicPath(mode, homepage))
+    // Point sourcemap entries to original disk location
+    .devtoolModuleFilenameTemplate(info =>
+      path.resolve(info.absoluteResourcePath))
 
   config.performance.hints(false)
 
