@@ -10,6 +10,7 @@ const address = require('address')
 const merge = require('lodash.merge')
 const copy = require('clipboardy')
 const opn = require('opn')
+const buildConfigChain = require('babel-core/lib/transformation/file/options/build-config-chain')
 const LoadExternalConfig = require('poi-load-config')
 const AppError = require('../lib/app-error')
 const { cwd, ownDir, inferHTML, readPkg, parsePresets } = require('../lib/utils')
@@ -97,7 +98,7 @@ module.exports = co.wrap(function * (cliOptions) {
   }
 
   if (options.babel === undefined) {
-    const { useConfig, file } = yield loadExternalConfig.babel()
+    const { useConfig, file } = yield loadExternalConfig.babel(buildConfigChain)
     if (useConfig) {
       console.log('> Using external babel configuration')
       console.log(chalk.dim(`> location: "${tildify(file)}"`))
