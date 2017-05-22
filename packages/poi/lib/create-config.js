@@ -6,6 +6,7 @@ const merge = require('lodash.merge')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const HtmlPlugin = require('html-webpack-plugin')
+const PathsCaseSensitivePlugin = require('case-sensitive-paths-webpack-plugin')
 const isYarn = require('installed-by-yarn-globally')
 const cssLoaders = require('./css-loaders')
 const webpackUtils = require('./webpack-utils')
@@ -207,6 +208,11 @@ module.exports = function ({
         .options({
           name: filename.static
         })
+
+  // Enforces the entire path of all required modules match
+  // The exact case of the actual path on disk
+  config.plugin('paths-case-sensitive')
+    .use(PathsCaseSensitivePlugin)
 
   config.plugin('constants')
     .use(webpack.DefinePlugin, [merge({
