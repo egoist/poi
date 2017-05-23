@@ -7,7 +7,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const HtmlPlugin = require('html-webpack-plugin')
 const PathsCaseSensitivePlugin = require('case-sensitive-paths-webpack-plugin')
-const isYarn = require('installed-by-yarn-globally')
+const yarnGlobal = require('yarn-global')
 const cssLoaders = require('./css-loaders')
 const webpackUtils = require('./webpack-utils')
 const {
@@ -278,6 +278,8 @@ module.exports = function ({
     config.plugin('split-vendor-code')
       .use(webpack.optimize.CommonsChunkPlugin, [{
         name: 'vendor',
+        async: true,
+        children: true,
         minChunks: module => {
           return module.resource && /\.(js|css|es|es6)$/.test(module.resource) && module.resource.indexOf('node_modules') !== -1
         }
@@ -346,7 +348,7 @@ module.exports = function ({
   }
 
   // installed by `yarn global add`
-  if (isYarn(__dirname)) {
+  if (yarnGlobal.inDirectory(__dirname)) {
     // modules in yarn global node_modules
     // because of yarn's flat node_modules structure
     config.resolve.modules.add(ownDir('..'))

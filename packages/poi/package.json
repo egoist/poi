@@ -57,7 +57,6 @@
     "html-webpack-plugin": "^2.28.0",
     "http-proxy-middleware": "^0.17.4",
     "import-local-file": "^0.2.0",
-    "installed-by-yarn-globally": "^0.1.2",
     "lodash.merge": "^4.6.0",
     "loud-rejection": "^1.6.0",
     "memory-fs": "^0.4.1",
@@ -84,7 +83,8 @@
     "webpack-hot-middleware": "^2.18.0",
     "webpack-merge": "^4.1.0",
     "webpack-node-externals": "^1.6.0",
-    "yargs": "^8.0.1"
+    "yargs": "^8.0.1",
+    "yarn-global": "^1.1.0"
   },
   "babel": {
     "babelrc": false,
