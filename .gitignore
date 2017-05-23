@@ -1,6 +1,7 @@
 node_modules
 .DS_Store
 *.log
+*.log.*
 dist
 examples/*/yarn.lock
 dist
