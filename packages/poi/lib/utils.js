@@ -12,10 +12,6 @@ exports.ownDir = function (...args) {
   return path.join(__dirname, '../', ...args)
 }
 
-exports.getConfigFile = function (config) {
-  return exports.cwd(typeof config === 'string' ? config : 'poi.config.js')
-}
-
 exports.getPublicPath = function (mode, homepage) {
   if (mode === 'production' && homepage) {
     return /\/$/.test(homepage) ? homepage : (homepage + '/')

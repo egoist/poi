@@ -12,9 +12,9 @@ const copy = require('clipboardy')
 const opn = require('opn')
 const buildConfigChain = require('babel-core/lib/transformation/file/options/build-config-chain')
 const LoadExternalConfig = require('poi-load-config')
+const loadPoiConfig = require('poi-load-config/poi')
 const AppError = require('../lib/app-error')
 const { cwd, ownDir, inferHTML, readPkg, parsePresets } = require('../lib/utils')
-const loadConfig = require('../lib/load-config')
 const poi = require('../lib')
 const terminal = require('../lib/terminal-utils')
 const logger = require('../lib/logger')
@@ -24,7 +24,16 @@ const unspecifiedAddress = host => host === '0.0.0.0' || host === '::'
 module.exports = co.wrap(function * (cliOptions) {
   console.log(`> Running in ${cliOptions.mode} mode`)
 
-  const config = yield loadConfig(cliOptions)
+  let { path: configPath, config = {} } = yield loadPoiConfig({ config: cliOptions.config })
+
+  if (configPath) {
+    console.log(`> Using external Poi config file`)
+    console.log(chalk.dim(`> location: "${tildify(configPath)}"`))
+    config = handleConfig(config, cliOptions)
+  } else if (cliOptions.config) {
+    throw new AppError('Config file was not found!')
+  }
+
   const options = merge(config, cliOptions)
 
   const clear = () => options.clear !== false && terminal.clear()
@@ -91,11 +100,11 @@ module.exports = co.wrap(function * (cliOptions) {
     console.log()
   }
 
-  const loadExternalConfig = new LoadExternalConfig({ cwd: options.cwd })
-
   if (options.presets) {
     options.presets = parsePresets(options.presets)
   }
+
+  const loadExternalConfig = new LoadExternalConfig({ cwd: options.cwd })
 
   if (options.babel === undefined) {
     const { useConfig, file } = yield loadExternalConfig.babel(buildConfigChain)
@@ -213,4 +222,19 @@ function handleError(err) {
   logger.error('Failed to start!')
   console.log()
   process.exit(1)
+}
+
+function handleConfig(config, options) {
+  if (typeof config === 'function') {
+    config = config(options, require)
+  }
+
+  config = merge(config, config[options.mode])
+
+  delete config.development
+  delete config.production
+  delete config.watch
+  delete config.test
+
+  return config
 }

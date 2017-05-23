@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "repository": "egoist/poi",
   "files": [
-    "index.js"
+    "*.js"
   ],
   "scripts": {
     "test": "jest",
@@ -18,7 +18,8 @@
   "dependencies": {
     "babel-core": "^6.24.1",
     "babel-load-config": "^1.0.0",
-    "postcss-load-config": "^1.2.0"
+    "postcss-load-config": "^1.2.0",
+    "use-config": "^0.1.2"
   },
   "devDependencies": {
     "documentation": "^4.0.0-rc.1",
