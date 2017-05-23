@@ -8,9 +8,10 @@ module.exports = function ({
   const files = enforceConfig ? [config] : ['{name}.config.js', 'package.json']
 
   const useConfig = new UseConfig({
+    name: 'poi',
     files,
     cwd
   })
 
-  return useConfig.load('poi')
+  return useConfig.load()
 }
