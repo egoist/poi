@@ -290,17 +290,21 @@ module.exports = function ({
       }])
   }
 
-  if (hotReload !== false && mode === 'development') {
-    const devClient = ownDir('app/dev-client.es6')
+  const supportHMR = hotReload !== false && mode === 'development'
+  const devClient = ownDir('app/dev-client.es6')
 
-    // Add hmr entry to `client` entry
-    // And replace keyword with hmr entry
-    config.entryPoints.store.forEach((v, k) => {
-      if (k === 'client' || v.has('[hot]') || v.has(':hot:')) {
-        v.delete('[hot]').delete(':hot:').prepend(devClient)
+  // Add hmr entry to `client` entry
+  // And replace keyword with hmr entry
+  config.entryPoints.store.forEach((v, k) => {
+    if (k === 'client' || v.has('[hot]') || v.has(':hot:')) {
+      v.delete('[hot]').delete(':hot:')
+      if (supportHMR) {
+        v.prepend(devClient)
       }
-    })
+    }
+  })
 
+  if (supportHMR) {
     config.plugin('hmr')
       .use(webpack.HotModuleReplacementPlugin)
   }
