@@ -39,9 +39,11 @@ module.exports = ({
       if (config.entryPoints.has(entry)) {
         config.entry(entry).prepend(pwa)
       } else {
-        throw new Error(`Entry "${entry}"" was not found.`)
+        throw new Error(`Entry "${entry}" was not found.`)
       }
 
+      // Our default pwa entry is written in ES2015
+      // So we need to include in babel transformation process
       config.module.rule('js')
         .include.add(pwa)
 
