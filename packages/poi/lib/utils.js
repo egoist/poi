@@ -19,9 +19,12 @@ exports.getPublicPath = function (mode, homepage) {
   return '/'
 }
 
+let projectPkgCache
+
 exports.readPkg = function () {
   try {
-    return require(exports.cwd('package.json'))
+    projectPkgCache = projectPkgCache || require(exports.cwd('package.json'))
+    return projectPkgCache
   } catch (err) {
     if (err.code === 'MODULE_NOT_FOUND') {
       return {}

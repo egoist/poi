@@ -53,14 +53,6 @@ module.exports = function ({
   env = stringifyObject(Object.assign({
     NODE_ENV: mode === 'production' ? 'production' : 'development'
   }, env))
-  babel = babel && (babel.babelrc !== false) ? babel : {
-    babelrc: false,
-    presets: [
-      [require.resolve('babel-preset-vue-app'), {
-        useBuiltIns: true
-      }]
-    ]
-  }
 
   if (sourceMap === true || sourceMap === undefined) {
     sourceMap = mode === 'production' ?
@@ -133,9 +125,7 @@ module.exports = function ({
   postcss.plugins = postcss.plugins || []
 
   if (autoprefixer !== false) {
-    postcss.plugins.unshift(require('autoprefixer')(Object.assign({
-      browsers: ['ie > 8', 'last 3 versions']
-    }, autoprefixer)))
+    postcss.plugins.unshift(require('autoprefixer')(autoprefixer))
   }
 
   const cssOptions = {

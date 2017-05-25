@@ -1,4 +1,5 @@
 /* eslint-disable unicorn/no-process-exit */
+const util = require('util')
 const fs = require('fs')
 const url = require('url')
 const chalk = require('chalk')
@@ -121,6 +122,12 @@ module.exports = co.wrap(function * (cliOptions) {
         babelrc: false
       }
     }
+    if (options.babel.babelrc === false) {
+      // Use our default preset when no babelrc was found
+      options.babel.presets = [
+        [require.resolve('babel-preset-vue-app'), { useBuiltIns: true }]
+      ]
+    }
   }
 
   if (options.postcss === undefined) {
@@ -147,6 +154,27 @@ module.exports = co.wrap(function * (cliOptions) {
 
   if (options.homepage === undefined && options.mode === 'production') {
     options.homepage = readPkg().homepage
+  }
+
+  const { browserslist = ['ie > 8', 'last 2 versions'] } = readPkg()
+
+  options.autoprefixer = Object.assign({
+    browsers: browserslist
+  }, options.autoprefixer)
+
+  deleteExtraOptions(options, [
+    '_',
+    '$0',
+    'inspectOptions',
+    'inspect-options',
+    'v',
+    'version',
+    'h',
+    'help'
+  ])
+
+  if (cliOptions.inspectOptions) {
+    console.log('> Options:', util.inspect(options, { colors: true, depth: null }))
   }
 
   const app = poi(options)
@@ -237,4 +265,8 @@ function handleConfig(config, options) {
   delete config.test
 
   return config
+}
+
+function deleteExtraOptions(obj, arr) {
+  arr.forEach(k => delete obj[k])
 }
