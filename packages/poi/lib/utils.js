@@ -94,7 +94,7 @@ exports.parsePresets = presets => {
       let preset
       try {
         preset = /^(\.|\/)/.test(name) ? name : `poi-preset-${name}`
-        name = require(path.join(process.cwd(), preset))
+        name = require(path.join(process.cwd(), 'node_modules', preset))
       } catch (err) {
         if (err.code === 'MODULE_NOT_FOUND' && err.message.indexOf(name) > -1) {
           throw new AppError(`Cannot find module "${preset}" in current working directory!\n\nYou may need to run: yarn add ${preset} --dev`)
