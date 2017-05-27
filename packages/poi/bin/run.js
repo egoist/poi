@@ -15,7 +15,7 @@ const buildConfigChain = require('babel-core/lib/transformation/file/options/bui
 const LoadExternalConfig = require('poi-load-config')
 const loadPoiConfig = require('poi-load-config/poi')
 const AppError = require('../lib/app-error')
-const { cwd, ownDir, inferHTML, readPkg, parsePresets } = require('../lib/utils')
+const { cwd, ownDir, inferHTML, readPkg } = require('../lib/utils')
 const poi = require('../lib')
 const terminal = require('../lib/terminal-utils')
 const logger = require('../lib/logger')
@@ -99,10 +99,6 @@ module.exports = co.wrap(function * (cliOptions) {
       logger.success(`Build ${stats.hash.slice(0, 6)} finished in ${stats.endTime - stats.startTime} ms!`)
     }
     console.log()
-  }
-
-  if (options.presets) {
-    options.presets = parsePresets(options.presets)
   }
 
   const loadExternalConfig = new LoadExternalConfig({ cwd: options.cwd })

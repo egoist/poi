@@ -8,6 +8,7 @@ const rm = require('rimraf')
 const ware = require('ware')
 const merge = require('lodash.merge')
 const MemoryFS = require('memory-fs')
+const parsePresets = require('parse-json-config')
 const webpackUtils = require('./webpack-utils')
 const createConfig = require('./create-config')
 const createServer = require('./server')
@@ -117,12 +118,16 @@ class Poi extends EventEmitter {
       merge
     }
 
-    const presets = this.options.presets
+    let presets = this.options.presets
     if (presets) {
-      if (Array.isArray(presets)) {
+      if (!Array.isArray(presets)) {
+        presets = [presets]
+      }
+      presets = parsePresets(presets, {
+        prefix: 'poi-preset-'
+      })
+      if (presets) {
         presets.forEach(preset => preset(presetContext))
-      } else {
-        presets(presetContext)
       }
     }
 
