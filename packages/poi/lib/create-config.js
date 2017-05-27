@@ -268,8 +268,6 @@ module.exports = function ({
     config.plugin('split-vendor-code')
       .use(webpack.optimize.CommonsChunkPlugin, [{
         name: 'vendor',
-        async: true,
-        children: true,
         minChunks: module => {
           return module.resource && /\.(js|css|es|es6)$/.test(module.resource) && module.resource.indexOf('node_modules') !== -1
         }
