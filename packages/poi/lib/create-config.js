@@ -54,13 +54,17 @@ module.exports = function ({
     NODE_ENV: mode === 'production' ? 'production' : 'development'
   }, env))
 
-  if (sourceMap === true || sourceMap === undefined) {
-    sourceMap = mode === 'production' ?
-      'source-map' :
-      mode === 'test' ?
-      'inline-source-map' :
-      'eval-source-map'
-    config.devtool(sourceMap)
+  if (sourceMap !== false) {
+    if (typeof sourceMap === 'string') {
+      config.devtool(sourceMap)
+    } else {
+      sourceMap = mode === 'production' ?
+        'source-map' :
+        mode === 'test' ?
+        'inline-source-map' :
+        'eval-source-map'
+      config.devtool(sourceMap)
+    }
   }
 
   // Do not resolve path like `:hot:` and `[hot]`
