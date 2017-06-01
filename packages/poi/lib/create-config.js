@@ -106,6 +106,7 @@ module.exports = function ({
   config.performance.hints(false)
 
   config.resolve
+    .set('symlinks', true)
     .extensions
       .add('.js')
       .add('.json')
@@ -121,6 +122,7 @@ module.exports = function ({
       .set('vue$', templateCompiler ? 'vue/dist/vue.esm.js' : 'vue/dist/vue.runtime.esm.js')
 
   config.resolveLoader
+    .set('symlinks', true)
     .modules
       .add(path.resolve('node_modules'))
       .add(path.resolve(cwd, 'node_modules'))
