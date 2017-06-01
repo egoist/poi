@@ -26,7 +26,7 @@ module.exports = function ({
           .add(/node_modules/)
           .end()
         .pre()
-        .use('eslint')
+        .use('eslint-loader')
           .loader('eslint-loader')
           .options(loaderOptions)
     })

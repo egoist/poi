@@ -15,8 +15,8 @@ module.exports = function ({
       .add('.html')
 
     const jsRule = config.module.rule('js')
-    const isBabel = jsRule.uses.has('babel')
-    const isBuble = jsRule.uses.has('buble')
+    const isBabel = jsRule.uses.has('babel-loader')
+    const isBuble = jsRule.uses.has('buble-loader')
 
     let jsLoaderOptions
     if (isBabel || isBuble) {
@@ -29,10 +29,10 @@ module.exports = function ({
     let jsLoaderPath
     let jsLoaderName
     if (isBabel) {
-      jsLoaderName = 'babel'
+      jsLoaderName = 'babel-loader'
       jsLoaderPath = 'babel-loader'
     } else if (isBuble) {
-      jsLoaderName = 'buble'
+      jsLoaderName = 'buble-loader'
       jsLoaderPath = 'buble-loader'
     }
 
@@ -44,7 +44,7 @@ module.exports = function ({
           .loader(jsLoaderPath)
           .options(jsLoaderOptions)
           .end()
-        .use('svelte')
+        .use('svelte-loader')
           .loader(require.resolve('svelte-loader'))
           .options(loaderOptions)
     }

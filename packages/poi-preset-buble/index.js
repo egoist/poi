@@ -25,15 +25,15 @@ module.exports = ({
     for (const rule of ['js', 'es']) {
       config.module.rule(rule)
       .uses
-        .delete('babel')
+        .delete('babel-loader')
         .end()
-      .use('buble')
+      .use('buble-loader')
         .loader(loaderPath)
         .options(loaderOptions)
     }
 
     config.module.rule('vue')
-      .use('vue')
+      .use('vue-loader')
       .tap(vueOptions => {
         vueOptions.loaders.js = {
           loader: loaderPath,

@@ -155,21 +155,21 @@ module.exports = function ({
           return false
         })
         .end()
-      .use('babel')
+      .use('babel-loader')
         .loader('babel-loader')
         .options(babel)
         .end()
       .end()
     .rule('es')
       .test(/\.es6?$/)
-      .use('babel')
+      .use('babel-loader')
         .loader('babel-loader')
         .options(babel)
         .end()
       .end()
     .rule('vue')
       .test(/\.vue$/)
-      .use('vue')
+      .use('vue-loader')
         .loader('vue-loader')
         .options({
           postcss,
@@ -188,7 +188,7 @@ module.exports = function ({
       .end()
     .rule('static')
       .test(/\.(ico|jpg|png|gif|eot|otf|webp|ttf|woff|woff2)(\?.*)?$/)
-      .use('file')
+      .use('file-loader')
         .loader('file-loader')
         .options({
           name: filename.static
@@ -197,7 +197,7 @@ module.exports = function ({
       .end()
     .rule('svg')
       .test(/\.(svg)(\?.*)?$/)
-      .use('file')
+      .use('file-loader')
         .loader('file-loader')
         .options({
           name: filename.static

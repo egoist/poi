@@ -4,7 +4,7 @@ module.exports = () => {
 
     // Add react plugins to babel config
     config.module.rule('js')
-      .use('babel')
+      .use('babel-loader')
       .tap(options => {
         // Remove default vue-app preset
         // When `babelrc` is false, we're using default babel config
