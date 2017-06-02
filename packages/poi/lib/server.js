@@ -16,7 +16,8 @@ module.exports = function (compiler, options = {}) {
 
   server.use(devMiddleWare)
   server.use(require('webpack-hot-middleware')(compiler, {
-    log: () => null
+    log: () => null,
+    heartbeat: 2500
   }))
 
   if (options.setupDevServer) {
