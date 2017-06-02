@@ -91,6 +91,7 @@ poi build src/my-entry.js # production
 - [npmarket](https://github.com/qingwei-li/npmarket) - More efficient search for node packages.
 - [sublog](https://github.com/sinchang/sublog) - Build a static blog website from GitHub Issues.
 - [emoji.js.org](https://emoji.js.org) - Unfancy emoji searcher.
+- [ANII](https://github.com/egoist/anii) - A minimalistic web video player.
 - Feel free to submit yours via pull request :D
 
 ## FAQ
