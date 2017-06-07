@@ -62,7 +62,8 @@ class Poi extends EventEmitter {
         this.createCompiler()
         const { filename, path: outputPath } = this.compiler.options.output
         // Only remove dist file when name contains hash
-        if (/\[(chunk)?hash:?\d?\]/.test(filename)) {
+        const implicitlyRemoveDist = this.options.removeDist !== false && /\[(chunk)?hash:?\d?\]/.test(filename)
+        if (this.options.removeDist === true || implicitlyRemoveDist) {
           return promisify(rm)(path.join(outputPath, '*'))
         }
       })
