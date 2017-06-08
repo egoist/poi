@@ -93,6 +93,7 @@ poi build src/my-entry.js # production
 - [emoji.js.org](https://emoji.js.org) - Unfancy emoji searcher.
 - [ANII](https://github.com/egoist/anii) - A minimalistic web video player.
 - [WhyVote.us](http://whyvote.us) - Info about the American presidential voting system.
+- [Vuikit](http://vuikit.js.org) - UIkit with all the power of Vue.
 - Feel free to submit yours via pull request :D
 
 ## FAQ
