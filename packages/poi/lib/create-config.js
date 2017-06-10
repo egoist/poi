@@ -111,6 +111,7 @@ module.exports = function ({
       .add('.js')
       .add('.jsx')
       .add('.json')
+      .add('.vue')
       .end()
     .modules
       .add(path.resolve('node_modules'))
