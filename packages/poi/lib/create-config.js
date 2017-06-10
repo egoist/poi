@@ -109,8 +109,9 @@ module.exports = function ({
     .set('symlinks', true)
     .extensions
       .add('.js')
+      .add('.jsx')
       .add('.json')
-      .add('.vue')
+      .add('.vue') // This will be removed in next major version
       .end()
     .modules
       .add(path.resolve('node_modules'))
