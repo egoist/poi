@@ -15,10 +15,13 @@ exports.standalone = function (config, options) {
     const rule = handleLoader[lang]()
     const context = config.module
       .rule(lang)
-      .test(filepath => {
-        // Match the `test` but not ends with `.module.xxx`
-        return rule.test.test(filepath) && !/\.module\.[a-z]+$/.test(filepath)
-      })
+      .test(rule.test)
+      .include
+        .add(filepath => {
+          // Not ends with `.module.xxx`
+          return !/\.module\.[a-z]+$/.test(filepath)
+        })
+        .end()
 
     rule.use.forEach(use => {
       context

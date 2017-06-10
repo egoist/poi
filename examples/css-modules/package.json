@@ -1,0 +1,12 @@
+{
+  "name": "css-modules",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "poi"
+  },
+  "devDependencies": {
+    "poi": "^9.0.0-rc.1"
+  }
+}
