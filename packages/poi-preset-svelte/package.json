@@ -1,6 +1,6 @@
 {
   "name": "poi-preset-svelte",
-  "version": "9.0.0-rc.1",
+  "version": "9.0.0",
   "scripts": {
     "example": "poi example/index.js",
     "docs": "documentation readme index.js -s API"
