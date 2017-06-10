@@ -32,9 +32,8 @@ module.exports = ({
   pluginOptions
 } = {}) => {
   return poi => {
-    poi.mode('production', () => {
+    poi.extendWebpack('production', config => {
       pwa = path.resolve(poi.options.cwd, pwa)
-      const config = poi.webpackConfig
 
       if (config.entryPoints.has(entry)) {
         config.entry(entry).prepend(pwa)

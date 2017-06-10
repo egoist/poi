@@ -8,45 +8,45 @@ module.exports = function ({
   loaderOptions
 } = {}) {
   return poi => {
-    const config = poi.webpackConfig
+    poi.extendWebpack(config => {
+      config.resolve
+        .extensions
+        .add('.html')
 
-    config.resolve
-      .extensions
-      .add('.html')
+      const jsRule = config.module.rule('js')
+      const isBabel = jsRule.uses.has('babel-loader')
+      const isBuble = jsRule.uses.has('buble-loader')
 
-    const jsRule = config.module.rule('js')
-    const isBabel = jsRule.uses.has('babel-loader')
-    const isBuble = jsRule.uses.has('buble-loader')
+      let jsLoaderOptions
+      if (isBabel || isBuble) {
+        jsLoaderOptions = config.module
+          .rule('js')
+            .use(isBabel ? 'babel-loader' : 'buble-loader')
+              .store.get('options')
+      }
 
-    let jsLoaderOptions
-    if (isBabel || isBuble) {
-      jsLoaderOptions = config.module
-        .rule('js')
-          .use(isBabel ? 'babel' : 'buble')
-            .store.get('options')
-    }
+      let jsLoaderPath
+      let jsLoaderName
+      if (isBabel) {
+        jsLoaderName = 'babel-loader'
+        jsLoaderPath = 'babel-loader'
+      } else if (isBuble) {
+        jsLoaderName = 'buble-loader'
+        jsLoaderPath = 'buble-loader'
+      }
 
-    let jsLoaderPath
-    let jsLoaderName
-    if (isBabel) {
-      jsLoaderName = 'babel-loader'
-      jsLoaderPath = 'babel-loader'
-    } else if (isBuble) {
-      jsLoaderName = 'buble-loader'
-      jsLoaderPath = 'buble-loader'
-    }
-
-    if (jsLoaderName) {
-      config.module
-        .rule('svelte')
-        .test(/\.(html|svelte)$/)
-        .use(jsLoaderName)
-          .loader(jsLoaderPath)
-          .options(jsLoaderOptions)
-          .end()
-        .use('svelte-loader')
-          .loader(require.resolve('svelte-loader'))
-          .options(loaderOptions)
-    }
+      if (jsLoaderName) {
+        config.module
+          .rule('svelte')
+          .test(/\.(html|svelte)$/)
+          .use(jsLoaderName)
+            .loader(jsLoaderPath)
+            .options(jsLoaderOptions)
+            .end()
+          .use('svelte-loader')
+            .loader('svelte-loader')
+            .options(loaderOptions)
+      }
+    })
   }
 }

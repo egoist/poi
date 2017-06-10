@@ -25,5 +25,8 @@
     "karma-webpack": "^2.0.3",
     "mocha": "^3.3.0"
   },
-  "xo": false
+  "xo": false,
+  "devDependencies": {
+    "webpack": "^2.6.1"
+  }
 }

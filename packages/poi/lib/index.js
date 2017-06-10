@@ -33,17 +33,26 @@ class Poi extends EventEmitter {
       host: process.env.HOST || '0.0.0.0',
       port: process.env.PORT || 4000
     }, options)
+
     this.manifest = readPkg()
-    this.webpackConfig = createConfig(this.options)
-    this.webpackConfig.plugin('compile-notifier')
-      .use(PostCompilePlugin, [stats => {
-        if (this.options.mode === 'development' || this.options.mode === 'watch') {
-          this.emit('compile-done', stats)
-        }
-      }])
+    this.middlewares = []
+    this.webpackFlows = []
+
+    this.usePresets()
+    this.addWebpackFlow(config => {
+      config.plugin('compile-notifier')
+        .use(PostCompilePlugin, [stats => {
+          if (this.options.mode === 'development' || this.options.mode === 'watch') {
+            this.emit('compile-done', stats)
+          }
+        }])
+    })
     if (this.options.extendWebpack) {
-      this.options.extendWebpack.call(this, this.webpackConfig)
+      this.addWebpackFlow(this.options.extendWebpack)
     }
+
+    this.webpackConfig = createConfig(this.options)
+    this.webpackFlows.forEach(flow => flow(this.webpackConfig))
   }
 
   getWebpackConfig() {
@@ -57,7 +66,7 @@ class Poi extends EventEmitter {
   }
 
   build() {
-    return this.process()
+    return this.runMiddlewares()
       .then(() => {
         this.createCompiler()
         const { filename, path: outputPath } = this.compiler.options.output
@@ -71,7 +80,7 @@ class Poi extends EventEmitter {
   }
 
   watch() {
-    return this.process()
+    return this.runMiddlewares()
       .then(() => {
         this.createCompiler()
         return this.compiler.watch({}, () => {})
@@ -79,7 +88,7 @@ class Poi extends EventEmitter {
   }
 
   dev() {
-    return this.process()
+    return this.runMiddlewares()
       .then(() => {
         this.createCompiler()
         return createServer(this.compiler, this.options)
@@ -87,7 +96,7 @@ class Poi extends EventEmitter {
   }
 
   test() {
-    return this.process()
+    return this.runMiddlewares()
   }
 
   createCompiler(webpackConfig = this.getWebpackConfig()) {
@@ -98,19 +107,37 @@ class Poi extends EventEmitter {
     return this
   }
 
-  process(mode = this.options.mode) {
-    const middlewares = []
+  addWebpackFlow(mode, fn) {
+    if (typeof mode === 'function') {
+      this.webpackFlows.push(mode)
+    } else if (this.isMode(mode)) {
+      this.webpackFlows.push(fn)
+    }
+    return this
+  }
 
+  addMiddleware(mode, fn) {
+    if (typeof mode === 'function') {
+      this.middlewares.push(mode)
+    } else if (this.isMode(mode)) {
+      this.middlewares.push(fn)
+    }
+    return this
+  }
+
+  isMode(mode) {
+    const currentMode = this.options.mode
+    const isWildcard = mode === '*'
+    const isMode = typeof mode === 'string' && mode === currentMode
+    const hasMode = Array.isArray(mode) && mode.indexOf(currentMode) > -1
+    return isWildcard || isMode || hasMode
+  }
+
+  usePresets() {
     const presetContext = {
-      mode: (modes, fn) => {
-        const wildcard = modes === '*'
-        const isMode = typeof modes === 'string' && modes === mode
-        const hasMode = Array.isArray(modes) && modes.indexOf(mode) > -1
-        if (wildcard || isMode || hasMode) {
-          middlewares.push(fn)
-        }
-      },
-      webpackConfig: this.webpackConfig,
+      isMode: this.isMode.bind(this),
+      run: this.addMiddleware.bind(this),
+      extendWebpack: this.addWebpackFlow.bind(this),
       options: this.options,
       argv: this.options.argv,
       manifest: this.manifest,
@@ -121,7 +148,7 @@ class Poi extends EventEmitter {
 
     let presets = this.options.presets
     if (presets) {
-      if (!Array.isArray(presets)) {
+      if (typeof presets === 'string' || typeof presets === 'function') {
         presets = [presets]
       }
       presets = parsePresets(presets, {
@@ -131,17 +158,14 @@ class Poi extends EventEmitter {
         presets.forEach(preset => preset(presetContext))
       }
     }
+  }
 
-    if (!middlewares || middlewares.length === 0) {
-      return Promise.resolve()
-    }
-
+  runMiddlewares() {
     return new Promise((resolve, reject) => {
       ware()
-        .use(middlewares)
-        .run(err => {
+        .use(this.middlewares)
+        .run(this.webpackConfig, err => {
           if (err) return reject(err)
-
           resolve()
         })
     })

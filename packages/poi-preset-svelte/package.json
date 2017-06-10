@@ -2,7 +2,7 @@
   "name": "poi-preset-svelte",
   "version": "8.0.1",
   "scripts": {
-    "dev": "poi example/index.js",
+    "example": "poi example/index.js",
     "docs": "documentation readme index.js -s API"
   },
   "poi": {

@@ -11,35 +11,35 @@ module.exports = ({
   loaderOptions
 } = {}) => {
   return poi => {
-    loaderOptions = Object.assign({
-      transforms: {
-        dangerousForOf: true,
-        generator: false,
-        modules: false
-      },
-      objectAssign: 'Object.assign'
-    }, loaderOptions)
+    poi.extendWebpack(config => {
+      loaderOptions = Object.assign({
+        transforms: {
+          dangerousForOf: true,
+          generator: false,
+          modules: false
+        },
+        objectAssign: 'Object.assign'
+      }, loaderOptions)
 
-    const config = poi.webpackConfig
+      for (const rule of ['js', 'es']) {
+        config.module.rule(rule)
+        .uses
+          .delete('babel-loader')
+          .end()
+        .use('buble-loader')
+          .loader(loaderPath)
+          .options(loaderOptions)
+      }
 
-    for (const rule of ['js', 'es']) {
-      config.module.rule(rule)
-      .uses
-        .delete('babel-loader')
-        .end()
-      .use('buble-loader')
-        .loader(loaderPath)
-        .options(loaderOptions)
-    }
-
-    config.module.rule('vue')
-      .use('vue-loader')
-      .tap(vueOptions => {
-        vueOptions.loaders.js = {
-          loader: loaderPath,
-          options: loaderOptions
-        }
-        return vueOptions
-      })
+      config.module.rule('vue')
+        .use('vue-loader')
+        .tap(vueOptions => {
+          vueOptions.loaders.js = {
+            loader: loaderPath,
+            options: loaderOptions
+          }
+          return vueOptions
+        })
+    })
   }
 }

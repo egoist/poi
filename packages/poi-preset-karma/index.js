@@ -9,7 +9,11 @@ function ensureArray(v) {
 
 module.exports = (options = {}) => {
   return poi => {
-    poi.mode('test', () => {
+    if (typeof options.extendWebpack === 'function') {
+      poi.extendWebpack(poi.webpackConfig)
+    }
+
+    poi.run('test', config => {
       const inferValue = (key, fallback) => {
         if (typeof poi.argv[key] !== 'undefined') {
           return poi.argv[key]
@@ -64,11 +68,7 @@ module.exports = (options = {}) => {
         singleRun: !watch
       }
 
-      if (typeof options.extendWebpack === 'function') {
-        options.extendWebpack(poi.webpackConfig)
-      }
-
-      const webpackConfig = poi.webpackConfig.toConfig()
+      const webpackConfig = config.toConfig()
       delete webpackConfig.entry
 
       const karmaConfig = poi.merge(defaultConfig, poi.options.karma)

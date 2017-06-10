@@ -110,82 +110,76 @@ describe('get webpack config', () => {
   })
 
   describe('copy static files', () => {
-    it('copy existing static folder', async () => {
-      const p = await poi()
-      const config = p.webpackConfig
+    it('copy existing static folder', () => {
+      const config = poi().webpackConfig
+
       expect(config.plugins.has('copy-static-files')).toBe(true)
       expect(config.plugins.get('copy-static-files').get('args')[0].length)
         .toBe(1)
     })
 
-    it('accepts object', async () => {
-      const p = await poi({
+    it('accepts object', () => {
+      const config = poi({
         copy: {}
-      })
-      const config = p.webpackConfig
+      }).webpackConfig
+
       expect(config.plugins.get('copy-static-files').get('args')[0].length)
         .toBe(2)
     })
 
-    it('accepts array', async () => {
-      const p = await poi({
+    it('accepts array', () => {
+      const config = poi({
         copy: [{}, {}]
-      })
-      const config = p.webpackConfig
+      }).webpackConfig
+
       expect(config.plugins.get('copy-static-files').get('args')[0].length)
         .toBe(3)
     })
 
-    it('could be disabled', async () => {
-      const p = await poi({
+    it('could be disabled', () => {
+      const config = poi({
         copy: false
-      })
-      const config = p.webpackConfig
+      }).webpackConfig
+
       expect(config.plugins.has('copy-static-files'))
         .toBe(false)
     })
   })
 
   describe('use preset', () => {
-    it('in default mode', async () => {
+    it('in all modes', () => {
       const preset = poi => {
-        poi.webpackConfig.entry('foo')
+        poi.extendWebpack(config => {
+          config.entry('foo')
             .add(path.resolve(poi.options.cwd, 'haha.js'))
+        })
       }
-      const p = await poi({
+      const config = poi({
         cwd: 'foo',
         presets: preset
-      })
-
-      await p.process()
-
-      const config = p.webpackConfig
+      }).webpackConfig
 
       expect(config.entry('foo').values()).toEqual([path.resolve('foo', 'haha.js')])
     })
 
-    it('in dev command', async () => {
+    it('in dev command', () => {
       const presets = [
         poi => {
-          poi.mode('development', () => {
-            poi.webpackConfig.entry('foo').add('foo')
+          poi.extendWebpack('development', config => {
+            config.entry('foo').add('foo')
           })
         },
         poi => {
-          poi.mode('development', () => {
-            poi.webpackConfig.entry('foo').add('bar')
+          poi.extendWebpack('development', config => {
+            config.entry('foo').add('bar')
           })
         }
       ]
 
-      const p = poi({
+      const config = poi({
         mode: 'development',
         presets
-      })
-
-      await p.process()
-
-      const config = p.webpackConfig
+      }).webpackConfig
 
       expect(config.entry('foo').values()).toEqual(['foo', 'bar'])
     })

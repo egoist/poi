@@ -4,7 +4,7 @@
   "description": "Run eslint as building app using Poi",
   "main": "index.js",
   "scripts": {
-    "example": "poi example/index.js --presets ./index.js",
+    "example": "poi build example/index.js --presets ./index.js",
     "docs": "documentation readme index.js -s API"
   },
   "repository": "egoist/poi",

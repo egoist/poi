@@ -19,8 +19,8 @@ module.exports = function ({
   mode = 'production'
 } = {}) {
   return poi => {
-    poi.mode(mode, () => {
-      poi.webpackConfig.module.rule('eslint')
+    poi.extendWebpack(mode, config => {
+      config.module.rule('eslint')
         .test(/\.(js|jsx|vue)$/)
         .exclude
           .add(/node_modules/)
