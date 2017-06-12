@@ -1,6 +1,5 @@
 const path = require('path')
 const express = require('express')
-const merge = require('lodash.merge')
 const proxyMiddleware = require('http-proxy-middleware')
 
 module.exports = function (compiler, options = {}) {
@@ -9,7 +8,7 @@ module.exports = function (compiler, options = {}) {
   const port = options.port
   const host = options.host
 
-  const devMiddleWare = require('webpack-dev-middleware')(compiler, merge(
+  const devMiddleWare = require('webpack-dev-middleware')(compiler, Object.assign(
     options.devMiddleware || {},
     {
       quiet: true,
