@@ -288,10 +288,11 @@ module.exports = function ({
   const supportHMR = hotReload !== false && mode === 'development'
   const devClient = ownDir('app/dev-client.es6')
 
-  // Add hmr entry to `client` entry
-  // And replace keyword with hmr entry
-  config.entryPoints.store.forEach((v, k) => {
-    if (k === 'client' || v.has('[hot]') || v.has(':hot:')) {
+  // Add hmr entry (deprecated)
+  // Replace keywords like `[hot]` `:hot:` with hmr entry
+  // This will be removed in next major version
+  config.entryPoints.store.forEach(v => {
+    if (v.has('[hot]') || v.has(':hot:')) {
       v.delete('[hot]').delete(':hot:')
       if (supportHMR) {
         v.prepend(devClient)
@@ -299,9 +300,21 @@ module.exports = function ({
     }
   })
 
+  // Add hmr entry using `hotReload` option
   if (supportHMR) {
     config.plugin('hmr')
       .use(webpack.HotModuleReplacementPlugin)
+
+    let hotEntryPoints = hotReload || 'client'
+    hotEntryPoints = Array.isArray(hotEntryPoints) ? hotEntryPoints : [hotEntryPoints]
+    hotEntryPoints = new Set(hotEntryPoints)
+
+    config.entryPoints.store.forEach((v, entryPoint) => {
+      console.log(hotEntryPoints.has(entryPoint))
+      if (hotEntryPoints.has(entryPoint)) {
+        v.prepend(devClient)
+      }
+    })
   }
 
   if (copy !== false) {
