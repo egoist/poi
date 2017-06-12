@@ -9,12 +9,12 @@ module.exports = function (compiler, options = {}) {
   const host = options.host
 
   const devMiddleWare = require('webpack-dev-middleware')(compiler, Object.assign(
-    options.devMiddleware || {},
     {
       quiet: true,
       publicPath: compiler.options.output.publicPath,
       path: `http://${host}:${port}/__webpack_hmr`
-    }
+    },
+    options.devMiddleware || {}
   ))
 
   server.use(devMiddleWare)
