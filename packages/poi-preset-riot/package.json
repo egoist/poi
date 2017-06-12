@@ -1,0 +1,11 @@
+{
+  "name": "poi-preset-riot",
+  "version": "0.0.0",
+  "license": "MIT",
+  "files": ["index.js"],
+  "repository": "egoist/poi",
+  "dependencies": {
+    "riot": "^3.6.0",
+    "riot-tag-loader": "^1.0.0"
+  }
+}

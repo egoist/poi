@@ -1,4 +1,5 @@
 const nodeExternals = require('webpack-node-externals')
+const { createSet } = require('./utils')
 
 const _ = module.exports = {}
 
@@ -12,4 +13,12 @@ _.externalize = config => {
     'babel-runtime'
   ])
   config.externals(value)
+}
+
+_.getHotEntryPoints = hotReload => {
+  let hotEntryPoints = hotReload
+  if (!hotEntryPoints || hotEntryPoints === true) {
+    hotEntryPoints = 'client'
+  }
+  return createSet(hotEntryPoints)
 }

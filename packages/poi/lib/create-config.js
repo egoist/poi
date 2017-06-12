@@ -15,8 +15,7 @@ const {
   getPublicPath,
   ownDir,
   inferProductionValue,
-  stringifyObject,
-  createSet
+  stringifyObject
 } = require('./utils')
 
 module.exports = function ({
@@ -306,11 +305,7 @@ module.exports = function ({
     config.plugin('hmr')
       .use(webpack.HotModuleReplacementPlugin)
 
-    let hotEntryPoints = hotReload
-    if (!hotEntryPoints || hotEntryPoints === true) {
-      hotEntryPoints = 'client'
-    }
-    hotEntryPoints = createSet(hotEntryPoints)
+    const hotEntryPoints = webpackUtils.getHotEntryPoints(hotReload)
 
     config.entryPoints.store.forEach((v, entryPoint) => {
       if (hotEntryPoints.has(entryPoint)) {
