@@ -10,7 +10,7 @@ module.exports = function (compiler, options = {}) {
   const host = options.host
 
   const devMiddleWare = require('webpack-dev-middleware')(compiler, merge(
-    compiler.options.devServer || {},
+    options.devMiddleware || {},
     {
       quiet: true,
       publicPath: compiler.options.output.publicPath,
