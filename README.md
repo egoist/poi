@@ -98,18 +98,11 @@ poi build src/my-entry.js # production
 
 ## FAQ
 
-<details><summary>Is it like Yeoman?</summary><br>
+<details><summary>How's it different from a boilerplate?</summary><br>
 
-No, Yeoman is just a boilerplate generator while Poi is a Webpack wrapper which reduces boilerplate code for you.
-</details>
+It's hard to upgrade your project if you're using a boilerplate since you might change the code to suit your needs. However you can easily upgrade your project to use latest version of Poi by simply updating the dependency.
 
-<details><summary>Is it like create-react-app?</summary><br>
-
-Yes and No.
-
-Yes is because they both simplify the development setup, but `create-react-app` is tied to `React` ecosystem and could not be configured programmatically using config file.
-
-There's also [create-vue-app](https://github.com/egoist/create-vue-app) which is similar to `create-react-app` but built upon Poi :P
+You can also get rid of boilerplate code in this way.
 </details>
 
 ## Contributing
