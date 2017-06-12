@@ -15,10 +15,9 @@ _.externalize = config => {
   config.externals(value)
 }
 
-_.getHotEntryPoints = hotReload => {
-  let hotEntryPoints = hotReload
-  if (!hotEntryPoints || hotEntryPoints === true) {
-    hotEntryPoints = 'client'
+_.getHotEntryPoints = entry => {
+  if (!entry || entry === true) {
+    entry = 'client'
   }
-  return createSet(hotEntryPoints)
+  return createSet(entry)
 }

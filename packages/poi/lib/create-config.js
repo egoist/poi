@@ -41,6 +41,7 @@ module.exports = function ({
   cssModules,
   copy,
   hotReload,
+  hotEntry,
   polyfills
 } = {}) {
   const config = new Config()
@@ -305,7 +306,7 @@ module.exports = function ({
     config.plugin('hmr')
       .use(webpack.HotModuleReplacementPlugin)
 
-    const hotEntryPoints = webpackUtils.getHotEntryPoints(hotReload)
+    const hotEntryPoints = webpackUtils.getHotEntryPoints(hotEntry)
 
     config.entryPoints.store.forEach((v, entryPoint) => {
       if (hotEntryPoints.has(entryPoint)) {
