@@ -8,11 +8,14 @@ module.exports = function (compiler, options = {}) {
   const port = options.port
   const host = options.host
 
-  const devMiddleWare = require('webpack-dev-middleware')(compiler, {
-    quiet: true,
-    publicPath: compiler.options.output.publicPath,
-    path: `http://${host}:${port}/__webpack_hmr`
-  })
+  const devMiddleWare = require('webpack-dev-middleware')(compiler, Object.assign(
+    {
+      quiet: true,
+      publicPath: compiler.options.output.publicPath,
+      path: `http://${host}:${port}/__webpack_hmr`
+    },
+    options.devServer || compiler.options.devServer
+  ))
 
   server.use(devMiddleWare)
   server.use(require('webpack-hot-middleware')(compiler, {
