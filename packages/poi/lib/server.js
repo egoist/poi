@@ -14,7 +14,7 @@ module.exports = function (compiler, options = {}) {
       publicPath: compiler.options.output.publicPath,
       path: `http://${host}:${port}/__webpack_hmr`
     },
-    options.devMiddleware || {}
+    options.devServer || {}
   ))
 
   server.use(devMiddleWare)
