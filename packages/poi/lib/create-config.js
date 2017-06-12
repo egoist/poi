@@ -301,7 +301,7 @@ module.exports = function ({
     }
   })
 
-  // Add hmr entry using `hotReload` option
+  // Add hmr entry using `hotEntry` option
   if (supportHMR) {
     config.plugin('hmr')
       .use(webpack.HotModuleReplacementPlugin)
