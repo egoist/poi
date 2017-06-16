@@ -45,8 +45,23 @@ module.exports = co.wrap(function * (cliOptions) {
 
   const printStats = stats => {
     clear()
-    if (stats.hasErrors() || stats.hasWarnings()) {
+    if (stats.hasWarnings()) {
       console.log(stats.toString('errors-only').trim())
+      process.exitCode = 1
+    } else if (stats.hasErrors()) {
+      const { errors } = stats.compilation
+      for (const error of errors) {
+        if (/Cannot find module 'webpack'/.test(error.message)) {
+          console.error(chalk.red(`Cannot find "webpack" in project directory.`))
+          console.error(chalk.red(`It's recommended to install "poi" as a devDependency.`))
+        } else if (/Vue packages version mismatch/.test(error.message)) {
+          let message = error.message.replace(/This may cause things to work incorrectly[\s\S]+/, '')
+          message += 'Make sure to install both packages with the same version in your project.\nOtherwise webpack will use transitive dependencies from Poi.'
+          console.error(chalk.red(message))
+        } else {
+          console.error(error.message)
+        }
+      }
       process.exitCode = 1
     } else {
       console.log(stats.toString({
