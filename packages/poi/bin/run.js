@@ -11,6 +11,10 @@ const address = require('address')
 const merge = require('lodash.merge')
 const copy = require('clipboardy')
 const opn = require('opn')
+const del = require('del')
+const spdy = require('spdy')
+const path = require('path')
+const selfsigned = require('selfsigned')
 const buildConfigChain = require('babel-core/lib/transformation/file/options/build-config-chain')
 const LoadExternalConfig = require('poi-load-config')
 const loadPoiConfig = require('poi-load-config/poi')
@@ -90,7 +94,7 @@ module.exports = co.wrap(function * (cliOptions) {
       if (options.mode === 'development') {
         const isUnspecifiedAddress = unspecifiedAddress(host)
         const localURL = url.format({
-          protocol: 'http',
+          protocol: options.https ? 'https' : 'http',
           hostname: isUnspecifiedAddress ? 'localhost' : host,
           port
         })
@@ -107,7 +111,7 @@ module.exports = co.wrap(function * (cliOptions) {
         }
         if (isUnspecifiedAddress) {
           const lanURL = url.format({
-            protocol: 'http',
+            protocol: options.https ? 'https' : 'http',
             hostname: lanIP || (lanIP = address.ip()),
             port
           })
@@ -220,8 +224,49 @@ module.exports = co.wrap(function * (cliOptions) {
   } else if (options.mode === 'development') {
     const { server, host, port } = yield app.dev()
 
-    server.listen(port, host)
-    .on('error', err => {
+    let listeningApp = null;
+    if (options.https) {
+      // Use a self-signed certificate if no certificate was configured.
+      // Cycle certs every 24 hours
+      const certPath = path.join(__dirname, '../ssl/server.pem');
+      const certExists = fs.existsSync(certPath);
+
+      if (certExists) {
+        const certStat = fs.statSync(certPath);
+        const certTtl = 1000 * 60 * 60 * 24;
+        const now = new Date();
+
+        // cert is more than 30 days old, kill it with fire
+        if ((now - certStat.ctime) / certTtl > 30) {
+          // console.log("SSL Certificate is more than 30 days old. Removing.");
+          del.sync([certPath], { force: true });
+          certExists = false;
+        }
+      }
+
+      if (!certExists) {
+        const attrs = [{ name: 'commonName', value: 'localhost' }];
+        const pems = selfsigned.generate(attrs, {
+          algorithm: 'sha256',
+          days: 30,
+          keySize: 2048
+        });
+        fs.writeFileSync(certPath, pems.private + pems.cert, { encoding: 'utf-8' });
+      }
+
+      const fakeCert = fs.readFileSync(certPath);
+      listeningApp = spdy.createServer({
+        key: fakeCert,
+        cert: fakeCert,
+        spdy: {
+          protocols: ['h2', 'http/1.1']
+        }
+      }, server).listen(port, host)
+    } else {
+      listeningApp = server.listen(port, host)
+    }
+
+    listeningApp.on('error', err => {
       if (err.code === 'EADDRINUSE') {
         return handleError(new AppError(`Port ${port} is already in use.\n\nYou can use another one by adding \`--port <port>\` or set it in config file.`))
       }
@@ -231,7 +276,7 @@ module.exports = co.wrap(function * (cliOptions) {
     app.once('compile-done', () => {
       if (options.open) {
         opn(url.format({
-          protocol: 'http',
+          protocol: options.https ? 'https' : 'http',
           hostname: unspecifiedAddress(host) ? 'localhost' : host,
           port
         }))
