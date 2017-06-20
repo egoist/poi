@@ -214,9 +214,7 @@ module.exports = function ({
 
   config.plugin('constants')
     .use(webpack.DefinePlugin, [merge({
-      process: {
-        env
-      }
+      'process.env': env
     }, define && stringifyObject(define))])
 
   if (format === 'cjs') {
