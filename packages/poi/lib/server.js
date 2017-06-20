@@ -1,68 +1,37 @@
-const path = require('path')
-const express = require('express')
-const proxyMiddleware = require('http-proxy-middleware')
+const Server = require('webpack-dev-server')
 
-module.exports = function (compiler, options = {}) {
-  const server = express()
+module.exports = function (compiler, options) {
+  const hot = options.hotReload !== false && options.mode === 'development'
 
-  const port = options.port
-  const host = options.host
+  const devServerOptions = Object.assign({
+    hot,
+    quiet: true,
+    historyApiFallback: true,
+    overlay: true,
+    noInfo: true,
+    clientLogLevel: 'none',
+    publicPath: compiler.options.output.publicPath
+  }, compiler.options.devServer, options.devServer)
 
-  const devMiddleWare = require('webpack-dev-middleware')(compiler, Object.assign(
-    {
-      quiet: true,
-      publicPath: compiler.options.output.publicPath,
-      path: `http://${host}:${port}/__webpack_hmr`
-    },
-    options.devServer || compiler.options.devServer
-  ))
-
-  server.use(devMiddleWare)
-  server.use(require('webpack-hot-middleware')(compiler, {
-    log: () => null,
-    heartbeat: 2500
-  }))
-
-  if (options.setupDevServer) {
-    options.setupDevServer(server)
-  }
-
-  const mfs = devMiddleWare.fileSystem
-  const file = path.join(compiler.options.output.path, 'index.html')
-
-  // proxy api requests
-  if (typeof options.proxy === 'string') {
-    server.use(proxyMiddleware('/api', {
-      target: options.proxy,
-      changeOrigin: true,
-      pathRewrite: {
-        '^/api': ''
-      }
-    }))
-  } else if (typeof options.proxy === 'object') {
-    Object.keys(options.proxy).forEach(context => {
-      let proxyOptions = options.proxy[context]
-      if (typeof proxyOptions === 'string') {
-        proxyOptions = {
-          target: proxyOptions,
-          changeOrigin: true,
-          pathRewrite: {
-            [`^${context}`]: ''
-          }
+  if (typeof devServerOptions.proxy === 'string') {
+    devServerOptions.proxy = {
+      '/api': {
+        target: devServerOptions.proxy,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
         }
       }
-      server.use(proxyMiddleware(context, proxyOptions))
-    })
+    }
   }
 
-  server.use(require('connect-history-api-fallback')({ index: '/' }))
+  const server = new Server(compiler, devServerOptions)
+  const host = options.host
+  const port = options.port
 
-  server.get('/', (req, res) => {
-    devMiddleWare.waitUntilValid(() => {
-      const html = mfs.readFileSync(file)
-      res.end(html)
-    })
-  })
-
-  return { server, devMiddleWare, port, host }
+  return {
+    server,
+    host,
+    port
+  }
 }

@@ -304,6 +304,9 @@ module.exports = function ({
     config.plugin('hmr')
       .use(webpack.HotModuleReplacementPlugin)
 
+    config.plugin('named-modules')
+      .use(webpack.NamedModulesPlugin)
+
     const hotEntryPoints = webpackUtils.getHotEntryPoints(hotEntry)
 
     config.entryPoints.store.forEach((v, entryPoint) => {
