@@ -9,7 +9,6 @@ module.exports = function (compiler, options) {
     historyApiFallback: true,
     overlay: true,
     noInfo: true,
-    clientLogLevel: 'none',
     publicPath: compiler.options.output.publicPath
   }, compiler.options.devServer, options.devServer)
 
