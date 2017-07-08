@@ -1,6 +1,6 @@
 {
   "name": "poi-preset-babili",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "example": "poi build example/index.js --presets ./index.js"
   },
