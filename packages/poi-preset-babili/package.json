@@ -1,0 +1,15 @@
+{
+  "name": "poi-preset-babili",
+  "version": "0.0.0",
+  "scripts": {
+    "example": "poi build example/index.js --presets ./index.js"
+  },
+  "files": [
+    "index.js"
+  ],
+  "license": "MIT",
+  "repository": "egoist/poi",
+  "dependencies": {
+    "babili-webpack-plugin": "^0.1.2"
+  }
+}
