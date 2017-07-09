@@ -212,6 +212,9 @@ module.exports = function ({
   config.plugin('paths-case-sensitive')
     .use(PathsCaseSensitivePlugin)
 
+  config.plugin('scope-hoist')
+    .use(webpack.optimize.ModuleConcatenationPlugin)
+
   config.plugin('constants')
     .use(webpack.DefinePlugin, [merge({
       'process.env': env
