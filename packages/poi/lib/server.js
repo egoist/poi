@@ -9,6 +9,7 @@ module.exports = function (compiler, options) {
     historyApiFallback: true,
     overlay: true,
     noInfo: true,
+    disableHostCheck: true,
     publicPath: compiler.options.output.publicPath
   }, compiler.options.devServer, options.devServer)
 
