@@ -41,8 +41,7 @@ module.exports = function ({
   cssModules,
   copy,
   hotReload,
-  hotEntry,
-  polyfills
+  hotEntry
 } = {}) {
   const config = new Config()
 
@@ -71,11 +70,6 @@ module.exports = function ({
   // Do not resolve path like `:hot:` and `[hot]`
   const handleEntryPath = entry => {
     return /^[[:].+[\]:]$/.test(entry) ? entry : path.resolve(entry)
-  }
-
-  if (polyfills) {
-    config.entry('polyfills')
-      .merge(polyfills === true ? [require.resolve('web-polyfill')] : polyfills)
   }
 
   if (typeof entry === 'string') {

@@ -22,20 +22,6 @@ describe('get webpack config', () => {
       expect(config.entryPoints.has('polyfills')).toBe(false)
     })
 
-    it('use default polyfills', () => {
-      const config = poi({ polyfills: true }).webpackConfig
-
-      expect(config.entry('polyfills').values())
-        .toEqual([require.resolve('web-polyfill')])
-    })
-
-    it('use custom polyfills', () => {
-      const config = poi({ polyfills: ['foo.js'] }).webpackConfig
-
-      expect(config.entry('polyfills').values())
-        .toEqual(['foo.js'])
-    })
-
     it('use custom entry', () => {
       const entries = [
         'other-entry.js',
