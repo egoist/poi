@@ -30,15 +30,17 @@ Add offline support to your app
 
 **Parameters**
 
--   `options` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
+-   `options` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
     -   `options.entry` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Specific the entry to add offline-plugin runtime file. (optional, default `'client'`)
     -   `options.pwa` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Path to your offline-plugin runtime file.See [./pwa.js](./pwa.js) for built-in runtime entry. (optional, default `path.join(__dirname,'pwa.js')`)
     -   `options.pluginOptions` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options for offline-plugin.See [offline-plugin docs](https://github.com/NekR/offline-plugin/blob/master/docs/options.md) for details. (optional, default `{
         ServiceWorker:{
-        events:true
+        events:true,
+        navigateFallbackURL:'/'
         },
         AppCache:{
-        events:true
+        events:true,
+        FALLBACK:{'/':'/'}
         }
         }`)
 

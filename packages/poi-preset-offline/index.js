@@ -12,10 +12,12 @@ const OfflinePlugin = require('offline-plugin')
  *
  * @param  {Object} [options.pluginOptions={
     ServiceWorker: {
-      events: true
+      events: true,
+      navigateFallbackURL: '/'
     },
     AppCache: {
-      events: true
+      events: true,
+      FALLBACK: { '/': '/' }
     }
   }] - Options for offline-plugin.
  *
@@ -49,10 +51,12 @@ module.exports = ({
       config.plugin('offline')
         .use(OfflinePlugin, [Object.assign({
           ServiceWorker: {
-            events: true
+            events: true,
+            navigateFallbackURL: '/'
           },
           AppCache: {
-            events: true
+            events: true,
+            FALLBACK: { '/': '/' }
           }
         }, pluginOptions)])
     })
