@@ -41,7 +41,8 @@ module.exports = function ({
   cssModules,
   copy,
   hotReload,
-  hotEntry
+  hotEntry,
+  vue: vueOptions
 } = {}) {
   const config = new Config()
 
@@ -169,7 +170,7 @@ module.exports = function ({
       .test(/\.vue$/)
       .use('vue-loader')
         .loader('vue-loader')
-        .options({
+        .options(Object.assign({
           postcss,
           cssModules: {
             localIdentName: '[name]__[local]___[hash:base64:5]',
@@ -181,7 +182,7 @@ module.exports = function ({
               options: babel
             }
           })
-        })
+        }, vueOptions))
         .end()
       .end()
     .rule('static')
