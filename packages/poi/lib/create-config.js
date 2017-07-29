@@ -17,6 +17,7 @@ const {
   inferProductionValue,
   stringifyObject
 } = require('./utils')
+const logger = require('./logger')
 
 module.exports = function ({
   cwd = process.cwd(),
@@ -290,6 +291,8 @@ module.exports = function ({
   // This will be removed in next major version
   config.entryPoints.store.forEach(v => {
     if (v.has('[hot]') || v.has(':hot:')) {
+      logger.warn('[hot] keyword is deprecated, use option "hotEntry" instead.')
+      logger.warn('See https://poi.js.org/#/options?id=hotentry')
       v.delete('[hot]').delete(':hot:')
       if (supportHMR) {
         v.prepend(devClient)
