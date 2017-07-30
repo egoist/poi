@@ -46,7 +46,16 @@ module.exports = co.wrap(function * (cliOptions) {
   const printStats = stats => {
     clear()
     if (stats.hasWarnings()) {
-      console.log(stats.toString('errors-only').trim())
+      console.log(stats.toString({
+        assets: false,
+        colors: true,
+        chunks: false,
+        modules: false,
+        children: false,
+        version: false,
+        hash: false,
+        timings: false
+      }).trim())
       process.exitCode = 1
     } else if (stats.hasErrors()) {
       const { errors } = stats.compilation
