@@ -16,7 +16,7 @@ module.exports = ({
       config.module.rule('typescript')
         .test(/\.tsx?$/)
         .use('ts-loader')
-          .loader(require.resolve('ts-loader'))
+          .loader('ts-loader')
           .options(Object.assign({ appendTsSuffixTo: [/\.vue$/] }, loaderOptions))
 
       config.module.rule('vue')
@@ -24,7 +24,7 @@ module.exports = ({
           .tap(vueOptions => {
             vueOptions.esModule = true
             vueOptions.loaders.ts = [{
-              loader: require.resolve('ts-loader'),
+              loader: 'ts-loader',
               options: loaderOptions
             }]
             return vueOptions
