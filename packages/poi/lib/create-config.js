@@ -203,9 +203,6 @@ module.exports = function ({
           name: filename.static
         })
 
-  config.plugin('module-concatenation')
-    .use(webpack.optimize.ModuleConcatenationPlugin)
-
   // Enforces the entire path of all required modules match
   // The exact case of the actual path on disk
   config.plugin('paths-case-sensitive')
