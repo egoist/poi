@@ -35,7 +35,7 @@ module.exports = function ({
   postcss = {},
   minimize,
   extractCSS,
-  vendor,
+  vendor = true,
   sourceMap,
   autoprefixer,
   moduleName,
@@ -51,7 +51,6 @@ module.exports = function ({
   filename = getFileNames(useHash, filename)
   minimize = inferProductionValue(minimize, mode)
   extractCSS = inferProductionValue(extractCSS, mode)
-  vendor = inferProductionValue(vendor, mode)
   env = stringifyObject(Object.assign({
     NODE_ENV: mode === 'production' ? 'production' : 'development'
   }, env))
@@ -271,7 +270,7 @@ module.exports = function ({
       .use(webpack.optimize.CommonsChunkPlugin, [{
         name: 'vendor',
         minChunks: module => {
-          return module.resource && /\.(js|css|es|es6)$/.test(module.resource) && module.resource.indexOf('node_modules') !== -1
+          return module.context && module.context.indexOf('node_modules') >= 0
         }
       }])
     config.plugin('split-manifest')
