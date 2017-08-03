@@ -110,7 +110,7 @@ module.exports = function ({
       .add('.vue')
       .end()
     .modules
-      .add(path.resolve('node_modules'))
+      .add('node_modules')
       .add(path.resolve(cwd, 'node_modules'))
       .add(ownDir('node_modules'))
       .end()
