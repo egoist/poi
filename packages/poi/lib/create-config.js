@@ -238,6 +238,9 @@ module.exports = function ({
       .plugin('progress-bar')
         .use(ProgressPlugin)
         .end()
+
+    // Don't attempt to continue bundling when there's error
+    config.bail(true)
   }
 
   if (minimize) {
