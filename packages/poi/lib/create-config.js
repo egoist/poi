@@ -18,6 +18,8 @@ const {
   stringifyObject
 } = require('./utils')
 const logger = require('./logger')
+const transformJS = require('./webpack/transform-js')
+const transformVue = require('./webpack/transform-vue')
 
 module.exports = function ({
   cwd = process.cwd(),
@@ -43,7 +45,8 @@ module.exports = function ({
   copy,
   hotReload,
   hotEntry,
-  vue: vueOptions
+  vue: vueOptions,
+  transformModules
 } = {}) {
   const config = new Config()
 
@@ -142,49 +145,10 @@ module.exports = function ({
 
   cssLoaders.standalone(config, cssOptions)
 
+  transformJS(config, { babel, transformModules })
+  transformVue(config, { babel, vueOptions, cssOptions })
+
   config.module
-    .rule('js')
-      .test(/\.jsx?$/)
-      .include
-        .add(filepath => {
-          // for anything outside node_modules
-          if (filepath.split(/[/\\]/).indexOf('node_modules') === -1) {
-            return true
-          }
-          return false
-        })
-        .end()
-      .use('babel-loader')
-        .loader('babel-loader')
-        .options(babel)
-        .end()
-      .end()
-    .rule('es')
-      .test(/\.es6?$/)
-      .use('babel-loader')
-        .loader('babel-loader')
-        .options(babel)
-        .end()
-      .end()
-    .rule('vue')
-      .test(/\.vue$/)
-      .use('vue-loader')
-        .loader('vue-loader')
-        .options(Object.assign({
-          postcss,
-          cssModules: {
-            localIdentName: '[name]__[local]___[hash:base64:5]',
-            camelCase: true
-          },
-          loaders: Object.assign(cssLoaders.vue(cssOptions), {
-            js: {
-              loader: 'babel-loader',
-              options: babel
-            }
-          })
-        }, vueOptions))
-        .end()
-      .end()
     .rule('static')
       .test(/\.(ico|jpg|png|gif|eot|otf|webp|ttf|woff|woff2)(\?.*)?$/)
       .use('file-loader')
