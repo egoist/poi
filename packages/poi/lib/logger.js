@@ -13,3 +13,7 @@ logger.error = msg => {
 logger.warn = msg => {
   console.log(chalk.reset.inverse.bold.yellow(' WARN '), msg)
 }
+
+logger.tip = msg => {
+  console.log(chalk.reset.inverse.bold.cyan(' TIP '), msg)
+}
