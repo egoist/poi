@@ -58,13 +58,14 @@ describe('get webpack config', () => {
         ])
     })
 
-    it('add hmr entry using keyword', () => {
+    it('add hmr entry using option', () => {
       const config = poi({
         entry: {
-          foo: [':hot:', 'foo.js'],
-          bar: ['[hot]', 'bar.js']
+          foo: ['foo.js'],
+          bar: ['bar.js']
         },
-        mode: 'development'
+        mode: 'development',
+        hotEntry: ['foo', 'bar']
       }).webpackConfig
 
       expect(config.entry('foo').values())
