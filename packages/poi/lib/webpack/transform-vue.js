@@ -1,4 +1,4 @@
-const cssLoaders = require('../css-loaders')
+const cssLoaders = require('./css-loaders')
 
 module.exports = (config, { babel, cssOptions, vueOptions }) => {
   config.module

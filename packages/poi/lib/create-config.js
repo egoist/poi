@@ -8,7 +8,6 @@ const CopyPlugin = require('copy-webpack-plugin')
 const HtmlPlugin = require('html-webpack-plugin')
 const PathsCaseSensitivePlugin = require('case-sensitive-paths-webpack-plugin')
 const yarnGlobal = require('yarn-global')
-const cssLoaders = require('./css-loaders')
 const webpackUtils = require('./webpack-utils')
 const {
   getFileNames,
@@ -18,6 +17,7 @@ const {
   stringifyObject
 } = require('./utils')
 const logger = require('./logger')
+const cssLoaders = require('./webpack/css-loaders')
 const transformJS = require('./webpack/transform-js')
 const transformVue = require('./webpack/transform-vue')
 
@@ -143,9 +143,11 @@ module.exports = function ({
     fallbackLoader: 'vue-style-loader'
   }
 
+  // Rules for CSS/Stylus/Sass...
   cssLoaders.standalone(config, cssOptions)
-
+  // Rules for JS/JSX/ES6
   transformJS(config, { babel, transformModules })
+  // Rules for Vue single-file component
   transformVue(config, { babel, vueOptions, cssOptions })
 
   config.module
