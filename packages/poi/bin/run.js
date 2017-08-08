@@ -81,9 +81,9 @@ module.exports = co.wrap(function * (cliOptions) {
   const printOutro = (stats, host, port) => {
     console.log()
     if (stats.hasErrors()) {
-      logger.error('Compiled with Errors!')
+      logger.error('Compiled with errors!')
     } else if (stats.hasWarnings()) {
-      logger.warn('Compiled with Warnings!')
+      logger.warn('Compiled with warnings!')
     } else {
       if (options.mode === 'development') {
         const isUnspecifiedAddress = unspecifiedAddress(host)
