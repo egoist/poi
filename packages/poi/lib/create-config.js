@@ -46,11 +46,12 @@ module.exports = function ({
   hotReload,
   hotEntry,
   vue: vueOptions,
-  transformModules
+  transformModules,
+  hash
 } = {}) {
   const config = new Config()
 
-  const useHash = mode === 'production' && !format
+  const useHash = typeof hash === 'boolean' ? hash : (mode === 'production' && !format)
   filename = getFileNames(useHash, filename)
   minimize = inferProductionValue(minimize, mode)
   extractCSS = inferProductionValue(extractCSS, mode)
