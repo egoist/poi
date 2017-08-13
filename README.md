@@ -10,7 +10,7 @@
 
 Start writing an app with a single `.js` file, Poi could handle all the development setups for you, no more configuration hell.
 
-One devDependency (if you're using Vue) to rule them all:
+Install *Poi*:
 
 ```bash
 # Either globally
