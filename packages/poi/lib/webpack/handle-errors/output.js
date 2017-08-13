@@ -55,9 +55,27 @@ function unknownError(errors) {
   if (!errors) return
 
   errors.forEach(error => {
-    console.error(chalk.red(`${error.error.name} issued by ${chalk.italic(tildify(error.error.origin.resource))}`))
+    if (error.error.origin && error.error.origin.resource) {
+      console.error(chalk.red(`${error.error.name} issued by ${chalk.italic(tildify(error.error.origin.resource))}`))
+    }
     console.error(error.error.message)
   })
+}
+
+function babelPluginNotFound(errors) {
+  if (!errors) return
+
+  const error = errors[0]
+  console.log(`Following babel plugin is referenced in ${chalk.italic(tildify(error.payload.location))}\nbut not installed in current project:\n`)
+  console.log(`- ${error.payload.name.replace(/^(babel-plugin-)?/, 'babel-plugin-')}`)
+}
+
+function babelPresetNotFound(errors) {
+  if (!errors) return
+
+  const error = errors[0]
+  console.log(`Following babel preset is not found in ${chalk.italic(tildify(error.payload.location))}:\n`)
+  console.log(`- ${error.payload.name.replace(/^(babel-preset-)?/, 'babel-preset-')}`)
 }
 
 module.exports = errors => {
@@ -65,5 +83,7 @@ module.exports = errors => {
   moduleNotFound(errors['module-not-found'])
   uglifyError(errors['uglify-error'])
   vueVersionMismatch(errors['vue-version-mismatch'])
+  babelPluginNotFound(errors['babel-plugin-not-found'])
+  babelPresetNotFound(errors['babel-preset-not-found'])
   unknownError(errors.unknown)
 }

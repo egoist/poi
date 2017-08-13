@@ -19,6 +19,30 @@ function formatError(error) {
     }
   }
 
+  if (error.name === 'ModuleBuildError' && error.message.indexOf('ReferenceError: Unknown plugin') >= 0 && error.message.indexOf('babel-core') >= 0) {
+    const [, name, location] = /Unknown plugin "([^"]+)" specified in "([^"]+)"/.exec(error.message)
+    return {
+      type: 'babel-plugin-not-found',
+      payload: {
+        name,
+        location
+      },
+      error
+    }
+  }
+
+  if (error.name === 'ModuleBuildError' && error.message.indexOf(`Error: Couldn't find preset`) >= 0 && error.message.indexOf('babel-core') >= 0) {
+    const [, name, location] = /Couldn't find preset "([^"]+)" relative to directory "([^"]+)"/.exec(error.message)
+    return {
+      type: 'babel-preset-not-found',
+      payload: {
+        name,
+        location
+      },
+      error
+    }
+  }
+
   if (/Vue packages version mismatch/.test(error.message)) {
     return {
       type: 'vue-version-mismatch',
