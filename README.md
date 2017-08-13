@@ -56,7 +56,7 @@ Note: You don't need to install any dependencies, `vue` is already brought by `P
 
 <details><summary>Other</summary><br>
 
-You can use existing presets such as [poi-preset-riot](https://github.com/egoist/poi/tree/master/packages/poi-preset-riot) and [poi-preset-react](https://github.com/egoist/poi/tree/master/packages/poi-preset-react), configure your framework to work with `Poi`, or contribute another preset.
+You can use existing [presets](https://github.com/egoist/poi/tree/master/packages) such as [poi-preset-riot](https://github.com/egoist/poi/tree/master/packages/poi-preset-riot) and [poi-preset-react](https://github.com/egoist/poi/tree/master/packages/poi-preset-react) to configure your framework to work with `Poi`, or contribute another preset for your desired framework.
 
 </details>
 </p>
