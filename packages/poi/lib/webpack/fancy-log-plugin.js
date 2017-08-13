@@ -26,7 +26,6 @@ module.exports = class FancyLogPlugin {
         process.exitCode = 1
         const { errors } = stats.compilation
         handleWebpackErrors(errors)
-        console.log()
         logger.error('Compiled with errors!')
         console.log()
         return
@@ -34,7 +33,15 @@ module.exports = class FancyLogPlugin {
 
       if (stats.hasWarnings()) {
         process.exitCode = 1
-        console.log(stats.toString('errors-only'))
+        console.log(stats.toString({
+          colors: true,
+          chunks: false,
+          modules: false,
+          children: false,
+          version: false,
+          hash: false,
+          timings: false
+        }))
         console.log()
         logger.error('Compiled with warnings!')
         console.log()

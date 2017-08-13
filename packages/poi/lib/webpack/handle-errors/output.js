@@ -17,11 +17,12 @@ function moduleNotFound(errors) {
 
   errors = _.uniqBy(errors, 'payload')
 
-  console.log(`Following modules are not found in current project, did you forget to install?\n`)
+  console.log(`${chalk.red('module not found:')} following modules are not installed in current directory, did you forget to install?\n`)
   console.log(errors.map(error => {
     const requestedBy = (error.error.origin && error.error.origin.resource) ? chalk.dim(`: requested by ${chalk.italic(tildify(error.error.origin.resource))}`) : ''
     return `- ${chalk.yellow(error.payload)}${requestedBy}`
   }).join('\n'))
+  console.log()
 }
 
 function uglifyError(errors) {
@@ -40,6 +41,7 @@ module.exports = {
   transformModules: ['${error.payload}'],
   // ...other config
 }`))
+  console.log()
 }
 
 function vueVersionMismatch(errors) {
@@ -49,6 +51,7 @@ function vueVersionMismatch(errors) {
   let message = error.message.replace(/This may cause things to work incorrectly[\s\S]+/, '')
   message += 'Make sure to install both packages with the same version in your project.\nOtherwise webpack will use transitive dependencies from Poi.'
   console.error(chalk.red(message))
+  console.log()
 }
 
 function unknownError(errors) {
@@ -60,22 +63,25 @@ function unknownError(errors) {
     }
     console.error(error.error.message)
   })
+  console.log()
 }
 
 function babelPluginNotFound(errors) {
   if (!errors) return
 
   const error = errors[0]
-  console.log(`Following babel plugin is referenced in ${chalk.italic(tildify(error.payload.location))}\nbut not installed in current project:\n`)
+  console.log(`${chalk.red('missing babel plugin:')} following babel plugin is referenced in ${chalk.italic(tildify(error.payload.location))}\nbut not installed in current project:\n`)
   console.log(`- ${error.payload.name.replace(/^(babel-plugin-)?/, 'babel-plugin-')}`)
+  console.log()
 }
 
 function babelPresetNotFound(errors) {
   if (!errors) return
 
   const error = errors[0]
-  console.log(`Following babel preset is not found in ${chalk.italic(tildify(error.payload.location))}:\n`)
+  console.log(`${chalk.red('missing babel preset:')} following babel preset is not found in ${chalk.italic(tildify(error.payload.location))}:\n`)
   console.log(`- ${error.payload.name.replace(/^(babel-preset-)?/, 'babel-preset-')}`)
+  console.log()
 }
 
 function eslintError(errors) {
@@ -88,6 +94,7 @@ function eslintError(errors) {
   console.log(chalk.dim(`
 - Use ${chalk.yellow('// eslint-disable-next-line')} to ignore the next line.
 - Use ${chalk.yellow('/* eslint-disable */')} to ignore all warnings in a file.`))
+  console.log()
 }
 
 module.exports = errors => {
