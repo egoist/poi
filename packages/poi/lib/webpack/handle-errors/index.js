@@ -43,6 +43,13 @@ function formatError(error) {
     }
   }
 
+  if (error.stack.indexOf('eslint-loader') >= 0) {
+    return {
+      type: 'eslint-error',
+      error
+    }
+  }
+
   if (/Vue packages version mismatch/.test(error.message)) {
     return {
       type: 'vue-version-mismatch',

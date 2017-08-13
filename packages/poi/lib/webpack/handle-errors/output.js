@@ -19,7 +19,7 @@ function moduleNotFound(errors) {
 
   console.log(`Following modules are not found in current project, did you forget to install?\n`)
   console.log(errors.map(error => {
-    const requestedBy = error.error.origin ? chalk.dim(`: requested by ${chalk.italic(tildify(error.error.origin.resource))}`) : ''
+    const requestedBy = (error.error.origin && error.error.origin.resource) ? chalk.dim(`: requested by ${chalk.italic(tildify(error.error.origin.resource))}`) : ''
     return `- ${chalk.yellow(error.payload)}${requestedBy}`
   }).join('\n'))
 }
@@ -78,6 +78,18 @@ function babelPresetNotFound(errors) {
   console.log(`- ${error.payload.name.replace(/^(babel-preset-)?/, 'babel-preset-')}`)
 }
 
+function eslintError(errors) {
+  if (!errors) return
+
+  console.error(`${chalk.red('code quality problems:')}`)
+  const error = errors[0]
+  console.error(error.error.message)
+  logger.tip('You may use special comments to disable some warnings.')
+  console.log(chalk.dim(`
+- Use ${chalk.yellow('// eslint-disable-next-line')} to ignore the next line.
+- Use ${chalk.yellow('/* eslint-disable */')} to ignore all warnings in a file.`))
+}
+
 module.exports = errors => {
   errors = groupErrorsByType(errors)
   moduleNotFound(errors['module-not-found'])
@@ -85,5 +97,6 @@ module.exports = errors => {
   vueVersionMismatch(errors['vue-version-mismatch'])
   babelPluginNotFound(errors['babel-plugin-not-found'])
   babelPresetNotFound(errors['babel-preset-not-found'])
+  eslintError(errors['eslint-error'])
   unknownError(errors.unknown)
 }
