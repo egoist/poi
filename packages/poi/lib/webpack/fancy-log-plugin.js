@@ -13,8 +13,14 @@ module.exports = class FancyLogPlugin {
   }
 
   apply(compiler) {
+    if (this.opts.mode === 'production') {
+      compiler.plugin('compile', () => {
+        this.clearScreen()
+      })
+    }
+
     compiler.plugin('done', stats => {
-      this.clearSceen()
+      this.clearScreen()
 
       if (stats.hasErrors()) {
         process.exitCode = 1
@@ -45,7 +51,7 @@ module.exports = class FancyLogPlugin {
     })
   }
 
-  clearSceen() {
+  clearScreen() {
     if (this.opts.clear !== false) {
       terminal.clear()
     }

@@ -55,7 +55,7 @@
     "highlight-es": "^1.0.1",
     "html-webpack-plugin": "^2.28.0",
     "import-local-file": "^0.2.0",
-    "lodash.merge": "^4.6.0",
+    "lodash": "^4.17.4",
     "loud-rejection": "^1.6.0",
     "memory-fs": "^0.4.1",
     "mz": "^2.6.0",

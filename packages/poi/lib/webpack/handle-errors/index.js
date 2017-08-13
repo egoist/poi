@@ -10,6 +10,15 @@ function formatError(error) {
     }
   }
 
+  if (error.name === 'ModuleBuildError' && error.message.indexOf('Cannot find module') >= 0) {
+    const [, name] = /Cannot find module '([^']+)'/.exec(error.message)
+    return {
+      type: 'module-not-found',
+      payload: name,
+      error
+    }
+  }
+
   if (/Vue packages version mismatch/.test(error.message)) {
     return {
       type: 'vue-version-mismatch',

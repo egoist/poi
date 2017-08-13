@@ -1,13 +1,27 @@
 const chalk = require('chalk')
 const highlight = require('highlight-es')
+const _ = require('lodash')
+const tildify = require('tildify')
 const logger = require('../../logger')
+
+function groupErrorsByType(errors) {
+  return errors.reduce((res, error) => {
+    res[error.type] = res[error.type] || []
+    res[error.type].push(error)
+    return res
+  }, {})
+}
 
 function moduleNotFound(errors) {
   if (!errors) return
 
-    const modules = errors.map(error => `- ${error.payload}`)
+  errors = _.uniqBy(errors, 'payload')
+
   console.log(`Following modules are not found in current project, did you forget to install?\n`)
-  console.log(modules.join('\n'))
+  console.log(errors.map(error => {
+    const requestedBy = error.error.origin ? chalk.dim(`: requested by ${chalk.italic(tildify(error.error.origin.resource))}`) : ''
+    return `- ${chalk.yellow(error.payload)}${requestedBy}`
+  }).join('\n'))
 }
 
 function uglifyError(errors) {
@@ -37,12 +51,13 @@ function vueVersionMismatch(errors) {
   console.error(chalk.red(message))
 }
 
-function groupErrorsByType(errors) {
-  return errors.reduce((res, error) => {
-    res[error.type] = res[error.type] || []
-    res[error.type].push(error)
-    return res
-  }, {})
+function unknownError(errors) {
+  if (!errors) return
+
+  errors.forEach(error => {
+    console.error(chalk.red(`${error.error.name} issued by ${chalk.italic(tildify(error.error.origin.resource))}`))
+    console.error(error.error.message)
+  })
 }
 
 module.exports = errors => {
@@ -50,4 +65,5 @@ module.exports = errors => {
   moduleNotFound(errors['module-not-found'])
   uglifyError(errors['uglify-error'])
   vueVersionMismatch(errors['vue-version-mismatch'])
+  unknownError(errors.unknown)
 }
