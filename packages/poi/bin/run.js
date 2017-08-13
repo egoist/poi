@@ -89,7 +89,7 @@ module.exports = co.wrap(function * (cliOptions) {
 
   const { browserslist = ['ie > 8', 'last 2 versions'] } = readPkg()
 
-  options.autoprefixer = Object.assign({
+  options.autoprefixer = options.autoprefixer === false ? false : Object.assign({
     browsers: browserslist
   }, options.autoprefixer)
 
