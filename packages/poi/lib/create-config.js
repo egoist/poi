@@ -8,6 +8,7 @@ const CopyPlugin = require('copy-webpack-plugin')
 const HtmlPlugin = require('html-webpack-plugin')
 const PathsCaseSensitivePlugin = require('case-sensitive-paths-webpack-plugin')
 const yarnGlobal = require('yarn-global')
+const FancyLogPlugin = require('./webpack/fancy-log-plugin')
 const webpackUtils = require('./webpack-utils')
 const {
   getFileNames,
@@ -47,7 +48,10 @@ module.exports = function ({
   hotEntry,
   vue: vueOptions,
   transformModules,
-  hash
+  hash,
+  host,
+  port,
+  clear
 } = {}) {
   const config = new Config()
 
@@ -114,8 +118,8 @@ module.exports = function ({
       .add('.vue')
       .end()
     .modules
-      .add('node_modules')
       .add(path.resolve(cwd, 'node_modules'))
+      .add('node_modules')
       .add(ownDir('node_modules'))
       .end()
     .alias
@@ -125,8 +129,8 @@ module.exports = function ({
   config.resolveLoader
     .set('symlinks', true)
     .modules
-      .add('node_modules')
       .add(path.resolve(cwd, 'node_modules'))
+      .add('node_modules')
       .add(ownDir('node_modules'))
 
   postcss.plugins = postcss.plugins || []
@@ -179,6 +183,16 @@ module.exports = function ({
       'process.env': env
     }, define && stringifyObject(define))])
 
+  config.plugin('fancy-log')
+    .use(FancyLogPlugin, [
+      {
+        mode,
+        host,
+        port,
+        clear
+      }
+    ])
+
   if (format === 'cjs') {
     config.output.libraryTarget('commonjs2')
     webpackUtils.externalize(config)
@@ -205,9 +219,6 @@ module.exports = function ({
       .plugin('progress-bar')
         .use(ProgressPlugin)
         .end()
-
-    // Don't attempt to continue bundling when there's error
-    config.bail(true)
   }
 
   if (minimize) {

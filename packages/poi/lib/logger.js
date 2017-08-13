@@ -17,3 +17,7 @@ logger.warn = msg => {
 logger.tip = msg => {
   console.log(chalk.reset.inverse.bold.cyan(' TIP '), msg)
 }
+
+logger.title = (label, msg, color = 'blue') => {
+  console.log(chalk.reset.inverse.bold[color](` ${label} `), msg)
+}

@@ -7,21 +7,15 @@ const notifier = require('node-notifier')
 const co = require('co')
 const stripAnsi = require('strip-ansi')
 const tildify = require('tildify')
-const address = require('address')
 const merge = require('lodash.merge')
-const copy = require('clipboardy')
 const opn = require('opn')
 const buildConfigChain = require('babel-core/lib/transformation/file/options/build-config-chain')
 const LoadExternalConfig = require('poi-load-config')
 const loadPoiConfig = require('poi-load-config/poi')
 const AppError = require('../lib/app-error')
-const { cwd, ownDir, inferHTML, readPkg } = require('../lib/utils')
+const { cwd, ownDir, inferHTML, readPkg, unspecifiedAddress } = require('../lib/utils')
 const poi = require('../lib')
-const terminal = require('../lib/terminal-utils')
 const logger = require('../lib/logger')
-const handleWebpackErrors = require('../lib/webpack/handle-errors')
-
-const unspecifiedAddress = host => host === '0.0.0.0' || host === '::'
 
 module.exports = co.wrap(function * (cliOptions) {
   console.log(`> Running in ${cliOptions.mode} mode`)
@@ -41,82 +35,6 @@ module.exports = co.wrap(function * (cliOptions) {
   }
 
   const options = merge(config, cliOptions)
-
-  const clear = () => options.clear !== false && terminal.clear()
-
-  const printStats = stats => {
-    clear()
-    if (stats.hasWarnings()) {
-      console.log(stats.toString({
-        assets: false,
-        colors: true,
-        chunks: false,
-        modules: false,
-        children: false,
-        version: false,
-        hash: false,
-        timings: false
-      }).trim())
-      process.exitCode = 1
-    } else if (stats.hasErrors()) {
-      const { errors } = stats.compilation
-      handleWebpackErrors(errors)
-    } else {
-      console.log(stats.toString({
-        colors: true,
-        chunks: false,
-        modules: false,
-        children: false,
-        version: false,
-        hash: false,
-        timings: false
-      }))
-      process.exitCode = 0
-    }
-  }
-
-  let copied
-  let lanIP
-
-  const printOutro = (stats, host, port) => {
-    console.log()
-    if (stats.hasErrors()) {
-      logger.error('Compiled with errors!')
-    } else if (stats.hasWarnings()) {
-      logger.warn('Compiled with warnings!')
-    } else {
-      if (options.mode === 'development') {
-        const isUnspecifiedAddress = unspecifiedAddress(host)
-        const localURL = url.format({
-          protocol: 'http',
-          hostname: isUnspecifiedAddress ? 'localhost' : host,
-          port
-        })
-        if (copied) {
-          console.log(chalk.bold(`> Open ${localURL}`))
-        } else {
-          copied = true
-          try {
-            copy.writeSync(localURL)
-            console.log(chalk.bold(`> Open ${localURL}`), chalk.dim('(copied!)'))
-          } catch (err) {
-            console.log(chalk.bold(`> Open ${localURL}`))
-          }
-        }
-        if (isUnspecifiedAddress) {
-          const lanURL = url.format({
-            protocol: 'http',
-            hostname: lanIP || (lanIP = address.ip()),
-            port
-          })
-          console.log(chalk.dim(`> On Your Network: ${lanURL}`))
-        }
-        console.log()
-      }
-      logger.success(`Build ${stats.hash.slice(0, 6)} finished in ${stats.endTime - stats.startTime} ms!`)
-    }
-    console.log()
-  }
 
   const loadExternalConfig = new LoadExternalConfig({ cwd: options.cwd })
 
@@ -195,11 +113,8 @@ module.exports = co.wrap(function * (cliOptions) {
   console.log(`> Bundling with Webpack ${require('webpack/package.json').version}`)
 
   if (options.mode === 'production') {
-    clear()
     console.log('> Creating an optimized production build:\n')
     const stats = yield app.build()
-    printStats(stats)
-    printOutro(stats)
     if (options.generateStats) {
       const statsFile = cwd(options.cwd, typeof options.generateStats === 'string' ? options.generateStats : 'stats.json')
       console.log('> Generating webpack stats file')
@@ -208,13 +123,6 @@ module.exports = co.wrap(function * (cliOptions) {
     }
   } else if (options.mode === 'watch') {
     yield app.watch()
-    app.once('compile-done', () => {
-      console.log()
-    })
-    app.on('compile-done', stats => {
-      printStats(stats)
-      printOutro(stats)
-    })
   } else if (options.mode === 'development') {
     const { server, host, port } = yield app.dev()
 
@@ -234,11 +142,6 @@ module.exports = co.wrap(function * (cliOptions) {
           port
         }))
       }
-    })
-
-    app.on('compile-done', stats => {
-      printStats(stats)
-      printOutro(stats, host, port)
     })
   } else if (options.mode === 'test') {
     app.test().catch(handleError)

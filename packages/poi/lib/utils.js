@@ -91,3 +91,7 @@ exports.stringifyObject = function (obj) {
 exports.createSet = function (value) {
   return Array.isArray(value) ? new Set(value) : new Set([value])
 }
+
+exports.unspecifiedAddress = function (host) {
+  return host === '0.0.0.0' || host === '::'
+}
