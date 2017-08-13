@@ -10,7 +10,7 @@
 
 Start writing an app with a single `.js` file, Poi could handle all the development setups for you, no more configuration hell.
 
-One devDependency to rule them all:
+Install *Poi*:
 
 ```bash
 # Either globally
@@ -56,9 +56,12 @@ Note: You don't need to install any dependencies, `vue` is already brought by `P
 
 <details><summary>Other</summary><br>
 
-You can write your app with any framework :P
+You can use existing [presets](https://github.com/egoist/poi/tree/master/packages) such as [poi-preset-riot](https://github.com/egoist/poi/tree/master/packages/poi-preset-riot) and [poi-preset-react](https://github.com/egoist/poi/tree/master/packages/poi-preset-react) to configure your framework to work with `Poi`, or contribute another preset for your desired framework.
+
 </details>
 </p>
+
+## Start the server
 
 To develop this file, run `poi` in your terminal and you can open `http://localhost:4000` to preview!
 
@@ -103,6 +106,11 @@ poi build src/my-entry.js # production
 It's hard to upgrade your project if you're using a boilerplate since you might change the code to suit your needs. However you can easily upgrade your project to use latest version of Poi by simply updating the dependency.
 
 You can also get rid of boilerplate code in this way.
+</details>
+
+<details><summary>How does Poi manage dependencies for external frameworks?</summary><br>
+
+`Vue` is included, other frameworks need to be installed alongside `Poi` in your project.
 </details>
 
 ## Contributing
