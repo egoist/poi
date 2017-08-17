@@ -52,7 +52,7 @@ module.exports = class FancyLogPlugin {
     })
 
     compiler.plugin('invalid', () => {
-      this.clearSceen()
+      this.clearScreen()
       logger.title('WAIT', 'Compiling...')
       console.log()
     })
