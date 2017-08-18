@@ -1,6 +1,6 @@
 {
   "name": "poi",
-  "version": "9.3.0-rc.1",
+  "version": "9.3.0-rc.2",
   "description": "Fast prototype and distribute modern web apps like a pro.",
   "repository": {
     "url": "egoist/poi",
@@ -62,8 +62,8 @@
     "node-notifier": "^5.1.2",
     "opn": "^5.0.0",
     "parse-json-config": "^0.2.0",
-    "poi-dev-utils": "^1.0.0",
-    "poi-load-config": "^1.1.0",
+    "poi-dev-utils": "^1.0.1",
+    "poi-load-config": "^1.1.1",
     "post-compile-webpack-plugin": "^0.1.1",
     "postcss-loader": "^2.0.6",
     "rimraf": "^2.6.1",

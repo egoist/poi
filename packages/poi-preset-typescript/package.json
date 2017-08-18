@@ -1,6 +1,6 @@
 {
   "name": "poi-preset-typescript",
-  "version": "9.0.1",
+  "version": "9.0.2",
   "author": "EGOIST <0x142857@gmail.com>",
   "repo": "egoist/poi",
   "dependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "poi-load-config",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "repository": "egoist/poi",
   "files": [
     "*.js"

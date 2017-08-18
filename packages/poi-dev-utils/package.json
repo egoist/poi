@@ -1,7 +1,9 @@
 {
   "name": "poi-dev-utils",
-  "version": "1.0.0",
-  "files": ["*.js"],
+  "version": "1.0.1",
+  "files": [
+    "*.js"
+  ],
   "license": "MIT",
   "author": {
     "name": "EGOIST",
