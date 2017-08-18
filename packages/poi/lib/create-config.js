@@ -261,7 +261,7 @@ module.exports = function ({
   }
 
   if (mode === 'development' || mode === 'watch') {
-    const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin')
+    const WatchMissingNodeModulesPlugin = require('poi-dev-utils/watch-missing-node-modules-plugin')
 
     config.plugin('watch-missing-node-modules')
       .use(WatchMissingNodeModulesPlugin, [

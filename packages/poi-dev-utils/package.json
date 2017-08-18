@@ -1,0 +1,10 @@
+{
+  "name": "poi-dev-utils",
+  "version": "1.0.0",
+  "files": ["*.js"],
+  "license": "MIT",
+  "author": {
+    "name": "EGOIST",
+    "email": "0x142857@gmail.com"
+  }
+}
