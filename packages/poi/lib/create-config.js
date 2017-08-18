@@ -264,7 +264,9 @@ module.exports = function ({
     const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin')
 
     config.plugin('watch-missing-node-modules')
-      .use(WatchMissingNodeModulesPlugin)
+      .use(WatchMissingNodeModulesPlugin, [
+        path.resolve(cwd, 'node_modules')
+      ])
   }
 
   const supportHMR = hotReload !== false && mode === 'development'
