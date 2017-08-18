@@ -65,6 +65,7 @@
     "poi-load-config": "^1.1.0",
     "post-compile-webpack-plugin": "^0.1.1",
     "postcss-loader": "^2.0.6",
+    "react-dev-utils": "^3.1.1",
     "rimraf": "^2.6.1",
     "strip-ansi": "^4.0.0",
     "tildify": "^1.2.0",

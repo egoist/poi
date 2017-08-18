@@ -260,6 +260,13 @@ module.exports = function ({
       }])
   }
 
+  if (mode === 'development' || mode === 'watch') {
+    const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin')
+
+    config.plugin('watch-missing-node-modules')
+      .use(WatchMissingNodeModulesPlugin)
+  }
+
   const supportHMR = hotReload !== false && mode === 'development'
   const devClient = ownDir('app/dev-client.es6')
 
