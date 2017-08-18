@@ -18,7 +18,7 @@ function moduleNotFound(errors) {
   let res = []
   errors = _.uniqBy(errors, 'payload')
 
-  res.push(`${chalk.red('module not found!')}\n\nDid you forget to install following modules?\n`)
+  res.push(`${chalk.red('module not found:')}\n\nDid you forget to install following modules?\n`)
   res = res.concat(errors.map(error => {
     const requestedBy = (error.error.origin && error.error.origin.resource) ? chalk.dim(`: requested by ${chalk.italic(tildify(error.error.origin.resource))}`) : ''
     return `- ${chalk.yellow(error.payload)}${requestedBy}`
