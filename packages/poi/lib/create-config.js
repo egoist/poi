@@ -51,7 +51,8 @@ module.exports = function ({
   hash,
   host,
   port,
-  clear
+  clear,
+  inlineImageMaxSize = 10000
 } = {}) {
   const config = new Config()
 
@@ -162,8 +163,8 @@ module.exports = function ({
         .loader('url-loader')
         .options({
           name: filename.static,
-          // inline the file if < 10kb
-          limit: 10000
+          // inline the file if < max size
+          limit: inlineImageMaxSize
         })
         .end()
       .end()
