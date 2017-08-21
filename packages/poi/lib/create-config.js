@@ -156,8 +156,21 @@ module.exports = function ({
   transformVue(config, { babel, vueOptions, cssOptions })
 
   config.module
-    .rule('static')
-      .test(/\.(ico|jpg|png|gif|eot|otf|webp|ttf|woff|woff2)(\?.*)?$/)
+    .rule('image')
+      .test([/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/])
+      .use('url-loader')
+        .loader('url-loader')
+        .options({
+          name: filename.static,
+          // inline the file if < 10kb
+          limit: 10000
+        })
+        .end()
+      .end()
+    // SVG files use file-loader directly, why?
+    // See https://github.com/facebookincubator/create-react-app/pull/1180
+    .rule('svg')
+      .test(/\.(svg)(\?.*)?$/)
       .use('file-loader')
         .loader('file-loader')
         .options({
@@ -165,9 +178,9 @@ module.exports = function ({
         })
         .end()
       .end()
-    .rule('svg')
-      .test(/\.(svg)(\?.*)?$/)
-      .use('file-loader')
+    .rule('font')
+      .test(/\.(eot|otf|webp|ttf|woff|woff2)(\?.*)?$/)
+      .use('url-loader')
         .loader('file-loader')
         .options({
           name: filename.static
