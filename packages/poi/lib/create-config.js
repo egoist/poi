@@ -180,7 +180,7 @@ module.exports = function ({
       .end()
     .rule('font')
       .test(/\.(eot|otf|webp|ttf|woff|woff2)(\?.*)?$/)
-      .use('url-loader')
+      .use('file-loader')
         .loader('file-loader')
         .options({
           name: filename.static
