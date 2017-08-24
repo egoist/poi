@@ -14,12 +14,13 @@ module.exports = function (compiler, options) {
   }, compiler.options.devServer, options.devServer)
 
   if (typeof devServerOptions.proxy === 'string') {
+    const proxyUrl = require('url').parse(devServerOptions.proxy)
     devServerOptions.proxy = {
-      '/api': {
+      [proxyUrl.path]: {
         target: devServerOptions.proxy,
         changeOrigin: true,
         pathRewrite: {
-          '^/api': ''
+          ['^' + proxyUrl.path]: ''
         }
       }
     }
