@@ -4,29 +4,22 @@
   "scripts": {
     "example": "poi test"
   },
-  "poi": {
-    "presets": {
-      "./index.js": {
-        "files": "example/*.test.js"
-      }
-    }
-  },
   "files": [
     "index.js"
   ],
   "dependencies": {
-    "jasmine-core": "^2.6.1",
-    "karma": "^1.6.0",
-    "karma-chrome-launcher": "^2.1.1",
+    "jasmine-core": "^2.8.0",
+    "karma": "^1.7.1",
+    "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.1",
     "karma-mocha": "^1.3.0",
-    "karma-mocha-reporter": "^2.2.3",
+    "karma-mocha-reporter": "^2.2.4",
     "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^2.0.3",
-    "mocha": "^3.3.0"
+    "karma-webpack": "^2.0.4",
+    "mocha": "^3.5.0"
   },
   "xo": false,
   "devDependencies": {
-    "webpack": "^2.6.1"
+    "webpack": "^3.5.5"
   }
 }

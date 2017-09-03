@@ -10,7 +10,7 @@ function ensureArray(v) {
 module.exports = (options = {}) => {
   return poi => {
     if (typeof options.extendWebpack === 'function') {
-      poi.extendWebpack(poi.webpackConfig)
+      poi.extendWebpack(options.extendWebpack)
     }
 
     poi.run('test', config => {

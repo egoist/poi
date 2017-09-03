@@ -260,7 +260,7 @@ module.exports = function ({
   }
 
   // Do not split vendor code in `cjs` and `umd` mode
-  if (vendor && !format) {
+  if (vendor && !format && mode !== 'test') {
     config.plugin('split-vendor-code')
       .use(webpack.optimize.CommonsChunkPlugin, [{
         name: 'vendor',
