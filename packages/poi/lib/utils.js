@@ -95,3 +95,10 @@ exports.createSet = function (value) {
 exports.unspecifiedAddress = function (host) {
   return host === '0.0.0.0' || host === '::'
 }
+
+exports.getFullEnvString = function (env) {
+  return Object.keys(env).reduce((res, key) => {
+    res[`process.env.${key}`] = env[key]
+    return res
+  }, {})
+}

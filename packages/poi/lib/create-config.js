@@ -15,7 +15,8 @@ const {
   getPublicPath,
   ownDir,
   inferProductionValue,
-  stringifyObject
+  stringifyObject,
+  getFullEnvString
 } = require('./utils')
 const logger = require('./logger')
 const cssLoaders = require('./webpack/css-loaders')
@@ -193,9 +194,13 @@ module.exports = function ({
     .use(PathsCaseSensitivePlugin)
 
   config.plugin('constants')
-    .use(webpack.DefinePlugin, [merge({
-      'process.env': env
-    }, define && stringifyObject(define))])
+    .use(webpack.DefinePlugin, [
+      merge(
+        // { foo: '"foo"' } => { 'process.env.foo': '"foo"' }
+        getFullEnvString(env),
+        define && stringifyObject(define)
+      )
+    ])
 
   config.plugin('fancy-log')
     .use(FancyLogPlugin, [
