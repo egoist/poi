@@ -69,7 +69,7 @@ So far we get:
 
 - Automatic transpilation and bundling (with webpack and babel/postcss)
 - Hot code reloading
-- Static file in `./static/` is served as static files.
+- Files in `./static` are copied to dist folder, eg. `static/favicon.ico` to `dist/favicon.ico`
 
 Build app in production mode (optimized and minified):
 
