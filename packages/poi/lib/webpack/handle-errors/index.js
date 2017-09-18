@@ -43,7 +43,7 @@ function formatError(error) {
     }
   }
 
-  if (error.stack.indexOf('eslint-loader') >= 0) {
+  if (error.stack && error.stack.indexOf('eslint-loader') >= 0) {
     return {
       type: 'eslint-error',
       error
