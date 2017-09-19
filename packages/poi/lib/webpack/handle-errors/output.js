@@ -55,11 +55,11 @@ function vueVersionMismatch(errors) {
 
   const res = []
   const error = errors[0]
-  let message = error.message.replace(/This may cause things to work incorrectly[\s\S]+/, '')
+  let message = error.error.message.replace(/This may cause things to work incorrectly[\s\S]+/, '')
   message += 'Make sure to install both packages with the same version in your project.\nOtherwise webpack will use transitive dependencies from Poi.'
   res.push(chalk.red(message))
 
-  return res.json('\n')
+  return res.join('\n')
 }
 
 function unknownError(errors) {
