@@ -58,9 +58,11 @@ function formatError(error) {
   }
 
   if (cannotUglifyES6(error.message)) {
+    const { kind, payload } = getModuleNameFromPath(error.message)
     return {
       type: 'uglify-error',
-      payload: getModuleNameFromPath(error.message),
+      payload,
+      kind,
       error
     }
   }
@@ -77,8 +79,11 @@ function cannotUglifyES6(message) {
 }
 
 function getModuleNameFromPath(str) {
-  const [, name] = /[/\\]node_modules[/\\]([^/\\]+)/.exec(str)
-  return name
+  const matchModule = /[/\\]node_modules[/\\]([^/\\]+)/.exec(str)
+  if (matchModule) return { kind: 'module', payload: matchModule[1] }
+
+  const matchFile = /\[([^:]+):[^\]]+\]/.exec(str)
+  if (matchFile) return { kind: 'file', payload: matchFile[1] }
 }
 
 module.exports = errors => {

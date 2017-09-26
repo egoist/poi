@@ -34,20 +34,30 @@ function uglifyError(errors) {
 
   const res = []
   const { message } = error.error
-  res.push(`${chalk.red('UglifyJS error')}: unexpected ES6+ code in module "${error.payload}", full error message:\n`)
-  res.push(chalk.dim(message))
-  res.push('')
-  res.push(
-    logger.tip(chalk.bold(`To fix this, try adding "${error.payload}" to "transformModules" option, eg:`), false)
-  )
-  res.push('')
-  res.push(highlight(`// poi.config.js
+
+  if (error.kind === 'module') {
+    res.push(`${chalk.red('UglifyJS error')}: unexpected ES6+ code in module "${error.payload}", full error message:\n`)
+    res.push(chalk.dim(message))
+    res.push('')
+    res.push(
+      logger.tip(chalk.bold(`To fix this, try adding "${error.payload}" to "transformModules" option, eg:`), false)
+    )
+    res.push('')
+    res.push(highlight(`// poi.config.js
 module.exports = {
   transformModules: ['${error.payload}'],
   // ...other config
 }`))
+  } else if (error.kind === 'file') {
+    res.push(`${chalk.red('UglifyJS error')}: unexpected ES6+ code in file "${error.payload}", full error message:\n`)
+    res.push(chalk.dim(message))
+    res.push('')
+    res.push(
+      logger.tip(chalk.bold(`To fix this, please configure .babelrc to compile your app code down to ES5 or use poi-preset-babel-minify if you want to preserve ES6+ code in final bundle.`), false)
+    )
+  }
 
-return res.join('\n')
+  return res.join('\n')
 }
 
 function vueVersionMismatch(errors) {
