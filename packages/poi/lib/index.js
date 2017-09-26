@@ -65,28 +65,30 @@ class Poi extends EventEmitter {
     return config
   }
 
+  getCompiler() {
+    return new Promise((resolve, reject) => {
+      if (this.compiler.compilers) {
+        this.compiler.compilers.forEach(compiler => resolve(compiler))
+      } else {
+        resolve(this.compiler)
+      }
+      reject()
+    })
+  }
+
   build() {
     return this.runMiddlewares()
       .then(() => {
         this.createCompiler()
 
-        if (this.compiler.hasOwnProperty('compilers')) {
-          this.compiler.compilers.forEach(compiler => {
-            const { filename, path: outputPath } = compiler.options.output
-            // Only remove dist file when name contains hash
-            const implicitlyRemoveDist = this.options.removeDist !== false && /\[(chunk)?hash:?\d?\]/.test(filename)
-            if (this.options.removeDist === true || implicitlyRemoveDist) {
-              return promisify(rm)(path.join(outputPath, '*'))
-            }
-          })
-        } else {
-          const { filename, path: outputPath } = this.compiler.options.output
+        return this.getCompiler().then(compiler => {
+          const { filename, path: outputPath } = compiler.options.output
           // Only remove dist file when name contains hash
           const implicitlyRemoveDist = this.options.removeDist !== false && /\[(chunk)?hash:?\d?\]/.test(filename)
           if (this.options.removeDist === true || implicitlyRemoveDist) {
             return promisify(rm)(path.join(outputPath, '*'))
           }
-        }
+        })
       })
       .then(() => runWebpack(this.compiler))
   }
@@ -103,7 +105,7 @@ class Poi extends EventEmitter {
     return this.runMiddlewares()
       .then(() => {
         this.createCompiler()
-        return this.compiler.hasOwnProperty('compilers') ? createServer(this.compiler.compilers[0], this.options) : createServer(this.compiler, this.options)
+        return this.getCompiler().then(compiler => createServer(compiler, this.options))
       })
   }
 
@@ -114,13 +116,9 @@ class Poi extends EventEmitter {
   createCompiler(webpackConfig = this.getWebpackConfig()) {
     this.compiler = webpack(webpackConfig)
     if (this.options.inMemory) {
-      if (this.compiler.hasOwnProperty('compilers')) {
-        this.compiler.compilers.forEach(compiler => {  
-          compiler.outputFileSystem = new MemoryFS()
-        })
-      } else {
-        this.compiler.outputFileSystem = new MemoryFS()
-      }
+      this.getCompiler().then(compiler => {
+        compiler.outputFileSystem = new MemoryFS()
+      })
     }
     return this
   }
