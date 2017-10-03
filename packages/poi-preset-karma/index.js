@@ -57,7 +57,11 @@ module.exports = (options = {}) => {
           }]
         },
         preprocessors: files.reduce((current, next) => {
-          current[next] = ['webpack', 'sourcemap']
+          if (typeof next === 'object' && next.included !== false) {
+            current[next.pattern] = ['webpack', 'sourcemap']
+          } else if (typeof next === 'string') {
+            current[next] = ['webpack', 'sourcemap']
+          }
           return current
         }, {}),
         webpackMiddleware: {
