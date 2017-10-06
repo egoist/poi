@@ -26,6 +26,7 @@ module.exports = (options = {}) => {
 
       let files = inferValue('files', ['test/unit/**/*.test.js'])
       files = ensureArray(files)
+      files.push({ pattern: 'static/**/*', watched: false, included: false, served: true, nocache: false })
 
       const port = inferValue('port', 5001)
 
@@ -45,6 +46,7 @@ module.exports = (options = {}) => {
         frameworks,
         basePath: process.cwd(),
         files,
+        proxies: { '/': '/base/static/' },
         reporters: ['mocha'].concat(coverage ? ['coverage'] : []),
         coverageReporter: {
           dir: 'coverage',
