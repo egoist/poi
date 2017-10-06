@@ -164,7 +164,7 @@ class Poi extends EventEmitter {
     return new Promise((resolve, reject) => {
       ware()
         .use(this.middlewares)
-        .run(this.webpackConfig, err => {
+        .run(this.getWebpackConfig(), err => {
           if (err) return reject(err)
           resolve()
         })

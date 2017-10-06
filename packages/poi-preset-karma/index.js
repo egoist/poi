@@ -13,7 +13,7 @@ module.exports = (options = {}) => {
       poi.extendWebpack(options.extendWebpack)
     }
 
-    poi.run('test', config => {
+    poi.run('test', webpackConfig => {
       const inferValue = (key, fallback) => {
         if (typeof poi.argv[key] !== 'undefined') {
           return poi.argv[key]
@@ -72,7 +72,6 @@ module.exports = (options = {}) => {
         singleRun: !watch
       }
 
-      const webpackConfig = config.toConfig()
       delete webpackConfig.entry
 
       const karmaConfig = poi.merge(defaultConfig, poi.options.karma)
