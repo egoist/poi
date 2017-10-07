@@ -30,7 +30,7 @@ Add CoffeeScript support
 **Parameters**
 
 -   `options` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-    -   `options.loaderOptions` **any** Options for [coffee-loader](https://github.com/webpack-contrib/coffee-loader#options), `babelOptions` defaults to the babel-loader options we use against .js files. (optional, default `{transpile:babelOptions}`)
+    -   `options.loaderOptions` **any** Options for [coffee-loader](https://github.com/webpack-contrib/coffee-loader#options), `babelOptions` defaults to the babel-loader options we use against `.js` files. (optional, default `{transpile:babelOptions}`)
 
 ## License
 
