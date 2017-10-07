@@ -50,20 +50,15 @@ module.exports = (options = {}) => {
         reporters: ['mocha'].concat(coverage ? ['coverage'] : []),
         coverageReporter: {
           dir: 'coverage',
-          reporters: [{
-            type: 'html',
-            subdir: 'report-html'
-          }, {
-            type: 'lcov',
-            subdir: 'report-lcov'
-          }]
+          reporters: [
+            { type: 'text' },
+            { type: 'html', subdir: 'report-html' },
+            { type: 'lcov', subdir: 'report-lcov' }
+          ]
         },
         preprocessors: files.reduce((current, next) => {
-          if (typeof next === 'object' && next.included !== false) {
-            current[next.pattern] = ['webpack', 'sourcemap']
-          } else if (typeof next === 'string') {
-            current[next] = ['webpack', 'sourcemap']
-          }
+          const key = typeof next === 'object' && next.included !== false ? next.pattern : next
+          current[key] = ['webpack']
           return current
         }, {}),
         webpackMiddleware: {
@@ -75,6 +70,36 @@ module.exports = (options = {}) => {
       }
 
       delete webpackConfig.entry
+
+      if (coverage) {
+        /* for general usage */
+        webpackConfig.module.rules = [
+          {
+            test: /\.(jsx?)$/,
+            exclude: /(node_modules|\.test\.jsx?)/,
+            enforce: 'post',
+            loader: 'istanbul-instrumenter-loader',
+            query: {
+              esModules: true
+            }
+          }
+        ].concat(webpackConfig.module.rules)
+        /* for vue (assumes vue-loader) */
+        webpackConfig.module.rules = webpackConfig.module.rules
+          .map(r => {
+            const vueLoaderPos = r.use && r.use.findIndex(u => u.loader === 'vue-loader')
+            if (typeof vueLoaderPos === 'undefined' || vueLoaderPos === -1) {
+              return r
+            }
+            const options = r.use[vueLoaderPos].options
+            const instrumenterLoader = 'istanbul-instrumenter-loader?esModules=true'
+            options.preLoaders = (options.preLoaders || {})
+            options.preLoaders.js = typeof options.preLoaders.js === 'string' ?
+              `${options.preLoaders.js}!${instrumenterLoader}` :
+              instrumenterLoader
+            return r
+          })
+      }
 
       const karmaConfig = poi.merge(defaultConfig, poi.options.karma)
       karmaConfig.webpack = webpackConfig

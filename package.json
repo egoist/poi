@@ -41,6 +41,7 @@
   "devDependencies": {
     "eslint-config-rem": "^3.2.0",
     "husky": "^0.14.3",
+    "istanbul-instrumenter-loader": "0.2.0",
     "lerna": "^2.0.0",
     "xo": "^0.18.2"
   }
