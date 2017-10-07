@@ -1,0 +1,28 @@
+{
+  "name": "poi-preset-coffee",
+  "version": "1.0.0",
+  "description": "Use CoffeeScript in your Poi project",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "example": "poi example/index.coffee --presets ./index.js",
+    "example:build": "poi build example/index.coffee --presets ./index.js",
+    "docs": "documentation readme index.js -s API"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "EGOIST",
+    "email": "0x142857@gmail.com"
+  },
+  "dependencies": {
+    "coffee-loader": "^0.8.0"
+  },
+  "devDependencies": {
+    "coffeescript": "^2.0.1",
+    "documentation": "^5.3.2"
+  },
+  "peerDependencies": {
+    "coffeescript": "^2.0.1"
+  }
+}
