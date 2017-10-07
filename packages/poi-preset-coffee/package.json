@@ -1,12 +1,13 @@
 {
   "name": "poi-preset-coffee",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Use CoffeeScript in your Poi project",
   "files": [
     "index.js"
   ],
   "scripts": {
     "example": "poi example/index.coffee --presets ./index.js",
+    "example:build": "poi build example/index.coffee --presets ./index.js",
     "docs": "documentation readme index.js -s API"
   },
   "license": "MIT",
