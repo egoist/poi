@@ -112,6 +112,12 @@ You can also get rid of boilerplate code in this way.
 `Vue` is included, other frameworks need to be installed alongside `Poi` in your project.
 </details>
 
+<details><summary>How to upgrade my app?</summary><br>
+
+You can simply update poi and poi presets in your project, sometimes you might need `yarn remove poi && yarn add poi --dev` to ensure that poi's dependencies are updated too if you're using Yarn.
+</details>
+
+
 ## Contributing
 
 1. Fork it!
