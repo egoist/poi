@@ -53,7 +53,8 @@ module.exports = function ({
   host,
   port,
   clear,
-  inlineImageMaxSize = 10000
+  inlineImageMaxSize = 10000,
+  staticFolder = 'static'
 } = {}) {
   const config = new Config()
 
@@ -324,9 +325,9 @@ module.exports = function ({
 
   if (copy !== false) {
     let copyOptions = []
-    if (fs.existsSync(path.resolve(cwd, 'static'))) {
+    if (fs.existsSync(path.resolve(cwd, staticFolder))) {
       copyOptions.push({
-        from: path.resolve(cwd, 'static'),
+        from: path.resolve(cwd, staticFolder),
         to: '.',
         ignore: ['.DS_Store']
       })
