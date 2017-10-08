@@ -164,7 +164,7 @@ module.exports = function ({
       .use('url-loader')
         .loader('url-loader')
         .options({
-          name: filename.static,
+          name: filename.images,
           // inline the file if < max size
           limit: inlineImageMaxSize
         })
@@ -177,7 +177,7 @@ module.exports = function ({
       .use('file-loader')
         .loader('file-loader')
         .options({
-          name: filename.static
+          name: filename.images
         })
         .end()
       .end()
@@ -186,7 +186,7 @@ module.exports = function ({
       .use('file-loader')
         .loader('file-loader')
         .options({
-          name: filename.static
+          name: filename.fonts
         })
 
   // Enforces the entire path of all required modules match
