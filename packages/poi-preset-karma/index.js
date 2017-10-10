@@ -77,7 +77,7 @@ module.exports = (options = {}) => {
           {
             test: /\.(jsx?)$/,
             exclude: /(node_modules|\.test\.jsx?)/,
-            enforce: 'post',
+            enforce: 'pre',
             loader: 'istanbul-instrumenter-loader',
             query: {
               esModules: true
