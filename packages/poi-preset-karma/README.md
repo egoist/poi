@@ -28,6 +28,8 @@ Then run `poi test`, this preset will only be activated in test mode.
 
 Or run `poi test --watch` to run Karma in watch mode.
 
+Or run `poi test --coverage` to get code coverage as well.
+
 ## Options
 
 ### port

@@ -13,17 +13,48 @@ module.exports = (options = {}) => {
       poi.extendWebpack(options.extendWebpack)
     }
 
-    poi.run('test', webpackConfig => {
-      const inferValue = (key, fallback) => {
-        if (typeof poi.argv[key] !== 'undefined') {
-          return poi.argv[key]
-        }
-        if (typeof options[key] !== 'undefined') {
-          return options[key]
-        }
-        return fallback
+    const inferValue = (key, fallback) => {
+      if (typeof poi.argv[key] !== 'undefined') {
+        return poi.argv[key]
       }
+      if (typeof options[key] !== 'undefined') {
+        return options[key]
+      }
+      return fallback
+    }
 
+    poi.extendWebpack('test', config => {
+      const coverage = inferValue('coverage')
+
+      if (coverage) {
+        /* for general usage */
+        config.module.rule('istanbul-instrumenter-loader')
+          .test(/\.(jsx?)$/)
+          .exclude
+            .add(/(node_modules|\.test\.jsx?)/)
+            .end()
+          .pre()
+          .use('istanbul-instrumenter-loader')
+            .loader('istanbul-instrumenter-loader')
+            .options({
+              esModules: true
+            })
+
+        /* for vue (assumes vue-loader) */
+        config.module.rule('vue')
+          .use('vue-loader')
+          .tap(vueOptions => {
+            const instrumenterLoader = 'istanbul-instrumenter-loader?esModules=true'
+            vueOptions.preLoaders = (vueOptions.preLoaders || {})
+            vueOptions.preLoaders.js = typeof vueOptions.preLoaders.js === 'string' ?
+              `${vueOptions.preLoaders.js}!${instrumenterLoader}` :
+              instrumenterLoader
+            return vueOptions
+          })
+      }
+    })
+
+    poi.run('test', webpackConfig => {
       let files = inferValue('files', ['test/unit/**/*.test.js'])
       files = ensureArray(files)
       files.push({ pattern: 'static/**/*', watched: false, included: false, served: true, nocache: false })
@@ -34,12 +65,11 @@ module.exports = (options = {}) => {
       frameworks = ensureArray(frameworks)
 
       const watch = inferValue('watch', false)
+      const coverage = inferValue('coverage')
 
       const defaultBrowser = inferValue('headless') ? 'ChromeHeadless' : 'Chrome'
       let browsers = inferValue('browsers') || defaultBrowser
       browsers = ensureArray(browsers)
-
-      const coverage = inferValue('coverage')
 
       const defaultConfig = {
         port,
@@ -50,20 +80,15 @@ module.exports = (options = {}) => {
         reporters: ['mocha'].concat(coverage ? ['coverage'] : []),
         coverageReporter: {
           dir: 'coverage',
-          reporters: [{
-            type: 'html',
-            subdir: 'report-html'
-          }, {
-            type: 'lcov',
-            subdir: 'report-lcov'
-          }]
+          reporters: [
+            { type: 'text' },
+            { type: 'html', subdir: 'report-html' },
+            { type: 'lcov', subdir: 'report-lcov' }
+          ]
         },
         preprocessors: files.reduce((current, next) => {
-          if (typeof next === 'object' && next.included !== false) {
-            current[next.pattern] = ['webpack', 'sourcemap']
-          } else if (typeof next === 'string') {
-            current[next] = ['webpack', 'sourcemap']
-          }
+          const key = typeof next === 'object' && next.included !== false ? next.pattern : next
+          current[key] = ['webpack']
           return current
         }, {}),
         webpackMiddleware: {
