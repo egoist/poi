@@ -13,17 +13,48 @@ module.exports = (options = {}) => {
       poi.extendWebpack(options.extendWebpack)
     }
 
-    poi.run('test', webpackConfig => {
-      const inferValue = (key, fallback) => {
-        if (typeof poi.argv[key] !== 'undefined') {
-          return poi.argv[key]
-        }
-        if (typeof options[key] !== 'undefined') {
-          return options[key]
-        }
-        return fallback
+    const inferValue = (key, fallback) => {
+      if (typeof poi.argv[key] !== 'undefined') {
+        return poi.argv[key]
       }
+      if (typeof options[key] !== 'undefined') {
+        return options[key]
+      }
+      return fallback
+    }
 
+    poi.extendWebpack('test', config => {
+      const coverage = inferValue('coverage')
+
+      if (coverage) {
+        /* for general usage */
+        config.module.rule('istanbul-instrumenter-loader')
+          .test(/\.(jsx?)$/)
+          .exclude
+            .add(/(node_modules|\.test\.jsx?)/)
+            .end()
+          .pre()
+          .use('istanbul-instrumenter-loader')
+            .loader('istanbul-instrumenter-loader')
+            .options({
+              esModules: true
+            })
+
+        /* for vue (assumes vue-loader) */
+        config.module.rule('vue')
+          .use('vue-loader')
+          .tap(vueOptions => {
+            const instrumenterLoader = 'istanbul-instrumenter-loader?esModules=true'
+            vueOptions.preLoaders = (vueOptions.preLoaders || {})
+            vueOptions.preLoaders.js = typeof vueOptions.preLoaders.js === 'string' ?
+              `${vueOptions.preLoaders.js}!${instrumenterLoader}` :
+              instrumenterLoader
+            return vueOptions
+          })
+      }
+    })
+
+    poi.run('test', webpackConfig => {
       let files = inferValue('files', ['test/unit/**/*.test.js'])
       files = ensureArray(files)
       files.push({ pattern: 'static/**/*', watched: false, included: false, served: true, nocache: false })
@@ -34,12 +65,11 @@ module.exports = (options = {}) => {
       frameworks = ensureArray(frameworks)
 
       const watch = inferValue('watch', false)
+      const coverage = inferValue('coverage')
 
       const defaultBrowser = inferValue('headless') ? 'ChromeHeadless' : 'Chrome'
       let browsers = inferValue('browsers') || defaultBrowser
       browsers = ensureArray(browsers)
-
-      const coverage = inferValue('coverage')
 
       const defaultConfig = {
         port,
@@ -70,36 +100,6 @@ module.exports = (options = {}) => {
       }
 
       delete webpackConfig.entry
-
-      if (coverage) {
-        /* for general usage */
-        webpackConfig.module.rules = [
-          {
-            test: /\.(jsx?)$/,
-            exclude: /(node_modules|\.test\.jsx?)/,
-            enforce: 'pre',
-            loader: 'istanbul-instrumenter-loader',
-            query: {
-              esModules: true
-            }
-          }
-        ].concat(webpackConfig.module.rules)
-        /* for vue (assumes vue-loader) */
-        webpackConfig.module.rules = webpackConfig.module.rules
-          .map(r => {
-            const vueLoaderPos = r.use && r.use.findIndex(u => u.loader === 'vue-loader')
-            if (typeof vueLoaderPos === 'undefined' || vueLoaderPos === -1) {
-              return r
-            }
-            const options = r.use[vueLoaderPos].options
-            const instrumenterLoader = 'istanbul-instrumenter-loader?esModules=true'
-            options.preLoaders = (options.preLoaders || {})
-            options.preLoaders.js = typeof options.preLoaders.js === 'string' ?
-              `${options.preLoaders.js}!${instrumenterLoader}` :
-              instrumenterLoader
-            return r
-          })
-      }
 
       const karmaConfig = poi.merge(defaultConfig, poi.options.karma)
       karmaConfig.webpack = webpackConfig
