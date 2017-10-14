@@ -1,0 +1,14 @@
+{
+  "name": "react",
+  "scripts": {
+    "start": "poi index.js"
+  },
+  "devDependencies": {
+    "babel-preset-react-app": "^3.0.3",
+    "poi": "^9.3.10"
+  },
+  "dependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  }
+}
