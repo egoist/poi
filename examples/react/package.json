@@ -4,8 +4,8 @@
     "start": "poi index.js"
   },
   "devDependencies": {
-    "babel-preset-react-app": "^3.0.3",
-    "poi": "^9.3.10"
+    "poi": "^9.3.10",
+    "poi-preset-react": "^9.0.1"
   },
   "dependencies": {
     "react": "^16.0.0",
