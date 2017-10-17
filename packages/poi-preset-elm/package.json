@@ -1,0 +1,25 @@
+{
+  "name": "poi-preset-elm",
+  "version": "1.0.0",
+  "description": "Use Poi to build your Elm apps.",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "example": "poi example/index.js --presets ./index.js",
+    "example:build": "poi build example/index.js --presets ./index.js"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "EGOIST",
+    "email": "0x142857@gmail.com"
+  },
+  "dependencies": {
+    "elm-hot-loader": "^0.5.4",
+    "elm-webpack-loader": "^4.3.1"
+  },
+  "devDependencies": {
+    "elm": "^0.18.0",
+    "documentation": "^5.3.2"
+  }
+}
