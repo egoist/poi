@@ -21,7 +21,3 @@ module.exports = {
   ]
 }
 ```
-
-## Known issues
-
-- Browser wouldn't get refreshed when new hmr updates are ready
