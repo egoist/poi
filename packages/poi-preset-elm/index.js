@@ -15,7 +15,8 @@ module.exports = (options = {}) => {
         .rule('elm')
           .test(/\.elm$/)
           .exclude
-            .add([/elm-stuff/, /node_modules/])
+            .add(/elm-stuff/)
+            .add(/node_modules/)
             .end()
           .use('elm-hot')
             .loader('elm-hot-loader')
