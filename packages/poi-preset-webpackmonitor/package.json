@@ -1,0 +1,18 @@
+{
+  "name": "poi-preset-webpackmonitor",
+  "version": "0.0.0",
+  "description": "monitoring webpack optimization metrics",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "example": "poi build example/index.js --presets ./index.js --webpackmonitor"
+  },
+  "repository": "egoist/poi",
+  "author": "EGOIST",
+  "license": "MIT",
+  "dependencies": {
+    "webpack-monitor": "^1.0.13"
+  }
+}
