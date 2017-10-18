@@ -1,6 +1,6 @@
 {
   "name": "poi-preset-webpackmonitor",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "monitoring webpack optimization metrics",
   "main": "index.js",
   "files": [
