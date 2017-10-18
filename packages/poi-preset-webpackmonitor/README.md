@@ -2,6 +2,8 @@
 
 Monitoring webpack optimization metrics.
 
+<img src="https://i.loli.net/2017/10/18/59e70bd31a3cc.png" width="600" alt="preview">
+
 ## Install
 
 ```bash
@@ -10,7 +12,7 @@ yarn add poi-preset-webpackmonitor --dev
 
 ## Usage
 
-Activate it in config file:
+Activate it in config file `poi.config.js`:
 
 ```js
 module.exports = {
