@@ -14,13 +14,27 @@ yarn add poi-preset-elm --dev
 // poi.config.js
 module.exports = {
   presets: [
-    require('poi-preset-elm')({
-      warn: true, // default
-      debug: true, // default
-    })
+    require('poi-preset-elm')(options)
   ]
 }
 ```
+
+## Options
+
+### loaderOptions
+
+Type: `object`<br>
+Default:
+
+```js
+{
+  pathToMake: 'node_modules/.bin/elm-make',
+  warn: true,
+  debug: poi.options.mode !== 'production'
+}
+```
+
+[options](https://github.com/elm-community/elm-webpack-loader#options) for elm-webpack-loader.
 
 ## License
 
