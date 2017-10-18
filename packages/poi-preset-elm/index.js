@@ -1,7 +1,11 @@
+const fs = require('fs')
+
 module.exports = (options = {}) => {
   return poi => {
+    const localCompiler = 'node_modules/.bin/elm-make'
     const loaderOptions = Object.assign({
-      pathToMake: 'node_modules/.bin/elm-make',
+      // Only use local compiler when it exists
+      pathToMake: fs.existsSync(localCompiler) ? localCompiler : null,
       warn: true,
       debug: poi.options.mode !== 'production'
     }, options.loaderOptions)

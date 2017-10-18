@@ -28,7 +28,7 @@ Default:
 
 ```js
 {
-  pathToMake: 'node_modules/.bin/elm-make',
+  pathToMake: null, // Default to `node_modules/.bin/elm-make` if it exists, otherwise it uses global `elm-make`
   warn: true,
   debug: poi.options.mode !== 'production'
 }
