@@ -4,8 +4,11 @@ module.exports = (pluginOptions, overrides) => {
       // Say goodbye to uglify plugin
       const BabelMinifyPlugin = require('babel-minify-webpack-plugin')
 
-      config.plugin('minimize')
-        .use(BabelMinifyPlugin, [pluginOptions, overrides])
+      // do not use if `minimize` is off
+      if (config.plugins.has('minimize')) {
+        config.plugin('minimize')
+          .use(BabelMinifyPlugin, [pluginOptions, overrides])
+      }
     })
   }
 }
