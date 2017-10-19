@@ -1,6 +1,6 @@
 {
   "name": "poi-preset-babel-minify",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "scripts": {
     "example": "poi build example/index.js --presets ./index.js"
   },
