@@ -13,6 +13,7 @@ const webpackUtils = require('./webpack-utils')
 const createConfig = require('./create-config')
 const createServer = require('./server')
 const { promisify, readPkg } = require('./utils')
+const handleOptions = require('./handle-options')
 
 function runWebpack(compiler) {
   return new Promise((resolve, reject) => {
@@ -33,26 +34,32 @@ class Poi extends EventEmitter {
       host: process.env.HOST || '0.0.0.0',
       port: process.env.PORT || 4000
     }, options)
+  }
 
-    this.manifest = readPkg()
-    this.middlewares = []
-    this.webpackFlows = []
+  prepare() {
+    return handleOptions(this.options)
+      .then(options => {
+        this.options = options
+        this.manifest = readPkg()
+        this.middlewares = []
+        this.webpackFlows = []
 
-    this.usePresets()
-    this.addWebpackFlow(config => {
-      config.plugin('compile-notifier')
-        .use(PostCompilePlugin, [stats => {
-          if (this.options.mode === 'development' || this.options.mode === 'watch') {
-            this.emit('compile-done', stats)
-          }
-        }])
-    })
-    if (this.options.extendWebpack) {
-      this.addWebpackFlow(this.options.extendWebpack)
-    }
+        this.usePresets()
+        this.addWebpackFlow(config => {
+          config.plugin('compile-notifier')
+            .use(PostCompilePlugin, [stats => {
+              if (this.options.mode === 'development' || this.options.mode === 'watch') {
+                this.emit('compile-done', stats)
+              }
+            }])
+        })
+        if (this.options.extendWebpack) {
+          this.addWebpackFlow(this.options.extendWebpack)
+        }
 
-    this.webpackConfig = createConfig(this.options)
-    this.webpackFlows.forEach(flow => flow(this.webpackConfig))
+        this.webpackConfig = createConfig(this.options)
+        this.webpackFlows.forEach(flow => flow(this.webpackConfig))
+      })
   }
 
   getWebpackConfig() {
