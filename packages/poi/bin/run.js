@@ -75,7 +75,7 @@ module.exports = co.wrap(function * (cliOptions) {
     options.html = inferHTML(options)
   }
 
-  if (options.entry === undefined) {
+  if (options.entry === undefined && !options.format) {
     const mainField = readPkg().main
     if (mainField) {
       console.log(`> Using main field in package.json as entry point`)
