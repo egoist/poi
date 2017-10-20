@@ -41,9 +41,9 @@ module.exports = co.wrap(function * (cliOptions) {
 
   const app = poi(merge(config, cliOptions))
 
-  console.log(`> Bundling with Webpack ${require('webpack/package.json').version}`)
-
   yield app.prepare()
+
+  console.log(`> Bundling with Webpack ${require('webpack/package.json').version}`)
 
   const { options } = app
   if (inspectOptions) {
