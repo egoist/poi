@@ -34,6 +34,11 @@ class Poi extends EventEmitter {
       host: process.env.HOST || '0.0.0.0',
       port: process.env.PORT || 4000
     }, options)
+
+    if (!process.env.NODE_ENV) {
+      // env could be `production` `development` `test`
+      process.env.NODE_ENV = this.options.mode === 'watch' ? 'development' : this.options.mode
+    }
   }
 
   prepare() {

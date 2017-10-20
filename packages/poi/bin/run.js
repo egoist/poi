@@ -28,10 +28,6 @@ module.exports = co.wrap(function * (cliOptions) {
   ])
 
   console.log(`> Running in ${cliOptions.mode} mode`)
-  if (!process.env.NODE_ENV) {
-    // env could be `production` `development` `test`
-    process.env.NODE_ENV = cliOptions.mode === 'watch' ? 'development' : cliOptions.mode
-  }
 
   let { path: configPath, config = {} } = yield loadPoiConfig({ config: cliOptions.config })
 
