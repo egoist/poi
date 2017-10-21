@@ -15,7 +15,7 @@ module.exports = () => {
 
     poi.run('test', webpackConfig => {
       const input = poi.argv._.slice(1)
-      const inputFiles = input > 0 ? input : ['**/*.test.js']
+      const inputFiles = input.length > 0 ? input : ['**/*.test.js']
       const ignores = ['!**/node_modules/**', '!**/vendor/**']
 
       return globby(inputFiles.concat(ignores), { cwd: poi.options.cwd })

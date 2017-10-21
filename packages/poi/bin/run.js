@@ -9,20 +9,25 @@ const stripAnsi = require('strip-ansi')
 const tildify = require('tildify')
 const merge = require('lodash/merge')
 const opn = require('opn')
-const buildConfigChain = require('babel-core/lib/transformation/file/options/build-config-chain')
-const LoadExternalConfig = require('poi-load-config')
 const loadPoiConfig = require('poi-load-config/poi')
 const AppError = require('../lib/app-error')
-const { cwd, ownDir, inferHTML, readPkg, unspecifiedAddress } = require('../lib/utils')
+const { cwd, ownDir, unspecifiedAddress } = require('../lib/utils')
 const poi = require('../lib')
 const logger = require('../lib/logger')
 
 module.exports = co.wrap(function * (cliOptions) {
+  const { inspectOptions } = cliOptions
+  deleteExtraOptions(cliOptions, [
+    '--',
+    'v',
+    'version',
+    'h',
+    'help',
+    'inspectOptions',
+    'inspect-options'
+  ])
+
   console.log(`> Running in ${cliOptions.mode} mode`)
-  if (!process.env.NODE_ENV) {
-    // env could be `production` `development` `test`
-    process.env.NODE_ENV = cliOptions.mode === 'watch' ? 'development' : cliOptions.mode
-  }
 
   let { path: configPath, config = {} } = yield loadPoiConfig({ config: cliOptions.config })
 
@@ -34,83 +39,16 @@ module.exports = co.wrap(function * (cliOptions) {
     throw new AppError('Config file was not found!')
   }
 
-  const options = merge(config, cliOptions)
+  const app = poi(merge(config, cliOptions))
 
-  const loadExternalConfig = new LoadExternalConfig({ cwd: options.cwd })
-
-  if (options.babel === undefined) {
-    const { useConfig, file } = yield loadExternalConfig.babel(buildConfigChain)
-    if (useConfig) {
-      console.log('> Using external babel configuration')
-      console.log(chalk.dim(`> location: "${tildify(file)}"`))
-      options.babel = {
-        cacheDirectory: true,
-        babelrc: true
-      }
-    } else {
-      options.babel = {
-        cacheDirectory: true,
-        babelrc: false
-      }
-    }
-    if (options.babel.babelrc === false) {
-      // Use our default preset when no babelrc was found
-      options.babel.presets = [
-        [require.resolve('babel-preset-vue-app'), { useBuiltIns: true }]
-      ]
-    }
-  }
-
-  if (options.postcss === undefined) {
-    const postcssConfig = yield loadExternalConfig.postcss()
-    if (postcssConfig.file) {
-      console.log('> Using extenal postcss configuration')
-      console.log(chalk.dim(`> location: "${tildify(postcssConfig.file)}"`))
-      options.postcss = postcssConfig
-    }
-  }
-
-  if (options.html === undefined) {
-    console.log(`> Using inferred value from package.json for HTML file`)
-    options.html = inferHTML(options)
-  }
-
-  if (options.entry === undefined) {
-    const mainField = readPkg().main
-    if (mainField) {
-      console.log(`> Using main field in package.json as entry point`)
-      options.entry = mainField
-    }
-  }
-
-  if (options.homepage === undefined && options.mode === 'production') {
-    options.homepage = readPkg().homepage
-  }
-
-  const { browserslist = ['ie > 8', 'last 2 versions'] } = readPkg()
-
-  options.autoprefixer = options.autoprefixer === false ? false : Object.assign({
-    browsers: browserslist
-  }, options.autoprefixer)
-
-  deleteExtraOptions(options, [
-    '_',
-    '$0',
-    'inspectOptions',
-    'inspect-options',
-    'v',
-    'version',
-    'h',
-    'help'
-  ])
-
-  if (cliOptions.inspectOptions) {
-    console.log('> Options:', util.inspect(options, { colors: true, depth: null }))
-  }
-
-  const app = poi(options)
+  yield app.prepare()
 
   console.log(`> Bundling with Webpack ${require('webpack/package.json').version}`)
+
+  const { options } = app
+  if (inspectOptions) {
+    console.log('> Options:', util.inspect(options, { colors: true, depth: null }))
+  }
 
   if (options.mode === 'production') {
     console.log('> Creating an optimized production build:\n')
