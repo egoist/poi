@@ -13,16 +13,19 @@ afterAll(() => {
 
 describe('get webpack config', () => {
   describe('entry', () => {
-    it('use default entry', () => {
-      const config = poi().webpackConfig
+    it('use default entry', async () => {
+      const app = poi()
 
-      expect(config.entry('client').values())
-        .toEqual([path.resolve('index.js')])
+      await app.prepare()
+      const config = app.getWebpackConfig()
 
-      expect(config.entryPoints.has('polyfills')).toBe(false)
+      expect(config.entry)
+        .toEqual({
+          client: [path.resolve('index.js')]
+        })
     })
 
-    it('use custom entry', () => {
+    it('use custom entry', async () => {
       const entries = [
         'other-entry.js',
         ['other-entry.js', 'index.js'],
@@ -30,51 +33,58 @@ describe('get webpack config', () => {
         { foo: ['foo.js', 'bar.js'] }
       ]
 
-      const [a, b, c, d] = entries.map(entry => poi({ entry }).webpackConfig)
+      const [a, b, c, d] = await Promise.all(entries.map(entry => {
+        const app = poi({ entry })
+        return app.prepare().then(() => app.getWebpackConfig())
+      }))
 
-      expect(a.entry('client').values())
+      expect(a.entry.client)
         .toEqual([path.resolve(entries[0])])
 
-      expect(b.entry('client').values())
+      expect(b.entry.client)
         .toEqual(entries[1].map(v => path.resolve(v)))
 
-      expect(c.entry('index').values())
+      expect(c.entry.index)
         .toEqual([path.resolve('entry.js')])
 
-      expect(d.entry('foo').values())
+      expect(d.entry.foo)
         .toEqual(['foo.js', 'bar.js'].map(v => path.resolve(v)))
     })
 
-    it('add hmr entry', () => {
-      const config = poi({
+    it('add hmr entry', async () => {
+      const app = poi({
         entry: 'index.js',
         mode: 'development'
-      }).webpackConfig
+      })
+      await app.prepare()
+      const config = app.getWebpackConfig()
 
-      expect(config.entry('client').values())
+      expect(config.entry.client)
         .toEqual([
           path.join(__dirname, '../app/dev-client.es6'),
           path.resolve('index.js')
         ])
     })
 
-    it('add hmr entry using option', () => {
-      const config = poi({
+    it('add hmr entry using option', async () => {
+      const app = poi({
         entry: {
           foo: ['foo.js'],
           bar: ['bar.js']
         },
         mode: 'development',
         hotEntry: ['foo', 'bar']
-      }).webpackConfig
+      })
+      await app.prepare()
+      const config = app.getWebpackConfig()
 
-      expect(config.entry('foo').values())
+      expect(config.entry.foo)
         .toEqual([
           path.join(__dirname, '../app/dev-client.es6'),
           path.resolve('foo.js')
         ])
 
-      expect(config.entry('bar').values())
+      expect(config.entry.bar)
         .toEqual([
           path.join(__dirname, '../app/dev-client.es6'),
           path.resolve('bar.js')
@@ -83,50 +93,62 @@ describe('get webpack config', () => {
   })
 
   describe('output dir', () => {
-    it('default dir', () => {
-      const config = poi().getWebpackConfig()
+    it('default dir', async () => {
+      const app = poi()
+      await app.prepare()
+      const config = app.getWebpackConfig()
 
       expect(config.output.path).toBe(path.resolve('dist'))
     })
 
-    it('custom dir', () => {
-      const config = poi({ dist: 'foo/bar' }).getWebpackConfig()
+    it('custom dir', async () => {
+      const app = poi({ dist: 'foo/bar' })
+      await app.prepare()
+      const config = app.getWebpackConfig()
 
       expect(config.output.path).toBe(path.resolve('foo/bar'))
     })
   })
 
   describe('copy static files', () => {
-    it('copy existing static folder', () => {
-      const config = poi().webpackConfig
+    it('copy existing static folder', async () => {
+      const app = poi()
+      await app.prepare()
+      const config = app.webpackConfig
 
       expect(config.plugins.has('copy-static-files')).toBe(true)
       expect(config.plugins.get('copy-static-files').get('args')[0].length)
         .toBe(1)
     })
 
-    it('accepts object', () => {
-      const config = poi({
+    it('accepts object', async () => {
+      const app = poi({
         copy: {}
-      }).webpackConfig
+      })
+      await app.prepare()
+      const config = app.webpackConfig
 
       expect(config.plugins.get('copy-static-files').get('args')[0].length)
         .toBe(2)
     })
 
-    it('accepts array', () => {
-      const config = poi({
+    it('accepts array', async () => {
+      const app = poi({
         copy: [{}, {}]
-      }).webpackConfig
+      })
+      await app.prepare()
+      const config = app.webpackConfig
 
       expect(config.plugins.get('copy-static-files').get('args')[0].length)
         .toBe(3)
     })
 
-    it('could be disabled', () => {
-      const config = poi({
+    it('could be disabled', async () => {
+      const app = poi({
         copy: false
-      }).webpackConfig
+      })
+      await app.prepare()
+      const config = app.webpackConfig
 
       expect(config.plugins.has('copy-static-files'))
         .toBe(false)
@@ -134,22 +156,24 @@ describe('get webpack config', () => {
   })
 
   describe('use preset', () => {
-    it('in all modes', () => {
+    it('in all modes', async () => {
       const preset = poi => {
         poi.extendWebpack(config => {
           config.entry('foo')
             .add(path.resolve(poi.options.cwd, 'haha.js'))
         })
       }
-      const config = poi({
+      const app = poi({
         cwd: 'foo',
         presets: preset
-      }).webpackConfig
+      })
+      await app.prepare()
+      const config = app.getWebpackConfig()
 
-      expect(config.entry('foo').values()).toEqual([path.resolve('foo', 'haha.js')])
+      expect(config.entry.foo).toEqual([path.resolve('foo', 'haha.js')])
     })
 
-    it('in dev command', () => {
+    it('in dev command', async () => {
       const presets = [
         poi => {
           poi.extendWebpack('development', config => {
@@ -163,12 +187,14 @@ describe('get webpack config', () => {
         }
       ]
 
-      const config = poi({
+      const app = poi({
         mode: 'development',
         presets
-      }).webpackConfig
+      })
+      await app.prepare()
+      const config = app.getWebpackConfig()
 
-      expect(config.entry('foo').values()).toEqual(['foo', 'bar'])
+      expect(config.entry.foo).toEqual(['foo', 'bar'])
     })
   })
 })

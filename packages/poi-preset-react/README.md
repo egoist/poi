@@ -2,7 +2,10 @@
 
 ## Features
 
-- It uses the same Babel config that create-react-app uses
+- Better default babel presets and plugins for React app
+  - [babel-preset-react-app](https://github.com/facebookincubator/create-react-app/tree/master/packages/babel-preset-react-app) which is used by create-react-app.
+  - [babel-plugin-react-require](https://github.com/vslinko/babel-plugin-react-require) to add React import declaration if file contains JSX tags.
+  - You can override the defaults with a `.babelrc` file.
 - react-hot-loader@3
 
 ## Install
@@ -21,7 +24,3 @@ module.exports = {
   ]
 }
 ```
-
-## Known issues
-
-- Browser wouldn't get refreshed when new hmr updates are ready

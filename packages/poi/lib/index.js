@@ -13,6 +13,7 @@ const webpackUtils = require('./webpack-utils')
 const createConfig = require('./create-config')
 const createServer = require('./server')
 const { promisify, readPkg } = require('./utils')
+const handleOptions = require('./handle-options')
 
 function runWebpack(compiler) {
   return new Promise((resolve, reject) => {
@@ -34,25 +35,36 @@ class Poi extends EventEmitter {
       port: process.env.PORT || 4000
     }, options)
 
-    this.manifest = readPkg()
-    this.middlewares = []
-    this.webpackFlows = []
-
-    this.usePresets()
-    this.addWebpackFlow(config => {
-      config.plugin('compile-notifier')
-        .use(PostCompilePlugin, [stats => {
-          if (this.options.mode === 'development' || this.options.mode === 'watch') {
-            this.emit('compile-done', stats)
-          }
-        }])
-    })
-    if (this.options.extendWebpack) {
-      this.addWebpackFlow(this.options.extendWebpack)
+    if (!process.env.NODE_ENV) {
+      // env could be `production` `development` `test`
+      process.env.NODE_ENV = this.options.mode === 'watch' ? 'development' : this.options.mode
     }
+  }
 
-    this.webpackConfig = createConfig(this.options)
-    this.webpackFlows.forEach(flow => flow(this.webpackConfig))
+  prepare() {
+    return handleOptions(this.options)
+      .then(options => {
+        this.options = options
+        this.manifest = readPkg()
+        this.middlewares = []
+        this.webpackFlows = []
+
+        this.usePresets()
+        this.addWebpackFlow(config => {
+          config.plugin('compile-notifier')
+            .use(PostCompilePlugin, [stats => {
+              if (this.options.mode === 'development' || this.options.mode === 'watch') {
+                this.emit('compile-done', stats)
+              }
+            }])
+        })
+        if (this.options.extendWebpack) {
+          this.addWebpackFlow(this.options.extendWebpack)
+        }
+
+        this.webpackConfig = createConfig(this.options)
+        this.webpackFlows.forEach(flow => flow(this.webpackConfig))
+      })
   }
 
   getWebpackConfig() {
