@@ -54,10 +54,6 @@ module.exports = co.wrap(function * (options) {
     }
   }
 
-  if (options.homepage === undefined && options.mode === 'production') {
-    options.homepage = readPkg().homepage
-  }
-
   const { browserslist = ['ie > 8', 'last 2 versions'] } = readPkg()
 
   if (options.autoprefixer !== false) {
