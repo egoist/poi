@@ -106,9 +106,12 @@ module.exports = function ({
     .filename(filename.js)
     .chunkFilename(filename.chunk)
     .publicPath(getPublicPath(mode, homepage))
-    // Point sourcemap entries to original disk location
-    .devtoolModuleFilenameTemplate(info =>
-      path.resolve(info.absoluteResourcePath))
+
+  if (mode !== 'production') {
+    config.output
+      // Point sourcemap entries to original disk location
+      .devtoolModuleFilenameTemplate(info => path.resolve(info.absoluteResourcePath))
+  }
 
   config.performance.hints(false)
 
