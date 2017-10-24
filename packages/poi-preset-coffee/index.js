@@ -8,13 +8,16 @@
 module.exports = ({ loaderOptions } = {}) => {
   return poi => {
     poi.extendWebpack(config => {
-      const babelOptions = config.module.rule('js')
-        .use('babel-loader')
-        .store
-        .get('options')
+      var transpile = loaderOptions && loaderOptions.transpile
+      if (transpile === undefined) {
+        transpile = config.module.rule('js')
+          .use('babel-loader')
+          .store
+          .get('options')
+      }
 
       const coffeeOptions = Object.assign({
-        transpile: babelOptions
+        transpile: transpile
       }, loaderOptions)
 
       config.module.rule('coffee')
