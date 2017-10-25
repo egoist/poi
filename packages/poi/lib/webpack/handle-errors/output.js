@@ -81,7 +81,11 @@ function unknownError(errors) {
       msg += chalk.red(`Error in ${chalk.italic(tildify(error.error.origin.resource))}`)
       msg += '\n\n'
     }
-    msg += error.error.message.replace(/Module build failed:\s+/, '').trim()
+    if (error.error.message) {
+      msg += error.error.message.replace(/Module build failed:\s+/, '').trim()
+    } else {
+      msg += error.error.trim()
+    }
     return msg
   })
 
