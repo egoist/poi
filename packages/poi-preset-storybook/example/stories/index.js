@@ -7,3 +7,7 @@ storiesOf('Button', module)
       return <MyButton>hi</MyButton>
     }
   }))
+  .add('template', () => ({
+    components: { MyButton },
+    template: '<my-button>vue template</my-button>'
+  }))

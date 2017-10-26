@@ -15,6 +15,8 @@ yarn add storybook-vue --dev
 
 ## Usage
 
+The first entry will be used as storybook config file, and the second one (optional) will be used as storybook addons file.
+
 ```js
 // poi.config.js
 module.exports = {
@@ -23,9 +25,7 @@ module.exports = {
   // If you want storybook addons:
   // entry: ['.storybook/config.js', '.storybook/addons.js']
   presets: [
-    require('poi-preset-storybook')({
-      client: 'vue' // Default value, could also be `react`
-    })
+    require('poi-preset-storybook')()
   ]
 }
 ```
@@ -71,6 +71,8 @@ And you're all set, suffix poi commands with `--storybook` to see it in action:
 poi --storybook
 poi build --storybook
 ```
+
+> **Note**: [`templateCompiler`](https://poi.js.org/#/options?id=templatecompiler) is `true` by default in `--storybook` mode.
 
 ## License
 

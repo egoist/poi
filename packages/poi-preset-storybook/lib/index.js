@@ -1,8 +1,6 @@
 const path = require('path')
 
-module.exports = ({
-  client = 'vue'
-} = {}) => poi => {
+module.exports = () => poi => {
   if (!poi.argv.storybook) return
 
   poi.options.html = [
@@ -20,8 +18,6 @@ module.exports = ({
     }
   ]
 
-  // console.log(`> Using ".storybook/config.js" as entry`)
-  // poi.options.entry = path.resolve('.storybook/config.js')
   if (typeof poi.options.templateCompiler !== 'boolean') {
     poi.options.templateCompiler = true
   }
@@ -34,6 +30,17 @@ module.exports = ({
     if (entry[addonsIndex]) {
       config.entry('manager').add(path.resolve(entry[addonsIndex]))
     }
-    config.entry('manager').add(require.resolve(`storybook-${client}/lib/manager`))
+
+    let manager
+    try {
+      manager = require.resolve('storybook-vue/lib/manager')
+    } catch (err) {
+      try {
+        manager = require.resolve('storybook-react/lib/manager')
+      } catch (err) {
+        throw new Error('You have to install either storybook-vue or storybook-react!')
+      }
+    }
+    config.entry('manager').add(manager)
   })
 }
