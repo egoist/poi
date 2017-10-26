@@ -8,17 +8,21 @@
 module.exports = ({ loaderOptions } = {}) => {
   return poi => {
     poi.extendWebpack(config => {
-      const babelOptions = Object.assign(
-        {},
-        config.module.rule('js')
-          .use('babel-loader')
-          .store
-          .get('options')
-      )
-      // Delete unnecessary loader-specific options
-      delete babelOptions.cacheDirectory
-      delete babelOptions.cacheIdentifier
-      delete babelOptions.forceEnv
+      let babelOptions
+
+      if (config.module.rule('js').uses.has('babel-loader')) {
+        babelOptions = Object.assign(
+          {},
+          config.module.rule('js')
+            .use('babel-loader')
+            .store
+            .get('options')
+        )
+        // Delete unnecessary loader-specific options
+        delete babelOptions.cacheDirectory
+        delete babelOptions.cacheIdentifier
+        delete babelOptions.forceEnv
+      }
 
       const coffeeOptions = Object.assign({
         transpile: babelOptions
