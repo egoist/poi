@@ -1,6 +1,6 @@
 {
   "name": "poi-preset-coffee",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Use CoffeeScript in your Poi project",
   "files": [
     "index.js"
