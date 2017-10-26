@@ -72,6 +72,8 @@ poi --storybook
 poi build --storybook
 ```
 
+Here's the source code of [a complete example](https://github.com/poi-examples/storybook-vue-example).
+
 > **Note**: [`templateCompiler`](https://poi.js.org/#/options?id=templatecompiler) is `true` by default in `--storybook` mode.
 
 ## Options
