@@ -1,0 +1,24 @@
+{
+  "name": "poi-preset-storybook",
+  "version": "0.0.0",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "example": "poi --storybook",
+    "example:build": "poi build --storybook"
+  },
+  "poi": {
+    "entry": [
+      "example/index.js",
+      "example/addons.js"
+    ],
+    "presets": "./lib/index.js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@storybook/addon-actions": "^3.2.13",
+    "storybook-vue": "^3.2.13"
+  }
+}
