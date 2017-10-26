@@ -1,18 +1,23 @@
 const path = require('path')
 
-module.exports = () => poi => {
+module.exports = ({
+  managerTemplate = path.join(__dirname, 'manager.ejs'),
+  iframeTemplate = path.join(__dirname, 'iframe.ejs')
+} = {}) => poi => {
   if (!poi.argv.storybook) return
 
+  const html = Array.isArray(poi.options.html) ? poi.options.html[0] : poi.options.html
   poi.options.html = [
     {
-      title: 'Manager',
-      template: path.join(__dirname, 'index.ejs'),
+      title: html.title,
+      description: html.description,
+      template: managerTemplate,
       filename: 'index.html',
-      excludeChunks: ['preview']
+      excludeChunks: ['iframe']
     },
     {
-      title: 'Preview',
-      template: path.join(__dirname, 'iframe.ejs'),
+      title: 'Iframe',
+      template: iframeTemplate,
       filename: 'iframe.html',
       excludeChunks: ['manager']
     }
@@ -26,7 +31,7 @@ module.exports = () => poi => {
     const entry = [...config.entry('client').store]
     config.entryPoints.delete('client')
     const addonsIndex = poi.options.mode === 'development' ? 2 : 1
-    config.entry('preview').merge(entry.slice(0, addonsIndex))
+    config.entry('iframe').merge(entry.slice(0, addonsIndex))
     if (entry[addonsIndex]) {
       config.entry('manager').add(path.resolve(entry[addonsIndex]))
     }

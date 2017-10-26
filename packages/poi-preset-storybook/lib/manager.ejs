@@ -5,7 +5,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta content="IE=edge" http-equiv="X-UA-Compatible" />
-  <title>Storybook</title>
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <% if (htmlWebpackPlugin.options.description) { %>
+  <meta name="description" content="<%= htmlWebpackPlugin.options.description %>"/>
+  <% } %>
   <style>
     /*
         When resizing panels, the drag event breaks if the cursor

@@ -74,6 +74,22 @@ poi build --storybook
 
 > **Note**: [`templateCompiler`](https://poi.js.org/#/options?id=templatecompiler) is `true` by default in `--storybook` mode.
 
+## Options
+
+### managerTemplate
+
+Type: `string`<br>
+Default: [`./lib/manager.ejs`(./lib/manager.ejs)]
+
+Path to the HTML template for generated `index.html`.
+
+### iframeTemplate
+
+Type: `string`<br>
+Default: [`./lib/iframe.ejs`(./lib/iframe.ejs)]
+
+Path to the HTML template for generated `iframe.html`.
+
 ## License
 
 MIT &copy; [EGOIST](https://github.com/egoist)
