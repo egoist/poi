@@ -8,10 +8,17 @@
 module.exports = ({ loaderOptions } = {}) => {
   return poi => {
     poi.extendWebpack(config => {
-      const babelOptions = config.module.rule('js')
-        .use('babel-loader')
-        .store
-        .get('options')
+      const babelOptions = Object.assign(
+        {},
+        config.module.rule('js')
+          .use('babel-loader')
+          .store
+          .get('options')
+      )
+      // Delete unnecessary loader-specific options
+      delete babelOptions.cacheDirectory
+      delete babelOptions.cacheIdentifier
+      delete babelOptions.forceEnv
 
       const coffeeOptions = Object.assign({
         transpile: babelOptions
@@ -20,14 +27,14 @@ module.exports = ({ loaderOptions } = {}) => {
       config.module.rule('coffee')
         .test(/\.coffee$/)
         .use('coffee-loader')
-          .loader('coffee-loader')
+          .loader('better-coffee-loader')
           .options(coffeeOptions)
 
       config.module.rule('vue')
         .use('vue-loader')
           .tap(vueOptions => {
             vueOptions.loaders.coffee = vueOptions.loaders.coffeescript = [{
-              loader: 'coffee-loader',
+              loader: 'better-coffee-loader',
               options: coffeeOptions
             }]
             return vueOptions

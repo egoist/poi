@@ -16,7 +16,7 @@
     "email": "0x142857@gmail.com"
   },
   "dependencies": {
-    "coffee-loader": "^0.8.0"
+    "better-coffee-loader": "^0.1.0"
   },
   "devDependencies": {
     "coffeescript": "^2.0.1",
