@@ -35,6 +35,7 @@ Then create storybook config file and components:
 Just like how the [official storybook guide](https://storybook.js.org/basics/guide-vue/) told you, but without installing storybook cli.
 
 ```js
+// .storybook/config.js
 import { configure } from 'storybook-vue'
 
 function loadStories() {
