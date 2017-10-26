@@ -79,14 +79,14 @@ poi build --storybook
 ### managerTemplate
 
 Type: `string`<br>
-Default: [`./lib/manager.ejs`(./lib/manager.ejs)]
+Default: [`./lib/manager.ejs`](./lib/manager.ejs)
 
 Path to the HTML template for generated `index.html`.
 
 ### iframeTemplate
 
 Type: `string`<br>
-Default: [`./lib/iframe.ejs`(./lib/iframe.ejs)]
+Default: [`./lib/iframe.ejs`](./lib/iframe.ejs)
 
 Path to the HTML template for generated `iframe.html`.
 
