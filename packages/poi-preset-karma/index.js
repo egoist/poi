@@ -101,7 +101,9 @@ module.exports = (options = {}) => {
 
       delete webpackConfig.entry
 
-      const karmaConfig = poi.merge(defaultConfig, poi.options.karma)
+      const karmaConfig = typeof poi.options.karma === 'function' ?
+        poi.options.karma(defaultConfig) :
+        Object.assign({}, defaultConfig, poi.options.karma)
       karmaConfig.webpack = webpackConfig
 
       const server = new Server(karmaConfig)
