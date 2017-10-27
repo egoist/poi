@@ -47,6 +47,13 @@ Default: `['test/unit/**/*.test.js']`
 Type: `Array` `string`<br>
 Default: `['mocha']`
 
+### reporters
+
+Type: `Array` `string`<br>
+Default: `['mocha']`
+
+If you enable code coverage the `coverage` reporter will automatically be added as well.
+
 ### browsers
 
 Type: `Array` `string`<br>
