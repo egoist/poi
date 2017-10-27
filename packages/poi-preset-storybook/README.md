@@ -93,6 +93,10 @@ Default: [`./lib/iframe.ejs`](./lib/iframe.ejs)
 
 Path to the HTML template for generated `iframe.html`.
 
+## Gotchas
+
+[Vue-devtools does not work for now](https://github.com/storybooks/storybook/issues/1708).
+
 ## License
 
 MIT &copy; [EGOIST](https://github.com/egoist)
