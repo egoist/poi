@@ -100,9 +100,21 @@ This preset can also directly read Karma config from `karma` property in `poi.co
 // poi.config.js
 module.exports = {
   karma: {
-    frameworks: ['chai']
+    frameworks: ['mocha', 'chai']
   }
 }
 ```
 
-Then the `frameworks` we finally got would be `['mocha', 'chai']`.
+We use `Object.assign` to merge custom karma config with our default one.
+
+`karma` could also be a function, then we will use its return value as karma config:
+
+```js
+// poi.config.js
+module.exports = {
+  karma(config) {
+    config.reporters = ['nyancat']
+    return config
+  }
+}
+```
