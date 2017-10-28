@@ -97,7 +97,10 @@ module.exports = (options = {}) => {
           ]
         },
         preprocessors: files.reduce((current, next) => {
-          const key = typeof next === 'object' && next.included !== false ? next.pattern : next
+          if (typeof next === 'object' && next.included === false) {
+            return current
+          }
+          const key = next.pattern || next
           current[key] = ['webpack', ...(isTypeScript ? ['karma-typescript'] : [])]
           return current
         }, {}),
