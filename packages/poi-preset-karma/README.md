@@ -47,6 +47,13 @@ Default: `['test/unit/**/*.test.js']`
 Type: `Array` `string`<br>
 Default: `['mocha']`
 
+### reporters
+
+Type: `Array` `string`<br>
+Default: `['mocha']`
+
+If you enable code coverage the `coverage` reporter will automatically be added as well.
+
 ### browsers
 
 Type: `Array` `string`<br>
@@ -100,9 +107,21 @@ This preset can also directly read Karma config from `karma` property in `poi.co
 // poi.config.js
 module.exports = {
   karma: {
-    frameworks: ['chai']
+    frameworks: ['mocha', 'chai']
   }
 }
 ```
 
-Then the `frameworks` we finally got would be `['mocha', 'chai']`.
+We use `Object.assign` to merge custom karma config with our default one.
+
+`karma` could also be a function, then we will use its return value as karma config:
+
+```js
+// poi.config.js
+module.exports = {
+  karma(config) {
+    config.reporters = ['nyancat']
+    return config
+  }
+}
+```

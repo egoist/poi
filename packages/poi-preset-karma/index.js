@@ -67,6 +67,9 @@ module.exports = (options = {}) => {
       const watch = inferValue('watch', false)
       const coverage = inferValue('coverage')
 
+      let reporters = inferValue('reporters', ['mocha'])
+      reporters = ensureArray(reporters).concat(coverage ? ['coverage'] : [])
+
       const defaultBrowser = inferValue('headless') ? 'ChromeHeadless' : 'Chrome'
       let browsers = inferValue('browsers') || defaultBrowser
       browsers = ensureArray(browsers)
@@ -77,7 +80,7 @@ module.exports = (options = {}) => {
         basePath: process.cwd(),
         files,
         proxies: { '/': '/base/static/' },
-        reporters: ['mocha'].concat(coverage ? ['coverage'] : []),
+        reporters,
         coverageReporter: {
           dir: 'coverage',
           reporters: [
@@ -101,7 +104,9 @@ module.exports = (options = {}) => {
 
       delete webpackConfig.entry
 
-      const karmaConfig = poi.merge(defaultConfig, poi.options.karma)
+      const karmaConfig = typeof poi.options.karma === 'function' ?
+        poi.options.karma(defaultConfig) :
+        Object.assign({}, defaultConfig, poi.options.karma)
       karmaConfig.webpack = webpackConfig
 
       const server = new Server(karmaConfig)
