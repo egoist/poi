@@ -23,8 +23,12 @@ module.exports = (options = {}) => {
       return fallback
     }
 
+    let isTypeScript = false
+
     poi.extendWebpack('test', config => {
       const coverage = inferValue('coverage')
+
+      isTypeScript = config.module.rules.has('typescript')
 
       if (coverage) {
         /* for general usage */
@@ -63,12 +67,15 @@ module.exports = (options = {}) => {
 
       let frameworks = inferValue('frameworks', ['mocha'])
       frameworks = ensureArray(frameworks)
+      frameworks = frameworks.concat(isTypeScript ? ['karma-typescript'] : [])
 
       const watch = inferValue('watch', false)
       const coverage = inferValue('coverage')
 
       let reporters = inferValue('reporters', ['mocha'])
-      reporters = ensureArray(reporters).concat(coverage ? ['coverage'] : [])
+      reporters = ensureArray(reporters)
+      reporters = reporters.concat(isTypeScript ? ['karma-typescript'] : [])
+      reporters = reporters.concat(coverage ? ['coverage'] : [])
 
       const defaultBrowser = inferValue('headless') ? 'ChromeHeadless' : 'Chrome'
       let browsers = inferValue('browsers') || defaultBrowser
@@ -91,7 +98,7 @@ module.exports = (options = {}) => {
         },
         preprocessors: files.reduce((current, next) => {
           const key = typeof next === 'object' && next.included !== false ? next.pattern : next
-          current[key] = ['webpack']
+          current[key] = ['webpack', ...(isTypeScript ? ['karma-typescript'] : [])]
           return current
         }, {}),
         webpackMiddleware: {
@@ -100,6 +107,15 @@ module.exports = (options = {}) => {
         },
         browsers,
         singleRun: !watch
+      }
+
+      if (isTypeScript) {
+        defaultConfig.karmaTypescriptConfig = {
+          tsconfig: './tsconfig.json',
+          compilerOptions: {
+            module: 'commonjs'
+          }
+        }
       }
 
       delete webpackConfig.entry
