@@ -332,7 +332,7 @@ module.exports = function ({
       copyOptions.push({
         from: path.resolve(cwd, staticFolder),
         to: '.',
-        ignore: ['.DS_Store']
+        ignore: ['.DS_Store', '.gitkeep']
       })
     }
     if (typeof copy === 'object') {
