@@ -13,7 +13,7 @@ exports.ownDir = function (...args) {
 }
 
 exports.getPublicPath = function (mode, homepage) {
-  if (mode === 'production' && homepage) {
+  if (mode === 'production' && homepage && homepage !== '') {
     return /\/$/.test(homepage) ? homepage : (homepage + '/')
   }
   return '/'
