@@ -125,3 +125,22 @@ module.exports = {
   }
 }
 ```
+
+### TypeScript support
+
+It works with [poi-preset-typescript](https://github.com/egoist/poi/tree/master/packages/poi-preset-typescript).
+
+```js
+// poi.config.js
+module.exports = {
+  presets: [
+    // The order matters!
+    require('poi-preset-typescript')(),
+    require('poi-preset-karma')()
+  ]
+}
+```
+
+## License
+
+MIT &copy; [EGOIST](https://github.com/egoist)
