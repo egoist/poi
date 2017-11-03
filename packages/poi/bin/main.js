@@ -41,6 +41,9 @@ cli.option('dist', {
 .option('templateCompiler', {
   desc: 'Use full build of Vue'
 })
+.option('jsx', {
+  desc: 'Specify JSX transformer, like "vue", "react" or any JSX pragma'
+})
 .option('noClear', {
   desc: 'Do not clear screen'
 })
