@@ -5,20 +5,18 @@ module.exports = () => {
       config.module.rule('js')
         .use('babel-loader')
         .tap(options => {
-          // Remove default vue-app preset
-          // When `babelrc` is false, we're using default babel config
-          if (options.babelrc === false) {
-            options.presets = []
-          }
-          return poi.merge(options, {
+          // When `babelrc` is not false, directly return user's babel options
+          if (options.babelrc !== false) return options
+
+          return {
             presets: [
-              require.resolve('babel-preset-react-app')
+              [options.presets[0][0], { jsx: 'react' }]
             ],
             plugins: [
               require.resolve('babel-plugin-react-require'),
               require.resolve('react-hot-loader/babel')
             ]
-          })
+          }
         })
 
       // Add entry

@@ -12,7 +12,6 @@
   ],
   "dependencies": {
     "babel-plugin-react-require": "^3.0.0",
-    "babel-preset-react-app": "^3.0.3",
     "react-hot-loader": "^3.1.1"
   },
   "devDependencies": {

@@ -42,7 +42,7 @@
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
-    "babel-preset-vue-app": "^1.2.0",
+    "babel-preset-poi": "^0.0.0",
     "cac": "^4.0.0",
     "case-sensitive-paths-webpack-plugin": "^2.0.0",
     "chalk": "^2.0.1",
