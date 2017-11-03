@@ -7,6 +7,9 @@
 - babel-macros
 - transform-runtime
 - syntax-dynamic-import
+- object-rest-spread
+
+> *Note*: it doesn't add any polyfills like polyfill for `Object.assign`, you need to do this yourself.
 
 ## API
 
