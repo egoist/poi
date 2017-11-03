@@ -27,7 +27,7 @@ module.exports = co.wrap(function * (options) {
     if (options.babel.babelrc === false) {
       // Use our default preset when no babelrc was found
       options.babel.presets = [
-        [require.resolve('babel-preset-vue-app'), { useBuiltIns: true }]
+        [require.resolve('babel-preset-poi'), { jsx: options.jsx || 'vue' }]
       ]
     }
   }
