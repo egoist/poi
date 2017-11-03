@@ -33,7 +33,7 @@ const App = () => <h1>Hello React.</h1>
 render(<App />, document.getElementById('app'))
 ```
 
-Note: You need to install `react` `react-dom` and set `jsx` option to `react`. For convenience, here's also [poi-preset-react](https://github.com/egoist/poi/tree/master/packages/poi-preset-react) which adds both React JSX and React HMR support.
+Note: You need to install `react` `react-dom` and add [`jsx: 'react'`](https://poi.js.org/#/options?id=jsx) in Poi's config file. For convenience, here's also [poi-preset-react](https://github.com/egoist/poi/tree/master/packages/poi-preset-react) which adds both React JSX and React HMR support.
 
 It's similar for other React-like framework.
 </details>
