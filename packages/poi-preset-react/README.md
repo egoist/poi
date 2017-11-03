@@ -23,3 +23,9 @@ module.exports = {
   ]
 }
 ```
+
+> *Note*: You **don't** need to set `jsx: 'react'` in config to use this preset.
+
+## License
+
+MIT &copy; [EGOIST](https://github.com/egoist)
