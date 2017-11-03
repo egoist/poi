@@ -13,11 +13,8 @@ exports.ownDir = function (...args) {
 }
 
 exports.getPublicPath = function (mode, homepage) {
-  if (homepage === '') {
-    return homepage
-  }
-  if (mode === 'production' && homepage) {
-    return /\/$/.test(homepage) ? homepage : (homepage + '/')
+  if (mode === 'production' && typeof homepage === 'string') {
+    return (/\/$/.test(homepage) || homepage === '') ? homepage : (homepage + '/')
   }
   return '/'
 }
