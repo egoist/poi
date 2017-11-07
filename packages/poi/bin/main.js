@@ -44,7 +44,7 @@ cli.option('dist', {
 .option('jsx', {
   desc: 'Specify JSX transformer, like "vue", "react" or any JSX pragma'
 })
-.option('noClear', {
+.option('no-clear', {
   desc: 'Do not clear screen'
 })
 .option('inspectOptions', {
@@ -53,8 +53,11 @@ cli.option('dist', {
 
 cli
   .command('build', 'Build app in production mode', createHandler('production'))
-  .option('generateStats', {
+  .option('generate-stats', {
     desc: 'Generate webpack stats for the bundle file'
+  })
+  .option('no-progress', {
+    desc: 'Disable progress bar'
   })
 
 cli

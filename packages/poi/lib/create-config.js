@@ -55,7 +55,8 @@ module.exports = function ({
   port,
   clear,
   inlineImageMaxSize = 10000,
-  staticFolder = 'static'
+  staticFolder = 'static',
+  progress
 } = {}) {
   const config = new Config()
 
@@ -241,13 +242,13 @@ module.exports = function ({
     const ProgressPlugin = require('webpack/lib/ProgressPlugin')
     const NoEmitOnErrorsPlugin = require('webpack/lib/NoEmitOnErrorsPlugin')
 
-    config
-      .plugin('no-emit-on-errors')
-        .use(NoEmitOnErrorsPlugin)
-        .end()
-      .plugin('progress-bar')
+    config.plugin('no-emit-on-errors')
+      .use(NoEmitOnErrorsPlugin)
+
+    if (progress !== false && !process.env.CI) {
+      config.plugin('progress-bar')
         .use(ProgressPlugin)
-        .end()
+    }
   }
 
   if (minimize) {
