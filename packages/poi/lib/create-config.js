@@ -9,6 +9,7 @@ const HtmlPlugin = require('html-webpack-plugin')
 const PathsCaseSensitivePlugin = require('case-sensitive-paths-webpack-plugin')
 const yarnGlobal = require('yarn-global')
 const FancyLogPlugin = require('./webpack/fancy-log-plugin')
+const TimeFixPlugin = require('./webpack/timefix-plugin')
 const webpackUtils = require('./webpack-utils')
 const {
   getFileNames,
@@ -191,6 +192,11 @@ module.exports = function ({
         .options({
           name: filename.fonts
         })
+
+  // Fix startTime before all other webpack plugins
+  // See https://github.com/webpack/watchpack/issues/25
+  config.plugin('timefix')
+    .use(TimeFixPlugin)
 
   // Enforces the entire path of all required modules match
   // The exact case of the actual path on disk
