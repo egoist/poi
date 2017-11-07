@@ -8,6 +8,7 @@ const co = require('co')
 const stripAnsi = require('strip-ansi')
 const tildify = require('tildify')
 const merge = require('lodash/merge')
+const chokidar = require('chokidar')
 const opn = require('opn')
 const loadPoiConfig = require('poi-load-config/poi')
 const AppError = require('../lib/app-error')
@@ -15,7 +16,7 @@ const { cwd, ownDir, unspecifiedAddress } = require('../lib/utils')
 const poi = require('../lib')
 const logger = require('../lib/logger')
 
-module.exports = co.wrap(function * (cliOptions) {
+module.exports = function (cliOptions) {
   const { inspectOptions } = cliOptions
   deleteExtraOptions(cliOptions, [
     '--',
@@ -29,62 +30,87 @@ module.exports = co.wrap(function * (cliOptions) {
 
   console.log(`> Running in ${cliOptions.mode} mode`)
 
-  let { path: configPath, config = {} } = yield loadPoiConfig({ config: cliOptions.config })
+  const start = co.wrap(function * () {
+    let { path: configPath, config = {} } = yield loadPoiConfig({ config: cliOptions.config })
 
-  if (configPath) {
-    console.log(`> Using external Poi config file`)
-    console.log(chalk.dim(`> location: "${tildify(configPath)}"`))
-    config = handleConfig(config, cliOptions)
-  } else if (cliOptions.config) {
-    throw new AppError('Config file was not found!')
-  }
-
-  const app = poi(merge(config, cliOptions))
-
-  yield app.prepare()
-
-  console.log(`> Bundling with Webpack ${require('webpack/package.json').version}`)
-
-  const { options } = app
-  if (inspectOptions) {
-    console.log('> Options:', util.inspect(options, { colors: true, depth: null }))
-  }
-
-  if (options.mode === 'production') {
-    console.log('> Creating an optimized production build:\n')
-    const stats = yield app.build()
-    if (options.generateStats) {
-      const statsFile = cwd(options.cwd, typeof options.generateStats === 'string' ? options.generateStats : 'stats.json')
-      console.log('> Generating webpack stats file')
-      fs.writeFileSync(statsFile, JSON.stringify(stats.toJson()), 'utf8')
-      console.log(chalk.dim(`> location: "${tildify(statsFile)}"`))
+    if (configPath) {
+      console.log(`> Using external Poi config file`)
+      console.log(chalk.dim(`> location: "${tildify(configPath)}"`))
+      config = handleConfig(config, cliOptions)
+    } else if (cliOptions.config) {
+      throw new AppError('Config file was not found!')
     }
-  } else if (options.mode === 'watch') {
-    yield app.watch()
-  } else if (options.mode === 'development') {
-    const { server, host, port } = yield app.dev()
 
-    server.listen(port, host)
-    .on('error', err => {
-      if (err.code === 'EADDRINUSE') {
-        return handleError(new AppError(`Port ${port} is already in use.\n\nYou can use another one by adding \`--port <port>\` or set it in config file.`))
-      }
-      handleError(err)
-    })
+    const app = poi(merge(config, cliOptions))
 
-    app.once('compile-done', () => {
-      if (options.open) {
-        opn(url.format({
-          protocol: 'http',
-          hostname: unspecifiedAddress(host) ? 'localhost' : host,
-          port
-        }))
+    yield app.prepare()
+
+    console.log(`> Bundling with Webpack ${require('webpack/package.json').version}`)
+
+    const { options } = app
+    if (inspectOptions) {
+      console.log('> Options:', util.inspect(options, { colors: true, depth: null }))
+    }
+
+    const watchFiles = ({ server, webpackWatcher }) => {
+      const filesToWatch = [].concat(configPath || []).concat(options.restartOnFileChanges || []).filter(v => typeof v === 'string')
+      if (filesToWatch.length > 0 && options.restartOnFileChanges !== false && (options.mode === 'development' || options.mode === 'watch' || cliOptions.watch)) {
+        const watcher = chokidar.watch(filesToWatch)
+        watcher.on('change', changed => {
+          console.log(chalk.yellow(`> Restarting due to file changes: ${tildify(changed)}`))
+          watcher.close()
+          if (server) {
+            server.close(() => start().catch(handleError))
+          } else if (webpackWatcher) {
+            webpackWatcher.close()
+            start().catch(handleError)
+          }
+        })
       }
-    })
-  } else if (options.mode === 'test') {
-    app.test().catch(handleError)
-  }
-})
+    }
+
+    // Handle different modes
+    if (options.mode === 'production') {
+      console.log('> Creating an optimized production build:\n')
+      const stats = yield app.build()
+      if (options.generateStats) {
+        const statsFile = cwd(options.cwd, typeof options.generateStats === 'string' ? options.generateStats : 'stats.json')
+        console.log('> Generating webpack stats file')
+        fs.writeFileSync(statsFile, JSON.stringify(stats.toJson()), 'utf8')
+        console.log(chalk.dim(`> location: "${tildify(statsFile)}"`))
+      }
+    } else if (options.mode === 'watch') {
+      const webpackWatcher = yield app.watch()
+      watchFiles({ webpackWatcher })
+    } else if (options.mode === 'development') {
+      const { server, host, port } = yield app.dev()
+
+      server.listen(port, host)
+      .on('error', err => {
+        if (err.code === 'EADDRINUSE') {
+          return handleError(new AppError(`Port ${port} is already in use.\n\nYou can use another one by adding \`--port <port>\` or set it in config file.`))
+        }
+        handleError(err)
+      })
+
+      app.once('compile-done', () => {
+        if (options.open) {
+          opn(url.format({
+            protocol: 'http',
+            hostname: unspecifiedAddress(host) ? 'localhost' : host,
+            port
+          }))
+        }
+      })
+
+      watchFiles({ server })
+    } else if (options.mode === 'test') {
+      app.test().catch(handleError)
+    }
+  })
+
+  return start()
+}
 
 module.exports.handleError = handleError
 

@@ -73,8 +73,18 @@ cli
     alias: 'o',
     desc: 'Open App after compiling'
   })
+  .option('restart-on-file-changes', {
+    alias: 'rs',
+    desc: 'Restart Poi on file changes'
+  })
 
-cli.command('watch', 'Run app in watch mode', createHandler('watch'))
+cli
+  .command('watch', 'Run app in watch mode', createHandler('watch'))
+  .option('restart-on-file-changes', {
+    alias: 'rs',
+    desc: 'Restart Poi on file changes'
+  })
+
 cli.command('test', 'Run app in test mode', createHandler('test'))
 
 cli.parse()
