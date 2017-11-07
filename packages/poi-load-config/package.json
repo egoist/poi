@@ -19,7 +19,7 @@
     "babel-core": "^6.24.1",
     "babel-load-config": "^1.0.0",
     "postcss-load-config": "^1.2.0",
-    "use-config": "^1.0.0"
+    "use-config": "^1.1.0"
   },
   "devDependencies": {
     "documentation": "^4.0.0-rc.1",
