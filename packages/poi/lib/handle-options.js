@@ -9,6 +9,14 @@ const { inferHTML, readPkg } = require('./utils')
 module.exports = co.wrap(function * (options) {
   const loadExternalConfig = new LoadExternalConfig({ cwd: options.cwd })
 
+  if (options.component) {
+    console.log('> Bundling component')
+    options.format = 'cjs'
+    options.html = false
+    options.sourceMap = false
+    delete options.component
+  }
+
   if (options.babel === undefined) {
     const { useConfig, file } = yield loadExternalConfig.babel(buildConfigChain)
     if (useConfig) {

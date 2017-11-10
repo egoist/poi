@@ -1,6 +1,10 @@
 import path from 'path'
 import poi from '../lib'
 
+const HtmlPlugin = require('html-webpack-plugin')
+
+jest.mock('webpack-node-externals', () => jest.fn().mockReturnValue(['externals']))
+
 const oldCwd = process.cwd()
 
 beforeAll(() => {
@@ -195,6 +199,23 @@ describe('get webpack config', () => {
       const config = app.getWebpackConfig()
 
       expect(config.entry.foo).toEqual(['foo', 'bar'])
+    })
+  })
+
+  describe('build component', () => {
+    it('respects component option', async () => {
+      const app = poi({
+        component: true,
+        format: 'cjs'
+      })
+
+      await app.prepare()
+      const config = app.getWebpackConfig()
+
+      expect(config.output.libraryTarget).toBe('commonjs2')
+      expect(config.externals).toEqual([['externals'], 'vue', 'babel-runtime'])
+      expect(config.plugins.find(v => v instanceof HtmlPlugin)).toBeUndefined()
+      expect(config.devtool).toBeUndefined()
     })
   })
 })

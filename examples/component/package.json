@@ -1,0 +1,9 @@
+{
+  "name": "poi-example-component",
+  "scripts": {
+    "build": "poi build --component"
+  },
+  "devDependencies": {
+    "poi": "^9.3.10"
+  }
+}
