@@ -11,7 +11,9 @@ module.exports = co.wrap(function * (options) {
 
   if (options.component) {
     console.log('> Bundling component')
-    options.format = 'cjs'
+
+    options.format = typeof options.component === 'string' ? options.component : 'cjs'
+
     options.html = false
     options.sourceMap = false
     delete options.component

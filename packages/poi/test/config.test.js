@@ -1,8 +1,6 @@
 import path from 'path'
 import poi from '../lib'
 
-const HtmlPlugin = require('html-webpack-plugin')
-
 jest.mock('webpack-node-externals', () => jest.fn().mockReturnValue(['externals']))
 
 const oldCwd = process.cwd()
@@ -203,10 +201,11 @@ describe('get webpack config', () => {
   })
 
   describe('build component', () => {
-    it('respects component option', async () => {
+    const HtmlPlugin = require('html-webpack-plugin')
+
+    it('defaults to cjs', async () => {
       const app = poi({
-        component: true,
-        format: 'cjs'
+        component: true
       })
 
       await app.prepare()
@@ -216,6 +215,58 @@ describe('get webpack config', () => {
       expect(config.externals).toEqual([['externals'], 'vue', 'babel-runtime'])
       expect(config.plugins.find(v => v instanceof HtmlPlugin)).toBeUndefined()
       expect(config.devtool).toBeUndefined()
+    })
+
+    it('allows cjs', async () => {
+      const app = poi({
+        component: 'cjs'
+      })
+
+      await app.prepare()
+      const config = app.getWebpackConfig()
+
+      expect(config.output.libraryTarget).toBe('commonjs2')
+      expect(config.externals).toEqual([['externals'], 'vue', 'babel-runtime'])
+      expect(config.plugins.find(v => v instanceof HtmlPlugin)).toBeUndefined()
+      expect(config.devtool).toBeUndefined()
+    })
+
+    it('allows umd', async () => {
+      const app = poi({
+        component: 'umd',
+        moduleName: 'MyComponent'
+      })
+
+      await app.prepare()
+      const config = app.getWebpackConfig()
+
+      expect(config.output.libraryTarget).toBe('umd')
+      expect(config.plugins.find(v => v instanceof HtmlPlugin)).toBeUndefined()
+      expect(config.devtool).toBeUndefined()
+    })
+
+    it('requires umd to have module name', () => {
+      const app = poi({
+        component: 'umd'
+      })
+
+      expect.assertions(1)
+
+      return app.prepare().catch(err => {
+        expect(err).toEqual(new Error('umd reguires moduleName'))
+      })
+    })
+
+    it('throws on bad formats', () => {
+      const app = poi({
+        component: 'busted'
+      })
+
+      expect.assertions(1)
+
+      return app.prepare().catch(err => {
+        expect(err).toEqual(new Error('invalid format: busted'))
+      })
     })
   })
 })
