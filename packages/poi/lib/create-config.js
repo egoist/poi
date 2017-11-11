@@ -227,10 +227,7 @@ module.exports = function ({
     config.output.libraryTarget('commonjs2')
     webpackUtils.externalize(config)
   } else if (format === 'umd') {
-    if (typeof moduleName !== 'string') throw new TypeError('umd reguires moduleName')
     config.output.libraryTarget('umd').library(moduleName)
-  } else if (typeof format === 'string') {
-    throw new TypeError(`invalid format: ${format}`)
   }
 
   if (extractCSS) {

@@ -217,56 +217,17 @@ describe('get webpack config', () => {
       expect(config.devtool).toBeUndefined()
     })
 
-    it('allows cjs', async () => {
-      const app = poi({
-        component: 'cjs'
-      })
-
-      await app.prepare()
-      const config = app.getWebpackConfig()
-
-      expect(config.output.libraryTarget).toBe('commonjs2')
-      expect(config.externals).toEqual([['externals'], 'vue', 'babel-runtime'])
-      expect(config.plugins.find(v => v instanceof HtmlPlugin)).toBeUndefined()
-      expect(config.devtool).toBeUndefined()
-    })
-
     it('allows umd', async () => {
       const app = poi({
-        component: 'umd',
-        moduleName: 'MyComponent'
+        component: 'LibraryName'
       })
 
       await app.prepare()
       const config = app.getWebpackConfig()
 
       expect(config.output.libraryTarget).toBe('umd')
+      expect(config.output.library).toBe('LibraryName')
       expect(config.plugins.find(v => v instanceof HtmlPlugin)).toBeUndefined()
-      expect(config.devtool).toBeUndefined()
-    })
-
-    it('requires umd to have module name', () => {
-      const app = poi({
-        component: 'umd'
-      })
-
-      expect.assertions(1)
-
-      return app.prepare().catch(err => {
-        expect(err).toEqual(new Error('umd reguires moduleName'))
-      })
-    })
-
-    it('throws on bad formats', () => {
-      const app = poi({
-        component: 'busted'
-      })
-
-      expect.assertions(1)
-
-      return app.prepare().catch(err => {
-        expect(err).toEqual(new Error('invalid format: busted'))
-      })
     })
   })
 })

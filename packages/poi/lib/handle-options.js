@@ -12,7 +12,12 @@ module.exports = co.wrap(function * (options) {
   if (options.component) {
     console.log('> Bundling component')
 
-    options.format = typeof options.component === 'string' ? options.component : 'cjs'
+    if (typeof options.component === 'string') {
+      options.format = 'umd'
+      options.moduleName = options.component
+    } else {
+      options.format = 'cjs'
+    }
 
     options.html = false
     options.sourceMap = false
