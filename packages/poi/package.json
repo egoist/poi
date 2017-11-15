@@ -19,6 +19,7 @@
   "bin": "bin/cli.js",
   "scripts": {
     "test": "jest",
+    "test:watch": "jest --watch",
     "lint": "xo",
     "lint:fix": "xo --fix"
   },
