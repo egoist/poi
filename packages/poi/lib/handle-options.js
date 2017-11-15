@@ -1,16 +1,28 @@
+const path = require('path')
 const co = require('co')
 const chalk = require('chalk')
 const LoadExternalConfig = require('poi-load-config')
 const tildify = require('tildify')
+const kebabCase = require('lodash/kebabCase')
 const buildConfigChain = require('babel-core/lib/transformation/file/options/build-config-chain')
 
 const { inferHTML, readPkg } = require('./utils')
+
+function getComponentFilename(component) {
+  return kebabCase(typeof component === 'string' ? component : path.basename(process.cwd()))
+}
 
 module.exports = co.wrap(function * (options) {
   const loadExternalConfig = new LoadExternalConfig({ cwd: options.cwd })
 
   if (options.component) {
-    console.log('> Bundling component')
+    const format = typeof options.component === 'string' ? 'UMD' : 'CommonJS'
+    console.log(`> Bundling component in ${format} format`)
+    const componentFilename = getComponentFilename(options.component)
+    options.filename = Object.assign({
+      js: `${componentFilename}.js`,
+      css: `${componentFilename}.css`
+    }, options.filename)
 
     if (typeof options.component === 'string') {
       options.format = 'umd'
