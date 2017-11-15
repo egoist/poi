@@ -1,7 +1,7 @@
 import path from 'path'
 import poi from '../lib'
 
-jest.mock('webpack-node-externals', () => jest.fn().mockReturnValue(['externals']))
+jest.mock('poi-webpack-node-externals', () => jest.fn().mockReturnValue(['externals']))
 
 const oldCwd = process.cwd()
 

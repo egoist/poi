@@ -1,4 +1,4 @@
-const nodeExternals = require('webpack-node-externals')
+const nodeExternals = require('poi-webpack-node-externals')
 const { createSet } = require('./utils')
 
 const _ = module.exports = {}
