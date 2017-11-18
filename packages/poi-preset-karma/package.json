@@ -1,6 +1,6 @@
 {
   "name": "poi-preset-karma",
-  "version": "9.2.1",
+  "version": "9.2.2",
   "scripts": {
     "example": "poi test"
   },
