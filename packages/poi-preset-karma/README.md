@@ -130,6 +130,8 @@ module.exports = {
 
 It works with [poi-preset-typescript](https://github.com/egoist/poi/tree/master/packages/poi-preset-typescript).
 
+You need to install `karma-typescript` and `typescript` locally in your project first, and configure `poi-preset-typescript`:
+
 ```js
 // poi.config.js
 module.exports = {
