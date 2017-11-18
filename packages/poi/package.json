@@ -1,6 +1,6 @@
 {
   "name": "poi",
-  "version": "9.5.1",
+  "version": "9.5.2",
   "description": "Fast prototype and distribute modern web apps like a pro.",
   "repository": {
     "url": "egoist/poi",
@@ -19,6 +19,7 @@
   "bin": "bin/cli.js",
   "scripts": {
     "test": "jest",
+    "test:watch": "jest --watch",
     "lint": "xo",
     "lint:fix": "xo --fix"
   },
@@ -65,6 +66,7 @@
     "parse-json-config": "^0.2.0",
     "poi-dev-utils": "^1.0.1",
     "poi-load-config": "^1.1.2",
+    "poi-webpack-node-externals": "^2.0.0",
     "post-compile-webpack-plugin": "^0.1.1",
     "postcss-loader": "^2.0.6",
     "rimraf": "^2.6.1",
@@ -81,7 +83,6 @@
     "webpack-dev-server": "^2.9.2",
     "webpack-handle-css-loader": "^2.0.1",
     "webpack-merge": "^4.1.0",
-    "webpack-node-externals": "^1.6.0",
     "yargs": "^9.0.1",
     "yarn-global": "^1.1.0"
   },

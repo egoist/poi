@@ -1,6 +1,8 @@
 import path from 'path'
 import poi from '../lib'
 
+jest.mock('poi-webpack-node-externals', () => jest.fn().mockReturnValue(['externals']))
+
 const oldCwd = process.cwd()
 
 beforeAll(() => {
@@ -195,6 +197,37 @@ describe('get webpack config', () => {
       const config = app.getWebpackConfig()
 
       expect(config.entry.foo).toEqual(['foo', 'bar'])
+    })
+  })
+
+  describe('build component', () => {
+    const HtmlPlugin = require('html-webpack-plugin')
+
+    it('defaults to cjs', async () => {
+      const app = poi({
+        component: true
+      })
+
+      await app.prepare()
+      const config = app.getWebpackConfig()
+
+      expect(config.output.libraryTarget).toBe('commonjs2')
+      expect(config.externals).toEqual([['externals'], 'vue', 'babel-runtime'])
+      expect(config.plugins.find(v => v instanceof HtmlPlugin)).toBeUndefined()
+      expect(config.devtool).toBeUndefined()
+    })
+
+    it('allows umd', async () => {
+      const app = poi({
+        component: 'LibraryName'
+      })
+
+      await app.prepare()
+      const config = app.getWebpackConfig()
+
+      expect(config.output.libraryTarget).toBe('umd')
+      expect(config.output.library).toBe('LibraryName')
+      expect(config.plugins.find(v => v instanceof HtmlPlugin)).toBeUndefined()
     })
   })
 })
