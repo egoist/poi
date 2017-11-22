@@ -68,9 +68,13 @@ module.exports = co.wrap(function * (options) {
     }
   }
 
-  if (options.html === undefined) {
-    console.log(`> Using inferred value from package.json for HTML file`)
-    options.html = inferHTML(options)
+  const defaultHtmlOption = inferHTML(options)
+  if (Array.isArray(options.html)) {
+    options.html = options.html.map(v => Object.assign({}, defaultHtmlOption, v))
+  } else if (typeof options.html === 'object') {
+    options.html = Object.assign({}, defaultHtmlOption, options.html)
+  } else if (typeof options.html === 'undefined') {
+    options.html = defaultHtmlOption
   }
 
   if (options.entry === undefined && !options.format) {
