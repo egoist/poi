@@ -21,6 +21,8 @@ module.exports = (ctx, {
   ]
 
   const plugins = [
+    require.resolve('babel-plugin-transform-decorators-legacy'),
+    require.resolve('babel-plugin-transform-class-properties'),
     require.resolve('babel-macros'),
     [require.resolve('babel-plugin-transform-runtime'), {
       helpers: false,
