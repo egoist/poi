@@ -8,6 +8,8 @@
 - transform-runtime
 - syntax-dynamic-import
 - object-rest-spread
+- decorators-legacy
+- class-properties
 
 > *Note*: it doesn't add any polyfills like polyfill for `Object.assign`, you need to do this yourself.
 
