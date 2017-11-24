@@ -84,17 +84,9 @@ poi build src/my-entry.js # production
 
 **For full documentation, please head to https://poi.js.org**
 
-## Who is using Poi?
+## Resources
 
-- [codepan](https://github.com/egoist/codepan) - Like codepen and jsbin but works offline.
-- [jsx-editor](https://github.com/egoist/jsx-editor) - JSX Live Editor.
-- [vstar](https://github.com/sinchang/vstar) - A simple web app to show your or others GitHub repos stars.
-- [npmarket](https://github.com/qingwei-li/npmarket) - More efficient search for node packages.
-- [sublog](https://github.com/sinchang/sublog) - Build a static blog website from GitHub Issues.
-- [emoji.js.org](https://emoji.js.org) - Unfancy emoji searcher.
-- [ANII](https://github.com/egoist/anii) - A minimalistic web video player.
-- [WhyVote.us](http://whyvote.us) - Info about the American presidential voting system.
-- Feel free to submit yours via pull request :D
+Check out [awesome-poi](https://github.com/egoist/awesome-poi), a curated list of awesome Poi resources.
 
 ## FAQ
 
