@@ -18,9 +18,9 @@ module.exports = {
 }
 ```
 
-By default this preset is only activated in default command, a.k.a. production mode.
+By default this preset is only activated in `poi build`.
 
-To config eslint, you can set `eslintConfig` in `package.json` or use a standalone config file like `.eslintrc`.
+To configure eslint, you can set `eslintConfig` in `package.json` or use a standalone config file like `.eslintrc`.
 
 ## API
 
