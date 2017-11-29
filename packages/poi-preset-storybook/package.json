@@ -6,19 +6,18 @@
     "lib"
   ],
   "scripts": {
-    "example": "poi --storybook",
-    "example:build": "poi build --storybook"
-  },
-  "poi": {
-    "entry": [
-      "example/index.js",
-      "example/addons.js"
-    ],
-    "presets": "./lib/index.js"
+    "example-vue": "poi --config example-vue/poi.config.js --storybook",
+    "example-vue:build": "poi build --config example-vue/poi.config.js --storybook",
+    "example-react": "poi --config example-react/poi.config.js --storybook",
+    "example-react:build": "poi build --config example-react/poi.config.js --storybook"
   },
   "license": "MIT",
   "devDependencies": {
     "@storybook/addon-actions": "^3.2.13",
+    "poi-preset-react": "^9.2.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "storybook-react": "^3.2.15",
     "storybook-vue": "^3.2.13"
   }
 }

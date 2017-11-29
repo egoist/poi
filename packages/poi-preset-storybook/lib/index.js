@@ -30,7 +30,11 @@ module.exports = ({
   poi.extendWebpack(config => {
     const entry = [...config.entry('client').store]
     config.entryPoints.delete('client')
-    const addonsIndex = poi.options.mode === 'development' ? 2 : 1
+    const isReactHot = entry[0].indexOf('react-hot-loader/patch') > 0
+    let addonsIndex = poi.options.mode === 'development' ? 2 : 1
+    if (isReactHot) {
+      addonsIndex++
+    }
     config.entry('iframe').merge(entry.slice(0, addonsIndex))
     if (entry[addonsIndex]) {
       config.entry('manager').add(path.resolve(entry[addonsIndex]))
