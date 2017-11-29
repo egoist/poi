@@ -53,9 +53,7 @@ class Poi extends EventEmitter {
         this.addWebpackFlow(config => {
           config.plugin('compile-notifier')
             .use(PostCompilePlugin, [stats => {
-              if (this.options.mode === 'development' || this.options.mode === 'watch') {
-                this.emit('compile-done', stats)
-              }
+              this.emit('compile-done', stats)
             }])
         })
         if (this.options.extendWebpack) {
