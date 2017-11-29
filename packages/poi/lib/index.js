@@ -107,10 +107,6 @@ class Poi extends EventEmitter {
       })
   }
 
-  test() {
-    return this.runMiddlewares()
-  }
-
   createCompiler(webpackConfig = this.getWebpackConfig()) {
     this.compiler = webpack(webpackConfig)
     if (this.options.inMemory) {

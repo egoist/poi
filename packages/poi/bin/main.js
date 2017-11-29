@@ -90,4 +90,6 @@ cli
 
 cli.command('test', 'Run app in test mode', createHandler('test'))
 
+cli.command('deploy', 'Deploy dist folder', createHandler('deploy'))
+
 cli.parse()

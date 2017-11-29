@@ -104,8 +104,12 @@ module.exports = function (cliOptions) {
       })
 
       watchFiles({ server })
-    } else if (options.mode === 'test') {
-      app.test().catch(handleError)
+    } else if (typeof options.mode === 'string') {
+      if (app.middlewares.length === 0) {
+        console.log('> Please use this command with Poi presets')
+      } else {
+        app.runMiddlewares().catch(handleError)
+      }
     }
   })
 
