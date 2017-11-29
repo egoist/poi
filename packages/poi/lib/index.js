@@ -144,6 +144,8 @@ class Poi extends EventEmitter {
       isMode: this.isMode.bind(this),
       run: this.addMiddleware.bind(this),
       extendWebpack: this.addWebpackFlow.bind(this),
+      on: this.on.bind(this),
+      once: this.once.bind(this),
       options: this.options,
       argv: this.options.argv,
       manifest: this.manifest,
