@@ -82,6 +82,12 @@ poi src/my-entry.js # development
 poi build src/my-entry.js # production
 ```
 
+Note: If you've installed poi locally, you run poi commands through yarn (or npx) like this:
+
+```bash
+yarn poi build
+```
+
 **For full documentation, please head to https://poi.js.org**
 
 ## Resources
