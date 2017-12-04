@@ -14,9 +14,9 @@ Install *Poi*:
 
 ```bash
 # Either globally
-yarn global add poi
+npm i -g poi
 # Or locally (preferred)
-yarn add poi --dev
+npm i poi -D
 ```
 
 Then populating an `index.js` and writing with your favorite framework like one of:
@@ -72,15 +72,17 @@ So far we get:
 Build app in production mode (optimized and minified):
 
 ```bash
-poi build
+npx poi build
 ```
 
 To change the path of entry file:
 
 ```bash
-poi src/my-entry.js # development
-poi build src/my-entry.js # production
+npx poi src/my-entry.js # development
+npx poi build src/my-entry.js # production
 ```
+
+*Note that you don't need the `npx` prefix while using `poi` in npm scripts.*
 
 **For full documentation, please head to https://poi.js.org**
 
