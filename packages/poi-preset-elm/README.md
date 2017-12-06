@@ -6,6 +6,10 @@ Use Poi to build your Elm apps.
 
 ```bash
 yarn add poi-preset-elm --dev
+
+# Recommended to install `elm` locally too
+# But it's optional if you have installed it globally
+yarn add elm --dev
 ```
 
 ## Usage
