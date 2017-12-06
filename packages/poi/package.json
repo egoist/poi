@@ -1,6 +1,6 @@
 {
   "name": "poi",
-  "version": "9.5.6",
+  "version": "9.5.7",
   "description": "Fast prototype and distribute modern web apps like a pro.",
   "repository": {
     "url": "egoist/poi",
@@ -43,7 +43,7 @@
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
-    "babel-preset-poi": "^1.1.0",
+    "babel-preset-poi": "^1.1.1",
     "cac": "^4.0.0",
     "case-sensitive-paths-webpack-plugin": "^2.0.0",
     "chalk": "^2.0.1",
