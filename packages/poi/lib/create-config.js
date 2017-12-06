@@ -194,10 +194,12 @@ module.exports = function ({
           name: filename.fonts
         })
 
-  // Fix startTime before all other webpack plugins
-  // See https://github.com/webpack/watchpack/issues/25
-  config.plugin('timefix')
+  if (mode === 'development' || mode === 'watch') {
+    // Fix startTime before all other webpack plugins
+    // See https://github.com/webpack/watchpack/issues/25
+    config.plugin('timefix')
     .use(TimeFixPlugin)
+  }
 
   // Enforces the entire path of all required modules match
   // The exact case of the actual path on disk

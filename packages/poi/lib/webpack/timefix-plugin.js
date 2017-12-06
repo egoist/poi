@@ -5,12 +5,15 @@ module.exports = class TimeFixPlugin {
 
   apply(compiler) {
     compiler.plugin('watch-run', (watching, callback) => {
+      this.hasWatcher = true
       watching.startTime += this.timefix
       callback()
     })
 
     compiler.plugin('done', stats => {
-      stats.startTime -= this.timefix
+      if (this.hasWatcher) {
+        stats.startTime -= this.timefix
+      }
     })
   }
 }
