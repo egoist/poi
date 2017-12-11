@@ -1,6 +1,6 @@
 {
   "name": "poi-preset-storybook",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -14,7 +14,7 @@
   "license": "MIT",
   "devDependencies": {
     "@storybook/addon-actions": "^3.2.13",
-    "poi-preset-react": "^9.2.0",
+    "poi-preset-react": "^9.2.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "storybook-react": "^3.2.15",
