@@ -2,9 +2,7 @@
 
 ## Features
 
-- Switched to React JSX, plus:
-  - [babel-plugin-react-require](https://github.com/vslinko/babel-plugin-react-require) to add React import declaration if file contains JSX tags.
-  - You can override the defaults with a `.babelrc` file.
+- Support React JSX by default
 - react-hot-loader@3
 
 ## Install

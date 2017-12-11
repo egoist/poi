@@ -13,7 +13,6 @@ module.exports = () => {
               [options.presets[0][0], { jsx: 'react' }]
             ],
             plugins: [
-              require.resolve('babel-plugin-react-require'),
               require.resolve('react-hot-loader/babel')
             ]
           }
