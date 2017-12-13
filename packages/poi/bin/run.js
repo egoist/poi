@@ -12,7 +12,7 @@ const chokidar = require('chokidar')
 const opn = require('opn')
 const loadPoiConfig = require('poi-load-config/poi')
 const AppError = require('../lib/app-error')
-const { cwd, ownDir, unspecifiedAddress, readPkg } = require('../lib/utils')
+const { cwd, ownDir, unspecifiedAddress, readPkg, deleteCache } = require('../lib/utils')
 const poi = require('../lib')
 const logger = require('../lib/logger')
 
@@ -31,6 +31,8 @@ module.exports = function (cliOptions) {
   console.log(`> Running in ${cliOptions.mode} mode`)
 
   const start = co.wrap(function * () {
+    deleteCache()
+
     let explictConfigFile = cliOptions.config
     const poiField = readPkg().poi
     if (!explictConfigFile && poiField && typeof poiField === 'string') {
