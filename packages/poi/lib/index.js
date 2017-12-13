@@ -27,45 +27,54 @@ function runWebpack(compiler) {
 class Poi extends EventEmitter {
   constructor(options) {
     super()
-    this.options = Object.assign({
-      cwd: '.',
-      argv: yargs.argv,
-      // Required for cloud IDE like cloud9
-      host: process.env.HOST || '0.0.0.0',
-      port: process.env.PORT || 4000
-    }, options)
+    this.options = Object.assign(
+      {
+        cwd: '.',
+        argv: yargs.argv,
+        // Required for cloud IDE like cloud9
+        host: process.env.HOST || '0.0.0.0',
+        port: process.env.PORT || 4000
+      },
+      options
+    )
 
     if (!process.env.NODE_ENV) {
       // env could be `production` `development` `test`
-      process.env.NODE_ENV = this.options.mode === 'watch' ? 'development' : this.options.mode
+      process.env.NODE_ENV =
+        this.options.mode === 'watch' ? 'development' : this.options.mode
     }
+
+    this.manifest = readPkg()
+    this.middlewares = []
+    this.webpackFlows = []
   }
 
+  /*
+  Load everything that's required for creating our webpack config
+  */
   prepare() {
-    return handleOptions(this.options)
-      .then(options => {
-        this.options = options
-        this.manifest = readPkg()
-        this.middlewares = []
-        this.webpackFlows = []
-
-        this.usePresets()
-        this.addWebpackFlow(config => {
-          config.plugin('compile-notifier')
-            .use(PostCompilePlugin, [stats => {
-              this.emit('compile-done', stats)
-            }])
-        })
-        if (this.options.extendWebpack) {
-          this.addWebpackFlow(this.options.extendWebpack)
-        }
-
-        this.webpackConfig = createConfig(this.options)
-        this.webpackFlows.forEach(flow => flow(this.webpackConfig))
-      })
+    return handleOptions(this.options).then(options => {
+      this.options = options
+    })
   }
 
-  getWebpackConfig() {
+  createWebpackConfig() {
+    if (this.webpackConfig) return this.webpackConfig.toConfig()
+
+    this.usePresets()
+    this.addWebpackFlow(config => {
+      config.plugin('compile-notifier').use(PostCompilePlugin, [
+        stats => {
+          this.emit('compile-done', stats)
+        }
+      ])
+    })
+    if (this.options.extendWebpack) {
+      this.addWebpackFlow(this.options.extendWebpack)
+    }
+
+    this.webpackConfig = createConfig(this.options)
+    this.webpackFlows.forEach(flow => flow(this.webpackConfig))
     const config = this.webpackConfig.toConfig()
     if (this.options.webpack) {
       return typeof this.options.webpack === 'function' ?
@@ -76,12 +85,15 @@ class Poi extends EventEmitter {
   }
 
   build() {
-    return this.runMiddlewares()
-      .then(() => {
-        this.createCompiler()
+    return this.prepare()
+      .then(() => this.runMiddlewares())
+      .then(webpackConfig => {
+        this.createCompiler(webpackConfig)
         const { filename, path: outputPath } = this.compiler.options.output
         // Only remove dist file when name contains hash
-        const implicitlyRemoveDist = this.options.removeDist !== false && /\[(chunk)?hash:?\d?\]/.test(filename)
+        const implicitlyRemoveDist =
+          this.options.removeDist !== false &&
+          /\[(chunk)?hash:?\d?\]/.test(filename)
         if (this.options.removeDist === true || implicitlyRemoveDist) {
           return promisify(rm)(path.join(outputPath, '*'))
         }
@@ -90,22 +102,24 @@ class Poi extends EventEmitter {
   }
 
   watch() {
-    return this.runMiddlewares()
-      .then(() => {
-        this.createCompiler()
+    return this.prepare()
+      .then(() => this.runMiddlewares())
+      .then(webpackConfig => {
+        this.createCompiler(webpackConfig)
         return this.compiler.watch({}, () => {})
       })
   }
 
   dev() {
-    return this.runMiddlewares()
-      .then(() => {
-        this.createCompiler()
+    return this.prepare()
+      .then(() => this.runMiddlewares())
+      .then(webpackConfig => {
+        this.createCompiler(webpackConfig)
         return createServer(this.compiler, this.options)
       })
   }
 
-  createCompiler(webpackConfig = this.getWebpackConfig()) {
+  createCompiler(webpackConfig) {
     this.compiler = webpack(webpackConfig)
     if (this.options.inMemory) {
       this.compiler.outputFileSystem = new MemoryFS()
@@ -170,11 +184,12 @@ class Poi extends EventEmitter {
 
   runMiddlewares() {
     return new Promise((resolve, reject) => {
+      const webpackConfig = this.createWebpackConfig()
       ware()
         .use(this.middlewares)
-        .run(this.getWebpackConfig(), err => {
+        .run(webpackConfig, err => {
           if (err) return reject(err)
-          resolve()
+          resolve(webpackConfig)
         })
     })
   }

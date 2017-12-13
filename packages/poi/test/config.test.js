@@ -19,7 +19,7 @@ describe('get webpack config', () => {
       const app = poi()
 
       await app.prepare()
-      const config = app.getWebpackConfig()
+      const config = app.createWebpackConfig()
 
       expect(config.entry)
         .toEqual({
@@ -37,7 +37,7 @@ describe('get webpack config', () => {
 
       const [a, b, c, d] = await Promise.all(entries.map(entry => {
         const app = poi({ entry })
-        return app.prepare().then(() => app.getWebpackConfig())
+        return app.prepare().then(() => app.createWebpackConfig())
       }))
 
       expect(a.entry.client)
@@ -59,7 +59,7 @@ describe('get webpack config', () => {
         mode: 'development'
       })
       await app.prepare()
-      const config = app.getWebpackConfig()
+      const config = app.createWebpackConfig()
 
       expect(config.entry.client)
         .toEqual([
@@ -78,7 +78,7 @@ describe('get webpack config', () => {
         hotEntry: ['foo', 'bar']
       })
       await app.prepare()
-      const config = app.getWebpackConfig()
+      const config = app.createWebpackConfig()
 
       expect(config.entry.foo)
         .toEqual([
@@ -98,7 +98,7 @@ describe('get webpack config', () => {
     it('default dir', async () => {
       const app = poi()
       await app.prepare()
-      const config = app.getWebpackConfig()
+      const config = app.createWebpackConfig()
 
       expect(config.output.path).toBe(path.resolve('dist'))
     })
@@ -106,7 +106,7 @@ describe('get webpack config', () => {
     it('custom dir', async () => {
       const app = poi({ dist: 'foo/bar' })
       await app.prepare()
-      const config = app.getWebpackConfig()
+      const config = app.createWebpackConfig()
 
       expect(config.output.path).toBe(path.resolve('foo/bar'))
     })
@@ -116,10 +116,10 @@ describe('get webpack config', () => {
     it('copy existing static folder', async () => {
       const app = poi()
       await app.prepare()
-      const config = app.webpackConfig
+      app.createWebpackConfig()
 
-      expect(config.plugins.has('copy-static-files')).toBe(true)
-      expect(config.plugins.get('copy-static-files').get('args')[0].length)
+      expect(app.webpackConfig.plugins.has('copy-static-files')).toBe(true)
+      expect(app.webpackConfig.plugins.get('copy-static-files').get('args')[0].length)
         .toBe(1)
     })
 
@@ -128,9 +128,9 @@ describe('get webpack config', () => {
         copy: {}
       })
       await app.prepare()
-      const config = app.webpackConfig
+      app.createWebpackConfig()
 
-      expect(config.plugins.get('copy-static-files').get('args')[0].length)
+      expect(app.webpackConfig.plugins.get('copy-static-files').get('args')[0].length)
         .toBe(2)
     })
 
@@ -139,9 +139,9 @@ describe('get webpack config', () => {
         copy: [{}, {}]
       })
       await app.prepare()
-      const config = app.webpackConfig
+      app.createWebpackConfig()
 
-      expect(config.plugins.get('copy-static-files').get('args')[0].length)
+      expect(app.webpackConfig.plugins.get('copy-static-files').get('args')[0].length)
         .toBe(3)
     })
 
@@ -150,9 +150,9 @@ describe('get webpack config', () => {
         copy: false
       })
       await app.prepare()
-      const config = app.webpackConfig
+      app.createWebpackConfig()
 
-      expect(config.plugins.has('copy-static-files'))
+      expect(app.webpackConfig.plugins.has('copy-static-files'))
         .toBe(false)
     })
   })
@@ -170,7 +170,7 @@ describe('get webpack config', () => {
         presets: preset
       })
       await app.prepare()
-      const config = app.getWebpackConfig()
+      const config = app.createWebpackConfig()
 
       expect(config.entry.foo).toEqual([path.resolve('foo', 'haha.js')])
     })
@@ -194,7 +194,7 @@ describe('get webpack config', () => {
         presets
       })
       await app.prepare()
-      const config = app.getWebpackConfig()
+      const config = app.createWebpackConfig()
 
       expect(config.entry.foo).toEqual(['foo', 'bar'])
     })
@@ -209,7 +209,7 @@ describe('get webpack config', () => {
       })
 
       await app.prepare()
-      const config = app.getWebpackConfig()
+      const config = app.createWebpackConfig()
 
       expect(config.output.libraryTarget).toBe('commonjs2')
       expect(config.externals).toEqual([['externals'], 'vue', 'babel-runtime'])
@@ -223,7 +223,7 @@ describe('get webpack config', () => {
       })
 
       await app.prepare()
-      const config = app.getWebpackConfig()
+      const config = app.createWebpackConfig()
 
       expect(config.output.libraryTarget).toBe('umd')
       expect(config.output.library).toBe('LibraryName')

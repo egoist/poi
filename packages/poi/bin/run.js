@@ -43,8 +43,6 @@ module.exports = function (cliOptions) {
 
     const app = poi(merge(config, cliOptions))
 
-    yield app.prepare()
-
     console.log(`> Bundling with Webpack ${require('webpack/package.json').version}`)
 
     const { options } = app
@@ -105,10 +103,10 @@ module.exports = function (cliOptions) {
 
       watchFiles({ server })
     } else if (typeof options.mode === 'string') {
+      yield app.prepare()
+      yield app.runMiddlewares()
       if (app.middlewares.length === 0) {
         console.log('> Please use this command with Poi presets')
-      } else {
-        app.runMiddlewares().catch(handleError)
       }
     }
   })
