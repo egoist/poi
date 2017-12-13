@@ -12,7 +12,7 @@ const chokidar = require('chokidar')
 const opn = require('opn')
 const loadPoiConfig = require('poi-load-config/poi')
 const AppError = require('../lib/app-error')
-const { cwd, ownDir, unspecifiedAddress } = require('../lib/utils')
+const { cwd, ownDir, unspecifiedAddress, readPkg } = require('../lib/utils')
 const poi = require('../lib')
 const logger = require('../lib/logger')
 
@@ -31,31 +31,56 @@ module.exports = function (cliOptions) {
   console.log(`> Running in ${cliOptions.mode} mode`)
 
   const start = co.wrap(function * () {
-    let { path: configPath, config = {} } = yield loadPoiConfig({ config: cliOptions.config })
+    let explictConfigFile = cliOptions.config
+    const poiField = readPkg().poi
+    if (!explictConfigFile && poiField && typeof poiField === 'string') {
+      explictConfigFile = poiField
+    }
+    let { path: configPath, config = {} } = yield loadPoiConfig({
+      config: explictConfigFile
+    })
 
     if (configPath) {
       console.log(`> Using external Poi config file`)
       console.log(chalk.dim(`> location: "${tildify(configPath)}"`))
       config = handleConfig(config, cliOptions)
-    } else if (cliOptions.config) {
-      throw new AppError('Config file was not found!')
+    } else if (explictConfigFile) {
+      throw new AppError(`Config file was not found at ${explictConfigFile}!`)
     }
 
     const app = poi(merge(config, cliOptions))
 
-    console.log(`> Bundling with Webpack ${require('webpack/package.json').version}`)
+    console.log(
+      `> Bundling with Webpack ${require('webpack/package.json').version}`
+    )
 
     const { options } = app
     if (inspectOptions) {
-      console.log('> Options:', util.inspect(options, { colors: true, depth: null }))
+      console.log(
+        '> Options:',
+        util.inspect(options, { colors: true, depth: null })
+      )
     }
 
     const watchFiles = ({ server, webpackWatcher }) => {
-      const filesToWatch = [].concat(configPath || []).concat(options.restartOnFileChanges || []).filter(v => typeof v === 'string')
-      if (filesToWatch.length > 0 && options.restartOnFileChanges !== false && (options.mode === 'development' || options.mode === 'watch' || cliOptions.watch)) {
+      const filesToWatch = []
+        .concat(configPath || [])
+        .concat(options.restartOnFileChanges || [])
+        .filter(v => typeof v === 'string')
+      if (
+        filesToWatch.length > 0 &&
+        options.restartOnFileChanges !== false &&
+        (options.mode === 'development' ||
+          options.mode === 'watch' ||
+          cliOptions.watch)
+      ) {
         const watcher = chokidar.watch(filesToWatch)
         watcher.on('change', changed => {
-          console.log(chalk.yellow(`> Restarting due to file changes: ${tildify(changed)}`))
+          console.log(
+            chalk.yellow(
+              `> Restarting due to file changes: ${tildify(changed)}`
+            )
+          )
           watcher.close()
           if (server) {
             server.close(() => start().catch(handleError))
@@ -72,7 +97,12 @@ module.exports = function (cliOptions) {
       console.log('> Creating an optimized production build:\n')
       const stats = yield app.build()
       if (options.generateStats) {
-        const statsFile = cwd(options.cwd, typeof options.generateStats === 'string' ? options.generateStats : 'stats.json')
+        const statsFile = cwd(
+          options.cwd,
+          typeof options.generateStats === 'string' ?
+            options.generateStats :
+            'stats.json'
+        )
         console.log('> Generating webpack stats file')
         fs.writeFileSync(statsFile, JSON.stringify(stats.toJson()), 'utf8')
         console.log(chalk.dim(`> location: "${tildify(statsFile)}"`))
@@ -83,21 +113,26 @@ module.exports = function (cliOptions) {
     } else if (options.mode === 'development') {
       const { server, host, port } = yield app.dev()
 
-      server.listen(port, host)
-      .on('error', err => {
+      server.listen(port, host).on('error', err => {
         if (err.code === 'EADDRINUSE') {
-          return handleError(new AppError(`Port ${port} is already in use.\n\nYou can use another one by adding \`--port <port>\` or set it in config file.`))
+          return handleError(
+            new AppError(
+              `Port ${port} is already in use.\n\nYou can use another one by adding \`--port <port>\` or set it in config file.`
+            )
+          )
         }
         handleError(err)
       })
 
       app.once('compile-done', () => {
         if (options.open) {
-          opn(url.format({
-            protocol: 'http',
-            hostname: unspecifiedAddress(host) ? 'localhost' : host,
-            port
-          }))
+          opn(
+            url.format({
+              protocol: 'http',
+              hostname: unspecifiedAddress(host) ? 'localhost' : host,
+              port
+            })
+          )
         }
       })
 
