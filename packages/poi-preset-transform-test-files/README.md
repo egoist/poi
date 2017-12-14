@@ -19,7 +19,7 @@ Activate it in config file:
 // poi.config.js
 module.exports = {
   presets: [
-    require('poi-preset-transform-test-files')()
+    require('poi-preset-transform-test-files')(/* options */)
   ]
 }
 ```
@@ -32,13 +32,32 @@ poi test
 poi test "src/*.test.js" "lib/*.spec.js"
 ```
 
-The generated test files can be found at `./output_test/test.js`, you can finally run it with your favorite test framework like AVA:
+The default generated test files can be found at `./output_test/test.js`, you can finally run it with your favorite test framework like AVA:
 
 ```bash
 poi test && ava output_test/test.js
 ```
 
-**Note:** You might put `output_test` in `.gitignore` file.
+if you want to build test files separately, rather than bundling as one file. Please check the `options.inPlaceTransform` below. 
+
+**Note:** You might put `output_test` in `.gitignore` file, when using default setting.
+
+## Options
+
+### inPlaceTransform
+
+Type: `Boolean`|`String`
+Default: `false`
+
+if it is `true`, the test file would generated in place as `[name].transfrom.js`,
+
+```bash
+poi test && ava *.test.transform.js
+```
+
+Otherwise, you can follow the [rule](https://webpack.js.org/configuration/output/#output-filename) of Webpack filename to specify filename as you want in string format.
+
+**Note:** You might put `*.test.transform.js` in `.gitignore` file, when setting `inPlaceTransform` as true.
 
 ## LICENSE
 
