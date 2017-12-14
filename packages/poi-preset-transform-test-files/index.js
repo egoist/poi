@@ -2,12 +2,18 @@ const path = require('path')
 const globby = require('globby')
 const webpack = require('webpack')
 
-module.exports = () => {
+module.exports = (options = {}) => {
+  const { inPlaceTransform } = options
   return poi => {
     poi.extendWebpack('test', config => {
-      const outputDir = path.resolve(poi.options.cwd, 'output_test')
-
+      const outputDir = path.resolve(poi.options.cwd, inPlaceTransform ? '' : 'output_test')
       config.output.path(outputDir)
+
+      if (typeof inPlaceTransform === 'boolean') {
+        config.output.filename('[name].transfrom.js')
+      } else if (typeof inPlaceTransform === 'string') {
+        config.output.filename(inPlaceTransform)
+      }
 
       // Exclude node_modules in bundle file
       poi.webpackUtils.externalize(config)
@@ -21,8 +27,15 @@ module.exports = () => {
       return globby(inputFiles.concat(ignores), { cwd: poi.options.cwd })
         .then(files => {
           delete webpackConfig.entry.client
-          webpackConfig.entry.test = files
-            .map(file => path.resolve(poi.options.cwd, file))
+          if (inPlaceTransform) {
+            webpackConfig.entry = files.reduce((entries, file) => ({
+              ...entries,
+              [file.replace(/\.[^/.]+$/, '')]: path.resolve(poi.options.cwd, file)
+            }), {})
+          } else {
+            webpackConfig.entry.test = files
+              .map(file => path.resolve(poi.options.cwd, file))
+          }
         })
         .then(() => poi.runWebpack(webpack(webpackConfig)))
     })
