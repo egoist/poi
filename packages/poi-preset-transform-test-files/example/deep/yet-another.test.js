@@ -1,6 +1,6 @@
 import test from 'ava'
-import fn from './'
+import fn from '../'
 
 test('main', t => {
-  t.is(fn(), 43)
+  t.is(fn(), 42)
 })

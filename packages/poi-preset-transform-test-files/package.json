@@ -7,10 +7,6 @@
   "files": [
     "index.js"
   ],
-  "scripts": {
-    "ava": "poi test && ava output_test/test.js",
-    "jest": "poi test && jest output_test/test.js"
-  },
   "poi": {
     "presets": "./index.js"
   },
@@ -18,7 +14,7 @@
     "globby": "^6.1.0"
   },
   "devDependencies": {
-    "ava": "^0.19.1",
+    "ava": "^0.24.0",
     "jest": "^20.0.0",
     "webpack": "^2.6.1"
   },
