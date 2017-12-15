@@ -26,7 +26,6 @@ module.exports = () => {
             res[filename.replace(/\.[a-z]{2,}$/, '')] = path.resolve(baseDir, filename)
             return res
           }, {})
-          console.log(webpackConfig.entry)
         })
         .then(() => poi.runWebpack(webpack(webpackConfig)))
     })
