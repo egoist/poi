@@ -14,15 +14,18 @@ module.exports = () => {
     })
 
     poi.run('test', webpackConfig => {
+      const baseDir = poi.argv.baseDir || './test'
       const input = poi.argv._.slice(1)
-      const inputFiles = input.length > 0 ? input : ['**/*.test.js']
+      const inputFiles = input.length > 0 ? input : ['**/*.{test,spec}.js']
       const ignores = ['!**/node_modules/**', '!**/vendor/**']
 
-      return globby(inputFiles.concat(ignores), { cwd: poi.options.cwd })
+      return globby(inputFiles.concat(ignores), { cwd: baseDir })
         .then(files => {
           delete webpackConfig.entry.client
-          webpackConfig.entry.test = files
-            .map(file => path.resolve(poi.options.cwd, file))
+          webpackConfig.entry = files.reduce((res, filename) => {
+            res[filename.replace(/\.[a-z]{2,}$/, '')] = path.resolve(baseDir, filename)
+            return res
+          }, {})
         })
         .then(() => poi.runWebpack(webpack(webpackConfig)))
     })
