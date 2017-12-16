@@ -62,7 +62,7 @@ module.exports = co.wrap(function * (options) {
   if (options.postcss === undefined) {
     const postcssConfig = yield loadExternalConfig.postcss()
     if (postcssConfig.file) {
-      console.log('> Using extenal postcss configuration')
+      console.log('> Using external postcss configuration')
       console.log(chalk.dim(`> location: "${tildify(postcssConfig.file)}"`))
       options.postcss = postcssConfig
     }

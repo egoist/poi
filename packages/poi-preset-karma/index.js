@@ -101,7 +101,7 @@ module.exports = (options = {}) => {
             return current
           }
           const key = next.pattern || next
-          current[key] = ['webpack', ...(isTypeScript ? ['karma-typescript'] : [])]
+          current[key] = ['webpack', ...(isTypeScript ? ['karma-typescript'] : []), 'sourcemap']
           return current
         }, {}),
         webpackMiddleware: {
