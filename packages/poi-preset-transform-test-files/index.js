@@ -3,39 +3,36 @@ const globby = require('globby')
 const webpack = require('webpack')
 
 module.exports = (options = {}) => {
-  const { inPlaceTransform } = options
+  const { outputDir = '' } = options
+
   return poi => {
     poi.extendWebpack('test', config => {
-      const outputDir = path.resolve(poi.options.cwd, inPlaceTransform ? '' : 'output_test')
-      config.output.path(outputDir)
+      const outputPath = path.resolve(poi.options.cwd, outputDir)
 
-      if (typeof inPlaceTransform === 'boolean') {
-        config.output.filename('[name].transfrom.js')
-      } else if (typeof inPlaceTransform === 'string') {
-        config.output.filename(inPlaceTransform)
-      }
+      config.output.path(outputPath)
+      config.output.filename('[name].transformed.js')
 
       // Exclude node_modules in bundle file
       poi.webpackUtils.externalize(config)
     })
 
     poi.run('test', webpackConfig => {
+      const baseDir = poi.argv.baseDir || poi.options.cwd
       const input = poi.argv._.slice(1)
-      const inputFiles = input.length > 0 ? input : ['**/*.test.js']
+      const inputFiles = input.length > 0 ? input : ['**/*.{test,spec}.js']
       const ignores = ['!**/node_modules/**', '!**/vendor/**']
 
-      return globby(inputFiles.concat(ignores), { cwd: poi.options.cwd })
+      return globby(inputFiles.concat(ignores), { cwd: baseDir })
         .then(files => {
           delete webpackConfig.entry.client
-          if (inPlaceTransform) {
-            webpackConfig.entry = files.reduce((entries, file) => ({
-              ...entries,
-              [file.replace(/\.[^/.]+$/, '')]: path.resolve(poi.options.cwd, file)
-            }), {})
-          } else {
-            webpackConfig.entry.test = files
-              .map(file => path.resolve(poi.options.cwd, file))
-          }
+          webpackConfig.entry = files.reduce((acc, file) => {
+            const filename = outputDir ? path.basename(file) : file
+
+            return {
+              ...acc,
+              [filename.replace(/\.[^/.]+$/, '')]: path.resolve(baseDir, file)
+            }
+          }, {})
         })
         .then(() => poi.runWebpack(webpack(webpackConfig)))
     })
