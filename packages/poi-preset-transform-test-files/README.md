@@ -24,40 +24,45 @@ module.exports = {
 }
 ```
 
-Then you can compile test files, by default it looks for `**/*.test.js`:
+Then you can compile test files, by default it looks for `**/*.test.js` from the root, otherwise you could specify the directory by `--baseDir`:
 
 ```bash
 poi test
 # or somewhere else
 poi test "src/*.test.js" "lib/*.spec.js"
+# or from certain directory
+poi test --baseDir "./test"
 ```
 
-The default generated test files can be found at `./output_test/test.js`, you can finally run it with your favorite test framework like AVA:
+The default generated test files can be found at in place as `[name].transfromed.js`, you can finally run it with your favorite test framework like AVA:
 
 ```bash
-poi test && ava output_test/test.js
+poi test && ava ./test/example.test.transformed.js
 ```
 
-if you want to build test files separately, rather than bundling as one file. Please check the `options.inPlaceTransform` below. 
+if you want to bundle test files to certain directory, rather than at the same place as source. Please check the `options.outputDir` below. 
 
-**Note:** You might put `output_test` in `.gitignore` file, when using default setting.
+**Note:** You might put `*.test.transfromed.js` in `.gitignore` file.
 
 ## Options
 
-### inPlaceTransform
+### outputDir
 
-Type: `Boolean`|`String`
-Default: `false`
+The directory of transfromed test files  
+Type: `String`  
+Default: `''`  
 
-if it is `true`, the test file would generated in place as `[name].transfrom.js`,
 
-```bash
-poi test && ava *.test.transform.js
+```js
+// poi.config.js
+module.exports = {
+  presets: [
+    require('poi-preset-transform-test-files')({
+      outputDir: './test'
+    })
+  ]
+}
 ```
-
-Otherwise, you can follow the [rule](https://webpack.js.org/configuration/output/#output-filename) of Webpack filename to specify filename as you want in string format.
-
-**Note:** You might put `*.test.transform.js` in `.gitignore` file, when setting `inPlaceTransform` as true.
 
 ## LICENSE
 
