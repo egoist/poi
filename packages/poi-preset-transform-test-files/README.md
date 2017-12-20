@@ -40,25 +40,42 @@ The default generated test files can be found at in place as `[name].transfromed
 poi test && ava ./test/example.test.transformed.js
 ```
 
-if you want to bundle test files to certain directory, rather than at the same place as source. Please check the `options.outputDir` below. 
+If you want to bundle test files to certain directory, rather than at the same place as source. Please check the [outputDir](#outputdir) option below. 
 
-**Note:** You might put `*.test.transfromed.js` in `.gitignore` file.
+**Note:** You might put `*.transfromed.js` in `.gitignore` file.
 
 ## Options
 
+### testFiles
+
+Type: `string` `Array`<br>
+Default: `**/*.{test,spec}.js`
+
+### ignoreFiles
+
+Type: `Array`<br>
+Default: `['!**/node_modules/**', '!**/vendor/**'])`
+
+### baseDir
+
+Type: `string`<br>
+Default: `cwd`
+
+The directory to search `testFiles`.
+
 ### outputDir
 
-The directory of transfromed test files  
-Type: `String`  
-Default: `''`  
+Type: `string`  
+Default: `baseDir`
 
-
+The directory of transfromed test files.
+  
 ```js
 // poi.config.js
 module.exports = {
   presets: [
     require('poi-preset-transform-test-files')({
-      outputDir: './test'
+      outputDir: './test/_build'
     })
   ]
 }
