@@ -2,27 +2,35 @@ const path = require('path')
 const globby = require('globby')
 const webpack = require('webpack')
 
-module.exports = () => {
+module.exports = (options = {}) => {
   return poi => {
-    poi.extendWebpack('test', config => {
-      const outputDir = path.resolve(poi.options.cwd, 'output_test')
+    const getOption = (name, defaultValue) => poi.argv[name] || options[name] || defaultValue
 
-      config.output.path(outputDir)
+    const baseDir = getOption('baseDir', poi.options.cwd)
+    const outputDir = getOption('outputDir', baseDir)
+    const input = poi.argv._.slice(1)
+    const testFiles = input.length > 0 ? input : (options.testFiles || '**/*.{test,spec}.js')
+    const ignoreFiles = getOption('ignoreFiles', ['!**/node_modules/**', '!**/vendor/**'])
+
+    poi.extendWebpack('test', config => {
+      const outputPath = path.resolve(poi.options.cwd, outputDir)
+
+      config.output.path(outputPath)
+      config.output.filename('[name].transformed.js')
 
       // Exclude node_modules in bundle file
       poi.webpackUtils.externalize(config)
     })
 
     poi.run('test', webpackConfig => {
-      const input = poi.argv._.slice(1)
-      const inputFiles = input.length > 0 ? input : ['**/*.test.js']
-      const ignores = ['!**/node_modules/**', '!**/vendor/**']
-
-      return globby(inputFiles.concat(ignores), { cwd: poi.options.cwd })
+      return globby([].concat(testFiles).concat(ignoreFiles), { cwd: baseDir })
         .then(files => {
           delete webpackConfig.entry.client
-          webpackConfig.entry.test = files
-            .map(file => path.resolve(poi.options.cwd, file))
+          webpackConfig.entry = files.reduce((acc, filename) => {
+            return Object.assign(acc, {
+              [filename.replace(/\.[^/.]+$/, '')]: path.resolve(baseDir, filename)
+            })
+          }, {})
         })
         .then(() => poi.runWebpack(webpack(webpackConfig)))
     })
