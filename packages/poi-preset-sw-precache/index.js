@@ -1,3 +1,4 @@
+const path = require('path')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 
 module.exports = () => poi => {
@@ -6,8 +7,14 @@ module.exports = () => poi => {
 
     poi.webpackUtils.defineConstants(config, {
       // Used by ./register-server-worker.js
-      'process.env.SW_URL': publicUrl + 'service-worker.js'
+      'process.env.PUBLIC_URL': publicUrl
     })
+
+    // register-service-worker.js is written in ES6
+    // We need to transpile it then
+    config.module.rule('js')
+      .include
+      .add(path.join(__dirname, 'register-service-worker.js'))
 
     // Generate a service worker script that will precache, and keep up to date,
     // the HTML & assets that are part of the Webpack build.

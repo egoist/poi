@@ -55,6 +55,10 @@ To have a full progressive web app support, you need to put your PWA metadata fi
 
 And of course `favicon.ico` is also required in this example.
 
+### Service worker events
+
+You can use your own version of [./register-service-worker.js](./register-service-worker.js) to handle service worker events, like what to perform when new updates of your app are available, by default it simply logs a message and users to to refresh browser to see updated version.
+
 ## License
 
 MIT &copy; [EGOIST](https://github.com/egoist)

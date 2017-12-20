@@ -2,5 +2,5 @@ import register from '../register-service-worker'
 
 register()
 
-document.write('sw-precache')
+document.write('sw-precache!!')
 
