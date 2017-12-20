@@ -4,6 +4,8 @@ Integrated [sw-precache-webpack-plugin](https://github.com/goldhand/sw-precache-
 
 This is basically extracted from [create-react-app](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#making-a-progressive-web-app) but as a Poi preset.
 
+A live example can be found at: https://poi-sw-precache.surge.sh, you can enable `offline` mode in chrome devtools to check if it works for you.
+
 ## Install
 
 ```bash
