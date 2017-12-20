@@ -7,10 +7,6 @@
   "files": [
     "index.js"
   ],
-  "scripts": {
-    "ava": "poi test && ava output_test/test.js",
-    "jest": "poi test && jest output_test/test.js"
-  },
   "poi": {
     "presets": [
       [
