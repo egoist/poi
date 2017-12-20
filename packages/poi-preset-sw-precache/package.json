@@ -1,0 +1,20 @@
+{
+  "name": "poi-preset-sw-precache",
+  "version": "0.0.0",
+  "files": [
+    "index.js",
+    "register-service-worker.js"
+  ],
+  "scripts": {
+    "build": "poi build example/index.js --presets ./index.js",
+    "deploy": "npm run build && surge -d poi-sw-precache.surge.sh -p dist"
+  },
+  "author": {
+    "name": "EGOIST",
+    "email": "0x142857@gmail.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "sw-precache-webpack-plugin": "^0.11.4"
+  }
+}

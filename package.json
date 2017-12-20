@@ -19,7 +19,8 @@
       "**/coverage/**",
       "**/output*/**",
       "**/fixture/**",
-      "**/example-*/**"
+      "**/example-*/**",
+      "**/register-service-worker.js"
     ],
     "envs": [
       "jest"
