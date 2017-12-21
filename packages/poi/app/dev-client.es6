@@ -1,2 +1,1 @@
-import 'webpack-dev-server/client?/'
-import 'webpack/hot/dev-server'
+import 'poi-dev-utils/hot-dev-client'

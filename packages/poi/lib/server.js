@@ -1,4 +1,5 @@
 const Server = require('webpack-dev-server')
+const errorOverlayMiddleware = require('poi-dev-utils/error-overlay-middleware')
 
 module.exports = function (compiler, options) {
   const hot = options.hotReload !== false && options.mode === 'development'
@@ -12,6 +13,12 @@ module.exports = function (compiler, options) {
     disableHostCheck: true,
     publicPath: compiler.options.output.publicPath
   }, compiler.options.devServer, options.devServer)
+
+  const existingBefore = devServerOptions.before
+  devServerOptions.before = app => {
+    app.use(errorOverlayMiddleware())
+    existingBefore && existingBefore(app)
+  }
 
   if (typeof devServerOptions.proxy === 'string') {
     devServerOptions.proxy = {
