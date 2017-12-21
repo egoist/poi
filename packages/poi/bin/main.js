@@ -59,6 +59,9 @@ cli
   .option('no-progress', {
     desc: 'Disable progress bar'
   })
+  .option('library', {
+    desc: 'Build as a library'
+  })
 
 cli
   .command('*', {

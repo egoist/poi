@@ -8,32 +8,34 @@ const buildConfigChain = require('babel-core/lib/transformation/file/options/bui
 
 const { inferHTML, readPkg } = require('./utils')
 
-function getComponentFilename(component) {
+function getLibraryFilename(component) {
   return kebabCase(typeof component === 'string' ? component : path.basename(process.cwd()))
 }
 
 module.exports = co.wrap(function * (options) {
   const loadExternalConfig = new LoadExternalConfig({ cwd: options.cwd })
 
-  if (options.component) {
-    const format = typeof options.component === 'string' ? 'UMD' : 'CommonJS'
+  // options.component is actually a wrong name
+  // god knows why I chose it before...
+  const library = options.library || options.component
+  if (library) {
+    const format = typeof library === 'string' ? 'UMD' : 'CommonJS'
     console.log(`> Bundling component in ${format} format`)
-    const componentFilename = getComponentFilename(options.component)
+    const libraryFilename = getLibraryFilename(library)
     options.filename = Object.assign({
-      js: `${componentFilename}.js`,
-      css: `${componentFilename}.css`
+      js: `${libraryFilename}.js`,
+      css: `${libraryFilename}.css`
     }, options.filename)
 
-    if (typeof options.component === 'string') {
+    if (typeof library === 'string') {
       options.format = 'umd'
-      options.moduleName = options.component
+      options.moduleName = library
     } else {
       options.format = 'cjs'
     }
 
     options.html = false
     options.sourceMap = false
-    delete options.component
   }
 
   if (options.babel === undefined) {
