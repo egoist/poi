@@ -6,6 +6,12 @@
 
 <script>
   export default {
-    data: () => ({ count: 0 })
+    data: () => ({ count: 0 }),
+
+    methods: {
+      async hahaha() {
+        return 'hahaha'
+      }
+    }
   }
 </script>

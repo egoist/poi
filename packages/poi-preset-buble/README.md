@@ -2,6 +2,8 @@
 
 Use buble instead of babel to transpile `.js` `.es6` and script tag in `.vue` files
 
+__ES2017 -> [buble](https://github.com/Rich-Harris/buble) -> [nodent](https://github.com/MatAtBread/nodent-compiler) for async/await -> ES5__
+
 ## Install
 
 ```bash
@@ -43,8 +45,9 @@ Use Buble to transpile JS files
 **Parameters**
 
 -   `options` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
-    -   `options.loaderOptions` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options for buble-loader.
-        If this option is preset, it will be assigned to default buble options.
+    -   `options.asyncAwait` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Enable async/await support via nodent (optional, default `true`)
+    -   `options.bubleOptions` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options for buble.
+        If this option is set, it will be assigned to default buble options.
 
 ## License
 
