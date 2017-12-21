@@ -9,7 +9,6 @@ module.exports = function (code, sourceMap) {
       this.resourcePath,
       sourceMap,
       {
-        sourcemap: false,
         promises: true,
         noRuntime: true
       }

@@ -101,6 +101,9 @@ const bar = () => new Promise((function ($return, $error) {
 }).bind(this));
 
 
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImlucHV0LmpzKG9yaWdpbmFsKSJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxTQUFlO0lBQWY7O1FBQ2MsT0FBTSxHQUFBLEdBQU47O2dCQUFOLE1BQU07Z0JBQ1osZUFBTzs7Ozs7Ozs7QUFHVCxLQUFBLENBQU0sU0FBTTtJQUNWLGVBQU87O0FBTlQiLCJmaWxlIjoiaW5wdXQuanMob3JpZ2luYWwpIiwic291cmNlc0NvbnRlbnQiOlsiYXN5bmMgZnVuY3Rpb24gZm9vKCkge1xuICBjb25zdCByZXMgPSBhd2FpdCBiYXIoKVxuICByZXR1cm4gcmVzXG59XG5cbmNvbnN0IGJhciA9IGFzeW5jICgpID0+IHtcbiAgcmV0dXJuICdiYXInXG59XG4iXX0=
+
+
 /***/ })
 /******/ ]);"
 `;
