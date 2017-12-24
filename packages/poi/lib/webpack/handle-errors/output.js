@@ -1,8 +1,12 @@
+const path = require('path')
 const chalk = require('chalk')
 const highlight = require('highlight-es')
 const _ = require('lodash')
-const tildify = require('tildify')
 const logger = require('../../logger')
+
+function relativePath(p) {
+  return path.relative(process.cwd(), p)
+}
 
 function groupErrorsByType(errors) {
   return errors.reduce((res, error) => {
@@ -20,7 +24,7 @@ function moduleNotFound(errors) {
 
   res.push(`${chalk.red('module not found:')}\n`)
   res = res.concat(errors.map(error => {
-    const requestedBy = (error.error.origin && error.error.origin.resource) ? chalk.dim(`: imported at ${chalk.italic(tildify(error.error.origin.resource))}`) : ''
+    const requestedBy = (error.error.origin && error.error.origin.resource) ? chalk.dim(`: imported at ${chalk.italic(relativePath(error.error.origin.resource))}`) : ''
     return `- ${chalk.yellow(error.payload)}${requestedBy}`
   }))
 
@@ -77,8 +81,8 @@ function unknownError(errors) {
 
   const res = errors.map(error => {
     let msg = ''
-    if (error.error.origin && error.error.origin.resource) {
-      msg += chalk.red(`Error in ${chalk.italic(tildify(error.error.origin.resource))}`)
+    if (error.error.module && error.error.module.resource) {
+      msg += chalk.red(`Error in ${chalk.italic(relativePath(error.error.module.resource))}`)
       msg += '\n\n'
     }
     if (error.error.message) {
@@ -98,7 +102,7 @@ function babelPluginNotFound(errors) {
   const res = []
 
   const error = errors[0]
-  res.push(`${chalk.red('missing babel plugin:')} following babel plugin is referenced in ${chalk.italic(tildify(error.payload.location))}\nbut not installed in current project:\n`)
+  res.push(`${chalk.red('missing babel plugin:')} following babel plugin is referenced in ${chalk.italic(relativePath(error.payload.location))}\nbut not installed in current project:\n`)
   res.push(`- ${error.payload.name.replace(/^(babel-plugin-)?/, 'babel-plugin-')}`)
 
   return res.join('\n')
@@ -109,7 +113,7 @@ function babelPresetNotFound(errors) {
 
   const res = []
   const error = errors[0]
-  res.push(`${chalk.red('missing babel preset:')} following babel preset is not found in ${chalk.italic(tildify(error.payload.location))}:\n`)
+  res.push(`${chalk.red('missing babel preset:')} following babel preset is not found in ${chalk.italic(relativePath(error.payload.location))}:\n`)
   res.push(`- ${error.payload.name.replace(/^(babel-preset-)?/, 'babel-preset-')}`)
 
   return res.join('\n')
