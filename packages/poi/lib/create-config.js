@@ -3,6 +3,7 @@ const path = require('path')
 const webpack = require('webpack')
 const Config = require('webpack-chain')
 const merge = require('lodash/merge')
+const isCI = require('is-ci')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const HtmlPlugin = require('html-webpack-plugin')
@@ -247,7 +248,7 @@ module.exports = function ({
     config.plugin('no-emit-on-errors')
       .use(NoEmitOnErrorsPlugin)
 
-    if (progress !== false && !process.env.CI) {
+    if (progress !== false && !isCI) {
       config.plugin('progress-bar')
         .use(ProgressPlugin)
     }
