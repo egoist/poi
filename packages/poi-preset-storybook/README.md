@@ -6,12 +6,12 @@
 yarn add poi-preset-storybook --dev
 
 # Use React?
-yarn add storybook-react --dev
+yarn add @storybook/react --dev
 # Use Vue? 
-yarn add storybook-vue --dev
+yarn add @storybook/vue --dev
 ```
 
-`storybook-react` and `storybook-vue` are drop-in replacements for `@storybook/react` and `@storybook/vue` without unnecessary build dependencies. (Since we're using Poi here)
+You can use `storybook-react` and `storybook-vue` which are drop-in replacements for `@storybook/react` and `@storybook/vue` without unnecessary build dependencies if you want.
 
 ## Usage
 
@@ -43,7 +43,7 @@ Just like how the [official storybook guide](https://storybook.js.org/basics/gui
 
 ```js
 // .storybook/config.js
-import { configure } from 'storybook-vue'
+import { configure } from '@storybook/vue'
 
 function loadStories() {
   // You can require as many stories as you need.
@@ -56,7 +56,7 @@ configure(loadStories, module)
 And your actual story `src/stories/index.js`:
 
 ```js
-import { storiesOf } from 'storybook-vue'
+import { storiesOf } from '@storybook/vue'
 
 import Mybutton from './path/to/your/lovely/Button.vue'
 
