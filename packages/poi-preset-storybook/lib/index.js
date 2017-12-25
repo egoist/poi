@@ -47,7 +47,15 @@ module.exports = ({
       try {
         manager = require.resolve('storybook-react/lib/manager')
       } catch (err) {
-        throw new Error('You have to install either storybook-vue or storybook-react!')
+        try {
+          manager = require.resolve('../../@storybook/vue/dist/client/manager')
+        } catch (err) {
+          try {
+            manager = require.resolve('../../@storybook/react/dist/client/manager')
+          } catch (err) {
+            throw new Error('You have to install either storybook-vue, storybook-react, @storybook/vue, or @storybook/react!')
+          }
+        }
       }
     }
     config.entry('manager').add(manager)
