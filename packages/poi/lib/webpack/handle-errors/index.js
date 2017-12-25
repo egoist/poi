@@ -75,7 +75,7 @@ function formatError(error) {
 
 function cannotUglifyES6(message) {
   return /from UglifyJs/.test(message) &&
-  /Unexpected token:/.test(message)
+  /Unexpected (token|character)/.test(message)
 }
 
 function getModuleNameFromPath(str) {
