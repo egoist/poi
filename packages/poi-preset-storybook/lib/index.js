@@ -39,25 +39,27 @@ module.exports = ({
     if (entry[addonsIndex]) {
       config.entry('manager').add(path.resolve(entry[addonsIndex]))
     }
-
-    let manager
-    try {
-      manager = require.resolve('storybook-vue/lib/manager')
-    } catch (err) {
-      try {
-        manager = require.resolve('storybook-react/lib/manager')
-      } catch (err) {
-        try {
-          manager = require.resolve('../../@storybook/vue/dist/client/manager')
-        } catch (err) {
-          try {
-            manager = require.resolve('../../@storybook/react/dist/client/manager')
-          } catch (err) {
-            throw new Error('You have to install either storybook-vue, storybook-react, @storybook/vue, or @storybook/react!')
-          }
-        }
-      }
-    }
-    config.entry('manager').add(manager)
+    
+    config.entry('manager').add(getManager([
+      'storybook-vue/lib/manager',
+      'storybook-react/lib/manager',
+      '@storybook/vue/dist/client/manager',
+      '@storybook/react/dist/client/manager'
+    ]))
   })
+}
+
+function getManager(names) {
+  try {
+    return require.resolve(names.shift())
+  } catch (err) {
+    if (err.code === 'MODULE_NOT_FOUND') {
+      if (names.length > 0) {
+        return requireManager(names)
+      }
+      throw new Error(`You have to install one of ${names.map(name => /^@?storybook[-/]\w+/.exec(name)[0])}!`)
+    } else {
+      throw err
+    }
+  }
 }
