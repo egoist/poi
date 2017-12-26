@@ -5,7 +5,7 @@ const _ = require('lodash')
 const logger = require('../../logger')
 
 function relativePath(p) {
-  return path.relative(process.cwd(), p)
+  return chalk.green(path.relative(process.cwd(), p) || './')
 }
 
 function groupErrorsByType(errors) {
