@@ -44,6 +44,9 @@ cli.option('dist', {
 .option('jsx', {
   desc: 'Specify JSX transformer, like "vue", "react" or any JSX pragma'
 })
+.option('rawErrors', {
+  desc: 'Output original webpack errors'
+})
 .option('no-clear', {
   desc: 'Do not clear screen'
 })
@@ -79,7 +82,7 @@ cli
     alias: 'o',
     desc: 'Open App after compiling'
   })
-  .option('restart-on-file-changes', {
+  .option('restartOnFileChanges', {
     alias: 'rs',
     desc: 'Restart Poi on file changes'
   })

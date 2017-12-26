@@ -57,7 +57,8 @@ module.exports = function ({
   clear,
   inlineImageMaxSize = 10000,
   staticFolder = 'static',
-  progress
+  progress,
+  rawErrors
 } = {}) {
   const config = new Config()
 
@@ -222,7 +223,8 @@ module.exports = function ({
         mode,
         host,
         port,
-        clear
+        clear,
+        rawErrors
       }
     ])
 

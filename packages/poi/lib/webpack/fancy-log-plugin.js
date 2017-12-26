@@ -7,6 +7,18 @@ const logger = require('../logger')
 const terminal = require('../terminal-utils')
 const handleWebpackErrors = require('./handle-errors')
 
+function outputStats(stats) {
+  console.log(stats.toString({
+    colors: true,
+    chunks: false,
+    modules: false,
+    children: false,
+    version: false,
+    hash: false,
+    timings: false
+  }))
+}
+
 module.exports = class FancyLogPlugin {
   constructor(opts) {
     this.opts = opts
@@ -24,8 +36,12 @@ module.exports = class FancyLogPlugin {
 
       if (stats.hasErrors()) {
         process.exitCode = 1
-        const { errors } = stats.compilation
-        handleWebpackErrors(errors)
+        if (this.opts.rawErrors) {
+          outputStats(stats)
+        } else {
+          const { errors } = stats.compilation
+          handleWebpackErrors(errors)
+        }
         logger.error('Compiled with errors!')
         console.log()
         return
@@ -33,15 +49,7 @@ module.exports = class FancyLogPlugin {
 
       if (stats.hasWarnings()) {
         process.exitCode = 1
-        console.log(stats.toString({
-          colors: true,
-          chunks: false,
-          modules: false,
-          children: false,
-          version: false,
-          hash: false,
-          timings: false
-        }))
+        outputStats(stats)
         console.log()
         logger.error('Compiled with warnings!')
         console.log()
@@ -68,15 +76,7 @@ module.exports = class FancyLogPlugin {
   displaySuccess(stats) {
     const { host, port, mode } = this.opts
 
-    console.log(stats.toString({
-      colors: true,
-      chunks: false,
-      modules: false,
-      children: false,
-      version: false,
-      hash: false,
-      timings: false
-    }))
+    outputStats(stats)
 
     console.log()
 
