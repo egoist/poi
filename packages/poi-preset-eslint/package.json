@@ -18,7 +18,7 @@
   },
   "xo": "false",
   "dependencies": {
-    "eslint": "^3.19.0",
+    "eslint": "^4.0.0",
     "eslint-loader": "^1.7.1"
   },
   "devDependencies": {
