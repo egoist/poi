@@ -39,26 +39,26 @@ module.exports = co.wrap(function * (options) {
   }
 
   if (options.babel === undefined) {
-    const { useConfig, file } = yield loadExternalConfig.babel(buildConfigChain)
-    if (useConfig) {
+    options.babel = {}
+    const externalBabelConfig = yield loadExternalConfig.babel(buildConfigChain)
+
+    if (externalBabelConfig) {
       console.log('> Using external babel configuration')
-      console.log(chalk.dim(`> location: "${tildify(file)}"`))
-      options.babel = {
-        cacheDirectory: true,
-        babelrc: true
-      }
+      console.log(chalk.dim(`> location: "${tildify(externalBabelConfig.loc)}"`))
+      options.babel.babelrc = externalBabelConfig.options.babelrc !== false
     } else {
-      options.babel = {
-        cacheDirectory: true,
-        babelrc: false
-      }
+      options.babel.babelrc = false
     }
+
     if (options.babel.babelrc === false) {
       // Use our default preset when no babelrc was found
       options.babel.presets = [
         [require.resolve('babel-preset-poi'), { jsx: options.jsx || 'vue' }]
       ]
     }
+  }
+  if (typeof options.babel === 'object') {
+    options.babel.cacheDirectory = true
   }
 
   if (options.postcss === undefined) {
