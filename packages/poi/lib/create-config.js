@@ -257,26 +257,17 @@ module.exports = function ({
   }
 
   if (minimize) {
+    const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+
     config.plugin('minimize')
-      .use(webpack.optimize.UglifyJsPlugin, [{
-        sourceMap: Boolean(sourceMap),
-        /* eslint-disable camelcase */
-        compressor: {
-          warnings: false,
-          conditionals: true,
-          unused: true,
-          comparisons: true,
-          sequences: true,
-          dead_code: true,
-          evaluate: true,
-          if_return: true,
-          join_vars: true,
-          negate_iife: false
-        },
-        output: {
-          comments: false
+      .use(UglifyJsPlugin, [{
+        parallel: true,
+        sourceMap: false,
+        uglifyOptions: {
+          compress: {
+            comparisons: false
+          }
         }
-        /* eslint-enable camelcase */
       }])
   }
 

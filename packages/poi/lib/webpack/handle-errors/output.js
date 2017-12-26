@@ -1,6 +1,5 @@
 const path = require('path')
 const chalk = require('chalk')
-const highlight = require('highlight-es')
 const _ = require('lodash')
 const logger = require('../../logger')
 
@@ -27,39 +26,6 @@ function moduleNotFound(errors) {
     const requestedBy = (error.error.origin && error.error.origin.resource) ? chalk.dim(`: imported at ${chalk.italic(relativePath(error.error.origin.resource))}`) : ''
     return `- ${chalk.yellow(error.payload)}${requestedBy}`
   }))
-
-  return res.join('\n')
-}
-
-function uglifyError(errors) {
-  if (!errors) return false
-  // There's always only ONE uglify-token-error
-  const error = errors[0]
-
-  const res = []
-  const { message } = error.error
-
-  if (error.kind === 'module') {
-    res.push(`${chalk.red('UglifyJS error')}: unexpected ES6+ code in module "${error.payload}", full error message:\n`)
-    res.push(chalk.dim(message))
-    res.push('')
-    res.push(
-      logger.tip(chalk.bold(`To fix this, try adding "${error.payload}" to "transformModules" option, eg:`), false)
-    )
-    res.push('')
-    res.push(highlight(`// poi.config.js
-module.exports = {
-  transformModules: ['${error.payload}'],
-  // ...other config
-}`))
-  } else if (error.kind === 'file') {
-    res.push(`${chalk.red('UglifyJS error')}: unexpected ES6+ code in file "${error.payload}", full error message:\n`)
-    res.push(chalk.dim(message))
-    res.push('')
-    res.push(
-      logger.tip(chalk.bold(`To fix this, please configure .babelrc to compile your app code down to ES5 or use poi-preset-babel-minify if you want to preserve ES6+ code in final bundle.`), false)
-    )
-  }
 
   return res.join('\n')
 }
@@ -145,7 +111,6 @@ module.exports = errors => {
   errors = groupErrorsByType(errors)
   run([
     moduleNotFound(errors['module-not-found']),
-    uglifyError(errors['uglify-error']),
     vueVersionMismatch(errors['vue-version-mismatch']),
     babelPluginNotFound(errors['babel-plugin-not-found']),
     babelPresetNotFound(errors['babel-preset-not-found']),
