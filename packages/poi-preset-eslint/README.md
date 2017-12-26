@@ -3,7 +3,7 @@
 ## Install
 
 ```bash
-yarn add poi-preset-eslint --dev
+yarn add eslint poi-preset-eslint --dev
 ```
 
 ## Usage

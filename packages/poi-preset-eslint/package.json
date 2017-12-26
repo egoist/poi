@@ -18,11 +18,14 @@
   },
   "xo": "false",
   "dependencies": {
-    "eslint": "^4.0.0",
     "eslint-loader": "^1.7.1"
+  },
+  "peerDependencies": {
+    "eslint": "^4.0.0"
   },
   "devDependencies": {
     "documentation": "^4.0.0-rc.1",
+    "eslint": "^4.0.0",
     "eslint-config-vue-app": "^1.3.3"
   }
 }
