@@ -21,7 +21,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "xo",
-    "lint:fix": "xo --fix"
+    "lint:fix": "xo --fix",
+    "postinstall": "node -e \"console.log('\\u001b[35m\\u001b[1mLove Poi? You can now donate to support the author:\\u001b[22m\\u001b[39m\\n> \\u001b[34mhttps://patreon.com/egoist\\u001b[0m')\""
   },
   "author": "egoist <0x142857@gmail.com>",
   "license": "MIT",
