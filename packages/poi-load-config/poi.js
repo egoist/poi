@@ -6,7 +6,7 @@ module.exports = function ({
   name = 'poi'
 } = {}) {
   const enforceConfig = typeof config === 'string'
-  const files = enforceConfig ? [config] : ['{name}.config.js', 'package.json']
+  const files = enforceConfig ? [config] : ['{name}.config.js', '.{name}rc', 'package.json']
 
   const useConfig = new UseConfig({
     name,
