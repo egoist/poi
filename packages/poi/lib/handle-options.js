@@ -94,10 +94,8 @@ module.exports = co.wrap(function * (options) {
       config: {
         path: require.resolve('../app/postcss.config'),
         ctx: {
-          options: {
-            autoprefixer: options.autoprefixer,
-            config: options.postcss
-          }
+          autoprefixer: options.autoprefixer,
+          config: options.postcss
         }
       }
     }
