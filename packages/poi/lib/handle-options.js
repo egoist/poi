@@ -9,7 +9,9 @@ const buildConfigChain = require('babel-core/lib/transformation/file/options/bui
 const { inferHTML, readPkg } = require('./utils')
 
 function getLibraryFilename(component) {
-  return kebabCase(typeof component === 'string' ? component : path.basename(process.cwd()))
+  return kebabCase(
+    typeof component === 'string' ? component : path.basename(process.cwd())
+  )
 }
 
 module.exports = co.wrap(function * (options) {
@@ -22,10 +24,13 @@ module.exports = co.wrap(function * (options) {
     const format = typeof library === 'string' ? 'UMD' : 'CommonJS'
     console.log(`> Bundling component in ${format} format`)
     const libraryFilename = getLibraryFilename(library)
-    options.filename = Object.assign({
-      js: `${libraryFilename}.js`,
-      css: `${libraryFilename}.css`
-    }, options.filename)
+    options.filename = Object.assign(
+      {
+        js: `${libraryFilename}.js`,
+        css: `${libraryFilename}.css`
+      },
+      options.filename
+    )
 
     if (typeof library === 'string') {
       options.format = 'umd'
@@ -44,7 +49,9 @@ module.exports = co.wrap(function * (options) {
 
     if (externalBabelConfig) {
       console.log('> Using external babel configuration')
-      console.log(chalk.dim(`> location: "${tildify(externalBabelConfig.loc)}"`))
+      console.log(
+        chalk.dim(`> location: "${tildify(externalBabelConfig.loc)}"`)
+      )
       options.babel.babelrc = externalBabelConfig.options.babelrc !== false
     } else {
       options.babel.babelrc = false
@@ -66,13 +73,41 @@ module.exports = co.wrap(function * (options) {
     if (postcssConfig.file) {
       console.log('> Using external postcss configuration')
       console.log(chalk.dim(`> location: "${tildify(postcssConfig.file)}"`))
-      options.postcss = postcssConfig
+
+      // Only feed the config path to postcss-loader
+      // In order to let postcss-loader ask webpack to watch it
+      options.postcss = {
+        config: {
+          path: postcssConfig.file
+        }
+      }
+    }
+  }
+
+  options.postcss = options.postcss || {}
+  // Use our postcss config file if no user config file was found
+  if (
+    (!options.postcss.config || !options.postcss.config.path) &&
+    options.autoprefixer !== false
+  ) {
+    options.postcss = {
+      config: {
+        path: require.resolve('../app/postcss.config'),
+        ctx: {
+          options: {
+            autoprefixer: options.autoprefixer,
+            config: options.postcss
+          }
+        }
+      }
     }
   }
 
   const defaultHtmlOption = inferHTML(options)
   if (Array.isArray(options.html)) {
-    options.html = options.html.map(v => Object.assign({}, defaultHtmlOption, v))
+    options.html = options.html.map(v =>
+      Object.assign({}, defaultHtmlOption, v)
+    )
   } else if (typeof options.html === 'object') {
     options.html = Object.assign({}, defaultHtmlOption, options.html)
   } else if (typeof options.html === 'undefined') {
@@ -85,14 +120,6 @@ module.exports = co.wrap(function * (options) {
       console.log(`> Using main field in package.json as entry point`)
       options.entry = mainField
     }
-  }
-
-  const { browserslist = ['ie > 8', 'last 2 versions'] } = readPkg()
-
-  if (options.autoprefixer !== false) {
-    options.autoprefixer = Object.assign({
-      browsers: browserslist
-    }, options.autoprefixer)
   }
 
   return options

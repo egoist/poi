@@ -43,7 +43,6 @@ module.exports = function ({
   extractCSS,
   vendor = true,
   sourceMap,
-  autoprefixer,
   moduleName,
   cssModules,
   copy,
@@ -143,10 +142,10 @@ module.exports = function ({
       .add('node_modules')
       .add(ownDir('node_modules'))
 
-  postcss.plugins = postcss.plugins || []
-
-  if (autoprefixer !== false) {
-    postcss.plugins.unshift(require('autoprefixer')(autoprefixer))
+  // Ensure that there's always `plugins` when no config was found
+  // To prevent `postcss-loader` from manually searching config file
+  if (!postcss.config || !postcss.config.path) {
+    postcss.plugins = postcss.plugins || []
   }
 
   const cssOptions = {
