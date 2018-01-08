@@ -4,7 +4,7 @@
   "author": "EGOIST <0x142857@gmail.com>",
   "repo": "egoist/poi",
   "dependencies": {
-    "ts-loader": "^2.0.3"
+    "ts-loader": "^3.0.2"
   },
   "scripts": {
     "example": "poi example/index.ts",
