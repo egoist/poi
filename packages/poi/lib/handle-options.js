@@ -48,22 +48,33 @@ module.exports = co.wrap(function * (options) {
     const externalBabelConfig = yield loadExternalConfig.babel(buildConfigChain)
 
     if (externalBabelConfig) {
+      // If root babel config file is found
+      // We set `babelrc` to the its path
+      // To prevent `babel-loader` from loading it again
       console.log('> Using external babel configuration')
       console.log(
         chalk.dim(`> location: "${tildify(externalBabelConfig.loc)}"`)
       )
-      options.babel.babelrc = externalBabelConfig.options.babelrc !== false
+      // You can use `babelrc: false` to disable the config file itself
+      if (externalBabelConfig.options.babelrc === false) {
+        options.babel.babelrc = false
+      } else {
+        options.babel.babelrc = externalBabelConfig.loc
+      }
     } else {
+      // If not found
+      // We set `babelrc` to `false` for the same reason
       options.babel.babelrc = false
     }
 
     if (options.babel.babelrc === false) {
-      // Use our default preset when no babelrc was found
+      // Use our default preset when no babelrc was specified
       options.babel.presets = [
         [require.resolve('babel-preset-poi'), { jsx: options.jsx || 'vue' }]
       ]
     }
   }
+
   if (typeof options.babel === 'object') {
     options.babel.cacheDirectory = true
   }
