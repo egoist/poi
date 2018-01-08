@@ -7,6 +7,7 @@
     "type": "git"
   },
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "files": [
     "bin",
     "lib",
@@ -40,6 +41,8 @@
     "jest-cli": "^22.0.0"
   },
   "dependencies": {
+    "@types/webpack": "^3.8.2",
+    "@types/webpack-chain": "^4.0.0",
     "address": "^1.0.1",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.24.1",
