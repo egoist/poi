@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "documentation": "^4.0.0-rc.1",
-    "jest": "^20.0.3"
+    "jest": "^22.0.0"
   },
   "license": "MIT",
   "author": "EGOIST <0x142857@gmail.com>"
