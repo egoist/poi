@@ -52,7 +52,6 @@ module.exports = co.wrap(function * (options) {
       console.log(
         chalk.dim(`> location: "${tildify(externalBabelConfig.loc)}"`)
       )
-      options.babel.babelrc = externalBabelConfig.options.babelrc !== false
     } else {
       options.babel.babelrc = false
     }
