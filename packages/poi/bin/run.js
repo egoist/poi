@@ -62,6 +62,7 @@ module.exports = function (cliOptions) {
     if (configPath && config !== undefined) {
       console.log(`> Using external Poi config file`)
       console.log(chalk.dim(`> location: "${tildify(configPath)}"`))
+      config = config.default || config
       config = handleConfig(config, cliOptions)
     } else if (explictConfigFile) {
       throw new AppError(`Config file was not found at ${explictConfigFile}!`)

@@ -11,7 +11,15 @@ module.exports = function ({
   const useConfig = new UseConfig({
     name,
     files,
-    cwd
+    cwd,
+    fallbackLoader: filepath => require(filepath)
+  })
+
+  useConfig.addLoader({
+    test: /\.poirc$/,
+    loader(filepath) {
+      return this.loadJsonFile(filepath)
+    }
   })
 
   return useConfig.load()
