@@ -8,6 +8,6 @@
   "repository": "egoist/poi",
   "dependencies": {
     "riot": "^3.6.0",
-    "riot-tag-loader": "^1.0.0"
+    "riot-tag-loader": "^2.0.0"
   }
 }
