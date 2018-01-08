@@ -15,6 +15,6 @@
     "webpack-bundle-analyzer": "^2.8.2"
   },
   "devDependencies": {
-    "documentation": "^4.0.0-rc.1"
+    "documentation": "^5.0.0"
   }
 }

@@ -22,6 +22,6 @@
     "svelte-loader": "^2.0.1"
   },
   "devDependencies": {
-    "documentation": "^4.0.0-rc.1"
+    "documentation": "^5.0.0"
   }
 }

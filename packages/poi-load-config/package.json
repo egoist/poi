@@ -22,7 +22,7 @@
     "use-config": "^2.0.0"
   },
   "devDependencies": {
-    "documentation": "^4.0.0-rc.1",
+    "documentation": "^5.0.0",
     "jest": "^22.0.0"
   },
   "license": "MIT",
