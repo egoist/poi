@@ -12,7 +12,15 @@ const chokidar = require('chokidar')
 const opn = require('opn')
 const loadPoiConfig = require('poi-load-config/poi')
 const AppError = require('../lib/app-error')
-const { cwd, ownDir, unspecifiedAddress, readPkg, deleteCache } = require('../lib/utils')
+const {
+  cwd,
+  ownDir,
+  unspecifiedAddress,
+  readPkg,
+  deleteCache,
+  arrify,
+  localRequire
+} = require('../lib/utils')
 const poi = require('../lib')
 const logger = require('../lib/logger')
 
@@ -27,6 +35,13 @@ module.exports = function (cliOptions) {
     'inspectOptions',
     'inspect-options'
   ])
+
+  if (cliOptions.require) {
+    arrify(cliOptions.require).forEach(m => {
+      localRequire(m)
+      console.log(`> Required ${m}`)
+    })
+  }
 
   console.log(`> Running in ${cliOptions.mode} mode`)
 

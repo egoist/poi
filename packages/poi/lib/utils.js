@@ -114,3 +114,7 @@ exports.deleteCache = function () {
   // See https://github.com/egoist/use-config/blob/c9c55952ca83106d11ca3353e1729a593d316ae5/index.js#L18-L24
   delete require.cache[path.resolve('package.json')]
 }
+
+exports.arrify = input => Array.isArray(input) ? input : [input]
+
+exports.localRequire = m => require(path.resolve('node_modules', m))

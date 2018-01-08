@@ -53,6 +53,9 @@ cli.option('dist', {
 .option('inspectOptions', {
   desc: 'Output final options'
 })
+.option('require', {
+  desc: 'Require modules like `ts-node/register` before running Poi'
+})
 
 cli
   .command('build', 'Build app in production mode', createHandler('production'))
