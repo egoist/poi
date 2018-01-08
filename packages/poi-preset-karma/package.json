@@ -17,7 +17,7 @@
     "karma-mocha-reporter": "^2.2.4",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.4",
-    "mocha": "^3.5.0"
+    "mocha": "^4.0.0"
   },
   "xo": false,
   "devDependencies": {
