@@ -1,6 +1,6 @@
 {
   "name": "poi",
-  "version": "9.6.10",
+  "version": "9.6.11",
   "description": "Fast prototype and distribute modern web apps like a pro.",
   "repository": {
     "url": "egoist/poi",
@@ -70,7 +70,7 @@
     "opn": "^5.0.0",
     "parse-json-config": "^0.2.0",
     "poi-dev-utils": "^1.0.1",
-    "poi-load-config": "^1.1.5",
+    "poi-load-config": "^1.1.6",
     "poi-webpack-node-externals": "^2.0.0",
     "post-compile-webpack-plugin": "^0.1.1",
     "postcss-loader": "^2.0.6",
