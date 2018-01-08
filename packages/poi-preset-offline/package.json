@@ -14,7 +14,7 @@
   "devDependencies": {
     "documentation": "^5.0.0",
     "offline-plugin": "^4.8.0",
-    "webpack": "^2.5.1"
+    "webpack": "^3.0.0"
   },
   "peerDependencies": {
     "offline-plugin": "^4.8.0"

@@ -21,7 +21,7 @@
   "devDependencies": {
     "ava": "^0.24.0",
     "jest": "^22.0.0",
-    "webpack": "^2.6.1"
+    "webpack": "^3.0.0"
   },
   "xo": false
 }
