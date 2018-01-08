@@ -38,11 +38,13 @@ module.exports = function (cliOptions) {
     if (!explictConfigFile && poiField && typeof poiField === 'string') {
       explictConfigFile = poiField
     }
-    let { path: configPath, config = {} } = yield loadPoiConfig({
+    let { path: configPath, config } = yield loadPoiConfig({
       config: explictConfigFile
     })
 
-    if (configPath) {
+    // Config might be `undefined` if `package.json` was found
+    // But there's no `poi` key
+    if (configPath && config !== undefined) {
       console.log(`> Using external Poi config file`)
       console.log(chalk.dim(`> location: "${tildify(configPath)}"`))
       config = handleConfig(config, cliOptions)
