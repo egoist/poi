@@ -42,7 +42,7 @@
   "author": "EGOIST <0x142857@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "eslint-config-rem": "^3.2.0",
+    "eslint-config-rem": "^4.0.0",
     "husky": "^0.14.3",
     "lerna": "^2.0.0",
     "xo": "^0.18.2"
