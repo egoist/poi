@@ -12,7 +12,7 @@
     "*.js"
   ],
   "devDependencies": {
-    "documentation": "^4.0.0-rc.1",
+    "documentation": "^5.0.0",
     "offline-plugin": "^4.8.0",
     "webpack": "^2.5.1"
   },

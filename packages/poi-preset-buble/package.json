@@ -26,7 +26,7 @@
     ]
   },
   "devDependencies": {
-    "documentation": "^4.0.0-rc.1",
+    "documentation": "^5.0.0",
     "jest": "^22.0.3",
     "memory-fs": "^0.4.1",
     "webpack": "^3.10.0"
