@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "ava": "^0.24.0",
-    "jest": "^20.0.0",
+    "jest": "^22.0.0",
     "webpack": "^2.6.1"
   },
   "xo": false
