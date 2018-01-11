@@ -47,7 +47,7 @@ module.exports = function ({
             .loader('svelte-loader')
             .options(Object.assign({
               // Extract CSS in production mode
-              emitCss: poi.isMode('production')
+              emitCss: poi.isMode('production') && poi.options.extractCSS !== false
             }, loaderOptions))
       }
     })
