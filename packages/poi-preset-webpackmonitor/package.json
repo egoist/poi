@@ -7,6 +7,7 @@
     "index.js"
   ],
   "scripts": {
+    "test": "echo fine",
     "example": "poi build example/index.js --presets ./index.js --webpackmonitor"
   },
   "repository": "egoist/poi",

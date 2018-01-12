@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "precommit": "npm test",
-    "test": "lerna bootstrap && npm run lint && lerna run test",
+    "test": "npm run lint && lerna run test",
     "lint": "xo"
   },
   "main": "index.js",
@@ -47,5 +47,8 @@
     "lerna": "^2.0.0",
     "xo": "^0.18.2"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "workspaces": [
+    "packages/*"
+  ]
 }

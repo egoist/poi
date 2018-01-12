@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "example": "poi build example/index.js --presets ./index.js",
-    "docs": "documentation readme index.js -s API"
+    "docs": "documentation readme index.js -s API",
+    "test": "echo fine"
   },
   "repository": "egoist/poi",
   "author": "EGOIST <0x142857@gmail.com>",
