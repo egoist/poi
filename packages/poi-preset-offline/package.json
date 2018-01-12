@@ -5,6 +5,7 @@
   "license": "MIT",
   "repository": "egoist/poi",
   "scripts": {
+    "test": "echo fine",
     "example": "poi build example/index.js --presets ./index.js",
     "docs": "documentation readme index.js -s API"
   },

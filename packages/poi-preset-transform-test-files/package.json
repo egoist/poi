@@ -4,6 +4,9 @@
   "licenst": "MIT",
   "author": "EGOIST <0x142857@gmail.com>",
   "repository": "egoist/poi",
+  "scripts": {
+    "test": "echo fine"
+  },
   "files": [
     "index.js"
   ],

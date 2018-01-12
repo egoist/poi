@@ -8,7 +8,8 @@
   "scripts": {
     "example": "poi example/index.coffee --presets ./index.js",
     "example:build": "poi build example/index.coffee --presets ./index.js",
-    "docs": "documentation readme index.js -s API"
+    "docs": "documentation readme index.js -s API",
+    "test": "echo fine"
   },
   "license": "MIT",
   "author": {

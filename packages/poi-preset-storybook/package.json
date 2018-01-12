@@ -6,6 +6,7 @@
     "lib"
   ],
   "scripts": {
+    "test": "echo fine",
     "example-vue": "poi --config example-vue/poi.config.js --storybook",
     "example-vue:build": "poi build --config example-vue/poi.config.js --storybook",
     "example-react": "poi --config example-react/poi.config.js --storybook",

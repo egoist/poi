@@ -6,6 +6,7 @@
     "register-service-worker.js"
   ],
   "scripts": {
+    "test": "echo fine",
     "build": "poi build example/index.js --presets ./index.js",
     "deploy": "npm run build && surge -d poi-sw-precache.surge.sh -p dist"
   },

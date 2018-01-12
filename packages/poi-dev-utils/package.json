@@ -4,6 +4,9 @@
   "files": [
     "*.js"
   ],
+  "scripts": {
+    "test": "echo fine"
+  },
   "license": "MIT",
   "author": {
     "name": "EGOIST",

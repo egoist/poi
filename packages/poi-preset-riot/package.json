@@ -5,6 +5,9 @@
   "files": [
     "index.js"
   ],
+  "scripts": {
+    "test": "echo fine"
+  },
   "repository": "egoist/poi",
   "dependencies": {
     "riot": "^3.6.0",
