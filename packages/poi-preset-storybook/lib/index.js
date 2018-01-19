@@ -2,7 +2,8 @@ const path = require('path')
 
 module.exports = ({
   managerTemplate = path.join(__dirname, 'manager.ejs'),
-  iframeTemplate = path.join(__dirname, 'iframe.ejs')
+  iframeTemplate = path.join(__dirname, 'iframe.ejs'),
+  markdown: useMarkdown
 } = {}) => poi => {
   if (!poi.argv.storybook) return
 
@@ -47,15 +48,17 @@ module.exports = ({
       '@storybook/react/dist/client/manager'
     ]))
 
-    config.module
-      .rule('markdown')
-        .test(/\.md$/)
-        .use('html')
-          .loader('html-loader')
-          .end()
-        .use('markdown')
-          .loader('markdown-loader')
-          .end()
+    if (useMarkdown !== false) {
+      config.module
+        .rule('markdown')
+          .test(/\.md$/)
+          .use('html')
+            .loader('html-loader')
+            .end()
+          .use('markdown')
+            .loader('markdown-loader')
+            .end()
+    }
   })
 }
 
