@@ -116,6 +116,13 @@ Default: [`./lib/iframe.ejs`](./lib/iframe.ejs)
 
 Path to the HTML template for generated `iframe.html`.
 
+### markdown
+
+Type: `boolean`<br>
+Default: `undefined`
+
+Whether to support `.md` files or not.
+
 ## Gotchas
 
 [Vue-devtools does not work for now](https://github.com/storybooks/storybook/issues/1708).
