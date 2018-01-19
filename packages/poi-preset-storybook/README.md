@@ -84,6 +84,22 @@ Here's the source code of [a complete example](https://github.com/poi-examples/s
 
 > **Note**: [`templateCompiler`](https://poi.js.org/#/options?id=templatecompiler) is `true` by default in `--storybook` mode.
 
+### Using markdown file
+
+You can import `.md` files and they will be parsed by `markdown-loader` using `marked`, however you might want to use your own loader to parse markdown files:
+
+```js
+// poi.config.js
+module.exports = {
+  extendWebpack(config) {
+    config.module.rule('markdown')
+      .use('markdown')
+        .loader('markdown-it-loader') // Use markdown-it instead
+        .options(/* maybe some options */)
+  }
+}
+```
+
 ## Options
 
 ### managerTemplate
