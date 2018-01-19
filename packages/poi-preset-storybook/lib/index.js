@@ -46,6 +46,19 @@ module.exports = ({
       '@storybook/vue/dist/client/manager',
       '@storybook/react/dist/client/manager'
     ]))
+
+    config.module
+      .rule('markdown').merge({
+        test: /\.md$/,
+        use: [
+          {
+            loader: 'raw-loader'
+          },
+          {
+            loader: 'markdown-loader'
+          }
+        ]
+      })
   })
 }
 
