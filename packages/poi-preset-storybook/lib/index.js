@@ -52,7 +52,7 @@ module.exports = ({
         test: /\.md$/,
         use: [
           {
-            loader: 'raw-loader'
+            loader: 'html-loader'
           },
           {
             loader: 'markdown-loader'
