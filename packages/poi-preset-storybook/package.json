@@ -13,6 +13,10 @@
     "example-react:build": "poi build --config example-react/poi.config.js --storybook"
   },
   "license": "MIT",
+  "dependencies": {
+    "html-loader": "^0.5.5",
+    "markdown-loader": "^2.0.2"
+  },
   "devDependencies": {
     "@storybook/addon-actions": "^3.2.13",
     "poi-preset-react": "^9.2.1",
