@@ -48,17 +48,14 @@ module.exports = ({
     ]))
 
     config.module
-      .rule('markdown').merge({
-        test: /\.md$/,
-        use: [
-          {
-            loader: 'html-loader'
-          },
-          {
-            loader: 'markdown-loader'
-          }
-        ]
-      })
+      .rule('markdown')
+        .test(/\.md$/)
+        .use('html')
+          .loader('html-loader')
+          .end()
+        .use('markdown')
+          .loader('markdown-loader')
+          .end()
   })
 }
 
