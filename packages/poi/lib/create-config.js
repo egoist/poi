@@ -66,7 +66,7 @@ module.exports = function ({
   minimize = inferProductionValue(minimize, mode)
   extractCSS = inferProductionValue(extractCSS, mode)
   env = stringifyObject(Object.assign({
-    NODE_ENV: mode === 'production' ? 'production' : 'development'
+    NODE_ENV: process.env.NODE_ENV
   }, env))
 
   if (sourceMap !== false) {

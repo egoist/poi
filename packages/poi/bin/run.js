@@ -36,6 +36,12 @@ module.exports = function (cliOptions) {
     'inspect-options'
   ])
 
+  if (!process.env.NODE_ENV) {
+    // env could be `production` `development` `test`
+    process.env.NODE_ENV =
+    cliOptions.mode === 'watch' ? 'development' : cliOptions.mode
+  }
+
   if (cliOptions.require) {
     arrify(cliOptions.require).forEach(m => {
       localRequire(m)
