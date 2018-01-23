@@ -36,7 +36,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "babel-runtime": "^6.23.0",
-    "cross-spawn": "^5.1.0",
+    "cross-spawn": "^6.0.0",
     "eslint-config-rem": "^4.0.0",
     "jest-cli": "^22.0.0"
   },
