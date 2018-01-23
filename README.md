@@ -61,7 +61,7 @@ You can use existing [presets](https://github.com/egoist/poi/tree/master/package
 </details>
 </p>
 
-To develop this file, run `npx poi` in your terminal and you can open `http://localhost:4000` to preview!
+To develop this file, run `poi` in your terminal and you can open `http://localhost:4000` to preview!
 
 So far we get:
 
