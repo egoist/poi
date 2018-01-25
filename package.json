@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "precommit": "npm test",
-    "test": "npm run lint && lerna bootstrap && npm run jest",
+    "test": "npm run lint && npm run jest",
     "lint": "xo",
     "jest": "jest -i"
   },

@@ -185,9 +185,6 @@ class Poi extends EventEmitter {
   runMiddlewares() {
     return new Promise((resolve, reject) => {
       const webpackConfig = this.createWebpackConfig()
-      console.log(require('util').inspect(
-        webpackConfig, { depth: null, colors: true }
-      ))
       ware()
         .use(this.middlewares)
         .run(webpackConfig, err => {

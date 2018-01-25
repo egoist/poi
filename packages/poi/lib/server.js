@@ -1,5 +1,6 @@
 const Server = require('webpack-dev-server')
-const errorOverlayMiddleware = require('poi-dev-utils/error-overlay-middleware')
+const launchEditorMiddlewarre = require('launch-editor-middleware')
+const launchEditorEndpoint = require('poi-dev-utils/launch-editor-endpoint')
 
 module.exports = function (compiler, options) {
   const hot = options.hotReload !== false && options.mode === 'development'
@@ -16,7 +17,10 @@ module.exports = function (compiler, options) {
 
   const existingBefore = devServerOptions.before
   devServerOptions.before = app => {
-    app.use(errorOverlayMiddleware())
+    app.use(launchEditorEndpoint, launchEditorMiddlewarre(() => console.log(
+      `To specify an editor, sepcify the EDITOR env variable or ` +
+      `add "editor" field to your Vue project config.\n`
+    )))
     existingBefore && existingBefore(app)
   }
 

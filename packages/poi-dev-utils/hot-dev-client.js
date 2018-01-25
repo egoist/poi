@@ -27,11 +27,12 @@ const ErrorOverlay = require('react-error-overlay')
 
 ErrorOverlay.setEditorHandler(errorLocation => {
   // Keep this sync with errorOverlayMiddleware.js
+  // @TODO: support column number
   fetch(
     launchEditorEndpoint +
-      '?fileName=' +
+      '?file=' +
       window.encodeURIComponent(errorLocation.fileName) +
-      '&lineNumber=' +
+      ':' +
       window.encodeURIComponent(errorLocation.lineNumber || 1)
   )
 })
