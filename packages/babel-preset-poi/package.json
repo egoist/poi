@@ -6,7 +6,7 @@
     "index.js"
   ],
   "scripts": {
-    "test": "ava"
+    "test": "echo fine"
   },
   "license": "MIT",
   "dependencies": {
@@ -23,7 +23,6 @@
     "babel-runtime": "^6.26.0"
   },
   "devDependencies": {
-    "ava": "^0.24.0",
     "babel-core": "^6.26.0"
   }
 }

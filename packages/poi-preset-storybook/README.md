@@ -92,10 +92,11 @@ You can import `.md` files and they will be parsed by `markdown-loader` using `m
 // poi.config.js
 module.exports = {
   extendWebpack(config) {
-    config.module.rule('markdown')
-      .use('markdown')
-        .loader('markdown-it-loader') // Use markdown-it instead
-        .options(/* maybe some options */)
+    const markdownRule = config.rules.get('markdown')
+    // Use markdown-it instead
+    markdownRule.replace('markdown-loader', 'markdown-it-loader', {
+      /* maybe some options */
+    })
   }
 }
 ```

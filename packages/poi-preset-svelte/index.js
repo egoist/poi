@@ -9,20 +9,18 @@ module.exports = function ({
 } = {}) {
   return poi => {
     poi.extendWebpack(config => {
-      config.resolve
-        .extensions
-        .add('.html')
+      config.append('resolve.extensions', '.html')
 
-      const jsRule = config.module.rule('js')
-      const isBabel = jsRule.uses.has('babel-loader')
-      const isBuble = jsRule.uses.has('buble-loader')
+      const jsRule = config.rules.get('js')
+      const isBabel = jsRule.loaders.has('babel-loader')
+      const isBuble = jsRule.loaders.has('buble-loader')
 
       let jsLoaderOptions
       if (isBabel || isBuble) {
-        jsLoaderOptions = config.module
-          .rule('js')
-            .use(isBabel ? 'babel-loader' : 'buble-loader')
-              .store.get('options')
+        jsLoaderOptions = jsRule.loaders
+          .get(isBabel ? 'babel-loader' : 'buble-loader')
+          .options
+          .options
       }
 
       let jsLoaderPath
@@ -36,19 +34,20 @@ module.exports = function ({
       }
 
       if (jsLoaderName) {
-        config.module
-          .rule('svelte')
-          .test(/\.(html|svelte)$/)
-          .use(jsLoaderName)
-            .loader(jsLoaderPath)
-            .options(jsLoaderOptions)
-            .end()
-          .use('svelte-loader')
-            .loader('svelte-loader')
-            .options(Object.assign({
-              // Extract CSS in production mode
-              emitCss: poi.isMode('production') && poi.options.extractCSS !== false
-            }, loaderOptions))
+        const svelteRule = config.rules.add('svelte', {
+          test: /\.(html|svelte)$/
+        })
+        svelteRule.loaders.add(jsLoaderName, {
+          loader: jsLoaderPath,
+          options: jsLoaderOptions
+        })
+        svelteRule.loaders.add('svelte-loader', {
+          loader: 'svelte-loader',
+          options: Object.assign({
+            // Extract CSS in production mode
+            emitCss: poi.isMode('production') && poi.options.extractCSS !== false
+          }, loaderOptions)
+        })
       }
     })
   }

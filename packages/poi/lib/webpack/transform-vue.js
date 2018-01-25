@@ -15,12 +15,15 @@ module.exports = (config, { babel, cssOptions, vueOptions }) => {
       }
     })
   }
-  config.module
-    .rule('vue')
-      .test(/\.vue$/)
-      .use('vue-loader')
-        .loader('vue-loader')
-        .options(typeof vueOptions === 'function' ?
-          vueOptions(defaultVueOptions) :
-          merge(defaultVueOptions, vueOptions))
+
+  const vueRule = config.rules.add('vue', {
+    test: /\.vue$/
+  })
+
+  vueRule.loaders.add('vue-loader', {
+    loader: 'vue-loader',
+    options: typeof vueOptions === 'function' ?
+    vueOptions(defaultVueOptions) :
+    merge(defaultVueOptions, vueOptions)
+  })
 }

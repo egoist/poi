@@ -1,7 +1,6 @@
 const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
-const Config = require('webpack-chain')
 const merge = require('lodash/merge')
 const isCI = require('is-ci')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -9,6 +8,7 @@ const CopyPlugin = require('copy-webpack-plugin')
 const HtmlPlugin = require('html-webpack-plugin')
 const PathsCaseSensitivePlugin = require('case-sensitive-paths-webpack-plugin')
 const yarnGlobal = require('yarn-global')
+const Conpack = require('conpack')
 const FancyLogPlugin = require('./webpack/fancy-log-plugin')
 const TimeFixPlugin = require('./webpack/timefix-plugin')
 const webpackUtils = require('./webpack-utils')
@@ -20,7 +20,6 @@ const {
   stringifyObject,
   getFullEnvString
 } = require('./utils')
-const logger = require('./logger')
 const cssLoaders = require('./webpack/css-loaders')
 const transformJS = require('./webpack/transform-js')
 const transformVue = require('./webpack/transform-vue')
@@ -59,7 +58,7 @@ module.exports = function ({
   progress,
   rawErrors
 } = {}) {
-  const config = new Config()
+  const config = new Conpack()
 
   const useHash = typeof hash === 'boolean' ? hash : (mode === 'production' && !format)
   filename = getFileNames(useHash, filename)
@@ -71,14 +70,14 @@ module.exports = function ({
 
   if (sourceMap !== false) {
     if (typeof sourceMap === 'string') {
-      config.devtool(sourceMap)
+      config.set('devtool', sourceMap)
     } else {
       sourceMap = mode === 'production' ?
         'source-map' :
         mode === 'test' ?
         'inline-source-map' :
         'eval-source-map'
-      config.devtool(sourceMap)
+      config.set('devtool', sourceMap)
     }
   }
 
@@ -88,59 +87,60 @@ module.exports = function ({
   }
 
   if (typeof entry === 'string') {
-    config.entry('client').add(handleEntryPath(entry))
+    config.set('entry.client', [handleEntryPath(entry)])
   } else if (Array.isArray(entry)) {
-    config.entry('client').merge(entry.map(e => handleEntryPath(e)))
+    config.set('entry.client', entry.map(e => handleEntryPath(e)))
   } else if (typeof entry === 'object') {
     Object.keys(entry).forEach(k => {
       const v = entry[k]
       if (Array.isArray(v)) {
-        config.entry(k).merge(v.map(e => handleEntryPath(e)))
+        config.set(['entry', k], v.map(e => handleEntryPath(e)))
       } else {
-        config.entry(k).add(handleEntryPath(v))
+        config.set(['entry', k], [handleEntryPath(v)])
       }
     })
   }
 
-  config.output
-    .path(path.resolve(cwd, dist || 'dist'))
+  config.set('output', {
+    path: path.resolve(cwd, dist || 'dist'),
     // Add /* filename */ comments to generated require()s in the output.
-    .pathinfo(true)
-    .filename(filename.js)
-    .chunkFilename(filename.chunk)
-    .publicPath(getPublicPath(mode, homepage))
+    pathinfo: true,
+    filename: filename.js,
+    chunkFilename: filename.chunk,
+    publicPath: getPublicPath(mode, homepage)
+  })
 
   if (mode !== 'production') {
-    config.output
-      // Point sourcemap entries to original disk location
-      .devtoolModuleFilenameTemplate(info => path.resolve(info.absoluteResourcePath))
+    // Point sourcemap entries to original disk location
+    config.set('output.devtoolModuleFilenameTemplate', info => path.resolve(info.absoluteResourcePath))
   }
 
-  config.performance.hints(false)
+  config.set('performance', {
+    hints: false
+  })
 
-  config.resolve
-    .set('symlinks', true)
-    .extensions
-      .add('.js')
-      .add('.jsx')
-      .add('.json')
-      .add('.vue')
-      .end()
-    .modules
-      .add(path.resolve(cwd, 'node_modules'))
-      .add('node_modules')
-      .add(ownDir('node_modules'))
-      .end()
-    .alias
-      .set('@', path.resolve(cwd, 'src'))
-      .set('vue$', templateCompiler ? 'vue/dist/vue.esm.js' : 'vue/dist/vue.runtime.esm.js')
+  config.set('resolve', {
+    symlinks: true,
+    extensions: ['.js', '.jsx', '.json', '.vue'],
+    modules: [
+      path.resolve(cwd, 'node_modules'),
+      'node_modules',
+      ownDir('node_modules')
+    ],
+    alias: {
+      '@': path.resolve(cwd, 'src'),
+      vue$: templateCompiler ? 'vue/dist/vue.esm.js' : 'vue/dist/vue.runtime.esm.js'
+    }
+  })
 
-  config.resolveLoader
-    .set('symlinks', true)
-    .modules
-      .add(path.resolve(cwd, 'node_modules'))
-      .add('node_modules')
-      .add(ownDir('node_modules'))
+  config.set('resolveLoader', {
+    symlinks: true,
+    modules: [
+      path.resolve(cwd, 'node_modules'),
+      'node_modules',
+      ownDir('node_modules')
+    ]
+  })
 
   // Ensure that there's always `plugins` when no config was found
   // To prevent `postcss-loader` from manually searching config file
@@ -164,177 +164,154 @@ module.exports = function ({
   // Rules for Vue single-file component
   transformVue(config, { babel, vueOptions, cssOptions })
 
-  config.module
-    .rule('image')
-      .test([/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/])
-      .use('url-loader')
-        .loader('url-loader')
-        .options({
-          name: filename.images,
-          // inline the file if < max size
-          limit: inlineImageMaxSize
-        })
-        .end()
-      .end()
+  const imageRule = config.rules.add('image', {
+    test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/]
+  })
+  imageRule.loaders.add('url-loader', {
+    loader: 'url-loader',
+    options: {
+      name: filename.images,
+      // inline the file if < max size
+      limit: inlineImageMaxSize
+    }
+  })
+
+  const svgRule = config.rules.add('svg', {
+    test: /\.(svg)(\?.*)?$/
+  })
+  svgRule.loaders.add('file-loader', {
     // SVG files use file-loader directly, why?
     // See https://github.com/facebookincubator/create-react-app/pull/1180
-    .rule('svg')
-      .test(/\.(svg)(\?.*)?$/)
-      .use('file-loader')
-        .loader('file-loader')
-        .options({
-          name: filename.images
-        })
-        .end()
-      .end()
-    .rule('font')
-      .test(/\.(eot|otf|webp|ttf|woff|woff2)(\?.*)?$/)
-      .use('file-loader')
-        .loader('file-loader')
-        .options({
-          name: filename.fonts
-        })
+    loader: 'file-loader',
+    options: {
+      name: filename.images
+    }
+  })
+
+  const fontRule = config.rules.add('font', {
+    test: /\.(eot|otf|webp|ttf|woff|woff2)(\?.*)?$/
+  })
+  fontRule.loaders.add('file-loader', {
+    loader: 'file-loader',
+    options: {
+      name: filename.fonts
+    }
+  })
 
   if (mode === 'development' || mode === 'watch') {
     // Fix startTime before all other webpack plugins
     // See https://github.com/webpack/watchpack/issues/25
-    config.plugin('timefix')
-    .use(TimeFixPlugin)
+    config.plugins.add('timefix', TimeFixPlugin)
   }
 
   // Enforces the entire path of all required modules match
   // The exact case of the actual path on disk
-  config.plugin('paths-case-sensitive')
-    .use(PathsCaseSensitivePlugin)
+  config.plugins.add('paths-case-sensitive', PathsCaseSensitivePlugin)
 
-  config.plugin('constants')
-    .use(webpack.DefinePlugin, [
-      merge(
-        // { foo: '"foo"' } => { 'process.env.foo': '"foo"' }
-        getFullEnvString(env),
-        define && stringifyObject(define)
-      )
-    ])
+  config.plugins.add('constants', webpack.DefinePlugin, [
+    merge(
+      // { foo: '"foo"' } => { 'process.env.foo': '"foo"' }
+      getFullEnvString(env),
+      define && stringifyObject(define)
+    )
+  ])
 
-  config.plugin('fancy-log')
-    .use(FancyLogPlugin, [
-      {
-        mode,
-        host,
-        port,
-        clear,
-        rawErrors
-      }
-    ])
+  config.plugins.add('fancy-log', FancyLogPlugin, [
+    {
+      mode,
+      host,
+      port,
+      clear,
+      rawErrors
+    }
+  ])
 
   if (format === 'cjs') {
-    config.output.libraryTarget('commonjs2')
+    config.set('output.libraryTarget', 'commonjs2')
     webpackUtils.externalize(config)
   } else if (format === 'umd') {
-    config.output.libraryTarget('umd').library(moduleName)
+    config.set('output.libraryTarget', 'umd')
+    config.set('output.library', moduleName)
   }
 
   if (extractCSS) {
-    config.plugin('extract-css')
-      .use(ExtractTextPlugin, [{
-        filename: filename.css,
-        allChunks: true
-      }])
+    config.plugins.add('extract-css', ExtractTextPlugin, [{
+      filename: filename.css,
+      allChunks: true
+    }])
   }
 
   if (mode === 'production') {
     const ProgressPlugin = require('webpack/lib/ProgressPlugin')
     const NoEmitOnErrorsPlugin = require('webpack/lib/NoEmitOnErrorsPlugin')
 
-    config.plugin('no-emit-on-errors')
-      .use(NoEmitOnErrorsPlugin)
+    config.plugins.add('no-emit-on-errors', NoEmitOnErrorsPlugin)
 
     if (progress !== false && !isCI) {
-      config.plugin('progress-bar')
-        .use(ProgressPlugin)
+      config.plugins.add('progress-bar', ProgressPlugin)
     }
   }
 
   if (minimize) {
-    config.plugin('minimize')
-      .use(webpack.optimize.UglifyJsPlugin, [{
-        sourceMap: Boolean(sourceMap),
-        /* eslint-disable camelcase */
-        compressor: {
-          warnings: false,
-          conditionals: true,
-          unused: true,
-          comparisons: true,
-          sequences: true,
-          dead_code: true,
-          evaluate: true,
-          if_return: true,
-          join_vars: true,
-          negate_iife: false
-        },
-        output: {
-          comments: false
-        }
-        /* eslint-enable camelcase */
-      }])
+    config.plugins.add('minimize', webpack.optimize.UglifyJsPlugin, [{
+      sourceMap: Boolean(sourceMap),
+      /* eslint-disable camelcase */
+      compressor: {
+        warnings: false,
+        conditionals: true,
+        unused: true,
+        comparisons: true,
+        sequences: true,
+        dead_code: true,
+        evaluate: true,
+        if_return: true,
+        join_vars: true,
+        negate_iife: false
+      },
+      output: {
+        comments: false
+      }
+      /* eslint-enable camelcase */
+    }])
   }
 
   // Do not split vendor code in `cjs` and `umd` mode
   if (vendor && !format && mode !== 'test') {
-    config.plugin('split-vendor-code')
-      .use(webpack.optimize.CommonsChunkPlugin, [{
-        name: 'vendor',
-        minChunks: module => {
-          return module.context && module.context.indexOf('node_modules') >= 0
-        }
-      }])
-    config.plugin('split-manifest')
-      .use(webpack.optimize.CommonsChunkPlugin, [{
-        name: 'manifest'
-      }])
+    config.plugins.add('split-vendor-code', webpack.optimize.CommonsChunkPlugin, [{
+      name: 'vendor',
+      minChunks: module => {
+        return module.context && module.context.indexOf('node_modules') >= 0
+      }
+    }])
+    config.plugins.add('split-manifest', webpack.optimize.CommonsChunkPlugin, [{
+      name: 'manifest'
+    }])
   }
 
   if (mode === 'development' || mode === 'watch') {
     const WatchMissingNodeModulesPlugin = require('poi-dev-utils/watch-missing-node-modules-plugin')
 
-    config.plugin('watch-missing-node-modules')
-      .use(WatchMissingNodeModulesPlugin, [
-        path.resolve(cwd, 'node_modules')
-      ])
+    config.plugins.add('watch-missing-node-modules', WatchMissingNodeModulesPlugin, [
+      path.resolve(cwd, 'node_modules')
+    ])
   }
 
   const supportHMR = hotReload !== false && mode === 'development'
   const devClient = ownDir('app/dev-client.es6')
 
-  // Add hmr entry (deprecated)
-  // Replace keywords like `[hot]` `:hot:` with hmr entry
-  // This will be removed in next major version
-  config.entryPoints.store.forEach(v => {
-    if (v.has('[hot]') || v.has(':hot:')) {
-      logger.warn('[hot] keyword is deprecated, use option "hotEntry" instead.')
-      logger.warn('See https://poi.js.org/#/options?id=hotentry')
-      v.delete('[hot]').delete(':hot:')
-      if (supportHMR) {
-        v.prepend(devClient)
-      }
-    }
-  })
-
   // Add hmr entry using `hotEntry` option
   if (supportHMR) {
-    config.plugin('hmr')
-      .use(webpack.HotModuleReplacementPlugin)
+    config.plugins.add('hmr', webpack.HotModuleReplacementPlugin)
 
-    config.plugin('named-modules')
-      .use(webpack.NamedModulesPlugin)
+    config.plugins.add('named-modules', webpack.NamedModulesPlugin)
 
     const hotEntryPoints = webpackUtils.getHotEntryPoints(hotEntry)
 
-    config.entryPoints.store.forEach((v, entryPoint) => {
+    for (const entryPoint in config.get('entry')) {
       if (hotEntryPoints.has(entryPoint)) {
-        v.prepend(devClient)
+        config.prepend(['entry', entryPoint], devClient)
       }
-    })
+    }
   }
 
   if (copy !== false) {
@@ -354,8 +331,7 @@ module.exports = function ({
       }
     }
     if (copyOptions.length > 0) {
-      config.plugin('copy-static-files')
-        .use(CopyPlugin, [copyOptions])
+      config.plugins.add('copy-static-files', CopyPlugin, [copyOptions])
     }
   }
 
@@ -368,14 +344,13 @@ module.exports = function ({
       env
     }
     htmls.forEach((h, i) => {
-      config.plugin(`html-${i}`)
-        .use(HtmlPlugin, [Object.assign({
-          minify: {
-            collapseWhitespace: minimize,
-            minifyCSS: minimize,
-            minifyJS: minimize
-          }
-        }, defaultHtml, h)])
+      config.plugins.add(`html-${i}`, HtmlPlugin, [Object.assign({
+        minify: {
+          collapseWhitespace: minimize,
+          minifyCSS: minimize,
+          minifyJS: minimize
+        }
+      }, defaultHtml, h)])
     })
   }
 
@@ -383,9 +358,9 @@ module.exports = function ({
   if (yarnGlobal.inDirectory(__dirname)) {
     // modules in yarn global node_modules
     // because of yarn's flat node_modules structure
-    config.resolve.modules.add(ownDir('..'))
+    config.append('resolve.modules', ownDir('..'))
     // loaders in yarn global node_modules
-    config.resolveLoader.modules.add(ownDir('..'))
+    config.append('resolveLoader.modules', ownDir('..'))
   }
 
   return config

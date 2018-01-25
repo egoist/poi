@@ -9,26 +9,26 @@ module.exports = ({
 } = {}) => {
   return poi => {
     poi.extendWebpack(config => {
-      config.resolve.extensions
-        .add('.ts')
-        .add('.tsx')
+      config.append('resolve.extensions', '.ts')
+      config.append('resolve.extensions', '.tsx')
 
-      config.module.rule('typescript')
-        .test(/\.tsx?$/)
-        .use('ts-loader')
-          .loader('ts-loader')
-          .options(Object.assign({ appendTsSuffixTo: [/\.vue$/] }, loaderOptions))
+      const tsRule = config.rules.get('typescript', {
+        test: /\.tsx?$/
+      })
+      tsRule.loaders.add('ts-loader', {
+        loader: 'ts-loader',
+        options: Object.assign({ appendTsSuffixTo: [/\.vue$/] }, loaderOptions)
+      })
 
-      config.module.rule('vue')
-        .use('vue-loader')
-          .tap(vueOptions => {
-            vueOptions.esModule = true
-            vueOptions.loaders.ts = [{
-              loader: 'ts-loader',
-              options: loaderOptions
-            }]
-            return vueOptions
-          })
+      const vueRule = config.rules.get('vue')
+      vueRule.loaders.update('vue-loader', vueOptions => {
+        vueOptions.esModule = true
+        vueOptions.loaders.ts = [{
+          loader: 'ts-loader',
+          options: loaderOptions
+        }]
+        return vueOptions
+      })
     })
   }
 }

@@ -3,7 +3,7 @@ const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 
 module.exports = () => poi => {
   poi.extendWebpack('production', config => {
-    const publicUrl = config.output.get('publicPath')
+    const publicUrl = config.get('output.publicPath')
 
     poi.webpackUtils.defineConstants(config, {
       // Used by ./register-server-worker.js
@@ -12,13 +12,14 @@ module.exports = () => poi => {
 
     // register-service-worker.js is written in ES6
     // We need to transpile it then
-    config.module.rule('js')
-      .include
-      .add(path.join(__dirname, 'register-service-worker.js'))
+    config.rules.update('js', options => {
+      options.include.push(path.join(__dirname, 'register-service-worker.js'))
+      return options
+    })
 
     // Generate a service worker script that will precache, and keep up to date,
     // the HTML & assets that are part of the Webpack build.
-    config.plugin('sw-precache').use(SWPrecacheWebpackPlugin, [
+    config.plugins.add('sw-precache', SWPrecacheWebpackPlugin, [
       {
         // By default, a cache-busting query parameter is appended to requests
         // used to populate the caches, to ensure the responses are fresh.

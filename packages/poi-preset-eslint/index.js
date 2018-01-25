@@ -20,15 +20,15 @@ module.exports = function ({
 } = {}) {
   return poi => {
     poi.extendWebpack(mode, config => {
-      config.module.rule('eslint')
-        .test(/\.(js|jsx|vue)$/)
-        .exclude
-          .add(/node_modules/)
-          .end()
-        .pre()
-        .use('eslint-loader')
-          .loader('eslint-loader')
-          .options(loaderOptions)
+      const eslintRule = config.rules.add('eslint', {
+        test: /\.(js|jsx|vue)$/,
+        exclude: [/node_modules/],
+        enforce: 'pre'
+      })
+      eslintRule.loaders.add('eslint-loader', {
+        loader: 'eslint-loader',
+        options: loaderOptions
+      })
     })
   }
 }
