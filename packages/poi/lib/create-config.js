@@ -119,13 +119,16 @@ module.exports = function ({
     hints: false
   })
 
+  const inWorkspace = __dirname.indexOf('/poi/packages/poi/')
+  const ownNodeModules = inWorkspace ? ownDir('../../node_modules') : ownDir('node_modules')
+
   config.set('resolve', {
     symlinks: true,
     extensions: ['.js', '.jsx', '.json', '.vue'],
     modules: [
       path.resolve(cwd, 'node_modules'),
       'node_modules',
-      ownDir('node_modules')
+      ownNodeModules
     ],
     alias: {
       '@': path.resolve(cwd, 'src'),
@@ -138,7 +141,7 @@ module.exports = function ({
     modules: [
       path.resolve(cwd, 'node_modules'),
       'node_modules',
-      ownDir('node_modules')
+      ownNodeModules
     ]
   })
 
