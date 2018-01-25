@@ -1,5 +1,5 @@
-import path from 'path'
-import poi from '../lib'
+const path = require('path')
+const poi = require('../lib')
 
 jest.mock('poi-webpack-node-externals', () => jest.fn().mockReturnValue(['externals']))
 

@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "scripts": {
     "precommit": "npm test",
-    "test": "npm run lint && jest",
-    "lint": "xo"
+    "test": "npm run lint && lerna bootstrap && npm run jest",
+    "lint": "xo",
+    "jest": "jest -i"
   },
   "main": "index.js",
   "xo": {
@@ -54,6 +55,10 @@
   ],
   "jest": {
     "testEnvironment": "node",
-    "testPathIgnorePatterns": ["/node_modules/", "/examples?/"]
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/examples?/"
+    ],
+    "bail": true
   }
 }
