@@ -1,5 +1,4 @@
 const path = require('path')
-const co = require('co')
 const chalk = require('chalk')
 const LoadExternalConfig = require('poi-load-config')
 const tildify = require('tildify')
@@ -14,7 +13,7 @@ function getLibraryFilename(component) {
   )
 }
 
-module.exports = co.wrap(function * (options) {
+module.exports = async options => {
   const loadExternalConfig = new LoadExternalConfig({ cwd: options.cwd })
 
   // options.component is actually a wrong name
@@ -45,7 +44,7 @@ module.exports = co.wrap(function * (options) {
 
   if (options.babel === undefined) {
     options.babel = {}
-    const externalBabelConfig = yield loadExternalConfig.babel(buildConfigChain)
+    const externalBabelConfig = await loadExternalConfig.babel(buildConfigChain)
 
     if (externalBabelConfig) {
       // If root babel config file is found
@@ -80,7 +79,7 @@ module.exports = co.wrap(function * (options) {
   }
 
   if (options.postcss === undefined) {
-    const postcssConfig = yield loadExternalConfig.postcss()
+    const postcssConfig = await loadExternalConfig.postcss()
     if (postcssConfig.file) {
       console.log('> Using external postcss configuration')
       console.log(chalk.dim(`> location: "${tildify(postcssConfig.file)}"`))
@@ -132,4 +131,4 @@ module.exports = co.wrap(function * (options) {
   }
 
   return options
-})
+}

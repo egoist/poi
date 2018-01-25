@@ -10,8 +10,7 @@ module.exports = pluginOptions => {
     poi.extendWebpack('production', config => {
       if (poi.argv.bundleReport) {
         config
-          .plugin('bundle-report')
-          .use(BundleAnalyzerPlugin, [pluginOptions])
+          .plugins.add('bundle-report', BundleAnalyzerPlugin, [pluginOptions])
       }
     })
   }

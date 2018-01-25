@@ -1,12 +1,12 @@
-import path from 'path'
-import poi from '../lib'
+const path = require('path')
+const poi = require('../lib')
 
 jest.mock('poi-webpack-node-externals', () => jest.fn().mockReturnValue(['externals']))
 
 const oldCwd = process.cwd()
 
 beforeAll(() => {
-  process.chdir('./test/fixture')
+  process.chdir(path.join(__dirname, 'fixture'))
 })
 
 afterAll(() => {
@@ -119,7 +119,7 @@ describe('get webpack config', () => {
       app.createWebpackConfig()
 
       expect(app.webpackConfig.plugins.has('copy-static-files')).toBe(true)
-      expect(app.webpackConfig.plugins.get('copy-static-files').get('args')[0].length)
+      expect(app.webpackConfig.plugins.get('copy-static-files').options.length)
         .toBe(1)
     })
 
@@ -130,7 +130,7 @@ describe('get webpack config', () => {
       await app.prepare()
       app.createWebpackConfig()
 
-      expect(app.webpackConfig.plugins.get('copy-static-files').get('args')[0].length)
+      expect(app.webpackConfig.plugins.get('copy-static-files').options[0].length)
         .toBe(2)
     })
 
@@ -141,7 +141,7 @@ describe('get webpack config', () => {
       await app.prepare()
       app.createWebpackConfig()
 
-      expect(app.webpackConfig.plugins.get('copy-static-files').get('args')[0].length)
+      expect(app.webpackConfig.plugins.get('copy-static-files').options[0].length)
         .toBe(3)
     })
 
@@ -161,8 +161,7 @@ describe('get webpack config', () => {
     it('in all modes', async () => {
       const preset = poi => {
         poi.extendWebpack(config => {
-          config.entry('foo')
-            .add(path.resolve(poi.options.cwd, 'haha.js'))
+          config.append('entry.foo', path.resolve(poi.options.cwd, 'haha.js'))
         })
       }
       const app = poi({
@@ -179,12 +178,12 @@ describe('get webpack config', () => {
       const presets = [
         poi => {
           poi.extendWebpack('development', config => {
-            config.entry('foo').add('foo')
+            config.append('entry.foo', 'foo')
           })
         },
         poi => {
           poi.extendWebpack('development', config => {
-            config.entry('foo').add('bar')
+            config.append('entry.foo', 'bar')
           })
         }
       ]

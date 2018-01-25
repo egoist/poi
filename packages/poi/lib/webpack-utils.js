@@ -13,7 +13,7 @@ _.externalize = config => {
     'vue',
     'babel-runtime'
   ])
-  config.externals(value)
+  config.set('externals', value)
 }
 
 _.getHotEntryPoints = entry => {
@@ -24,8 +24,7 @@ _.getHotEntryPoints = entry => {
 }
 
 _.defineConstants = (config, vars) => {
-  config.plugin('constants')
-    .tap(([constants]) => [
-      merge(constants, stringifyObject(vars))
-    ])
+  config.plugins.update('constants', ([constants]) => [
+    merge(constants, stringifyObject(vars))
+  ])
 }

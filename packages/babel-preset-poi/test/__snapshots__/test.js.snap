@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`class properties: class properties 1`] = `
+"\\"use strict\\";
+
+let Foo = class Foo {
+  constructor() {
+    this.state = 1;
+  }
+
+};"
+`;
+
+exports[`decorators legacy: decorators legacy 1`] = `
+"\\"use strict\\";
+
+var _class;
+
+let Foo = bound(_class = class Foo {}) || _class;"
+`;
+
+exports[`object reset spread: object reset spread 1`] = `
+"\\"use strict\\";
+
+const a = Object.assign({}, foo);"
+`;

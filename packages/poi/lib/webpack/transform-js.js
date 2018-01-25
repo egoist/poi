@@ -6,11 +6,10 @@ module.exports = (config, { babel, transformModules }) => {
     transformModules = [transformModules]
   }
 
-  config.module
-    .rule('js')
-      .test(/\.jsx?$/)
-      .include
-      .add(filepath => {
+  const jsRule = config.rules.add('js', {
+    test: /\.jsx?$/,
+    include: [
+      filepath => {
         // For anything outside node_modules
         if (filepath.indexOf(`${path.sep}node_modules${path.sep}`) === -1) {
           return true
@@ -25,16 +24,21 @@ module.exports = (config, { babel, transformModules }) => {
           }
         }
         return false
-      })
-      .end()
-    .use('babel-loader')
-      .loader('babel-loader')
-      .options(babel)
+      }
+    ]
+  })
 
-  config.module
-    .rule('es')
-      .test(/\.es6?$/)
-      .use('babel-loader')
-        .loader('babel-loader')
-        .options(babel)
+  jsRule.loaders.add('babel-loader', {
+    loader: 'babel-loader',
+    options: babel
+  })
+
+  const esRule = config.rules.add('es', {
+    test: /\.es6?$/
+  })
+
+  esRule.loaders.add('babel-loader', {
+    loader: 'babel-loader',
+    options: babel
+  })
 }

@@ -12,22 +12,18 @@ exports.standalone = function (config, options) {
   const handleLoader = new HandleCSSLoader(options)
 
   for (const lang of LANGS) {
-    const rule = handleLoader[lang]()
-    const context = config.module
-      .rule(lang)
-      .test(rule.test)
-      .include
-        .add(filepath => {
-          // Not ends with `.module.xxx`
-          return !/\.module\.[a-z]+$/.test(filepath)
-        })
-        .end()
+    const { test, use } = handleLoader[lang]()
 
-    rule.use.forEach(use => {
-      context
-        .use(use.loader)
-          .loader(use.loader)
-          .options(use.options)
+    const rule = config.rules.add(lang, {
+      test,
+      include: filepath => {
+        // Not ends with `.module.xxx`
+        return !/\.module\.[a-z]+$/.test(filepath)
+      }
+    })
+
+    use.forEach(use => {
+      rule.loaders.add(use.loader, use)
     })
   }
 
@@ -38,16 +34,13 @@ exports.standalone = function (config, options) {
   for (const cssModulesLang of cssModulesLangs) {
     const [lang, test] = cssModulesLang
 
-    const rule = handleLoader[lang](test)
-    const context = config.module
-      .rule(`${lang}-module`)
-      .test(rule.test)
+    const { use } = handleLoader[lang](test)
+    const rule = config.rules.add(`${lang}-module`, {
+      test
+    })
 
-    rule.use.forEach(use => {
-      context
-        .use(use.loader)
-          .loader(use.loader)
-          .options(use.options)
+    use.forEach(use => {
+      rule.loaders.add(use.loader, use)
     })
   }
 }

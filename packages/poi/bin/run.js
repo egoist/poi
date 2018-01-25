@@ -4,7 +4,6 @@ const fs = require('fs')
 const url = require('url')
 const chalk = require('chalk')
 const notifier = require('node-notifier')
-const co = require('co')
 const stripAnsi = require('strip-ansi')
 const tildify = require('tildify')
 const merge = require('lodash/merge')
@@ -51,7 +50,7 @@ module.exports = function (cliOptions) {
 
   console.log(`> Running in ${cliOptions.mode} mode`)
 
-  const start = co.wrap(function * () {
+  const start = async () => {
     deleteCache()
 
     let explictConfigFile = cliOptions.config
@@ -59,7 +58,7 @@ module.exports = function (cliOptions) {
     if (!explictConfigFile && poiField && typeof poiField === 'string') {
       explictConfigFile = poiField
     }
-    let { path: configPath, config } = yield loadPoiConfig({
+    let { path: configPath, config } = await loadPoiConfig({
       config: explictConfigFile
     })
 
@@ -121,7 +120,7 @@ module.exports = function (cliOptions) {
     // Handle different modes
     if (options.mode === 'production') {
       console.log('> Creating an optimized production build:\n')
-      const stats = yield app.build()
+      const stats = await app.build()
       if (options.generateStats) {
         const statsFile = cwd(
           options.cwd,
@@ -134,10 +133,10 @@ module.exports = function (cliOptions) {
         console.log(chalk.dim(`> location: "${tildify(statsFile)}"`))
       }
     } else if (options.mode === 'watch') {
-      const webpackWatcher = yield app.watch()
+      const webpackWatcher = await app.watch()
       watchFiles({ webpackWatcher })
     } else if (options.mode === 'development') {
-      const { server, host, port } = yield app.dev()
+      const { server, host, port } = await app.dev()
 
       server.listen(port, host).on('error', err => {
         if (err.code === 'EADDRINUSE') {
@@ -164,13 +163,13 @@ module.exports = function (cliOptions) {
 
       watchFiles({ server })
     } else if (typeof options.mode === 'string') {
-      yield app.prepare()
-      yield app.runMiddlewares()
+      await app.prepare()
+      await app.runMiddlewares()
       if (app.middlewares.length === 0) {
         console.log('> Please use this command with Poi presets')
       }
     }
-  })
+  }
 
   return start()
 }

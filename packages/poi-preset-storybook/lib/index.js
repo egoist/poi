@@ -29,19 +29,19 @@ module.exports = ({
   }
 
   poi.extendWebpack(config => {
-    const entry = [...config.entry('client').store]
-    config.entryPoints.delete('client')
+    const entry = config.get('entry.client')
+    config.delete('entry.client')
     const isReactHot = entry[0].indexOf('react-hot-loader/patch') > 0
     let addonsIndex = poi.options.mode === 'development' ? 2 : 1
     if (isReactHot) {
       addonsIndex++
     }
-    config.entry('iframe').merge(entry.slice(0, addonsIndex))
+    config.set('entry.iframe', entry.slice(0, addonsIndex))
     if (entry[addonsIndex]) {
-      config.entry('manager').add(path.resolve(entry[addonsIndex]))
+      config.set('entry.manager', [path.resolve(entry[addonsIndex])])
     }
 
-    config.entry('manager').add(getManager([
+    config.append('entry.manager', getManager([
       'storybook-vue/lib/manager',
       'storybook-react/lib/manager',
       '@storybook/vue/dist/client/manager',
@@ -49,15 +49,15 @@ module.exports = ({
     ]))
 
     if (useMarkdown !== false) {
-      config.module
-        .rule('markdown')
-          .test(/\.md$/)
-          .use('html')
-            .loader('html-loader')
-            .end()
-          .use('markdown')
-            .loader('markdown-loader')
-            .end()
+      const markdownRule = config.rules.add('markdown', {
+        test: /\.md$/
+      })
+      markdownRule.loaders.add('html-loader', {
+        loader: 'html-loader'
+      })
+      markdownRule.loaders.add('markdown-loader', {
+        loader: 'markdown-loader'
+      })
     }
   })
 }

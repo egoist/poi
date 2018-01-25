@@ -11,5 +11,12 @@
   "author": {
     "name": "EGOIST",
     "email": "0x142857@gmail.com"
+  },
+  "dependencies": {
+    "chalk": "^2.3.0",
+    "react-error-overlay": "^3.0.0",
+    "shell-quote": "^1.6.1",
+    "sockjs-client": "^1.1.4",
+    "strip-ansi": "^4.0.0"
   }
 }
