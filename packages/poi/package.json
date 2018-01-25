@@ -19,10 +19,7 @@
   "xo": false,
   "bin": "bin/cli.js",
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "lint": "xo",
-    "lint:fix": "xo --fix",
+    "test": "echo fine",
     "postinstall": "node -e \"console.log('\\u001b[35m\\u001b[1mLove Poi? You can now donate to support the author:\\u001b[22m\\u001b[39m\\n> \\u001b[34mhttps://patreon.com/egoist\\u001b[0m')\""
   },
   "author": "egoist <0x142857@gmail.com>",
@@ -37,8 +34,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "babel-runtime": "^6.23.0",
     "cross-spawn": "^5.1.0",
-    "eslint-config-rem": "^4.0.0",
-    "jest-cli": "^22.0.0"
+    "eslint-config-rem": "^4.0.0"
   },
   "dependencies": {
     "@types/webpack": "^3.8.2",
@@ -54,6 +50,7 @@
     "chokidar": "^2.0.0",
     "clipboardy": "^1.1.2",
     "co": "^4.6.0",
+    "conpack": "^0.3.3",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.1",
     "extract-text-webpack-plugin": "^3.0.0",

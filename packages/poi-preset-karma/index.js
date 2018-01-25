@@ -28,33 +28,32 @@ module.exports = (options = {}) => {
     poi.extendWebpack('test', config => {
       const coverage = inferValue('coverage')
 
-      isTypeScript = config.module.rules.has('typescript')
+      isTypeScript = config.rules.has('typescript')
 
       if (coverage) {
         /* for general usage */
-        config.module.rule('istanbul-instrumenter-loader')
-          .test(/\.(jsx?)$/)
-          .exclude
-            .add(/(node_modules|\.test\.jsx?)/)
-            .end()
-          .pre()
-          .use('istanbul-instrumenter-loader')
-            .loader('istanbul-instrumenter-loader')
-            .options({
-              esModules: true
-            })
+        const istanbulinstrumenterRule = config.rules.add('istanbul-instrumenter', {
+          test: /\.(jsx?)$/,
+          exclude: [/(node_modules|\.test\.jsx?)/],
+          enforce: 'pre'
+        })
+        istanbulinstrumenterRule.loaders.add('istanbul-instrumenter-loader', {
+          loader: 'istanbul-instrumenter-loader',
+          options: {
+            esModules: true
+          }
+        })
 
         /* for vue (assumes vue-loader) */
-        config.module.rule('vue')
-          .use('vue-loader')
-          .tap(vueOptions => {
-            const instrumenterLoader = 'istanbul-instrumenter-loader?esModules=true'
-            vueOptions.preLoaders = (vueOptions.preLoaders || {})
-            vueOptions.preLoaders.js = typeof vueOptions.preLoaders.js === 'string' ?
-              `${vueOptions.preLoaders.js}!${instrumenterLoader}` :
-              instrumenterLoader
-            return vueOptions
-          })
+        const vueRule = config.rules.get('vue')
+        vueRule.loaders.update('vue-loader', vueOptions => {
+          const instrumenterLoader = 'istanbul-instrumenter-loader?esModules=true'
+          vueOptions.preLoaders = (vueOptions.preLoaders || {})
+          vueOptions.preLoaders.js = typeof vueOptions.preLoaders.js === 'string' ?
+            `${vueOptions.preLoaders.js}!${instrumenterLoader}` :
+            instrumenterLoader
+          return vueOptions
+        })
       }
     })
 

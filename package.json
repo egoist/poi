@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "precommit": "npm test",
-    "test": "npm run lint && lerna run test",
+    "test": "npm run lint && jest",
     "lint": "xo"
   },
   "main": "index.js",
@@ -44,11 +44,16 @@
   "devDependencies": {
     "eslint-config-rem": "^4.0.0",
     "husky": "^0.14.3",
+    "jest": "^22.1.4",
     "lerna": "^2.0.0",
     "xo": "^0.18.2"
   },
   "dependencies": {},
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "jest": {
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": ["/node_modules/", "/examples?/"]
+  }
 }
