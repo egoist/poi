@@ -14,7 +14,7 @@
     "app"
   ],
   "engines": {
-    "node": ">= 6"
+    "node": ">= 8"
   },
   "xo": false,
   "bin": "bin/cli.js",
@@ -43,7 +43,6 @@
     "chalk": "^2.0.1",
     "chokidar": "^2.0.0",
     "clipboardy": "^1.1.2",
-    "co": "^4.6.0",
     "conpack": "^0.3.3",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.1",
