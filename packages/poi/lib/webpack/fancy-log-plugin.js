@@ -5,7 +5,6 @@ const chalk = require('chalk')
 const { unspecifiedAddress } = require('../utils')
 const logger = require('../logger')
 const terminal = require('../terminal-utils')
-const handleWebpackErrors = require('./handle-errors')
 
 function outputStats(stats) {
   console.log(stats.toString({
@@ -36,12 +35,8 @@ module.exports = class FancyLogPlugin {
 
       if (stats.hasErrors()) {
         process.exitCode = 1
-        if (this.opts.rawErrors) {
-          outputStats(stats)
-        } else {
-          const { errors } = stats.compilation
-          handleWebpackErrors(errors)
-        }
+        outputStats(stats)
+        console.log()
         logger.error('Compiled with errors!')
         console.log()
         return
