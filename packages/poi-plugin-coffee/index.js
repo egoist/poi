@@ -3,7 +3,7 @@
  * @name pluginCoffeescript
  * @param {Object} options
  * @param {any} [options.loaderOptions={transpile: babelOptions}] - Options for
- * {@link https://github.com/webpack-contrib/coffee-loader#options coffee-loader}, `babelOptions` defaults to the babel-loader options we use against `.js` files.
+ * {@link https://github.com/egoist/better-coffee-loader#options}, `babelOptions` defaults to the babel-loader options we use against `.js` files.
  */
 module.exports = ({ loaderOptions } = {}) => {
   return poi => {
@@ -32,6 +32,8 @@ module.exports = ({ loaderOptions } = {}) => {
         loader: 'better-coffee-loader',
         options: coffeeOptions
       })
+
+      config.append('resolve.extensions', '.coffee')
 
       config.rules.get('vue')
         .loaders.update('vue-loader', vueOptions => {

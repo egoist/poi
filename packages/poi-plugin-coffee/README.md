@@ -21,12 +21,6 @@ module.exports = {
 
 **Notes:**
 
--   You need to explicitly specify the extension while importing:
-
-```js
-import utils from './utils.coffee'
-```
-
 -   To use in Vue SFC, set `lang="coffee"` or `lang="coffeescript"`:
 
 ```vue
