@@ -88,9 +88,9 @@ module.exports = function ({
   }
 
   if (typeof entry === 'string') {
-    config.entry('client').add(handleEntryPath(entry))
+    config.entry(filename.client).add(handleEntryPath(entry))
   } else if (Array.isArray(entry)) {
-    config.entry('client').merge(entry.map(e => handleEntryPath(e)))
+    config.entry(filename.client).merge(entry.map(e => handleEntryPath(e)))
   } else if (typeof entry === 'object') {
     Object.keys(entry).forEach(k => {
       const v = entry[k]
@@ -283,14 +283,14 @@ module.exports = function ({
   if (vendor && !format && mode !== 'test') {
     config.plugin('split-vendor-code')
       .use(webpack.optimize.CommonsChunkPlugin, [{
-        name: 'vendor',
+        name: filename.vendor,
         minChunks: module => {
           return module.context && module.context.indexOf('node_modules') >= 0
         }
       }])
     config.plugin('split-manifest')
       .use(webpack.optimize.CommonsChunkPlugin, [{
-        name: 'manifest'
+        name: filename.manifest
       }])
   }
 

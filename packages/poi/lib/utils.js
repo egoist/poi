@@ -54,14 +54,35 @@ exports.inferHTML = function (options) {
   return result
 }
 
+exports.getLibraryFilename = function (library) {
+  return kebabCase(
+    typeof library === 'string' ? library : path.basename(process.cwd())
+  )
+}
+
 exports.getFileNames = function (useHash, customFileName) {
-  return Object.assign({
+  const filenames = Object.assign({
     js: useHash ? '[name].[chunkhash:8].js' : '[name].js',
     css: useHash ? '[name].[contenthash:8].css' : '[name].css',
     images: 'assets/images/[name].[hash:8].[ext]',
     fonts: useHash ? 'assets/fonts/[name].[hash:8].[ext]' : 'assets/fonts/[name].[ext]',
-    chunk: useHash ? '[name].[chunkhash:8].chunk.js' : '[name].chunk.js'
+    chunk: useHash ? '[name].[chunkhash:8].chunk.js' : '[name].chunk.js',
+    vendor: 'vendor',
+    manifest: 'manifest',
+    client: 'client'
   }, customFileName)
+
+  const pkg = exports.readPkg()
+  const pkgName = pkg ? pkg.name : getLibraryFilename()
+  const normalizeName = name => name
+    .replace('[name]', pkgName)
+    .replace('.js', '')
+
+  filenames.vendor = normalizeName(filenames.vendor)
+  filenames.manifest = normalizeName(filenames.manifest)
+  filenames.client = normalizeName(filenames.client)
+
+  return filenames
 }
 
 exports.inferProductionValue = function (value, mode) {
