@@ -12,7 +12,7 @@ module.exports = ({
       config.append('resolve.extensions', '.ts')
       config.append('resolve.extensions', '.tsx')
 
-      const tsRule = config.rules.get('typescript', {
+      const tsRule = config.rules.add('typescript', {
         test: /\.tsx?$/
       })
       tsRule.loaders.add('ts-loader', {
