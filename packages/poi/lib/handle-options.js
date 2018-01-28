@@ -1,18 +1,10 @@
-const path = require('path')
 const co = require('co')
 const chalk = require('chalk')
 const LoadExternalConfig = require('poi-load-config')
 const tildify = require('tildify')
-const kebabCase = require('lodash/kebabCase')
 const buildConfigChain = require('babel-core/lib/transformation/file/options/build-config-chain')
 
-const { inferHTML, readPkg } = require('./utils')
-
-function getLibraryFilename(component) {
-  return kebabCase(
-    typeof component === 'string' ? component : path.basename(process.cwd())
-  )
-}
+const { inferHTML, readPkg, getLibraryFilename } = require('./utils')
 
 module.exports = co.wrap(function * (options) {
   const loadExternalConfig = new LoadExternalConfig({ cwd: options.cwd })
