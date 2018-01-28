@@ -1,7 +1,7 @@
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 /**
- * @name presetBundleReport
+ * @name pluginBundleReport
  * @param {Object} [pluginOptions=undefined] - Options for
  * {@link https://github.com/th0r/webpack-bundle-analyzer webpack-bundle-analyzer} plugin
  */

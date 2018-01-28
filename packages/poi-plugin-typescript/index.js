@@ -1,6 +1,6 @@
 /**
  * Add TypeScript support
- * @name presetTypescript
+ * @name pluginTypescript
  * @param {Object} options
  * @param {any} [options.loaderOptions=undefined] - Options for ts-loader.
  */

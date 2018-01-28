@@ -1,6 +1,6 @@
 /**
  * Add ESLint to build pipeline
- * @name presetESLint
+ * @name pluginESLint
  * @param {Object} options
  * @param {any} [options.loaderOptions=undefined] - Options for eslint-loader.
  * @param {string|Array<string>} [options.mode='production'] - In which mode to run ESLint.

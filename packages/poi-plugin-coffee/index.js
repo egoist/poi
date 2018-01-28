@@ -1,6 +1,6 @@
 /**
  * Add CoffeeScript support
- * @name presetCoffeescript
+ * @name pluginCoffeescript
  * @param {Object} options
  * @param {any} [options.loaderOptions={transpile: babelOptions}] - Options for
  * {@link https://github.com/webpack-contrib/coffee-loader#options coffee-loader}, `babelOptions` defaults to the babel-loader options we use against `.js` files.

@@ -3,7 +3,7 @@ const OfflinePlugin = require('offline-plugin')
 
 /**
  * Add offline support to your app
- * @name  offlinePreset
+ * @name  offlinePlugin
  * @param {Object} options
  * @param  {String} [options.entry='client'] - Specific the entry to add offline-plugin runtime file.
  * @param  {string} [options.pwa=path.join(__dirname, 'pwa.js')] - Path to your offline-plugin runtime file.

@@ -26,6 +26,7 @@
     "typescript": "^2.2.2"
   },
   "devDependencies": {
+    "documentation": "^5.3.5",
     "typescript": "^2.2.2"
   }
 }

@@ -1,6 +1,6 @@
 /**
  * Use Buble to transpile JS files
- * @name presetBuble
+ * @name pluginBuble
  * @param {Object} options
  * @param {Boolean} [options.asyncAwait=true] - Enable async/await support via nodent
  * @param {Object} options.bubleOptions - Options for buble.

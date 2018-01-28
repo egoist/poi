@@ -61,7 +61,7 @@ class Poi extends EventEmitter {
   createWebpackConfig() {
     if (this.webpackConfig) return this.webpackConfig.toConfig()
 
-    this.usePresets()
+    this.usePlugins()
     this.addWebpackFlow(config => {
       config.plugins.add('compile-notifier', PostCompilePlugin, [
         stats => {
@@ -153,7 +153,7 @@ class Poi extends EventEmitter {
     return isWildcard || isMode || hasMode
   }
 
-  usePresets() {
+  usePlugins() {
     const pluginContext = {
       isMode: this.isMode.bind(this),
       run: this.addMiddleware.bind(this),

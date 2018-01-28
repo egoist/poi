@@ -1,6 +1,6 @@
 /**
  * Add Svelte support
- * @name presetSvelte
+ * @name pluginSvelte
  * @param {Object} options
  * @param {any} [options.loaderOptions=undefined] - Options for svelte-loader.
  */
