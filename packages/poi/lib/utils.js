@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const chalk = require('chalk')
 const tildify = require('tildify')
+const kebabCase = require('lodash/kebabCase')
 const AppError = require('./app-error')
 
 exports.cwd = function (cwd, ...args) {
@@ -73,7 +74,7 @@ exports.getFileNames = function (useHash, customFileName) {
   }, customFileName)
 
   const pkg = exports.readPkg()
-  const pkgName = pkg ? pkg.name : getLibraryFilename()
+  const pkgName = pkg ? pkg.name : exports.getLibraryFilename()
   const normalizeName = name => name
     .replace('[name]', pkgName)
     .replace('.js', '')
