@@ -5,7 +5,7 @@
   },
   "devDependencies": {
     "poi": "^9.3.10",
-    "poi-preset-react": "^9.0.1"
+    "poi-plugin-react": "^9.0.1"
   },
   "dependencies": {
     "react": "^16.0.0",

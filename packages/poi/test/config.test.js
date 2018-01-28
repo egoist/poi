@@ -157,16 +157,16 @@ describe('get webpack config', () => {
     })
   })
 
-  describe('use preset', () => {
+  describe('use plugins', () => {
     it('in all modes', async () => {
-      const preset = poi => {
+      const plugin = poi => {
         poi.extendWebpack(config => {
           config.append('entry.foo', path.resolve(poi.options.cwd, 'haha.js'))
         })
       }
       const app = poi({
         cwd: 'foo',
-        presets: preset
+        plugins: plugin
       })
       await app.prepare()
       const config = app.createWebpackConfig()
@@ -175,7 +175,7 @@ describe('get webpack config', () => {
     })
 
     it('in dev command', async () => {
-      const presets = [
+      const plugins = [
         poi => {
           poi.extendWebpack('development', config => {
             config.append('entry.foo', 'foo')
@@ -190,7 +190,7 @@ describe('get webpack config', () => {
 
       const app = poi({
         mode: 'development',
-        presets
+        plugins
       })
       await app.prepare()
       const config = app.createWebpackConfig()

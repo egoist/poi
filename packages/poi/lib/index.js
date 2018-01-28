@@ -8,7 +8,7 @@ const rm = require('rimraf')
 const ware = require('ware')
 const merge = require('lodash/merge')
 const MemoryFS = require('memory-fs')
-const parsePresets = require('parse-json-config')
+const parsePlugins = require('parse-json-config')
 const webpackUtils = require('./webpack-utils')
 const createConfig = require('./create-config')
 const createServer = require('./server')
@@ -154,7 +154,7 @@ class Poi extends EventEmitter {
   }
 
   usePresets() {
-    const presetContext = {
+    const pluginContext = {
       isMode: this.isMode.bind(this),
       run: this.addMiddleware.bind(this),
       extendWebpack: this.addWebpackFlow.bind(this),
@@ -168,16 +168,16 @@ class Poi extends EventEmitter {
       merge
     }
 
-    let presets = this.options.presets
-    if (presets) {
-      if (typeof presets === 'string' || typeof presets === 'function') {
-        presets = [presets]
+    let plugins = this.options.plugins
+    if (plugins) {
+      if (typeof plugins === 'string' || typeof plugins === 'function') {
+        plugins = [plugins]
       }
-      presets = parsePresets(presets, {
-        prefix: 'poi-preset-'
+      plugins = parsePlugins(plugins, {
+        prefix: 'poi-plugin-'
       })
-      if (presets) {
-        presets.forEach(preset => preset(presetContext))
+      if (plugins) {
+        plugins.forEach(plugin => plugin(pluginContext))
       }
     }
   }

@@ -1,0 +1,21 @@
+{
+  "name": "poi-plugin-react",
+  "version": "9.2.1",
+  "main": "index.js",
+  "license": "MIT",
+  "repository": "egoist/poi",
+  "scripts": {
+    "test": "echo fine",
+    "example": "poi example/index.js --plugins ./index.js"
+  },
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "react-hot-loader": "^3.1.1"
+  },
+  "devDependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  }
+}

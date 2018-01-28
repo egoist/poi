@@ -33,7 +33,7 @@ const App = () => <h1>Hello React.</h1>
 render(<App />, document.getElementById('app'))
 ```
 
-Note: You need to install `react` `react-dom` and run Poi with [--jsx react](https://poi.js.org/#/options?id=jsx) flag. For convenience, here's also [poi-preset-react](https://github.com/egoist/poi/tree/master/packages/poi-preset-react) which adds both React JSX and React HMR support.
+Note: You need to install `react` `react-dom` and run Poi with [--jsx react](https://poi.js.org/#/options?id=jsx) flag. For convenience, here's also [poi-plugin-react](https://github.com/egoist/poi/tree/master/packages/poi-plugin-react) which adds both React JSX and React HMR support.
 
 It's similar for other React-like framework.
 </details>
@@ -56,7 +56,7 @@ Note: You don't need to install any dependencies, `vue` is already brought by `P
 
 <details><summary>Other</summary><br>
 
-You can use existing [presets](https://github.com/egoist/poi/tree/master/packages) such as [poi-preset-riot](https://github.com/egoist/poi/tree/master/packages/poi-preset-riot) and [poi-preset-react](https://github.com/egoist/poi/tree/master/packages/poi-preset-react) to configure your framework to work with `Poi`, or contribute another preset for your desired framework.
+You can use existing [plugins](https://github.com/egoist/poi/tree/master/packages) such as [poi-plugin-riot](https://github.com/egoist/poi/tree/master/packages/poi-plugin-riot) and [poi-plugin-react](https://github.com/egoist/poi/tree/master/packages/poi-plugin-react) to configure your framework to work with `Poi`, or contribute another plugin for your desired framework.
 
 </details>
 </p>
@@ -106,7 +106,7 @@ You can also get rid of boilerplate code in this way.
 
 <details><summary>How to upgrade my app?</summary><br>
 
-You can simply update poi and poi presets in your project, sometimes you might need `yarn remove poi && yarn add poi --dev` to ensure that poi's dependencies are updated too if you're using Yarn.
+You can simply update poi and poi plugins in your project, sometimes you might need `yarn remove poi && yarn add poi --dev` to ensure that poi's dependencies are updated too if you're using Yarn.
 </details>
 
 ## Contributing

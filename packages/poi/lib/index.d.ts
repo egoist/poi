@@ -83,14 +83,14 @@ declare namespace poi {
     /** Use Runtime + Compiler build of Vue.js */
     templateCompiler?: boolean
     /**
-     * Poi presets.
+     * Poi plugins.
      *
      * Examples
-     * - `presets: './local-preset'`
-     * - `presets: ['react']`
-     * - `presets: [require('poi-preset-react')(options)]`
+     * - `plugins: './local-plugin'`
+     * - `plugins: ['react']`
+     * - `plugins: [require('poi-plugin-react')(options)]`
      */
-    presets?: string | any[]
+    plugins?: string | any[]
     /** Running mode */
     mode?: 'development' | 'production' | 'test' | 'watch'
   }

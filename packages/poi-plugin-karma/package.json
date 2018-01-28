@@ -1,0 +1,27 @@
+{
+  "name": "poi-plugin-karma",
+  "version": "9.2.4",
+  "scripts": {
+    "test": "echo fine",
+    "example": "poi test"
+  },
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "istanbul-instrumenter-loader": "^3.0.0",
+    "jasmine-core": "^2.8.0",
+    "karma": "^2.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.1",
+    "karma-mocha": "^1.3.0",
+    "karma-mocha-reporter": "^2.2.4",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^2.0.4",
+    "mocha": "^5.0.0"
+  },
+  "xo": false,
+  "devDependencies": {
+    "webpack": "^3.5.5"
+  }
+}

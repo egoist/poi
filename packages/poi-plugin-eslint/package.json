@@ -1,0 +1,32 @@
+{
+  "name": "poi-plugin-eslint",
+  "version": "9.1.1",
+  "description": "Run eslint as building app using Poi",
+  "main": "index.js",
+  "scripts": {
+    "example": "poi build example/index.js --plugins ./index.js",
+    "docs": "documentation readme index.js -s API",
+    "test": "echo fine"
+  },
+  "repository": "egoist/poi",
+  "author": "EGOIST <0x142857@gmail.com>",
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "eslintConfig": {
+    "extends": "vue-app"
+  },
+  "xo": "false",
+  "dependencies": {
+    "eslint-loader": "^1.7.1"
+  },
+  "peerDependencies": {
+    "eslint": "^4.0.0"
+  },
+  "devDependencies": {
+    "documentation": "^5.0.0",
+    "eslint": "^4.0.0",
+    "eslint-config-vue-app": "^1.3.3"
+  }
+}

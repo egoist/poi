@@ -1,0 +1,25 @@
+{
+  "name": "poi-plugin-elm",
+  "version": "1.1.1",
+  "description": "Use Poi to build your Elm apps.",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "test": "echo fine",
+    "example": "poi example/index.js --plugins ./index.js",
+    "example:build": "poi build example/index.js --plugins ./index.js"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "EGOIST",
+    "email": "0x142857@gmail.com"
+  },
+  "dependencies": {
+    "elm-hot-loader": "^0.5.4",
+    "elm-webpack-loader": "^4.3.1"
+  },
+  "devDependencies": {
+    "elm": "^0.18.0"
+  }
+}

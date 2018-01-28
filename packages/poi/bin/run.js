@@ -166,7 +166,7 @@ module.exports = function (cliOptions) {
       await app.prepare()
       await app.runMiddlewares()
       if (app.middlewares.length === 0) {
-        console.log('> Please use this command with Poi presets')
+        console.log('> Please use this command with Poi plugins')
       }
     }
   }

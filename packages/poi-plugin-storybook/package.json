@@ -1,0 +1,28 @@
+{
+  "name": "poi-plugin-storybook",
+  "version": "0.1.4",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "echo fine",
+    "example-vue": "poi --config example-vue/poi.config.js --storybook",
+    "example-vue:build": "poi build --config example-vue/poi.config.js --storybook",
+    "example-react": "poi --config example-react/poi.config.js --storybook",
+    "example-react:build": "poi build --config example-react/poi.config.js --storybook"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "html-loader": "^0.5.5",
+    "markdown-loader": "^2.0.2"
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^3.2.13",
+    "poi-plugin-react": "^9.2.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "storybook-react": "^3.2.15",
+    "storybook-vue": "^3.2.13"
+  }
+}

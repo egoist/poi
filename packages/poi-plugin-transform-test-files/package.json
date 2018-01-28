@@ -1,0 +1,30 @@
+{
+  "name": "poi-plugin-transform-test-files",
+  "version": "10.0.0",
+  "licenst": "MIT",
+  "author": "EGOIST <0x142857@gmail.com>",
+  "repository": "egoist/poi",
+  "scripts": {
+    "test": "echo fine"
+  },
+  "files": [
+    "index.js"
+  ],
+  "poi": {
+    "plugins": [
+      [
+        "./index.js",
+        {}
+      ]
+    ]
+  },
+  "dependencies": {
+    "globby": "^7.0.0"
+  },
+  "devDependencies": {
+    "ava": "^0.24.0",
+    "jest": "^22.0.0",
+    "webpack": "^3.0.0"
+  },
+  "xo": false
+}
