@@ -18,8 +18,7 @@ class Logger {
       logLevel = 5
     }
     this.logLevel = typeof logLevel === 'number' ? logLevel : 3
-    this.useLogUpdate =
-      typeof useLogUpdate === 'boolean' ? useLogUpdate : true
+    this.useLogUpdate = typeof useLogUpdate === 'boolean' ? useLogUpdate : true
   }
 
   clear() {
@@ -85,14 +84,8 @@ class Logger {
       return
     }
 
-    if (typeof err === 'string') {
-      return this.status(emoji.error, err)
-    }
-
-    let { message, stack } = prettyError(err)
-
-    this.status(emoji.error, message)
-    console.log(stack)
+    // TODO: handle error class too
+    return this.status(emoji.error, err)
   }
 
   // Status message should be persisted

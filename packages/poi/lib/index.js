@@ -5,12 +5,11 @@ const Conpack = require('conpack')
 const UseConfig = require('use-config')
 const chalk = require('chalk')
 const CLIEngine = require('./cli-engine')
-const { localRequire } = require('./utils')
 const handleOptions = require('./handle-options')
 const logger = require('./logger')
 
 module.exports = class Poi extends EventEmitter {
-  constructor(command, options) {
+  constructor(command = 'develop', options) {
     super()
     logger.setOptions(options)
     logger.debug('poi command', command)
@@ -18,7 +17,7 @@ module.exports = class Poi extends EventEmitter {
     this.options = options
     this.conpack = new Conpack()
     this.cli = new CLIEngine(command)
-    this.plugins = new Map()
+    this.plugins = new Set()
     this.cli.cac.on('error', err => {
       if (err.name === 'AppError') {
         logger.error(err.message)
@@ -49,12 +48,21 @@ module.exports = class Poi extends EventEmitter {
     return this
   }
 
+  isCurrentCommand(command) {
+    if (command === '*' || command === this.command) return true
+    if (Array.isArray(command) && command.includes(this.command)) return true
+    return false
+  }
+
   createCompiler() {
     const webpackConfig = this.conpack.toConfig()
-    logger.silly('webpack config', util.inspect(webpackConfig, {
-      depth: null,
-      colors: true
-    }))
+    logger.silly(
+      'webpack config',
+      util.inspect(webpackConfig, {
+        depth: null,
+        colors: true
+      })
+    )
     return require('webpack')(webpackConfig)
   }
 
@@ -63,19 +71,16 @@ module.exports = class Poi extends EventEmitter {
     return this
   }
 
-  registerPlugin(name, plugin) {
-    this.plugins.set(name, plugin)
+  registerPlugin(plugin) {
+    this.plugins.add(plugin)
     return this
   }
 
   registerPlugins(plugins) {
-    for (const name in plugins) {
-      this.registerPlugin(name, localRequire(name)(plugins[name]))
-    }
     return this
   }
 
-  async run() {
+  async prepare() {
     const useConfig = new UseConfig({
       name: 'poi',
       files: ['{name}.config.js', '.{name}rc', 'package.json']
@@ -94,24 +99,35 @@ module.exports = class Poi extends EventEmitter {
         host: '0.0.0.0',
         port: 4000,
         ...this.options.devServer
-      },
+      }
     })
-    logger.debug('poi options', util.inspect(this.options, {
-      depth: null,
-      colors: true
-    }))
-    this.registerPlugin('base-config', require('./plugins/base-config'))
-    this.registerPlugin('develop', require('./plugins/develop'))
-    this.registerPlugin('build', require('./plugins/build'))
-    this.registerPlugin('watch', require('./plugins/watch'))
+    logger.debug(
+      'poi options',
+      util.inspect(this.options, {
+        depth: null,
+        colors: true
+      })
+    )
+    this.registerPlugin(require('./plugins/base-config')())
+    this.registerPlugin(require('./plugins/develop')())
+    this.registerPlugin(require('./plugins/build')())
+    this.registerPlugin(require('./plugins/watch')())
 
     if (this.plugins.size > 0) {
-      for (const plugin of this.plugins.values()) {
-        plugin(this)
+      for (const plugin of this.plugins) {
+        logger.debug('use plugin', plugin.name)
+        plugin.extend(this)
       }
     }
+  }
 
+  async run() {
+    await this.prepare()
     await this.cli.runCommand()
+  }
+
+  createWebpackConfig() {
+    return this.conpack.toConfig()
   }
 
   resolveCwd(...args) {

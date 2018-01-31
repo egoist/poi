@@ -6,7 +6,10 @@ module.exports = (pluginOptions, overrides) => {
 
       // do not use if `minimize` is off
       if (config.plugins.has('minimize')) {
-        config.plugins.update('minimize', BabelMinifyPlugin, [pluginOptions, overrides])
+        config.plugins.update('minimize', BabelMinifyPlugin, [
+          pluginOptions,
+          overrides
+        ])
       }
     })
   }

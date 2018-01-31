@@ -4,9 +4,12 @@ module.exports = ctx => {
   const { options } = ctx
   const { browserslist = ['ie > 8', 'last 2 versions'] } = readPkg()
 
-  const autoprefixerOptions = Object.assign({
-    browsers: browserslist
-  }, options.autoprefixer)
+  const autoprefixerOptions = Object.assign(
+    {
+      browsers: browserslist
+    },
+    options.autoprefixer
+  )
 
   let config = options.config || {}
   if (typeof config === 'function') {

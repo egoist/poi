@@ -4,13 +4,18 @@ const webpack = require('webpack')
 
 module.exports = (options = {}) => {
   return poi => {
-    const getOption = (name, defaultValue) => poi.argv[name] || options[name] || defaultValue
+    const getOption = (name, defaultValue) =>
+      poi.argv[name] || options[name] || defaultValue
 
     const baseDir = getOption('baseDir', poi.options.cwd)
     const outputDir = getOption('outputDir', baseDir)
     const input = poi.argv._.slice(1)
-    const testFiles = input.length > 0 ? input : (options.testFiles || '**/*.{test,spec}.js')
-    const ignoreFiles = getOption('ignoreFiles', ['!**/node_modules/**', '!**/vendor/**'])
+    const testFiles =
+      input.length > 0 ? input : options.testFiles || '**/*.{test,spec}.js'
+    const ignoreFiles = getOption('ignoreFiles', [
+      '!**/node_modules/**',
+      '!**/vendor/**'
+    ])
 
     poi.extendWebpack('test', config => {
       const outputPath = path.resolve(poi.options.cwd, outputDir)
@@ -28,7 +33,10 @@ module.exports = (options = {}) => {
           delete webpackConfig.entry.client
           webpackConfig.entry = files.reduce((acc, filename) => {
             return Object.assign(acc, {
-              [filename.replace(/\.[^/.]+$/, '')]: path.resolve(baseDir, filename)
+              [filename.replace(/\.[^/.]+$/, '')]: path.resolve(
+                baseDir,
+                filename
+              )
             })
           }, {})
         })

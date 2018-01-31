@@ -69,14 +69,6 @@ exports.getFileNames = function(useHash, customFileName) {
   )
 }
 
-// For those options that default to true in build command
-exports.inferDefaultValue = function(value, command) {
-  if (typeof value !== 'undefined') {
-    return value
-  }
-  return mode === 'production'
-}
-
 exports.promisify = function(fn) {
   return (...args) => {
     return new Promise((resolve, reject) => {

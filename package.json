@@ -1,56 +1,30 @@
 {
   "private": true,
-  "name": "poi-monorepo",
-  "version": "0.0.0",
   "scripts": {
     "precommit": "npm test",
     "test": "npm run lint && npm run jest",
-    "lint": "xo",
+    "lint": "eslint .",
     "jest": "jest -i"
-  },
-  "main": "index.js",
-  "xo": {
-    "esnext": true,
-    "extends": "rem",
-    "ignores": [
-      "examples/**",
-      "template/**",
-      "packages/*/dist/**",
-      "packages/*/example/**",
-      "**/coverage/**",
-      "**/output*/**",
-      "**/fixture/**",
-      "**/example-*/**",
-      "**/register-service-worker.js"
-    ],
-    "envs": [
-      "jest"
-    ],
-    "rules": {
-      "guard-for-in": 0,
-      "import/no-dynamic-require": 0,
-      "max-nested-callbacks": [
-        "error",
-        6
-      ],
-      "capitalized-comments": 0,
-      "no-multi-assign": 0,
-      "complexity": 0,
-      "ava/no-ignored-test-files": 0,
-      "unicorn/no-abusive-eslint-disable": 0
-    }
   },
   "repository": "git@github.com:egoist/poi.git",
   "author": "EGOIST <0x142857@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "eslint": "^4.16.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-config-rem": "^4.0.0",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-formatter-pretty": "^1.3.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-prettier": "^2.5.0",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
     "husky": "^0.14.3",
     "jest": "^22.1.4",
     "lerna": "^2.0.0",
-    "xo": "^0.18.2"
+    "prettier": "^1.10.2"
   },
-  "dependencies": {},
   "workspaces": [
     "packages/*"
   ],

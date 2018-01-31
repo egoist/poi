@@ -25,8 +25,7 @@ if (entry.length === 0) {
 
 const app = new Poi(command, options)
 
-app.run()
-  .catch(err => {
-    console.error(err)
-    process.exit(1)
-  })
+app.run().catch(err => {
+  console.error(err)
+  process.exit(1)
+})

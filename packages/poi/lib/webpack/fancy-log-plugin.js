@@ -1,21 +1,20 @@
-const url = require('url')
-const address = require('address')
-const copy = require('clipboardy')
 const chalk = require('chalk')
 const terminal = require('../terminal-utils')
 const emoji = require('../emoji')
 const logger = require('../logger')
 
 function outputStats(stats) {
-  console.log(stats.toString({
-    colors: true,
-    chunks: false,
-    modules: false,
-    children: false,
-    version: false,
-    hash: false,
-    timings: false
-  }))
+  console.log(
+    stats.toString({
+      colors: true,
+      chunks: false,
+      modules: false,
+      children: false,
+      version: false,
+      hash: false,
+      timings: false
+    })
+  )
 }
 
 module.exports = class FancyLogPlugin {
@@ -69,7 +68,10 @@ module.exports = class FancyLogPlugin {
   }
 
   displaySuccess(stats) {
-    logger.status(emoji.success, chalk.green(`Built in ${stats.endTime - stats.startTime}ms.`))
+    logger.status(
+      emoji.success,
+      chalk.green(`Built in ${stats.endTime - stats.startTime}ms.`)
+    )
     process.exitCode = 0
   }
 }

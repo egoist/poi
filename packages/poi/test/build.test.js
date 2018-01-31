@@ -10,7 +10,9 @@ test('build', async () => {
   })
   launched = await launchBrowser(path.join(__dirname, 'fixture/dist'))
   // eslint-disable-next-line no-undef
-  const html = await launched.page.evaluate(() => document.querySelector('#app').innerHTML)
+  const html = await launched.page.evaluate(
+    () => document.querySelector('#app').innerHTML
+  )
   expect(html).toBe('hi')
 })
 

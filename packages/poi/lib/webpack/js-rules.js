@@ -17,7 +17,11 @@ module.exports = (config, { babel, transformModules }) => {
         // For specified modules
         if (Array.isArray(transformModules)) {
           const hasModuleToTransform = transformModules.some(name => {
-            return filepath.indexOf(`${path.sep}node_modules${path.sep}${name}${path.sep}`) >= 0
+            return (
+              filepath.indexOf(
+                `${path.sep}node_modules${path.sep}${name}${path.sep}`
+              ) >= 0
+            )
           })
           if (hasModuleToTransform) {
             return true

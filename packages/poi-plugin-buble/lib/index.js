@@ -6,20 +6,20 @@
  * @param {Object} options.bubleOptions - Options for buble.
  * If this option is set, it will be assigned to default buble options.
  */
-module.exports = ({
-  asyncAwait = true,
-  bubleOptions
-} = {}) => {
+module.exports = ({ asyncAwait = true, bubleOptions } = {}) => {
   return poi => {
     poi.extendWebpack(config => {
-      bubleOptions = Object.assign({
-        transforms: {
-          dangerousForOf: true,
-          generator: false,
-          modules: false
+      bubleOptions = Object.assign(
+        {
+          transforms: {
+            dangerousForOf: true,
+            generator: false,
+            modules: false
+          },
+          objectAssign: 'Object.assign'
         },
-        objectAssign: 'Object.assign'
-      }, bubleOptions)
+        bubleOptions
+      )
 
       for (const rule of ['js', 'es']) {
         const thisRule = config.rules.get(rule)

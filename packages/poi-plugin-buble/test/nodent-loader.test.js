@@ -12,10 +12,12 @@ function build(file) {
       filename: 'main.js'
     },
     module: {
-      rules: [{
-        test: /\.js$/,
-        loader: require.resolve('../lib/nodent-loader')
-      }]
+      rules: [
+        {
+          test: /\.js$/,
+          loader: require.resolve('../lib/nodent-loader')
+        }
+      ]
     }
   }
   const compiler = webpack(config)

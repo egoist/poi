@@ -14,10 +14,6 @@
   "files": [
     "index.js"
   ],
-  "eslintConfig": {
-    "extends": "vue-app"
-  },
-  "xo": "false",
   "dependencies": {
     "eslint-loader": "^1.7.1"
   },

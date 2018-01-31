@@ -5,7 +5,7 @@ const serveStatic = require('serve-static')
 const getPort = require('get-port')
 const execa = require('execa')
 
-const _ = module.exports = {}
+const _ = (module.exports = {})
 
 _.run = (args, options) => {
   const script = path.join(require.resolve('poi/package'), '../bin/main.js')

@@ -5,7 +5,7 @@ module.exports = (config, filename) => {
   imageRule.loaders.add('url-loader', {
     loader: 'url-loader',
     options: {
-      name: filename.images,
+      name: filename.images
       // inline the file if < max size
       // limit: inlineImageMaxSize
     }

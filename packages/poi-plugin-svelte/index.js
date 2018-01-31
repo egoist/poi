@@ -4,9 +4,7 @@
  * @param {Object} options
  * @param {any} [options.loaderOptions=undefined] - Options for svelte-loader.
  */
-module.exports = function ({
-  loaderOptions
-} = {}) {
+module.exports = function({ loaderOptions } = {}) {
   return poi => {
     poi.extendWebpack(config => {
       config.append('resolve.extensions', '.html')
@@ -17,10 +15,9 @@ module.exports = function ({
 
       let jsLoaderOptions
       if (isBabel || isBuble) {
-        jsLoaderOptions = jsRule.loaders
-          .get(isBabel ? 'babel-loader' : 'buble-loader')
-          .options
-          .options
+        jsLoaderOptions = jsRule.loaders.get(
+          isBabel ? 'babel-loader' : 'buble-loader'
+        ).options.options
       }
 
       let jsLoaderPath
@@ -43,10 +40,15 @@ module.exports = function ({
         })
         svelteRule.loaders.add('svelte-loader', {
           loader: 'svelte-loader',
-          options: Object.assign({
-            // Extract CSS in production mode
-            emitCss: poi.isMode('production') && poi.options.extractCSS !== false
-          }, loaderOptions)
+          options: Object.assign(
+            {
+              // Extract CSS in production mode
+              emitCss:
+                poi.isCurrentCommand('build') &&
+                poi.options.extractCSS !== false
+            },
+            loaderOptions
+          )
         })
       }
     })

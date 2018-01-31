@@ -1,7 +1,5 @@
 const path = require('path')
-const chalk = require('chalk')
 const LoadExternalConfig = require('poi-load-config')
-const tildify = require('tildify')
 const kebabCase = require('lodash/kebabCase')
 const buildConfigChain = require('babel-core/lib/transformation/file/options/build-config-chain')
 const logger = require('./logger')

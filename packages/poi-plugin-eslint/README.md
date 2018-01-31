@@ -38,8 +38,8 @@ Add ESLint to build pipeline
 
 -   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
     -   `options.loaderOptions` **any** Options for eslint-loader. (optional, default `undefined`)
-    -   `options.mode` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>)** In which mode to run ESLint.
-        It could be a wildcard symbol `*` which means all modes, or an array of modes like `['production', 'test']` (optional, default `'production'`)
+    -   `options.command` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>)** In which command to run ESLint.
+        It could be a wildcard symbol `*` which means all commands, or an array of command like `['build', 'test']` (optional, default `'build'`)
 
 **Examples**
 

@@ -1,3 +1,3 @@
- /* eslint-disable */
+/* eslint-disable */
 
 module.exports = '/__open-in-editor'

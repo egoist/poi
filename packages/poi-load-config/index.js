@@ -25,7 +25,9 @@ module.exports = class LoadConfig {
    */
   babel(buildConfigChain) {
     // Check direct and parent directory
-    return new Promise(resolve => resolve(babelLoadConfig(this.options.cwd, buildConfigChain)))
+    return new Promise(resolve =>
+      resolve(babelLoadConfig(this.options.cwd, buildConfigChain))
+    )
   }
 
   /**
@@ -41,7 +43,8 @@ module.exports = class LoadConfig {
       return {}
     }
 
-    return findPostcssConfig({}, this.options.cwd, { argv: false })
-      .catch(handleError)
+    return findPostcssConfig({}, this.options.cwd, { argv: false }).catch(
+      handleError
+    )
   }
 }

@@ -2,7 +2,7 @@ const nodeExternals = require('poi-webpack-node-externals')
 const merge = require('lodash/merge')
 const { createSet, stringifyObject } = require('./utils')
 
-const _ = module.exports = {}
+const _ = (module.exports = {})
 
 _.externalize = config => {
   let value = config.get('externals') || []

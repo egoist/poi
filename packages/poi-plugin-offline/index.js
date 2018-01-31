@@ -50,16 +50,21 @@ module.exports = ({
         return options
       })
 
-      config.plugins.add('offline', OfflinePlugin, [Object.assign({
-        ServiceWorker: {
-          events: true,
-          navigateFallbackURL: '/'
-        },
-        AppCache: {
-          events: true,
-          FALLBACK: { '/': '/' }
-        }
-      }, pluginOptions)])
+      config.plugins.add('offline', OfflinePlugin, [
+        Object.assign(
+          {
+            ServiceWorker: {
+              events: true,
+              navigateFallbackURL: '/'
+            },
+            AppCache: {
+              events: true,
+              FALLBACK: { '/': '/' }
+            }
+          },
+          pluginOptions
+        )
+      ])
     })
   }
 }

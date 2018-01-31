@@ -22,8 +22,9 @@ module.exports = (config, { babel, cssOptions, vueOptions }) => {
 
   vueRule.loaders.add('vue-loader', {
     loader: 'vue-loader',
-    options: typeof vueOptions === 'function' ?
-    vueOptions(defaultVueOptions) :
-    merge(defaultVueOptions, vueOptions)
+    options:
+      typeof vueOptions === 'function'
+        ? vueOptions(defaultVueOptions)
+        : merge(defaultVueOptions, vueOptions)
   })
 }
