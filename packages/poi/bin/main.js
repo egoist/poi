@@ -1,9 +1,8 @@
 const cac = require('cac')
 const Poi = require('../lib')
+const { isPath } = require('../lib/utils')
 
 const { input, flags } = cac.parse(process.argv.slice(2))
-
-const isPath = v => /.+\..+/.test(v) || v.indexOf('/') > -1
 
 let command
 let entry

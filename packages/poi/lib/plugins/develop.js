@@ -7,13 +7,17 @@ const getPort = require('get-port')
 const address = require('address')
 const launchEditorEndpoint = require('poi-dev-utils/launch-editor-endpoint')
 const { unspecifiedAddress } = require('../utils')
+const logger = require('../logger')
+const { isPath } = require('../utils')
 
 module.exports = ctx => {
   const command = ctx.cli.registerCommand(
     'develop',
     {
       desc: 'Run app in development mode',
-      alias: '*'
+      match(name) {
+        return !name || isPath(name)
+      }
     },
     async () => {
       const compiler = ctx.createCompiler()
@@ -60,7 +64,7 @@ module.exports = ctx => {
       const host = ctx.options.devServer.host
       const port = await getPort({ port: ctx.options.devServer.port, host })
       if (port !== ctx.options.devServer.port) {
-        ctx.logger.warn(`Port ${ctx.options.devServer.port} has been used, switched to ${port}.`)
+        logger.warn(`Port ${ctx.options.devServer.port} has been used, switched to ${port}.`)
       }
 
       const server = new Server(compiler, devServerOptions)
@@ -85,7 +89,7 @@ module.exports = ctx => {
           msg += `\n${chalk.dim(`  - On Your Network: ${lanURL}`)}`
         }
 
-        ctx.logger.log(msg + '\n')
+        logger.log(msg + '\n')
 
         if (ctx.options.open) {
           opn(

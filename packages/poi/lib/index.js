@@ -7,13 +7,13 @@ const chalk = require('chalk')
 const CLIEngine = require('./cli-engine')
 const { localRequire } = require('./utils')
 const handleOptions = require('./handle-options')
-const Logger = require('./logger')
+const logger = require('./logger')
 
 module.exports = class Poi extends EventEmitter {
   constructor(command, options) {
     super()
-
-    this.logger = new Logger(options)
+    logger.setOptions(options)
+    logger.debug('poi command', command)
     this.command = command
     this.options = options
     this.conpack = new Conpack()
@@ -21,9 +21,9 @@ module.exports = class Poi extends EventEmitter {
     this.plugins = new Map()
     this.cli.cac.on('error', err => {
       if (err.name === 'AppError') {
-        this.logger.error(err.message)
+        logger.error(err.message)
       } else {
-        this.logger.error(chalk.dim(err.stack))
+        logger.error(chalk.dim(err.stack))
       }
     })
 
@@ -51,7 +51,7 @@ module.exports = class Poi extends EventEmitter {
 
   createCompiler() {
     const webpackConfig = this.conpack.toConfig()
-    this.logger.silly('webpack config', util.inspect(webpackConfig, {
+    logger.silly('webpack config', util.inspect(webpackConfig, {
       depth: null,
       colors: true
     }))
@@ -81,12 +81,12 @@ module.exports = class Poi extends EventEmitter {
       files: ['{name}.config.js', '.{name}rc', 'package.json']
     })
     const { path: configPath, config } = await useConfig.load()
-    this.logger.debug('poi config path', configPath)
+    logger.debug('poi config path', configPath)
     this.options = {
       ...config,
       ...this.options
     }
-    this.options = await handleOptions(this.logger, {
+    this.options = await handleOptions({
       entry: 'index.js',
       cwd: process.cwd(),
       ...this.options,
@@ -96,13 +96,14 @@ module.exports = class Poi extends EventEmitter {
         ...this.options.devServer
       },
     })
-    this.logger.debug('poi options', util.inspect(this.options, {
+    logger.debug('poi options', util.inspect(this.options, {
       depth: null,
       colors: true
     }))
     this.registerPlugin('base-config', require('./plugins/base-config'))
     this.registerPlugin('develop', require('./plugins/develop'))
     this.registerPlugin('build', require('./plugins/build'))
+    this.registerPlugin('watch', require('./plugins/watch'))
 
     if (this.plugins.size > 0) {
       for (const plugin of this.plugins.values()) {

@@ -38,7 +38,7 @@
     "autoprefixer": "^7.1.2",
     "babel-loader": "^8.0.0-beta.0",
     "babel-preset-poi": "^1.1.2",
-    "cac": "^4.3.7",
+    "cac": "^4.4.1",
     "case-sensitive-paths-webpack-plugin": "^2.0.0",
     "chalk": "^2.0.1",
     "chokidar": "^2.0.0",

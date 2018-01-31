@@ -11,7 +11,7 @@ module.exports = (config, { babel, transformModules }) => {
     include: [
       filepath => {
         // For anything outside node_modules
-        if (filepath.indexOf(`${path.sep}node_modules${path.sep}`) === -1) {
+        if (!filepath.includes(`${path.sep}node_modules${path.sep}`)) {
           return true
         }
         // For specified modules
@@ -29,7 +29,8 @@ module.exports = (config, { babel, transformModules }) => {
   })
 
   jsRule.loaders.add('babel-loader', {
-    loader: 'babel-loader',
+    // Prevent from using loader in cwd
+    loader: require.resolve('babel-loader'),
     options: babel
   })
 }

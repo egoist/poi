@@ -127,3 +127,5 @@ exports.localRequire = m =>
   /^[./]|(^[a-zA-Z]:)/.test(m)
     ? require(path.resolve(m))
     : require(path.resolve('node_modules', m))
+
+exports.isPath = v => /.+\..+/.test(v) || v.indexOf('/') > -1

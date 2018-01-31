@@ -185,7 +185,6 @@ module.exports = ctx => {
     ])
 
     config.plugins.add('fancy-log', require('../webpack/fancy-log-plugin'), [
-      ctx.logger,
       {
         command,
         host,

@@ -4,6 +4,7 @@ const copy = require('clipboardy')
 const chalk = require('chalk')
 const terminal = require('../terminal-utils')
 const emoji = require('../emoji')
+const logger = require('../logger')
 
 function outputStats(stats) {
   console.log(stats.toString({
@@ -18,9 +19,8 @@ function outputStats(stats) {
 }
 
 module.exports = class FancyLogPlugin {
-  constructor(logger, opts) {
+  constructor(opts) {
     this.opts = opts
-    this.logger = logger
   }
 
   apply(compiler) {
@@ -37,7 +37,7 @@ module.exports = class FancyLogPlugin {
         process.exitCode = 1
         outputStats(stats)
         console.log()
-        this.logger.error('Compiled with errors!')
+        logger.error('Compiled with errors!')
         console.log()
         return
       }
@@ -46,7 +46,7 @@ module.exports = class FancyLogPlugin {
         process.exitCode = 1
         outputStats(stats)
         console.log()
-        this.logger.error('Compiled with warnings!')
+        logger.error('Compiled with warnings!')
         console.log()
         return
       }
@@ -56,7 +56,7 @@ module.exports = class FancyLogPlugin {
 
     compiler.plugin('invalid', () => {
       this.clearScreen()
-      this.logger.status(emoji.progress, 'Compiling...')
+      logger.status(emoji.progress, 'Compiling...')
       console.log()
     })
   }
@@ -69,7 +69,7 @@ module.exports = class FancyLogPlugin {
   }
 
   displaySuccess(stats) {
-    this.logger.status(emoji.success, chalk.green(`Built in ${stats.endTime - stats.startTime}ms.`))
+    logger.status(emoji.success, chalk.green(`Built in ${stats.endTime - stats.startTime}ms.`))
     process.exitCode = 0
   }
 }

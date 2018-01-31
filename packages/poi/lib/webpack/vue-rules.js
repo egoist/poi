@@ -10,7 +10,7 @@ module.exports = (config, { babel, cssOptions, vueOptions }) => {
     },
     loaders: Object.assign(cssLoaders.vue(cssOptions), {
       js: {
-        loader: 'babel-loader',
+        loader: require.resolve('babel-loader'),
         options: babel
       }
     })

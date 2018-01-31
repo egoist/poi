@@ -2,9 +2,14 @@ const logUpdate = require('log-update')
 const chalk = require('chalk')
 const emoji = require('./emoji')
 
-// TODO: export a logger instance instead
-module.exports = class Logger {
-  constructor({ logLevel, debug, silly, quiet, useLogUpdate } = {}) {
+class Logger {
+  constructor(options) {
+    if (options) {
+      this.setOptions(options)
+    }
+  }
+
+  setOptions({ logLevel, debug, silly, quiet, useLogUpdate } = {}) {
     if (debug) {
       logLevel = 4
     } else if (quiet) {
@@ -106,3 +111,5 @@ module.exports = class Logger {
     console.log(`${emoji}  ${message}`)
   }
 }
+
+module.exports = new Logger()

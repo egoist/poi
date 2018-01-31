@@ -4,6 +4,7 @@ const LoadExternalConfig = require('poi-load-config')
 const tildify = require('tildify')
 const kebabCase = require('lodash/kebabCase')
 const buildConfigChain = require('babel-core/lib/transformation/file/options/build-config-chain')
+const logger = require('./logger')
 
 const { inferHTML, readPkg } = require('./utils')
 
@@ -13,7 +14,7 @@ function getLibraryFilename(component) {
   )
 }
 
-module.exports = async (logger, options) => {
+module.exports = async options => {
   const loadExternalConfig = new LoadExternalConfig({ cwd: options.cwd })
 
   // options.component is actually a wrong name

@@ -1,4 +1,4 @@
-const babel = require('babel-core')
+const babel = require('@babel/core')
 
 function snapshot({ title, input }) {
   test(title, () => {

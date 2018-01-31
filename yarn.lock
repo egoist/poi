@@ -2713,9 +2713,9 @@ bytes@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.0.0.tgz#d32815404d689699f85a4ea4fa8755dd13a96048"
 
-cac@^4.3.7:
-  version "4.3.7"
-  resolved "https://registry.yarnpkg.com/cac/-/cac-4.3.7.tgz#3898dd6a247e1923bafdf8c948c6801d9f2e9be6"
+cac@^4.4.1:
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/cac/-/cac-4.4.1.tgz#c6867f731c4be7b0c270689d1689400b914c7788"
   dependencies:
     chalk "^2.0.1"
     minimost "^1.0.0"

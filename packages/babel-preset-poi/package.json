@@ -23,6 +23,6 @@
     "babel-preset-vue": "^2.0.1"
   },
   "devDependencies": {
-    "babel-core": "^6.26.0"
+    "@babel/core": "^7.0.0-beta.39"
   }
 }
