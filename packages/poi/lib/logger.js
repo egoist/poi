@@ -1,28 +1,108 @@
+const logUpdate = require('log-update')
 const chalk = require('chalk')
+const emoji = require('./emoji')
 
-const logger = module.exports = {}
+// TODO: export a logger instance instead
+module.exports = class Logger {
+  constructor({ logLevel, debug, silly, quiet, useLogUpdate } = {}) {
+    if (debug) {
+      logLevel = 4
+    } else if (quiet) {
+      logLevel = 1
+    } else if (silly) {
+      logLevel = 5
+    }
+    this.logLevel = typeof logLevel === 'number' ? logLevel : 3
+    this.useLogUpdate =
+      typeof useLogUpdate === 'boolean' ? useLogUpdate : true
+  }
 
-logger.success = (msg, log = true) => {
-  msg = `${chalk.reset.inverse.bold.green(' DONE ')} ${msg}`
-  return log ? console.log(msg) : msg
-}
+  clear() {
+    if (this.useLogUpdate) {
+      logUpdate.clear()
+    }
+  }
 
-logger.error = (msg, log = true) => {
-  msg = `${chalk.reset.inverse.bold.red(' FAIL ')} ${msg}`
-  return log ? console.log(msg) : msg
-}
+  write(message, persistent = false) {
+    if (persistent) {
+      this.clear()
+      console.log(message)
+      return
+    }
+    if (this.useLogUpdate) {
+      logUpdate(message)
+    } else {
+      console.log(message)
+    }
+  }
 
-logger.warn = (msg, log = true) => {
-  msg = `${chalk.reset.inverse.bold.yellow(' WARN ')} ${msg}`
-  return log ? console.log(msg) : msg
-}
+  // Debug message
+  // Always persisted
+  debug(title, message) {
+    if (this.logLevel < 4) {
+      return
+    }
 
-logger.tip = (msg, log = true) => {
-  msg = `${chalk.reset.inverse.bold.cyan(' TIP ')} ${msg}`
-  return log ? console.log(msg) : msg
-}
+    this.write(`${chalk.bold(title)} ${chalk.dim(message)}`, true)
+  }
 
-logger.title = (label, msg, color = 'blue', log = true) => {
-  msg = `${chalk.reset.inverse.bold[color](` ${label} `)} ${msg}`
-  return log ? console.log(msg) : msg
+  // Like debug for even more debug...
+  silly(title, message) {
+    if (this.logLevel < 5) {
+      return
+    }
+
+    this.write(`${chalk.bold(title)} ${chalk.dim(message)}`, true)
+  }
+
+  // Normal log
+  // Persist by default
+  log(message, update) {
+    if (this.logLevel < 3) {
+      return
+    }
+
+    this.write(message, !update)
+  }
+
+  // Warn status
+  warn(message) {
+    if (this.logLevel < 2) {
+      return
+    }
+
+    this.status(emoji.warning, message)
+  }
+
+  // Error status
+  error(err) {
+    if (this.logLevel < 1) {
+      return
+    }
+
+    if (typeof err === 'string') {
+      return this.status(emoji.error, err)
+    }
+
+    let { message, stack } = prettyError(err)
+
+    this.status(emoji.error, message)
+    console.log(stack)
+  }
+
+  // Status message should be persisted
+  // Unless `update` is set
+  // Mainly used in `progress-plugin.js`
+  status(emoji, message, update) {
+    if (this.logLevel < 3) {
+      return
+    }
+
+    if (update && this.useLogUpdate) {
+      return logUpdate(`${emoji}  ${message}`)
+    }
+
+    this.clear()
+    console.log(`${emoji}  ${message}`)
+  }
 }

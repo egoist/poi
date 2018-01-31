@@ -13,7 +13,7 @@ function getLibraryFilename(component) {
   )
 }
 
-module.exports = async options => {
+module.exports = async (logger, options) => {
   const loadExternalConfig = new LoadExternalConfig({ cwd: options.cwd })
 
   // options.component is actually a wrong name
@@ -50,10 +50,7 @@ module.exports = async options => {
       // If root babel config file is found
       // We set `babelrc` to the its path
       // To prevent `babel-loader` from loading it again
-      console.log('> Using external babel configuration')
-      console.log(
-        chalk.dim(`> location: "${tildify(externalBabelConfig.loc)}"`)
-      )
+      logger.debug('babel config location', externalBabelConfig.loc)
       // You can use `babelrc: false` to disable the config file itself
       if (externalBabelConfig.options.babelrc === false) {
         options.babel.babelrc = false
@@ -81,8 +78,7 @@ module.exports = async options => {
   if (options.postcss === undefined) {
     const postcssConfig = await loadExternalConfig.postcss()
     if (postcssConfig.file) {
-      console.log('> Using external postcss configuration')
-      console.log(chalk.dim(`> location: "${tildify(postcssConfig.file)}"`))
+      logger.debug('postcss config location', postcssConfig.file)
 
       // Only feed the config path to postcss-loader
       // In order to let postcss-loader ask webpack to watch it
@@ -125,7 +121,7 @@ module.exports = async options => {
   if (options.entry === undefined && !options.format) {
     const mainField = readPkg().main
     if (mainField) {
-      console.log(`> Using main field in package.json as entry point`)
+      logger.debug('webpack', 'Using main field in package.json as entry point')
       options.entry = mainField
     }
   }

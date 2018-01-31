@@ -32,13 +32,4 @@ module.exports = (config, { babel, transformModules }) => {
     loader: 'babel-loader',
     options: babel
   })
-
-  const esRule = config.rules.add('es', {
-    test: /\.es6?$/
-  })
-
-  esRule.loaders.add('babel-loader', {
-    loader: 'babel-loader',
-    options: babel
-  })
 }

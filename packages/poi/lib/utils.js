@@ -4,24 +4,24 @@ const chalk = require('chalk')
 const tildify = require('tildify')
 const AppError = require('./app-error')
 
-exports.cwd = function (cwd, ...args) {
+exports.cwd = function(cwd, ...args) {
   return path.resolve(cwd || process.cwd(), ...args)
 }
 
-exports.ownDir = function (...args) {
+exports.ownDir = function(...args) {
   return path.join(__dirname, '../', ...args)
 }
 
-exports.getPublicPath = function (mode, homepage) {
-  if (mode === 'production' && typeof homepage === 'string') {
-    return (/\/$/.test(homepage) || homepage === '') ? homepage : (homepage + '/')
+exports.getPublicPath = function(command, homepage) {
+  if (command === 'build' && typeof homepage === 'string') {
+    return /\/$/.test(homepage) || homepage === '' ? homepage : homepage + '/'
   }
   return '/'
 }
 
 let projectPkgCache
 
-exports.readPkg = function () {
+exports.readPkg = function() {
   try {
     projectPkgCache = projectPkgCache || require(exports.cwd('package.json'))
     return projectPkgCache
@@ -33,7 +33,7 @@ exports.readPkg = function () {
   }
 }
 
-exports.inferHTML = function (options) {
+exports.inferHTML = function(options) {
   const result = {
     title: 'Poi App',
     template: exports.ownDir('lib/index.ejs')
@@ -54,24 +54,30 @@ exports.inferHTML = function (options) {
   return result
 }
 
-exports.getFileNames = function (useHash, customFileName) {
-  return Object.assign({
-    js: useHash ? '[name].[chunkhash:8].js' : '[name].js',
-    css: useHash ? '[name].[contenthash:8].css' : '[name].css',
-    images: 'assets/images/[name].[hash:8].[ext]',
-    fonts: useHash ? 'assets/fonts/[name].[hash:8].[ext]' : 'assets/fonts/[name].[ext]',
-    chunk: useHash ? '[name].[chunkhash:8].chunk.js' : '[name].chunk.js'
-  }, customFileName)
+exports.getFileNames = function(useHash, customFileName) {
+  return Object.assign(
+    {
+      js: useHash ? '[name].[chunkhash:8].js' : '[name].js',
+      css: useHash ? '[name].[contenthash:8].css' : '[name].css',
+      images: 'assets/images/[name].[hash:8].[ext]',
+      fonts: useHash
+        ? 'assets/fonts/[name].[hash:8].[ext]'
+        : 'assets/fonts/[name].[ext]',
+      chunk: useHash ? '[name].[chunkhash:8].chunk.js' : '[name].chunk.js'
+    },
+    customFileName
+  )
 }
 
-exports.inferProductionValue = function (value, mode) {
+// For those options that default to true in build command
+exports.inferDefaultValue = function(value, command) {
   if (typeof value !== 'undefined') {
     return value
   }
   return mode === 'production'
 }
 
-exports.promisify = function (fn) {
+exports.promisify = function(fn) {
   return (...args) => {
     return new Promise((resolve, reject) => {
       fn(...args, (err, result) => {
@@ -82,22 +88,22 @@ exports.promisify = function (fn) {
   }
 }
 
-exports.stringifyObject = function (obj) {
+exports.stringifyObject = function(obj) {
   return Object.keys(obj).reduce((curr, next) => {
     curr[next] = JSON.stringify(obj[next])
     return curr
   }, {})
 }
 
-exports.createSet = function (value) {
+exports.createSet = function(value) {
   return Array.isArray(value) ? new Set(value) : new Set([value])
 }
 
-exports.unspecifiedAddress = function (host) {
+exports.unspecifiedAddress = function(host) {
   return host === '0.0.0.0' || host === '::'
 }
 
-exports.getFullEnvString = function (env) {
+exports.getFullEnvString = function(env) {
   return Object.keys(env).reduce((res, key) => {
     res[`process.env.${key}`] = env[key]
     return res
@@ -106,7 +112,7 @@ exports.getFullEnvString = function (env) {
 
 // We might cache something like poi config files
 // So we need to delete on a restart
-exports.deleteCache = function () {
+exports.deleteCache = function() {
   // For now we only need to delete cache for package.json
   // Since we use `export.readPkg()` which will cache it
   // But we don't delete cache for files like `poi.config.js`
@@ -115,6 +121,9 @@ exports.deleteCache = function () {
   delete require.cache[path.resolve('package.json')]
 }
 
-exports.arrify = input => Array.isArray(input) ? input : [input]
+exports.arrify = input => (Array.isArray(input) ? input : [input])
 
-exports.localRequire = m => require(path.resolve('node_modules', m))
+exports.localRequire = m =>
+  /^[./]|(^[a-zA-Z]:)/.test(m)
+    ? require(path.resolve(m))
+    : require(path.resolve('node_modules', m))

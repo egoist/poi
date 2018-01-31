@@ -18,7 +18,7 @@ _.externalize = config => {
 
 _.getHotEntryPoints = entry => {
   if (!entry || entry === true) {
-    entry = 'client'
+    entry = 'main'
   }
   return createSet(entry)
 }

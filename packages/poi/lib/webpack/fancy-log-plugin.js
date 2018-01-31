@@ -2,9 +2,8 @@ const url = require('url')
 const address = require('address')
 const copy = require('clipboardy')
 const chalk = require('chalk')
-const { unspecifiedAddress } = require('../utils')
-const logger = require('../logger')
 const terminal = require('../terminal-utils')
+const emoji = require('../emoji')
 
 function outputStats(stats) {
   console.log(stats.toString({
@@ -19,12 +18,13 @@ function outputStats(stats) {
 }
 
 module.exports = class FancyLogPlugin {
-  constructor(opts) {
+  constructor(logger, opts) {
     this.opts = opts
+    this.logger = logger
   }
 
   apply(compiler) {
-    if (this.opts.mode === 'production') {
+    if (this.opts.command === 'build') {
       compiler.plugin('compile', () => {
         this.clearScreen()
       })
@@ -37,7 +37,7 @@ module.exports = class FancyLogPlugin {
         process.exitCode = 1
         outputStats(stats)
         console.log()
-        logger.error('Compiled with errors!')
+        this.logger.error('Compiled with errors!')
         console.log()
         return
       }
@@ -46,7 +46,7 @@ module.exports = class FancyLogPlugin {
         process.exitCode = 1
         outputStats(stats)
         console.log()
-        logger.error('Compiled with warnings!')
+        this.logger.error('Compiled with warnings!')
         console.log()
         return
       }
@@ -56,58 +56,20 @@ module.exports = class FancyLogPlugin {
 
     compiler.plugin('invalid', () => {
       this.clearScreen()
-      logger.title('WAIT', 'Compiling...')
+      this.logger.status(emoji.progress, 'Compiling...')
       console.log()
     })
   }
 
   clearScreen() {
-    if (this.opts.clear !== false) {
+    if (this.opts.clearScreen !== false) {
       terminal.clear()
     }
     return this
   }
 
   displaySuccess(stats) {
-    const { host, port, mode } = this.opts
-
-    outputStats(stats)
-
-    console.log()
-
-    if (mode === 'development') {
-      const isUnspecifiedAddress = unspecifiedAddress(host)
-      const localURL = url.format({
-        protocol: 'http',
-        hostname: isUnspecifiedAddress ? 'localhost' : host,
-        port
-      })
-      if (this.copied) {
-        console.log(chalk.bold(`> Open ${localURL}`))
-      } else {
-        this.copied = true
-        try {
-          copy.writeSync(localURL)
-          console.log(chalk.bold(`> Open ${localURL}`), chalk.dim('(copied!)'))
-        } catch (err) {
-          console.log(chalk.bold(`> Open ${localURL}`))
-        }
-      }
-      if (isUnspecifiedAddress) {
-        const lanURL = url.format({
-          protocol: 'http',
-          hostname: this.lanIP || (this.lanIP = address.ip()),
-          port
-        })
-        console.log(chalk.dim(`> On Your Network: ${lanURL}`))
-      }
-      console.log()
-    }
-
-    logger.success(`Build ${chalk.italic(stats.hash.slice(0, 6))} finished in ${stats.endTime - stats.startTime} ms!`)
-
-    console.log()
-
+    this.logger.status(emoji.success, chalk.green(`Built in ${stats.endTime - stats.startTime}ms.`))
     process.exitCode = 0
   }
 }

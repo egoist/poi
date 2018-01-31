@@ -1,5 +1,5 @@
 const merge = require('lodash/merge')
-const cssLoaders = require('./css-loaders')
+const cssLoaders = require('./css-rules')
 
 module.exports = (config, { babel, cssOptions, vueOptions }) => {
   const defaultVueOptions = {
