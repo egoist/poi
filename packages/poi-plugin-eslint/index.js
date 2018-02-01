@@ -16,9 +16,9 @@
  */
 module.exports = function({ loaderOptions, command = 'build' } = {}) {
   return poi => {
-    poi.extendWebpack(config => {
-      if (!poi.isCurrentCommand(command)) return
+    if (!poi.isCurrentCommand(command)) return
 
+    poi.extendWebpack(config => {
       const eslintRule = config.rules.add('eslint', {
         test: /\.(js|jsx|vue)$/,
         exclude: [/node_modules/],

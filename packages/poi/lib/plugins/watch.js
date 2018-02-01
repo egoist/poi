@@ -1,5 +1,5 @@
 module.exports = poi => {
-  poi.cli.registerCommand('watch', 'Run app in watch mode', () => {
+  poi.cli.handleCommand('watch', 'Run app in watch mode', () => {
     const compiler = poi.createCompiler()
     compiler.watch({}, err => {
       if (err) {

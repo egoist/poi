@@ -1,15 +1,8 @@
 module.exports = poi => {
-  const command = poi.cli.registerCommand(
+  const command = poi.cli.handleCommand(
     'build',
     'Build app in production mode',
-    () => {
-      const compiler = poi.createCompiler()
-      compiler.run((err, stats) => {
-        if (err) {
-          console.error(err)
-        }
-      })
-    }
+    () => poi.runCompiler()
   )
 
   command.option('minimize', {

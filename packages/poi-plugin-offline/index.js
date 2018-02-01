@@ -34,7 +34,9 @@ module.exports = ({
   pluginOptions
 } = {}) => {
   return poi => {
-    poi.extendWebpack('production', config => {
+    if (!poi.isCurrentCommand('build')) return
+
+    poi.extendWebpack(config => {
       pwa = path.resolve(poi.options.cwd, pwa)
 
       if (config.get(['entry', entry])) {

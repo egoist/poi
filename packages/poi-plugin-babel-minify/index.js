@@ -1,6 +1,8 @@
 module.exports = (pluginOptions, overrides) => {
   return poi => {
-    poi.extendWebpack('production', config => {
+    if (!poi.isCurrentCommand('build')) return
+
+    poi.extendWebpack(config => {
       // Say goodbye to uglify plugin
       const BabelMinifyPlugin = require('babel-minify-webpack-plugin')
 

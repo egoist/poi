@@ -9,6 +9,8 @@ function ensureArray(v) {
 
 module.exports = (options = {}) => {
   return poi => {
+    if (!poi.isCurrentCommand('test')) return
+
     if (typeof options.extendWebpack === 'function') {
       poi.extendWebpack(options.extendWebpack)
     }
@@ -25,7 +27,7 @@ module.exports = (options = {}) => {
 
     let isTypeScript = false
 
-    poi.extendWebpack('test', config => {
+    poi.extendWebpack(config => {
       const coverage = inferValue('coverage')
 
       isTypeScript = config.rules.has('typescript')
@@ -62,7 +64,9 @@ module.exports = (options = {}) => {
       }
     })
 
-    poi.run('test', webpackConfig => {
+    poi.cli.handleCommand('test', () => {
+      const webpackConfig = poi.createWebpackConfig()
+
       let files = inferValue('files', ['test/unit/**/*.test.js'])
       files = ensureArray(files)
       files.push({

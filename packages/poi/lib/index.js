@@ -55,8 +55,8 @@ module.exports = class Poi extends EventEmitter {
     return false
   }
 
-  createCompiler() {
-    const webpackConfig = this.conpack.toConfig()
+  createCompiler(webpackConfig) {
+    webpackConfig = webpackConfig || this.conpack.toConfig()
     logger.silly(
       'webpack config',
       util.inspect(webpackConfig, {
@@ -67,9 +67,14 @@ module.exports = class Poi extends EventEmitter {
     return require('webpack')(webpackConfig)
   }
 
-  registerCommand(name, options, handler) {
-    this.cli.registerCommand(name, options, handler)
-    return this
+  runCompiler(webpackConfig) {
+    const compiler = this.createCompiler(webpackConfig)
+    return new Promise((resolve, reject) => {
+      compiler.run((err, stats) => {
+        if (err) return reject(err)
+        resolve(stats)
+      })
+    })
   }
 
   registerPlugin(plugin) {

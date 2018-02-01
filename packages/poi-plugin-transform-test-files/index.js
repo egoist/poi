@@ -1,9 +1,10 @@
 const path = require('path')
 const globby = require('globby')
-const webpack = require('webpack')
 
 module.exports = (options = {}) => {
   return poi => {
+    if (!poi.isCurrentCommand('test')) return
+
     const getOption = (name, defaultValue) =>
       poi.argv[name] || options[name] || defaultValue
 
@@ -17,7 +18,7 @@ module.exports = (options = {}) => {
       '!**/vendor/**'
     ])
 
-    poi.extendWebpack('test', config => {
+    poi.extendWebpack(config => {
       const outputPath = path.resolve(poi.options.cwd, outputDir)
 
       config.set('output.path', outputPath)
@@ -27,7 +28,9 @@ module.exports = (options = {}) => {
       poi.webpackUtils.externalize(config)
     })
 
-    poi.run('test', webpackConfig => {
+    poi.cli.handleCommand('test', 'Transform test files with Poi', () => {
+      const webpackConfig = poi.createWebpackConfig()
+
       return globby([].concat(testFiles).concat(ignoreFiles), { cwd: baseDir })
         .then(files => {
           delete webpackConfig.entry.client
@@ -40,7 +43,7 @@ module.exports = (options = {}) => {
             })
           }, {})
         })
-        .then(() => poi.runWebpack(webpack(webpackConfig)))
+        .then(() => poi.runCompiler(webpackConfig))
     })
   }
 }

@@ -251,12 +251,12 @@ module.exports = poi => {
   }
 
   function setCodeSplit(config) {
-    const splitVendorCode =
-      typeof poi.options.splitVendorCode === 'boolean'
-        ? poi.options.splitVendorCode
+    const vendor =
+      typeof poi.options.vendor === 'boolean'
+        ? poi.options.vendor
         : command !== 'test'
     // Do not split vendor code in `cjs` and `umd` format
-    if (splitVendorCode && !poi.options.format) {
+    if (vendor && !poi.options.format) {
       config.plugins.add(
         'split-vendor-code',
         webpack.optimize.CommonsChunkPlugin,

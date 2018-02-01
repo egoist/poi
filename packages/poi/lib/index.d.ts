@@ -1,5 +1,4 @@
 import { Configuration, Stats, Options as WebpackOptions } from 'webpack'
-import WebpackChain from 'webpack-chain'
 
 declare function poi(options?: poi.Options): poi.Instance
 
@@ -45,10 +44,13 @@ declare namespace poi {
     format?: 'cjs' | 'umd'
     /** Toggle sourceMap or set custom webpack devtool value. */
     sourceMap?: WebpackOptions.Devtool
-    /** Update webpack config. */
-    webpack?: (config: Configuration) => Configuration
-    /** Update webpack config with `webpack-chain`. */
-    extendWebpack?: (config: WebpackChain) => void
+    /**
+     * Update webpack config
+     * TODO: maybe rename to mergeWebpack
+     */
+    // webpack?: (config: Configuration) => Configuration
+    /** Update webpack config with `conpack`. */
+    extendWebpack?: (conpack: any) => any
     /** Automatically split vendor code (all imported modules in node_modules) into `vendor` chunk. */
     vendor?: boolean
     /** Minimize JS and CSS files. */

@@ -11,7 +11,7 @@ const logger = require('../logger')
 const { isPath } = require('../utils')
 
 module.exports = poi => {
-  const command = poi.cli.registerCommand(
+  const command = poi.cli.handleCommand(
     'develop',
     {
       desc: 'Run app in development mode',
