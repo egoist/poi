@@ -6,6 +6,7 @@ jest.mock('poi-webpack-node-externals', () =>
 )
 
 const oldCwd = process.cwd()
+const hotDevClient = require.resolve('poi-dev-utils/hot-dev-client')
 
 beforeAll(() => {
   process.chdir(path.join(__dirname, 'fixture'))
@@ -38,7 +39,7 @@ describe('get webpack config', () => {
 
       const [a, b, c, d] = await Promise.all(
         entries.map(entry => {
-          const app = new Poi('develop', { entry })
+          const app = new Poi('build', { entry })
           return app.prepare().then(() => app.createWebpackConfig())
         })
       )
@@ -62,7 +63,7 @@ describe('get webpack config', () => {
       const config = app.createWebpackConfig()
 
       expect(config.entry.main).toEqual([
-        require.resolve('poi-dev-utils/hot-dev-client'),
+        hotDevClient,
         path.resolve('index.js')
       ])
     })
@@ -78,15 +79,9 @@ describe('get webpack config', () => {
       await app.prepare()
       const config = app.createWebpackConfig()
 
-      expect(config.entry.foo).toEqual([
-        require.resolve('poi-dev-utils/hot-dev-client'),
-        path.resolve('foo.js')
-      ])
+      expect(config.entry.foo).toEqual([hotDevClient, path.resolve('foo.js')])
 
-      expect(config.entry.bar).toEqual([
-        require.resolve('poi-dev-utils/hot-dev-client'),
-        path.resolve('bar.js')
-      ])
+      expect(config.entry.bar).toEqual([hotDevClient, path.resolve('bar.js')])
     })
   })
 
@@ -100,7 +95,7 @@ describe('get webpack config', () => {
     })
 
     it('custom dir', async () => {
-      const app = new Poi({ outDir: 'foo/bar' })
+      const app = new Poi('build', { outDir: 'foo/bar' })
       await app.prepare()
       const config = app.createWebpackConfig()
 
@@ -114,33 +109,33 @@ describe('get webpack config', () => {
       await app.prepare()
       app.createWebpackConfig()
 
-      expect(app.webpackConfig.plugins.has('copy-static-files')).toBe(true)
-      expect(
-        app.webpackConfig.plugins.get('copy-static-files').options.length
-      ).toBe(1)
+      expect(app.conpack.plugins.has('copy-static-files')).toBe(true)
+      expect(app.conpack.plugins.get('copy-static-files').options.length).toBe(
+        1
+      )
     })
 
     it('accepts object', async () => {
-      const app = new Poi('develop', {
+      const app = new Poi('build', {
         copy: {}
       })
       await app.prepare()
       app.createWebpackConfig()
 
       expect(
-        app.webpackConfig.plugins.get('copy-static-files').options[0].length
+        app.conpack.plugins.get('copy-static-files').options[0].length
       ).toBe(2)
     })
 
     it('accepts array', async () => {
-      const app = new Poi('develop', {
+      const app = new Poi('build', {
         copy: [{}, {}]
       })
       await app.prepare()
       app.createWebpackConfig()
 
       expect(
-        app.webpackConfig.plugins.get('copy-static-files').options[0].length
+        app.conpack.plugins.get('copy-static-files').options[0].length
       ).toBe(3)
     })
 
@@ -151,7 +146,7 @@ describe('get webpack config', () => {
       await app.prepare()
       app.createWebpackConfig()
 
-      expect(app.webpackConfig.plugins.has('copy-static-files')).toBe(false)
+      expect(app.conpack.plugins.has('copy-static-files')).toBe(false)
     })
   })
 
@@ -162,7 +157,7 @@ describe('get webpack config', () => {
           config.append('entry.foo', path.resolve(poi.options.cwd, 'haha.js'))
         })
       }
-      const app = new Poi('develop', {
+      const app = new Poi('build', {
         cwd: 'foo',
         plugins: plugin
       })
@@ -176,7 +171,6 @@ describe('get webpack config', () => {
       const plugins = [
         poi => {
           poi.extendWebpack(config => {
-            console.log('??')
             if (poi.isCurrentCommand('develop')) {
               config.append('entry.foo', 'foo')
             }

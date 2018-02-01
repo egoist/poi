@@ -10,114 +10,109 @@ const { unspecifiedAddress } = require('../utils')
 const logger = require('../logger')
 const { isPath } = require('../utils')
 
-module.exports = () => {
-  return {
-    name: 'develop',
-    extend(poi) {
-      const command = poi.cli.registerCommand(
-        'develop',
+module.exports = poi => {
+  const command = poi.cli.registerCommand(
+    'develop',
+    {
+      desc: 'Run app in development mode',
+      match(name) {
+        return !name || isPath(name)
+      }
+    },
+    async () => {
+      const compiler = poi.createCompiler()
+
+      const devServerOptions = Object.assign(
         {
-          desc: 'Run app in development mode',
-          match(name) {
-            return !name || isPath(name)
-          }
+          hot: poi.options.hotReload !== false,
+          quiet: true,
+          historyApiFallback: true,
+          overlay: true,
+          noInfo: true,
+          disableHostCheck: true,
+          publicPath: compiler.options.output.publicPath
         },
-        async () => {
-          const compiler = poi.createCompiler()
-
-          const devServerOptions = Object.assign(
-            {
-              hot: poi.options.hotReload !== false,
-              quiet: true,
-              historyApiFallback: true,
-              overlay: true,
-              noInfo: true,
-              disableHostCheck: true,
-              publicPath: compiler.options.output.publicPath
-            },
-            compiler.options.devServer,
-            poi.options.devServer
-          )
-
-          const existingBefore = devServerOptions.before
-          devServerOptions.before = app => {
-            app.use(
-              launchEditorEndpoint,
-              launchEditorMiddlewarre(() =>
-                console.log(
-                  `To specify an editor, sepcify the EDITOR env variable or ` +
-                    `add "editor" field to your Vue project config.\n`
-                )
-              )
-            )
-            existingBefore && existingBefore(app)
-          }
-
-          if (typeof devServerOptions.proxy === 'string') {
-            devServerOptions.proxy = {
-              '/api': {
-                target: devServerOptions.proxy,
-                changeOrigin: true,
-                pathRewrite: {
-                  '^/api': ''
-                }
-              }
-            }
-          }
-          const host = poi.options.devServer.host
-          const port = await getPort({ port: poi.options.devServer.port, host })
-          if (port !== poi.options.devServer.port) {
-            logger.warn(
-              `Port ${
-                poi.options.devServer.port
-              } has been used, switched to ${port}.`
-            )
-          }
-
-          const server = new Server(compiler, devServerOptions)
-          server.listen(port, host)
-          let lanIP
-          poi.on('show-develop-logs', () => {
-            let msg = `\n  ${chalk.green('App running at:')}`
-            const isUnspecifiedAddress = unspecifiedAddress(host)
-
-            const localURL = url.format({
-              protocol: 'http',
-              hostname: isUnspecifiedAddress ? 'localhost' : host,
-              port
-            })
-            msg += `\n${chalk.bold(`  - Local:           ${localURL}`)}`
-            if (isUnspecifiedAddress) {
-              const lanURL = url.format({
-                protocol: 'http',
-                hostname: lanIP || (lanIP = address.ip()),
-                port
-              })
-              msg += `\n${chalk.dim(`  - On Your Network: ${lanURL}`)}`
-            }
-
-            logger.log(msg + '\n')
-
-            if (poi.options.open) {
-              opn(
-                url.format({
-                  protocol: 'http',
-                  hostname: unspecifiedAddress(host) ? 'localhost' : host,
-                  port
-                })
-              )
-            }
-          })
-        }
+        compiler.options.devServer,
+        poi.options.devServer
       )
 
-      command
-        .option('host', {
-          desc: 'Server host'
+      const existingBefore = devServerOptions.before
+      devServerOptions.before = app => {
+        app.use(
+          launchEditorEndpoint,
+          launchEditorMiddlewarre(() =>
+            console.log(
+              `To specify an editor, sepcify the EDITOR env variable or ` +
+                `add "editor" field to your Vue project config.\n`
+            )
+          )
+        )
+        existingBefore && existingBefore(app)
+      }
+
+      if (typeof devServerOptions.proxy === 'string') {
+        devServerOptions.proxy = {
+          '/api': {
+            target: devServerOptions.proxy,
+            changeOrigin: true,
+            pathRewrite: {
+              '^/api': ''
+            }
+          }
+        }
+      }
+      const host = poi.options.devServer.host
+      const port = await getPort({ port: poi.options.devServer.port, host })
+      if (port !== poi.options.devServer.port) {
+        logger.warn(
+          `Port ${
+            poi.options.devServer.port
+          } has been used, switched to ${port}.`
+        )
+      }
+
+      const server = new Server(compiler, devServerOptions)
+      server.listen(port, host)
+      let lanIP
+      poi.on('show-develop-logs', () => {
+        let msg = `\n  ${chalk.green('App running at:')}`
+        const isUnspecifiedAddress = unspecifiedAddress(host)
+
+        const localURL = url.format({
+          protocol: 'http',
+          hostname: isUnspecifiedAddress ? 'localhost' : host,
+          port
         })
-        .option('port', {
-          desc: 'Server port'
-        })
+        msg += `\n${chalk.bold(`  - Local:           ${localURL}`)}`
+        if (isUnspecifiedAddress) {
+          const lanURL = url.format({
+            protocol: 'http',
+            hostname: lanIP || (lanIP = address.ip()),
+            port
+          })
+          msg += `\n${chalk.dim(`  - On Your Network: ${lanURL}`)}`
+        }
+
+        logger.log(msg + '\n')
+
+        if (poi.options.open) {
+          opn(
+            url.format({
+              protocol: 'http',
+              hostname: unspecifiedAddress(host) ? 'localhost' : host,
+              port
+            })
+          )
+        }
+      })
     }
-  }
+  )
+
+  command
+    .option('host', {
+      desc: 'Server host'
+    })
+    .option('port', {
+      desc: 'Server port'
+    })
 }

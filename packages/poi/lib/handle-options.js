@@ -19,8 +19,7 @@ module.exports = async options => {
   // god knows why I chose it before...
   const library = options.library || options.component
   if (library) {
-    const format = typeof library === 'string' ? 'UMD' : 'CommonJS'
-    console.log(`> Bundling component in ${format} format`)
+    logger.debug('bundling in library mode')
     const libraryFilename = getLibraryFilename(library)
     options.filename = Object.assign(
       {
@@ -36,6 +35,7 @@ module.exports = async options => {
     } else {
       options.format = 'cjs'
     }
+    logger.debug('bundle format', options.format)
 
     options.html = false
     options.sourceMap = false

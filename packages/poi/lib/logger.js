@@ -42,7 +42,7 @@ class Logger {
 
   // Debug message
   // Always persisted
-  debug(title, message) {
+  debug(title, message = '') {
     if (this.logLevel < 4) {
       return
     }

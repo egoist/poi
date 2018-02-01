@@ -4,12 +4,13 @@ const EventEmitter = require('events')
 const Conpack = require('conpack')
 const UseConfig = require('use-config')
 const chalk = require('chalk')
+const parseJsonConfig = require('parse-json-config')
 const CLIEngine = require('./cli-engine')
 const handleOptions = require('./handle-options')
 const logger = require('./logger')
 
 module.exports = class Poi extends EventEmitter {
-  constructor(command = 'develop', options) {
+  constructor(command = 'build', options) {
     super()
     logger.setOptions(options)
     logger.debug('poi command', command)
@@ -39,7 +40,7 @@ module.exports = class Poi extends EventEmitter {
     }
     this.env = process.env.NODE_ENV
     if (oldEnv && this.env !== oldEnv) {
-      console.log('NODE_ENV is set to ' + this.env)
+      logger.debug('set process.env.NODE_ENV', this.env)
     }
   }
 
@@ -77,6 +78,10 @@ module.exports = class Poi extends EventEmitter {
   }
 
   registerPlugins(plugins) {
+    plugins = Array.isArray(plugins) ? plugins : [plugins]
+    for (const plugin of parseJsonConfig(plugins, { prefix: 'poi-plugin-' })) {
+      this.registerPlugin(plugin)
+    }
     return this
   }
 
@@ -101,6 +106,7 @@ module.exports = class Poi extends EventEmitter {
         ...this.options.devServer
       }
     })
+
     logger.debug(
       'poi options',
       util.inspect(this.options, {
@@ -108,15 +114,19 @@ module.exports = class Poi extends EventEmitter {
         colors: true
       })
     )
-    this.registerPlugin(require('./plugins/base-config')())
-    this.registerPlugin(require('./plugins/develop')())
-    this.registerPlugin(require('./plugins/build')())
-    this.registerPlugin(require('./plugins/watch')())
+
+    this.registerPlugin(require('./plugins/base-config'))
+    this.registerPlugin(require('./plugins/develop'))
+    this.registerPlugin(require('./plugins/build'))
+    this.registerPlugin(require('./plugins/watch'))
+
+    if (this.options.plugins) {
+      this.registerPlugins(this.options.plugins)
+    }
 
     if (this.plugins.size > 0) {
       for (const plugin of this.plugins) {
-        logger.debug('use plugin', plugin.name)
-        plugin.extend(this)
+        plugin(this)
       }
     }
   }
