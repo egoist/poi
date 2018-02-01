@@ -3374,9 +3374,9 @@ connect@^3.6.0:
     parseurl "~1.3.2"
     utils-merge "1.0.1"
 
-conpack@^0.3.3:
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/conpack/-/conpack-0.3.3.tgz#02f76f6386cc536d1666923278ea705c8b022e07"
+conpack@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/conpack/-/conpack-0.3.5.tgz#baddab22f497657661b7441c8af9fa47ad3a7fe1"
   dependencies:
     lodash.get "^4.4.2"
     lodash.set "^4.3.2"

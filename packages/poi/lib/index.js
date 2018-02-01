@@ -50,7 +50,7 @@ module.exports = class Poi extends EventEmitter {
   }
 
   createCompiler(webpackConfig) {
-    webpackConfig = webpackConfig || this.conpack.toConfig()
+    webpackConfig = webpackConfig || this.createWebpackConfig()
     logger.silly(
       'webpack config',
       util.inspect(webpackConfig, {
@@ -136,6 +136,10 @@ module.exports = class Poi extends EventEmitter {
   }
 
   createWebpackConfig() {
+    if (this.options.extendWebpack) {
+      logger.debug('extend webpack from user config')
+      this.extendWebpack(this.options.extendWebpack)
+    }
     return this.conpack.toConfig()
   }
 
