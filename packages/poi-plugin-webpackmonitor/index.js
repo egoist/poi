@@ -3,7 +3,7 @@ const WebpackMonitor = require('webpack-monitor')
 
 module.exports = ({ pluginOptions } = {}) => {
   return poi => {
-    if (!poi.isCurrentCommand('build')) return
+    if (!poi.cli.isCurrentCommand('build')) return
 
     poi.extendWebpack(config => {
       config.plugins.add('webpackmonitor', WebpackMonitor, [

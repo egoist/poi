@@ -1,6 +1,6 @@
 module.exports = (pluginOptions, overrides) => {
   return poi => {
-    if (!poi.isCurrentCommand('build')) return
+    if (!poi.cli.isCurrentCommand('build')) return
 
     poi.extendWebpack(config => {
       // Say goodbye to uglify plugin

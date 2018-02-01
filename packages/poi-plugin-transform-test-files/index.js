@@ -3,7 +3,7 @@ const globby = require('globby')
 
 module.exports = (options = {}) => {
   return poi => {
-    if (!poi.isCurrentCommand('test')) return
+    if (!poi.cli.isCurrentCommand('test')) return
 
     const getOption = (name, defaultValue) =>
       poi.argv[name] || options[name] || defaultValue

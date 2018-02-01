@@ -16,7 +16,7 @@
  */
 module.exports = function({ loaderOptions, command = 'build' } = {}) {
   return poi => {
-    if (!poi.isCurrentCommand(command)) return
+    if (!poi.cli.isCurrentCommand(command)) return
 
     poi.extendWebpack(config => {
       const eslintRule = config.rules.add('eslint', {

@@ -49,12 +49,6 @@ module.exports = class Poi extends EventEmitter {
     return this
   }
 
-  isCurrentCommand(command) {
-    if (command === '*' || command === this.command) return true
-    if (Array.isArray(command) && command.includes(this.command)) return true
-    return false
-  }
-
   createCompiler(webpackConfig) {
     webpackConfig = webpackConfig || this.conpack.toConfig()
     logger.silly(

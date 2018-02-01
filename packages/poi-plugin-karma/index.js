@@ -9,7 +9,7 @@ function ensureArray(v) {
 
 module.exports = (options = {}) => {
   return poi => {
-    if (!poi.isCurrentCommand('test')) return
+    if (!poi.cli.isCurrentCommand('test')) return
 
     if (typeof options.extendWebpack === 'function') {
       poi.extendWebpack(options.extendWebpack)

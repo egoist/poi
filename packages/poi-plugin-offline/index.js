@@ -34,7 +34,7 @@ module.exports = ({
   pluginOptions
 } = {}) => {
   return poi => {
-    if (!poi.isCurrentCommand('build')) return
+    if (!poi.cli.isCurrentCommand('build')) return
 
     poi.extendWebpack(config => {
       pwa = path.resolve(poi.options.cwd, pwa)

@@ -12,6 +12,12 @@ module.exports = class CLI {
     return this.cac.command(...args)
   }
 
+  isCurrentCommand(command) {
+    if (command === '*' || command === this.command) return true
+    if (Array.isArray(command) && command.includes(this.command)) return true
+    return false
+  }
+
   async runCommand() {
     return this.cac.parse([this.command])
   }

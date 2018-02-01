@@ -171,14 +171,14 @@ describe('get webpack config', () => {
       const plugins = [
         poi => {
           poi.extendWebpack(config => {
-            if (poi.isCurrentCommand('develop')) {
+            if (poi.cli.isCurrentCommand('develop')) {
               config.append('entry.foo', 'foo')
             }
           })
         },
         poi => {
           poi.extendWebpack(config => {
-            if (poi.isCurrentCommand('develop')) {
+            if (poi.cli.isCurrentCommand('develop')) {
               config.append('entry.foo', 'bar')
             }
           })
