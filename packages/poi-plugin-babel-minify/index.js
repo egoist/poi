@@ -1,4 +1,4 @@
-module.exports = (pluginOptions, overrides) => {
+module.exports = (minifyOpts, pluginOpts) => {
   return poi => {
     if (!poi.cli.isCurrentCommand('build')) return
 
@@ -9,8 +9,8 @@ module.exports = (pluginOptions, overrides) => {
       // do not use if `minimize` is off
       if (config.plugins.has('minimize')) {
         config.plugins.update('minimize', BabelMinifyPlugin, [
-          pluginOptions,
-          overrides
+          minifyOpts,
+          pluginOpts
         ])
       }
     })

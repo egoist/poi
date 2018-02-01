@@ -26,7 +26,7 @@ Then it will compress JS code when you run `poi build`.
 It accepts the same options as which in [babel-minify-webpack-plugin](https://github.com/webpack-contrib/babel-minify-webpack-plugin#options):
 
 ```js
-require('poi-plugin-babel-minify')(babelMinifyOptions, overrides)
+require('poi-plugin-babel-minify')(minifyOpts, pluginOpts)
 ```
 
 ## License
