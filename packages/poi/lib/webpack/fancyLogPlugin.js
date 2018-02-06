@@ -1,5 +1,5 @@
 const chalk = require('chalk')
-const terminal = require('../terminal-utils')
+const terminal = require('../terminalUtils')
 const emoji = require('../emoji')
 const logger = require('../logger')
 

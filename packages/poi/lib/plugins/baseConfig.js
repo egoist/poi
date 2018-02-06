@@ -4,14 +4,12 @@ const merge = require('lodash/merge')
 const isCI = require('is-ci')
 const webpack = require('webpack')
 const yarnGlobal = require('yarn-global')
-const {
-  getFileNames,
-  getPublicPath,
-  ownDir,
-  getFullEnvString,
-  stringifyObject
-} = require('../utils')
-const webpackUtils = require('../webpack-utils')
+const getFileNames = require('../utils/getFileNames')
+const getPublicPath = require('../utils/getPublicPath')
+const { ownDir } = require('../utils/dir')
+const getFullEnvString = require('../utils/getFullEnvString')
+const stringifyObject = require('../utils/stringifyObject')
+const webpackUtils = require('../webpackUtils')
 
 module.exports = poi => {
   let {
@@ -129,7 +127,7 @@ module.exports = poi => {
   }
 
   function setCSSRules(config) {
-    require('../webpack/css-rules').standalone(config, cssOptions)
+    require('../webpack/cssRules').standalone(config, cssOptions)
 
     if (cssOptions.extract) {
       config.plugins.add(
@@ -146,14 +144,14 @@ module.exports = poi => {
   }
 
   function setJSRules(config) {
-    require('../webpack/js-rules')(config, {
+    require('../webpack/jsRules')(config, {
       babel,
       transpileModules: poi.options.transpileModules
     })
   }
 
   function setVueRules(config) {
-    require('../webpack/vue-rules')(config, {
+    require('../webpack/vueRules')(config, {
       babel,
       vueOptions,
       cssOptions
@@ -161,16 +159,16 @@ module.exports = poi => {
   }
 
   function setImageRules(config) {
-    require('../webpack/image-rules')(config, filename)
+    require('../webpack/imageRules')(config, filename)
   }
 
   function setFontRules(config) {
-    require('../webpack/font-rules')(config, filename)
+    require('../webpack/fontRules')(config, filename)
   }
 
   function setPlugins(config) {
     if (command === 'develop' || command === 'watch') {
-      config.plugins.add('timefix', require('../webpack/timefix-plugin'))
+      config.plugins.add('timefix', require('../webpack/timefixPlugin'))
     }
 
     const { host, port, clearScreen, replace } = poi.options
@@ -188,7 +186,7 @@ module.exports = poi => {
       )
     ])
 
-    config.plugins.add('fancy-log', require('../webpack/fancy-log-plugin'), [
+    config.plugins.add('fancy-log', require('../webpack/fancyLogPlugin'), [
       {
         command,
         host,

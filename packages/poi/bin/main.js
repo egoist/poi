@@ -1,6 +1,6 @@
 const cac = require('cac')
 const Poi = require('../lib')
-const { isPath } = require('../lib/utils')
+const isPath = require('../lib/utils/isPath')
 
 const { input, flags } = cac.parse(process.argv.slice(2))
 

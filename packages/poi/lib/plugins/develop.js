@@ -6,9 +6,9 @@ const launchEditorMiddlewarre = require('launch-editor-middleware')
 const getPort = require('get-port')
 const address = require('address')
 const launchEditorEndpoint = require('poi-dev-utils/launch-editor-endpoint')
-const { unspecifiedAddress } = require('../utils')
 const logger = require('../logger')
-const { isPath } = require('../utils')
+const unspecifiedAddress = require('../utils/unspecifiedAddress')
+const isPath = require('../utils/isPath')
 
 module.exports = poi => {
   const command = poi.cli.handleCommand(

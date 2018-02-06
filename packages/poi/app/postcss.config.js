@@ -1,8 +1,8 @@
-const { readPkg } = require('../lib/utils')
+const readProjectPkg = require('../lib/utils/readProjectPkg')
 
 module.exports = ctx => {
   const { options } = ctx
-  const { browserslist = ['ie > 8', 'last 2 versions'] } = readPkg()
+  const { browserslist = ['ie > 8', 'last 2 versions'] } = readProjectPkg()
 
   const autoprefixerOptions = Object.assign(
     {

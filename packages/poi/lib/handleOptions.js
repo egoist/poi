@@ -3,8 +3,8 @@ const LoadExternalConfig = require('poi-load-config')
 const kebabCase = require('lodash/kebabCase')
 const buildConfigChain = require('babel-core/lib/transformation/file/options/build-config-chain')
 const logger = require('./logger')
-
-const { inferHTML, readPkg } = require('./utils')
+const inferHTML = require('./utils/inferHTML')
+const readProjectPkg = require('./utils/readProjectPkg')
 
 function getLibraryFilename(component) {
   return kebabCase(
@@ -118,7 +118,7 @@ module.exports = async options => {
   }
 
   if (options.entry === undefined && !options.format) {
-    const mainField = readPkg().main
+    const mainField = readProjectPkg().main
     if (mainField) {
       logger.debug('webpack', 'Using main field in package.json as entry point')
       options.entry = mainField

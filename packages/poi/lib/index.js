@@ -5,8 +5,8 @@ const Conpack = require('conpack')
 const UseConfig = require('use-config')
 const chalk = require('chalk')
 const parseJsonConfig = require('parse-json-config')
-const CLIEngine = require('./cli-engine')
-const handleOptions = require('./handle-options')
+const CLIEngine = require('./cliEngine')
+const handleOptions = require('./handleOptions')
 const logger = require('./logger')
 
 module.exports = class Poi extends EventEmitter {
@@ -114,7 +114,7 @@ module.exports = class Poi extends EventEmitter {
       })
     )
 
-    this.registerPlugin(require('./plugins/base-config'))
+    this.registerPlugin(require('./plugins/baseConfig'))
     this.registerPlugin(require('./plugins/develop'))
     this.registerPlugin(require('./plugins/build'))
     this.registerPlugin(require('./plugins/watch'))
