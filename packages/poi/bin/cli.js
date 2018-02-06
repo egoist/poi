@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 const importLocalFile = require('import-local-file')
+const logger = require('../lib/logger')
 
 const localFile = importLocalFile(__filename)
 if (localFile) {
-  console.log('> Using local installed version of Poi')
+  logger.debug('Using local installed version of Poi')
   require(localFile)
 } else {
   // Code for both global and local version
