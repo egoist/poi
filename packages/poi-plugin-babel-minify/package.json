@@ -1,6 +1,6 @@
 {
   "name": "poi-plugin-babel-minify",
-  "version": "1.0.3",
+  "version": "10.0.0-alpha.0",
   "scripts": {
     "example": "poi build example/index.js --plugins ./index.js",
     "test": "echo fine"

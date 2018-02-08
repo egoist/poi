@@ -1,6 +1,6 @@
 {
   "name": "poi-plugin-react",
-  "version": "9.2.1",
+  "version": "10.0.0-alpha.0",
   "main": "index.js",
   "license": "MIT",
   "repository": "egoist/poi",

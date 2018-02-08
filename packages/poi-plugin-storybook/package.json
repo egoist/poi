@@ -1,6 +1,6 @@
 {
   "name": "poi-plugin-storybook",
-  "version": "0.1.4",
+  "version": "10.0.0-alpha.0",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.2.13",
-    "poi-plugin-react": "^9.2.1",
+    "poi-plugin-react": "^10.0.0-alpha.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "storybook-react": "^3.2.15",

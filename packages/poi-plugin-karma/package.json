@@ -1,6 +1,6 @@
 {
   "name": "poi-plugin-karma",
-  "version": "9.2.4",
+  "version": "10.0.0-alpha.0",
   "scripts": {
     "test": "echo fine",
     "example": "poi test"

@@ -1,6 +1,6 @@
 {
   "name": "poi-plugin-buble",
-  "version": "9.2.0",
+  "version": "10.0.0-alpha.0",
   "description": "Use buble to compile js files",
   "main": "lib/index.js",
   "repository": "egoist/poi",
