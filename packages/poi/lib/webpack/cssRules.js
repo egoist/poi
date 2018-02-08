@@ -2,13 +2,13 @@ const HandleCSSLoader = require('webpack-handle-css-loader')
 
 const LANGS = ['css', 'stylus', 'styl', 'sass', 'scss', 'less']
 
-exports.vue = function (options) {
+exports.vue = function(options) {
   const handleLoader = new HandleCSSLoader(options)
   return handleLoader.vue()
 }
 
 // Generate loaders for standalone style files (outside of .vue)
-exports.standalone = function (config, options) {
+exports.standalone = function(config, options) {
   const handleLoader = new HandleCSSLoader(options)
 
   for (const lang of LANGS) {
@@ -29,7 +29,10 @@ exports.standalone = function (config, options) {
 
   handleLoader.set('cssModules', true)
 
-  const cssModulesLangs = LANGS.map(lang => [lang, new RegExp(`\\.module\\.${lang}`)])
+  const cssModulesLangs = LANGS.map(lang => [
+    lang,
+    new RegExp(`\\.module\\.${lang}`)
+  ])
 
   for (const cssModulesLang of cssModulesLangs) {
     const [lang, test] = cssModulesLang

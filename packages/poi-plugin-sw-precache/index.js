@@ -2,7 +2,9 @@ const path = require('path')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 
 module.exports = () => poi => {
-  poi.extendWebpack('production', config => {
+  if (!poi.cli.isCurrentCommand('build')) return
+
+  poi.extendWebpack(config => {
     const publicUrl = config.get('output.publicPath')
 
     poi.webpackUtils.defineConstants(config, {

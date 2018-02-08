@@ -9,6 +9,8 @@ function ensureArray(v) {
 
 module.exports = (options = {}) => {
   return poi => {
+    if (!poi.cli.isCurrentCommand('test')) return
+
     if (typeof options.extendWebpack === 'function') {
       poi.extendWebpack(options.extendWebpack)
     }
@@ -25,18 +27,21 @@ module.exports = (options = {}) => {
 
     let isTypeScript = false
 
-    poi.extendWebpack('test', config => {
+    poi.extendWebpack(config => {
       const coverage = inferValue('coverage')
 
       isTypeScript = config.rules.has('typescript')
 
       if (coverage) {
         /* for general usage */
-        const istanbulinstrumenterRule = config.rules.add('istanbul-instrumenter', {
-          test: /\.(jsx?)$/,
-          exclude: [/(node_modules|\.test\.jsx?)/],
-          enforce: 'pre'
-        })
+        const istanbulinstrumenterRule = config.rules.add(
+          'istanbul-instrumenter',
+          {
+            test: /\.(jsx?)$/,
+            exclude: [/(node_modules|\.test\.jsx?)/],
+            enforce: 'pre'
+          }
+        )
         istanbulinstrumenterRule.loaders.add('istanbul-instrumenter-loader', {
           loader: 'istanbul-instrumenter-loader',
           options: {
@@ -47,20 +52,30 @@ module.exports = (options = {}) => {
         /* for vue (assumes vue-loader) */
         const vueRule = config.rules.get('vue')
         vueRule.loaders.update('vue-loader', vueOptions => {
-          const instrumenterLoader = 'istanbul-instrumenter-loader?esModules=true'
-          vueOptions.preLoaders = (vueOptions.preLoaders || {})
-          vueOptions.preLoaders.js = typeof vueOptions.preLoaders.js === 'string' ?
-            `${vueOptions.preLoaders.js}!${instrumenterLoader}` :
-            instrumenterLoader
+          const instrumenterLoader =
+            'istanbul-instrumenter-loader?esModules=true'
+          vueOptions.preLoaders = vueOptions.preLoaders || {}
+          vueOptions.preLoaders.js =
+            typeof vueOptions.preLoaders.js === 'string'
+              ? `${vueOptions.preLoaders.js}!${instrumenterLoader}`
+              : instrumenterLoader
           return vueOptions
         })
       }
     })
 
-    poi.run('test', webpackConfig => {
+    poi.cli.handleCommand('test', () => {
+      const webpackConfig = poi.createWebpackConfig()
+
       let files = inferValue('files', ['test/unit/**/*.test.js'])
       files = ensureArray(files)
-      files.push({ pattern: 'static/**/*', watched: false, included: false, served: true, nocache: false })
+      files.push({
+        pattern: 'static/**/*',
+        watched: false,
+        included: false,
+        served: true,
+        nocache: false
+      })
 
       const port = inferValue('port', 5001)
 
@@ -76,7 +91,9 @@ module.exports = (options = {}) => {
       reporters = reporters.concat(isTypeScript ? ['karma-typescript'] : [])
       reporters = reporters.concat(coverage ? ['coverage'] : [])
 
-      const defaultBrowser = inferValue('headless') ? 'ChromeHeadless' : 'Chrome'
+      const defaultBrowser = inferValue('headless')
+        ? 'ChromeHeadless'
+        : 'Chrome'
       let browsers = inferValue('browsers') || defaultBrowser
       browsers = ensureArray(browsers)
 
@@ -100,7 +117,11 @@ module.exports = (options = {}) => {
             return current
           }
           const key = next.pattern || next
-          current[key] = ['webpack', ...(isTypeScript ? ['karma-typescript'] : []), 'sourcemap']
+          current[key] = [
+            'webpack',
+            ...(isTypeScript ? ['karma-typescript'] : []),
+            'sourcemap'
+          ]
           return current
         }, {}),
         webpackMiddleware: {
@@ -122,9 +143,10 @@ module.exports = (options = {}) => {
 
       delete webpackConfig.entry
 
-      const karmaConfig = typeof poi.options.karma === 'function' ?
-        poi.options.karma(defaultConfig) :
-        Object.assign({}, defaultConfig, poi.options.karma)
+      const karmaConfig =
+        typeof poi.options.karma === 'function'
+          ? poi.options.karma(defaultConfig)
+          : Object.assign({}, defaultConfig, poi.options.karma)
       karmaConfig.webpack = webpackConfig
 
       const server = new Server(karmaConfig)

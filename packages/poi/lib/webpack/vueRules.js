@@ -1,5 +1,5 @@
 const merge = require('lodash/merge')
-const cssLoaders = require('./css-loaders')
+const cssLoaders = require('./cssRules')
 
 module.exports = (config, { babel, cssOptions, vueOptions }) => {
   const defaultVueOptions = {
@@ -10,7 +10,7 @@ module.exports = (config, { babel, cssOptions, vueOptions }) => {
     },
     loaders: Object.assign(cssLoaders.vue(cssOptions), {
       js: {
-        loader: 'babel-loader',
+        loader: require.resolve('babel-loader'),
         options: babel
       }
     })
@@ -22,8 +22,9 @@ module.exports = (config, { babel, cssOptions, vueOptions }) => {
 
   vueRule.loaders.add('vue-loader', {
     loader: 'vue-loader',
-    options: typeof vueOptions === 'function' ?
-    vueOptions(defaultVueOptions) :
-    merge(defaultVueOptions, vueOptions)
+    options:
+      typeof vueOptions === 'function'
+        ? vueOptions(defaultVueOptions)
+        : merge(defaultVueOptions, vueOptions)
   })
 }

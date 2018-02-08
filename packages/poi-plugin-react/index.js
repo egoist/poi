@@ -9,18 +9,17 @@ module.exports = () => {
         if (options.babelrc !== false) return options
 
         return {
-          presets: [
-            [options.presets[0][0], { jsx: 'react' }]
-          ],
-          plugins: [
-            require.resolve('react-hot-loader/babel')
-          ]
+          presets: [[options.presets[0][0], { jsx: 'react' }]],
+          plugins: [require.resolve('react-hot-loader/babel')]
         }
       })
 
       // Add entry
       if (config.get('entry.client')) {
-        config.prepend('entry.client', require.resolve('react-hot-loader/patch'))
+        config.prepend(
+          'entry.client',
+          require.resolve('react-hot-loader/patch')
+        )
       } else {
         throw new Error('Currently only `client` entry is supported')
       }

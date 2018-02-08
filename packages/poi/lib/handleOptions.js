@@ -1,11 +1,10 @@
 const path = require('path')
-const chalk = require('chalk')
 const LoadExternalConfig = require('poi-load-config')
-const tildify = require('tildify')
 const kebabCase = require('lodash/kebabCase')
 const buildConfigChain = require('babel-core/lib/transformation/file/options/build-config-chain')
-
-const { inferHTML, readPkg } = require('./utils')
+const logger = require('./logger')
+const inferHTML = require('./utils/inferHTML')
+const readProjectPkg = require('./utils/readProjectPkg')
 
 function getLibraryFilename(component) {
   return kebabCase(
@@ -20,8 +19,7 @@ module.exports = async options => {
   // god knows why I chose it before...
   const library = options.library || options.component
   if (library) {
-    const format = typeof library === 'string' ? 'UMD' : 'CommonJS'
-    console.log(`> Bundling component in ${format} format`)
+    logger.debug('bundling in library mode')
     const libraryFilename = getLibraryFilename(library)
     options.filename = Object.assign(
       {
@@ -37,6 +35,7 @@ module.exports = async options => {
     } else {
       options.format = 'cjs'
     }
+    logger.debug('bundle format', options.format)
 
     options.html = false
     options.sourceMap = false
@@ -50,10 +49,7 @@ module.exports = async options => {
       // If root babel config file is found
       // We set `babelrc` to the its path
       // To prevent `babel-loader` from loading it again
-      console.log('> Using external babel configuration')
-      console.log(
-        chalk.dim(`> location: "${tildify(externalBabelConfig.loc)}"`)
-      )
+      logger.debug('babel config location', externalBabelConfig.loc)
       // You can use `babelrc: false` to disable the config file itself
       if (externalBabelConfig.options.babelrc === false) {
         options.babel.babelrc = false
@@ -81,8 +77,7 @@ module.exports = async options => {
   if (options.postcss === undefined) {
     const postcssConfig = await loadExternalConfig.postcss()
     if (postcssConfig.file) {
-      console.log('> Using external postcss configuration')
-      console.log(chalk.dim(`> location: "${tildify(postcssConfig.file)}"`))
+      logger.debug('postcss config location', postcssConfig.file)
 
       // Only feed the config path to postcss-loader
       // In order to let postcss-loader ask webpack to watch it
@@ -123,9 +118,9 @@ module.exports = async options => {
   }
 
   if (options.entry === undefined && !options.format) {
-    const mainField = readPkg().main
+    const mainField = readProjectPkg().main
     if (mainField) {
-      console.log(`> Using main field in package.json as entry point`)
+      logger.debug('webpack', 'Using main field in package.json as entry point')
       options.entry = mainField
     }
   }

@@ -22,27 +22,33 @@ module.exports = ({ loaderOptions } = {}) => {
         delete babelOptions.forceEnv
       }
 
-      const coffeeOptions = Object.assign({
-        transpile: babelOptions
-      }, loaderOptions)
+      const coffeeOptions = Object.assign(
+        {
+          transpile: babelOptions
+        },
+        loaderOptions
+      )
 
-      config.rules.add('coffee', {
-        test: /\.coffee$/
-      }).loaders.add('coffee-loader', {
-        loader: 'better-coffee-loader',
-        options: coffeeOptions
-      })
+      config.rules
+        .add('coffee', {
+          test: /\.coffee$/
+        })
+        .loaders.add('coffee-loader', {
+          loader: 'better-coffee-loader',
+          options: coffeeOptions
+        })
 
       config.append('resolve.extensions', '.coffee')
 
-      config.rules.get('vue')
-        .loaders.update('vue-loader', vueOptions => {
-          vueOptions.loaders.coffee = vueOptions.loaders.coffeescript = [{
+      config.rules.get('vue').loaders.update('vue-loader', vueOptions => {
+        vueOptions.loaders.coffee = vueOptions.loaders.coffeescript = [
+          {
             loader: 'better-coffee-loader',
             options: coffeeOptions
-          }]
-          return vueOptions
-        })
+          }
+        ]
+        return vueOptions
+      })
     })
   }
 }

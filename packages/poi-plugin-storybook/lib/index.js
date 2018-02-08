@@ -7,7 +7,9 @@ module.exports = ({
 } = {}) => poi => {
   if (!poi.argv.storybook) return
 
-  const html = Array.isArray(poi.options.html) ? poi.options.html[0] : poi.options.html
+  const html = Array.isArray(poi.options.html)
+    ? poi.options.html[0]
+    : poi.options.html
   poi.options.html = [
     {
       title: html.title,
@@ -32,7 +34,7 @@ module.exports = ({
     const entry = config.get('entry.client')
     config.delete('entry.client')
     const isReactHot = entry[0].indexOf('react-hot-loader/patch') > 0
-    let addonsIndex = poi.options.mode === 'development' ? 2 : 1
+    let addonsIndex = poi.command === 'develop' ? 2 : 1
     if (isReactHot) {
       addonsIndex++
     }
@@ -41,12 +43,15 @@ module.exports = ({
       config.set('entry.manager', [path.resolve(entry[addonsIndex])])
     }
 
-    config.append('entry.manager', getManager([
-      'storybook-vue/lib/manager',
-      'storybook-react/lib/manager',
-      '@storybook/vue/dist/client/manager',
-      '@storybook/react/dist/client/manager'
-    ]))
+    config.append(
+      'entry.manager',
+      getManager([
+        'storybook-vue/lib/manager',
+        'storybook-react/lib/manager',
+        '@storybook/vue/dist/client/manager',
+        '@storybook/react/dist/client/manager'
+      ])
+    )
 
     if (useMarkdown !== false) {
       const markdownRule = config.rules.add('markdown', {
@@ -70,7 +75,11 @@ function getManager(names) {
       if (names.length > 0) {
         return getManager(names)
       }
-      throw new Error(`You have to install one of ${names.map(name => /^@?storybook[-/]\w+/.exec(name)[0])}!`)
+      throw new Error(
+        `You have to install one of ${names.map(
+          name => /^@?storybook[-/]\w+/.exec(name)[0]
+        )}!`
+      )
     } else {
       throw err
     }

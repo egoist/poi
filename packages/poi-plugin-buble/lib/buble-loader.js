@@ -23,7 +23,7 @@ function handleError(err) {
   }
 }
 
-module.exports = function (source) {
+module.exports = function(source) {
   const options = loaderUtils.getOptions(this)
 
   let transformed

@@ -1,8 +1,9 @@
 const nodeExternals = require('poi-webpack-node-externals')
 const merge = require('lodash/merge')
-const { createSet, stringifyObject } = require('./utils')
+const createSet = require('./utils/createSet')
+const stringifyObject = require('./utils/stringifyObject')
 
-const _ = module.exports = {}
+const _ = (module.exports = {})
 
 _.externalize = config => {
   let value = config.get('externals') || []
@@ -18,7 +19,7 @@ _.externalize = config => {
 
 _.getHotEntryPoints = entry => {
   if (!entry || entry === true) {
-    entry = 'client'
+    entry = 'main'
   }
   return createSet(entry)
 }

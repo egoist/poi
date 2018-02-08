@@ -1,6 +1,6 @@
 module.exports = {
   plugins: [
-    require('./')({
+    require('.')({
       files: 'example/*.test.js',
       extendWebpack() {
         console.log('extending webpack config')

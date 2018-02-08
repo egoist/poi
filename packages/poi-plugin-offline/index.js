@@ -34,7 +34,9 @@ module.exports = ({
   pluginOptions
 } = {}) => {
   return poi => {
-    poi.extendWebpack('production', config => {
+    if (!poi.cli.isCurrentCommand('build')) return
+
+    poi.extendWebpack(config => {
       pwa = path.resolve(poi.options.cwd, pwa)
 
       if (config.get(['entry', entry])) {
@@ -50,16 +52,21 @@ module.exports = ({
         return options
       })
 
-      config.plugins.add('offline', OfflinePlugin, [Object.assign({
-        ServiceWorker: {
-          events: true,
-          navigateFallbackURL: '/'
-        },
-        AppCache: {
-          events: true,
-          FALLBACK: { '/': '/' }
-        }
-      }, pluginOptions)])
+      config.plugins.add('offline', OfflinePlugin, [
+        Object.assign(
+          {
+            ServiceWorker: {
+              events: true,
+              navigateFallbackURL: '/'
+            },
+            AppCache: {
+              events: true,
+              FALLBACK: { '/': '/' }
+            }
+          },
+          pluginOptions
+        )
+      ])
     })
   }
 }
