@@ -295,7 +295,7 @@ module.exports = poi => {
 
   function setHMR(config) {
     const supportHMR = poi.options.hotReload !== false && command === 'develop'
-    const devClient = require.resolve('poi-dev-utils/hot-dev-client')
+    const devClient = require.resolve('poi-dev-utils/hotDevClient')
 
     // Add hmr entry using `hotEntry` option
     if (supportHMR) {

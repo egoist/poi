@@ -6,3 +6,4 @@ fixtures/
 dist/
 example-*/
 example/
+hotDevClient.js

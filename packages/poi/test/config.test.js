@@ -6,7 +6,7 @@ jest.mock('poi-webpack-node-externals', () =>
 )
 
 const oldCwd = process.cwd()
-const hotDevClient = require.resolve('poi-dev-utils/hot-dev-client')
+const hotDevClient = require.resolve('poi-dev-utils/hotDevClient')
 
 beforeAll(() => {
   process.chdir(path.join(__dirname, 'fixture'))

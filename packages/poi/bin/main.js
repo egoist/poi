@@ -31,9 +31,11 @@ const watchRun = (app, { devServer, webpackWatcher } = {}) => {
   if (!['watch', 'develop'].includes(app.command) && !app.options.watch) return
 
   const filesToWatch = [
-    ...(app.configFile || ['poi.config.js', '.poirc']),
-    ...(app.options.restartOnFileChanges || [])
+    ...[].concat(app.configFile || ['poi.config.js', '.poirc']),
+    ...[].concat(app.options.restartOnFileChanges || [])
   ]
+
+  logger.debug('Watching files', filesToWatch)
 
   const watcher = chokidar.watch(filesToWatch, {
     ignoreInitial: true
@@ -57,7 +59,7 @@ const watchRun = (app, { devServer, webpackWatcher } = {}) => {
 }
 
 const handleError = err => {
-  console.error(err)
+  console.error(err.stack)
   process.exit(1)
 }
 
