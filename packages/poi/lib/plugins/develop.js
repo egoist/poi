@@ -61,6 +61,7 @@ module.exports = poi => {
           }
         }
       }
+
       const host = poi.options.devServer.host
       const port = await getPort({ port: poi.options.devServer.port, host })
       if (port !== poi.options.devServer.port) {
@@ -105,6 +106,10 @@ module.exports = poi => {
           )
         }
       })
+
+      return {
+        devServer: server
+      }
     }
   )
 

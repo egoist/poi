@@ -90,7 +90,9 @@ module.exports = class Poi extends EventEmitter {
       files: ['{name}.config.js', '.{name}rc', 'package.json']
     })
     const { path: configPath, config } = await useConfig.load()
+
     logger.debug('poi config path', configPath)
+    this.configFile = configPath
     this.options = {
       ...config,
       ...this.options
@@ -132,7 +134,7 @@ module.exports = class Poi extends EventEmitter {
 
   async run() {
     await this.prepare()
-    await this.cli.runCommand()
+    return this.cli.runCommand()
   }
 
   createWebpackConfig() {
