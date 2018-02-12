@@ -127,7 +127,7 @@ module.exports = poi => {
   }
 
   function setCSSRules(config) {
-    require('../webpack/cssRules').standalone(config, cssOptions)
+    require('poi-webpack-utils/rules/css').standalone(config, cssOptions)
 
     if (cssOptions.extract) {
       config.plugins.add(
@@ -144,14 +144,14 @@ module.exports = poi => {
   }
 
   function setJSRules(config) {
-    require('../webpack/jsRules')(config, {
+    require('poi-webpack-utils/rules/js')(config, {
       babel,
       transpileModules: poi.options.transpileModules
     })
   }
 
   function setVueRules(config) {
-    require('../webpack/vueRules')(config, {
+    require('poi-webpack-utils/rules/vue')(config, {
       babel,
       vueOptions,
       cssOptions
@@ -159,16 +159,19 @@ module.exports = poi => {
   }
 
   function setImageRules(config) {
-    require('../webpack/imageRules')(config, filename)
+    require('poi-webpack-utils/rules/image')(config, filename)
   }
 
   function setFontRules(config) {
-    require('../webpack/fontRules')(config, filename)
+    require('poi-webpack-utils/rules/font')(config, filename)
   }
 
   function setPlugins(config) {
     if (command === 'develop' || command === 'watch') {
-      config.plugins.add('timefix', require('../webpack/timefixPlugin'))
+      config.plugins.add(
+        'timefix',
+        require('poi-webpack-utils/plugins/TimeFixPlugin')
+      )
     }
 
     const { host, port, clearScreen, replace } = poi.options
