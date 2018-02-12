@@ -1,7 +1,7 @@
 const nodeExternals = require('poi-webpack-node-externals')
 const merge = require('lodash/merge')
 const createSet = require('./utils/createSet')
-const stringifyObject = require('./utils/stringifyObject')
+const stringifyObject = require('poi-webpack-utils/helpers/stringifyObject')
 
 const _ = (module.exports = {})
 
