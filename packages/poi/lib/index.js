@@ -10,7 +10,7 @@ const handleOptions = require('./handleOptions')
 const logger = require('./logger')
 
 module.exports = class Poi extends EventEmitter {
-  constructor(command = 'build', options) {
+  constructor(command = 'build', options = {}) {
     super()
     logger.setOptions(options)
     logger.debug('poi command', command)
@@ -87,7 +87,9 @@ module.exports = class Poi extends EventEmitter {
   async prepare() {
     const useConfig = new UseConfig({
       name: 'poi',
-      files: ['{name}.config.js', '.{name}rc', 'package.json']
+      files: this.options.config
+        ? [this.options.config]
+        : ['{name}.config.js', '.{name}rc', 'package.json']
     })
     const { path: configPath, config } = await useConfig.load()
 
