@@ -1,13 +1,16 @@
 const fs = require('fs')
+const path = require('path')
 
 module.exports = (options = {}) => {
   return poi => {
     const localCompiler = 'node_modules/.bin/elm-make'
     const loaderOptions = Object.assign({
       // Only use local compiler when it exists
-      pathToMake: fs.existsSync(localCompiler) ? localCompiler : null,
+      pathToMake: fs.existsSync(localCompiler) ? path.join(__dirname, localCompiler) : null,
       warn: true,
-      debug: poi.options.mode !== 'production'
+      debug: poi.options.mode !== 'production',
+      cache: false,
+      cwd: __dirname + '/src/'
     }, options.loaderOptions)
 
     poi.extendWebpack(config => {

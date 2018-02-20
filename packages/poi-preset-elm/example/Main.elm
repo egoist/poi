@@ -2,6 +2,7 @@ module Main exposing (..)
 
 import Html exposing (..)
 import Html.Events exposing (onClick)
+import Const exposing (startValue, stepValue)
 
 
 type alias Model =
@@ -10,7 +11,7 @@ type alias Model =
 
 model : Model
 model =
-    0
+    startValue
 
 
 type Msg
@@ -22,10 +23,10 @@ update : Msg -> Model -> Model
 update msg model =
     case msg of
         Increment ->
-            model + 1
+            model + stepValue
 
         Decrement ->
-            model - 1
+            model - stepValue
 
 
 view : Model -> Html Msg
