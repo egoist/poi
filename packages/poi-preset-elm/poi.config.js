@@ -1,10 +1,12 @@
+const path = require('path')
+
 module.exports = {
   entry: 'example/index.js',
   presets: [
     require('./index.js')({
       loaderOptions: {
-        cwd: __dirname + '/example',
-      },
+        cwd: path.join(__dirname, '/example')
+      }
     })
   ]
 }

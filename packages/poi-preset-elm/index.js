@@ -10,7 +10,7 @@ module.exports = (options = {}) => {
       warn: true,
       debug: poi.options.mode !== 'production',
       cache: false,
-      cwd: __dirname + '/src/'
+      cwd: path.join(__dirname, '/src')
     }, options.loaderOptions)
 
     poi.extendWebpack(config => {
