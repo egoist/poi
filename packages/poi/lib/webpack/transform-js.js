@@ -12,13 +12,13 @@ module.exports = (config, { babel, transformModules }) => {
       .include
       .add(filepath => {
         // For anything outside node_modules
-        if (filepath.indexOf(`${path.sep}node_modules${path.sep}`) === -1) {
+        if (filepath.indexOf(path.normalize('/node_modules/')) === -1) {
           return true
         }
         // For specified modules
         if (Array.isArray(transformModules)) {
           const hasModuleToTransform = transformModules.some(name => {
-            return filepath.indexOf(`${path.sep}node_modules${path.sep}${name}${path.sep}`) >= 0
+            return filepath.indexOf(path.normalize(`/node_modules/${name}/`)) >= 0
           })
           if (hasModuleToTransform) {
             return true
