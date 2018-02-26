@@ -19,8 +19,8 @@
     "index.js"
   ],
   "dependencies": {
-    "svelte": "^1.18.1",
-    "svelte-loader": "^2.0.1"
+    "svelte": "^1.56.0",
+    "svelte-loader": "^2.3.3"
   },
   "devDependencies": {
     "documentation": "^5.0.0"
