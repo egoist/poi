@@ -5,6 +5,11 @@ const buildConfigChain = require('babel-core/lib/transformation/file/options/bui
 const logger = require('./logger')
 const inferHTML = require('./utils/inferHTML')
 const readProjectPkg = require('./utils/readProjectPkg')
+const normalizeEntry = require('./utils/normalizeEntry')
+const getFilename = require('./utils/getFilename')
+const getPublicPath = require('./utils/getPublicPath')
+const getHotEntry = require('./utils/getHotEntry')
+const getExternals = require('./utils/getExternals')
 
 function getLibraryFilename(component) {
   return kebabCase(
@@ -12,7 +17,46 @@ function getLibraryFilename(component) {
   )
 }
 
-module.exports = async options => {
+module.exports = async (options, command) => {
+  options = Object.assign(
+    {
+      entry: 'index.js',
+      cwd: process.cwd(),
+      vue: {},
+      css: {},
+      sourceMap:
+        command === 'build'
+          ? 'source-map'
+          : command === 'test' ? 'inline-source-map' : 'eval-source-map',
+      hash: command === 'build',
+      ...options,
+      devServer: {
+        host: '0.0.0.0',
+        port: 4000,
+        ...options.devServer
+      }
+    },
+    options
+  )
+
+  options.entry = normalizeEntry(options.entry)
+  options.filename = getFilename(options.hash, options.filename)
+  options.outDir = path.resolve(options.outDir || 'dist')
+  options.publicPath = getPublicPath(command, options.publicPath)
+  options.hotReload = options.hotReload !== false && command === 'develop'
+  options.hotEntry = getHotEntry(options.hotEntry)
+  options.externals = getExternals(options.format).concat(
+    options.externals || []
+  )
+  options.minimize =
+    typeof options.minimize === 'boolean'
+      ? options.minimize
+      : command === 'build'
+  options.env = {
+    NODE_ENV: command === 'build' ? 'production' : 'development',
+    ...options.env
+  }
+
   const loadExternalConfig = new LoadExternalConfig({ cwd: options.cwd })
 
   // options.component is actually a wrong name
@@ -104,6 +148,19 @@ module.exports = async options => {
         }
       }
     }
+  }
+
+  options.css = {
+    minimize: options.minimize,
+    extract:
+      typeof options.css.extract === 'boolean'
+        ? options.css.extract
+        : command === 'build',
+    sourceMap: Boolean(options.sourceMap),
+    postcss: options.postcss,
+    cssModules: options.css.modules,
+    fallbackLoader: 'vue-style-loader',
+    filename: options.filename.css
   }
 
   const defaultHtmlOption = inferHTML(options)

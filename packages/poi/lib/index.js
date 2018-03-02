@@ -8,6 +8,7 @@ const chokidar = require('chokidar')
 const CLIEngine = require('./cliEngine')
 const handleOptions = require('./handleOptions')
 const logger = require('./logger')
+const { ownDir } = require('./utils/dir')
 
 module.exports = class Poi extends EventEmitter {
   constructor(command = 'build', options = {}) {
@@ -19,6 +20,7 @@ module.exports = class Poi extends EventEmitter {
     this.conpack = new Conpack()
     this.cli = new CLIEngine(command)
     this.plugins = new Set()
+    this.ownDir = ownDir
     this.cli.cac.on('error', err => {
       if (err.name === 'AppError') {
         logger.error(err.message)
@@ -51,7 +53,8 @@ module.exports = class Poi extends EventEmitter {
 
   createCompiler(webpackConfig) {
     webpackConfig = webpackConfig || this.createWebpackConfig()
-    return require('poi-webpack-utils/webpack')(webpackConfig)
+
+    return require('@poi/create-webpack-config/webpack')(webpackConfig)
   }
 
   runCompiler(webpackConfig) {
@@ -92,16 +95,7 @@ module.exports = class Poi extends EventEmitter {
       ...config,
       ...this.options
     }
-    this.options = await handleOptions({
-      entry: 'index.js',
-      cwd: process.cwd(),
-      ...this.options,
-      devServer: {
-        host: '0.0.0.0',
-        port: 4000,
-        ...this.options.devServer
-      }
-    })
+    this.options = await handleOptions(this.options, this.command)
 
     logger.inspect('poi options', this.options)
 
