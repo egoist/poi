@@ -49,7 +49,7 @@
     "file-loader": "^1.1.5",
     "get-port": "^3.2.0",
     "highlight-es": "^1.0.1",
-    "html-webpack-plugin": "webpack-contrib/html-webpack-plugin",
+    "html-webpack-plugin": "^3.0.4",
     "import-local-file": "^0.2.0",
     "is-ci": "^1.0.10",
     "launch-editor-middleware": "^2.2.0",
