@@ -54,7 +54,7 @@
     "is-ci": "^1.0.10",
     "launch-editor-middleware": "^2.2.0",
     "lodash": "^4.17.4",
-    "log-update": "^2.3.0",
+    "log-horizon": "^0.1.0",
     "loud-rejection": "^1.6.0",
     "memory-fs": "^0.4.1",
     "minimost": "^1.0.0",

@@ -1,7 +1,6 @@
 const cac = require('cac')
 const chokidar = require('chokidar')
 const Poi = require('../lib')
-const emoji = require('../lib/emoji')
 const isPath = require('../lib/utils/isPath')
 const logger = require('../lib/logger')
 
@@ -47,10 +46,7 @@ const watchRun = (app, { devServer, webpackWatcher } = {}) => {
     ignoreInitial: true
   })
   const handleEvent = filepath => {
-    logger.status(
-      emoji.progress,
-      `Restarting due to changes made in: ${filepath}`
-    )
+    logger.progress(`Restarting due to changes made in: ${filepath}`)
     watcher.close()
     if (devServer) {
       devServer.close(main)

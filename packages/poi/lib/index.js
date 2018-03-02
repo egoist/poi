@@ -1,5 +1,4 @@
 const path = require('path')
-const util = require('util')
 const EventEmitter = require('events')
 const Conpack = require('conpack')
 const UseConfig = require('use-config')
@@ -51,13 +50,6 @@ module.exports = class Poi extends EventEmitter {
 
   createCompiler(webpackConfig) {
     webpackConfig = webpackConfig || this.createWebpackConfig()
-    logger.silly(
-      'webpack config',
-      util.inspect(webpackConfig, {
-        depth: null,
-        colors: true
-      })
-    )
     return require('poi-webpack-utils/webpack')(webpackConfig)
   }
 
@@ -110,13 +102,7 @@ module.exports = class Poi extends EventEmitter {
       }
     })
 
-    logger.debug(
-      'poi options',
-      util.inspect(this.options, {
-        depth: null,
-        colors: true
-      })
-    )
+    logger.inspect('poi options', this.options)
 
     this.registerPlugin(require('./plugins/baseConfig'))
     this.registerPlugin(require('./plugins/develop'))

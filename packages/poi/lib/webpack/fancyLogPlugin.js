@@ -1,6 +1,5 @@
 const chalk = require('chalk')
 const terminal = require('../terminalUtils')
-const emoji = require('../emoji')
 const logger = require('../logger')
 
 function outputStats(stats) {
@@ -55,7 +54,7 @@ module.exports = class FancyLogPlugin {
 
     compiler.hooks.invalid.tap('fancy-log-invalid', () => {
       this.clearScreen()
-      logger.status(emoji.progress, 'Compiling...')
+      logger.progress('Compiling...')
       console.log()
     })
   }
@@ -68,8 +67,7 @@ module.exports = class FancyLogPlugin {
   }
 
   displaySuccess(stats) {
-    logger.status(
-      emoji.success,
+    logger.success(
       chalk.green(`Built in ${stats.endTime - stats.startTime}ms.`)
     )
     process.exitCode = 0
