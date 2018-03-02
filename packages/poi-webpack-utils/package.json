@@ -4,7 +4,8 @@
   "files": [
     "plugins",
     "rules",
-    "helpers"
+    "helpers",
+    "webpack.js"
   ],
   "author": {
     "name": "EGOIST",
@@ -12,7 +13,9 @@
   },
   "license": "MIT",
   "dependencies": {
+    "extract-text-webpack-plugin": "^4.0.0-alpha.0",
     "lodash.merge": "^4.6.1",
+    "webpack": "^4.0.1",
     "webpack-handle-css-loader": "^2.0.1"
   }
 }

@@ -17,7 +17,7 @@ module.exports = class Poi extends EventEmitter {
     this.command = command
     this.options = options
     this.conpack = new Conpack()
-    this.cli = new CLIEngine(command)
+    this.cli = new CLIEngine(command, options)
     this.plugins = new Set()
     this.cli.cac.on('error', err => {
       if (err.name === 'AppError') {
@@ -58,7 +58,7 @@ module.exports = class Poi extends EventEmitter {
         colors: true
       })
     )
-    return require('webpack')(webpackConfig)
+    return require('poi-webpack-utils/webpack')(webpackConfig)
   }
 
   runCompiler(webpackConfig) {

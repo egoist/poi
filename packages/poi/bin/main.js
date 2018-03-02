@@ -5,7 +5,12 @@ const emoji = require('../lib/emoji')
 const isPath = require('../lib/utils/isPath')
 const logger = require('../lib/logger')
 
-const { input, flags } = cac.parse(process.argv.slice(2))
+const { input, flags } = cac.parse(process.argv.slice(2), {
+  alias: {
+    h: 'help',
+    v: 'version'
+  }
+})
 
 let command
 let entry
@@ -29,6 +34,7 @@ if (entry.length === 0) {
 const watchRun = (app, { devServer, webpackWatcher } = {}) => {
   if (app.options.restartOnFileChanges === false) return
   if (!['watch', 'develop'].includes(app.command) && !app.options.watch) return
+  if (options.help || options.version) return
 
   const filesToWatch = [
     ...[].concat(app.configFile || ['poi.config.js', '.poirc']),

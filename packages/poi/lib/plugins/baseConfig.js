@@ -2,7 +2,7 @@ const path = require('path')
 const fs = require('fs')
 const merge = require('lodash/merge')
 const isCI = require('is-ci')
-const webpack = require('webpack')
+const webpack = require('poi-webpack-utils/webpack')
 const yarnGlobal = require('yarn-global')
 const getFileNames = require('poi-webpack-utils/helpers/getFileNames')
 const getFullEnvString = require('poi-webpack-utils/helpers/getFullEnvString')
@@ -47,7 +47,8 @@ module.exports = poi => {
     sourceMap: Boolean(sourceMap),
     postcss,
     cssModules,
-    fallbackLoader: 'vue-style-loader'
+    fallbackLoader: 'vue-style-loader',
+    filename: filename.css
   }
   const babel = poi.options.babel
 
@@ -128,19 +129,6 @@ module.exports = poi => {
 
   function setCSSRules(config) {
     require('poi-webpack-utils/rules/css').standalone(config, cssOptions)
-
-    if (cssOptions.extract) {
-      config.plugins.add(
-        'extract-css',
-        require('extract-text-webpack-plugin'),
-        [
-          {
-            filename: filename.css,
-            allChunks: true
-          }
-        ]
-      )
-    }
   }
 
   function setJSRules(config) {
@@ -168,10 +156,11 @@ module.exports = poi => {
 
   function setPlugins(config) {
     if (command === 'develop' || command === 'watch') {
-      config.plugins.add(
-        'timefix',
-        require('poi-webpack-utils/plugins/TimeFixPlugin')
-      )
+      // It doesn't work with webpack 4 for now
+      // config.plugins.add(
+      //   'timefix',
+      //   require('poi-webpack-utils/plugins/TimeFixPlugin')
+      // )
     }
 
     const { host, port, clearScreen, replace } = poi.options
@@ -181,13 +170,17 @@ module.exports = poi => {
       require('case-sensitive-paths-webpack-plugin')
     )
 
-    config.plugins.add('replace-string', require('webpack').DefinePlugin, [
-      merge(
-        // { foo: '"foo"' } => { 'process.env.foo': '"foo"' }
-        stringifyObject(getFullEnvString(env)),
-        replace && stringifyObject(replace)
-      )
-    ])
+    config.plugins.add(
+      'replace-string',
+      require('poi-webpack-utils/webpack').DefinePlugin,
+      [
+        merge(
+          // { foo: '"foo"' } => { 'process.env.foo': '"foo"' }
+          stringifyObject(getFullEnvString(env)),
+          replace && stringifyObject(replace)
+        )
+      ]
+    )
 
     config.plugins.add('fancy-log', require('../webpack/fancyLogPlugin'), [
       {
@@ -214,29 +207,8 @@ module.exports = poi => {
       }
     }
 
-    if (minimize) {
-      config.plugins.add('minimize', webpack.optimize.UglifyJsPlugin, [
-        {
-          sourceMap: Boolean(sourceMap),
-          /* eslint-disable camelcase */
-          compressor: {
-            warnings: false,
-            conditionals: true,
-            unused: true,
-            comparisons: true,
-            sequences: true,
-            dead_code: true,
-            evaluate: true,
-            if_return: true,
-            join_vars: true,
-            negate_iife: false
-          },
-          output: {
-            comments: false
-          }
-          /* eslint-enable camelcase */
-        }
-      ])
+    if (typeof minimize === 'boolean') {
+      config.set('optimization.minimize', minimize)
     }
   }
 
@@ -251,42 +223,9 @@ module.exports = poi => {
     }
   }
 
-  function setCodeSplit(config) {
-    const vendor =
-      typeof poi.options.vendor === 'boolean'
-        ? poi.options.vendor
-        : command !== 'test'
-    // Do not split vendor code in `cjs` and `umd` format
-    if (vendor && !poi.options.format) {
-      config.plugins.add(
-        'split-vendor-code',
-        webpack.optimize.CommonsChunkPlugin,
-        [
-          {
-            name: 'vendor',
-            minChunks: module => {
-              return (
-                module.context && module.context.indexOf('node_modules') >= 0
-              )
-            }
-          }
-        ]
-      )
-      config.plugins.add(
-        'split-manifest',
-        webpack.optimize.CommonsChunkPlugin,
-        [
-          {
-            name: 'manifest'
-          }
-        ]
-      )
-    }
-  }
-
   function setWatchMissingFiles(config) {
     if (command === 'develop' || command === 'watch') {
-      const WatchMissingNodeModulesPlugin = require('poi-dev-utils/watch-missing-node-modules-plugin')
+      const WatchMissingNodeModulesPlugin = require('poi-webpack-utils/plugins/WatchMissingNodeModulesPlugin')
 
       config.plugins.add(
         'watch-missing-node-modules',
@@ -377,6 +316,7 @@ module.exports = poi => {
   }
 
   poi.extendWebpack(config => {
+    config.set('mode', command === 'build' ? 'production' : 'development')
     setSourceMap(config)
     setEntry(config)
     setOutput(config)
@@ -390,7 +330,6 @@ module.exports = poi => {
     setFontRules(config)
     setPlugins(config)
     setFormat(config)
-    setCodeSplit(config)
     setWatchMissingFiles(config)
     setHMR(config)
     setCopyFiles(config)

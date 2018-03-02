@@ -11,6 +11,15 @@ exports.vue = function(options) {
 exports.standalone = function(config, options) {
   const handleLoader = new HandleCSSLoader(options)
 
+  if (options.extract) {
+    config.plugins.add('extract-css', require('extract-text-webpack-plugin'), [
+      {
+        filename: options.filename,
+        allChunks: true
+      }
+    ])
+  }
+
   for (const lang of LANGS) {
     const { test, use } = handleLoader[lang]()
 

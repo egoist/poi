@@ -24,12 +24,12 @@ module.exports = class FancyLogPlugin {
 
   apply(compiler) {
     if (this.opts.command === 'build') {
-      compiler.plugin('compile', () => {
+      compiler.hooks.compile.tap('fancy-log-compile', () => {
         this.clearScreen()
       })
     }
 
-    compiler.plugin('done', stats => {
+    compiler.hooks.done.tap('fancy-log-done', stats => {
       this.clearScreen()
 
       if (stats.hasErrors()) {
@@ -53,7 +53,7 @@ module.exports = class FancyLogPlugin {
       this.displaySuccess(stats)
     })
 
-    compiler.plugin('invalid', () => {
+    compiler.hooks.invalid.tap('fancy-log-invalid', () => {
       this.clearScreen()
       logger.status(emoji.progress, 'Compiling...')
       console.log()
