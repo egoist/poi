@@ -1,15 +1,13 @@
 const cac = require('cac')
-const chokidar = require('chokidar')
 const Poi = require('../lib')
 const isPath = require('../lib/utils/isPath')
-const logger = require('../lib/logger')
 
-const { input, flags } = cac.parse(process.argv.slice(2), {
-  alias: {
-    h: 'help',
-    v: 'version'
-  }
-})
+const { input, flags } = cac.parse(process.argv.slice(2))
+
+if (flags.version) {
+  console.log(require('../package').version)
+  process.exit()
+}
 
 let command
 let entry
@@ -30,48 +28,9 @@ if (entry.length === 0) {
   delete options.entry
 }
 
-const watchRun = (app, { devServer, webpackWatcher } = {}) => {
-  if (app.options.restartOnFileChanges === false) return
-  if (!['watch', 'develop'].includes(app.command) && !app.options.watch) return
-  if (options.help || options.version) return
+const app = new Poi(command, options)
 
-  const filesToWatch = [
-    ...[].concat(app.configFile || ['poi.config.js', '.poirc']),
-    ...[].concat(app.options.restartOnFileChanges || [])
-  ]
-
-  logger.debug('Watching files', filesToWatch)
-
-  const watcher = chokidar.watch(filesToWatch, {
-    ignoreInitial: true
-  })
-  const handleEvent = filepath => {
-    logger.progress(`Restarting due to changes made in: ${filepath}`)
-    watcher.close()
-    if (devServer) {
-      devServer.close(main)
-    } else if (webpackWatcher) {
-      webpackWatcher.close()
-      main()
-    }
-  }
-  watcher.on('change', handleEvent)
-  watcher.on('add', handleEvent)
-  watcher.on('unlink', handleEvent)
-}
-
-const handleError = err => {
+app.run().catch(err => {
   console.error(err.stack)
   process.exit(1)
-}
-
-async function main() {
-  try {
-    const app = new Poi(command, options)
-    watchRun(app, await app.run())
-  } catch (err) {
-    handleError(err)
-  }
-}
-
-main()
+})

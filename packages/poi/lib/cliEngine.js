@@ -3,9 +3,8 @@ const cac = require('cac')
 // The CLI engine is only responsible for running command and disable help
 // The actuall cli args are parsed in bin/main.js ahead of this
 module.exports = class CLI {
-  constructor(command, options) {
+  constructor(command) {
     this.command = command
-    this.options = options
     this.cac = cac()
   }
 
@@ -19,13 +18,17 @@ module.exports = class CLI {
     return false
   }
 
+  willShowHelp() {
+    return process.argv.includes('--help')
+  }
+
   async runCommand() {
     const args = [this.command]
-    if (this.options.help) {
+
+    if (this.willShowHelp()) {
       args.push('--help')
-    } else if (this.options.version) {
-      args.push('--version')
     }
+
     return this.cac.parse(args)
   }
 }

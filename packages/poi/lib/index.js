@@ -4,6 +4,7 @@ const Conpack = require('conpack')
 const UseConfig = require('use-config')
 const chalk = require('chalk')
 const parseJsonConfig = require('parse-json-config')
+const chokidar = require('chokidar')
 const CLIEngine = require('./cliEngine')
 const handleOptions = require('./handleOptions')
 const logger = require('./logger')
@@ -12,11 +13,11 @@ module.exports = class Poi extends EventEmitter {
   constructor(command = 'build', options = {}) {
     super()
     logger.setOptions(options)
-    logger.debug('poi command', command)
+    logger.debug('command', command)
     this.command = command
     this.options = options
     this.conpack = new Conpack()
-    this.cli = new CLIEngine(command, options)
+    this.cli = new CLIEngine(command)
     this.plugins = new Set()
     this.cli.cac.on('error', err => {
       if (err.name === 'AppError') {
@@ -122,7 +123,41 @@ module.exports = class Poi extends EventEmitter {
 
   async run() {
     await this.prepare()
-    return this.cli.runCommand()
+    this.watchRun(await this.cli.runCommand())
+  }
+
+  watchRun({ devServer, webpackWatcher } = {}) {
+    if (
+      this.options.restartOnFileChanges === false ||
+      !['watch', 'develop'].includes(this.command) ||
+      this.cli.willShowHelp()
+    ) {
+      return
+    }
+
+    const filesToWatch = [
+      ...[].concat(this.options.config || ['poi.config.js', '.poirc']),
+      ...[].concat(this.options.restartOnFileChanges || [])
+    ]
+
+    logger.debug('watching files', filesToWatch)
+
+    const watcher = chokidar.watch(filesToWatch, {
+      ignoreInitial: true
+    })
+    const handleEvent = filepath => {
+      logger.progress(`Restarting due to changes made in: ${filepath}`)
+      watcher.close()
+      if (devServer) {
+        devServer.close(() => this.run())
+      } else if (webpackWatcher) {
+        webpackWatcher.close()
+        this.run()
+      }
+    }
+    watcher.on('change', handleEvent)
+    watcher.on('add', handleEvent)
+    watcher.on('unlink', handleEvent)
   }
 
   createWebpackConfig() {
