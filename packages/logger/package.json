@@ -8,6 +8,6 @@
     "index.js"
   ],
   "dependencies": {
-    "log-horizon": "^0.1.0"
+    "log-horizon": "^0.1.1"
   }
 }

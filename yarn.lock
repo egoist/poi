@@ -2954,10 +2954,6 @@ capture-stack-trace@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/capture-stack-trace/-/capture-stack-trace-1.0.0.tgz#4a6fa07399c26bba47f0b2496b4d0fb408c5550d"
 
-case-sensitive-paths-webpack-plugin@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/case-sensitive-paths-webpack-plugin/-/case-sensitive-paths-webpack-plugin-2.1.1.tgz#3d29ced8c1f124bf6f53846fb3f5894731fdc909"
-
 caseless@~0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.11.0.tgz#715b96ea9841593cc33067923f5ec60ebda4f7d7"
@@ -8403,9 +8399,9 @@ lodash@^4.0.0, lodash@^4.1.0, lodash@^4.11.1, lodash@^4.13.1, lodash@^4.14.0, lo
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
-log-horizon@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/log-horizon/-/log-horizon-0.1.0.tgz#a44e4a0370f840ab8c467b1c4e10d6bfa6c2c9cd"
+log-horizon@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/log-horizon/-/log-horizon-0.1.1.tgz#3d9a5c1a86b60b234dac72fdde413125cae194f7"
   dependencies:
     chalk "^2.3.1"
     log-update "^2.3.0"
