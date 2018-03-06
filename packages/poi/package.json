@@ -42,7 +42,7 @@
     "find-babel-config": "^1.1.0",
     "get-port": "^3.2.0",
     "import-local-file": "^0.2.0",
-    "is-ci": "^1.0.10",
+    "is-ci": "^1.1.0",
     "launch-editor-middleware": "^2.2.0",
     "lodash": "^4.17.4",
     "log-horizon": "^0.1.0",

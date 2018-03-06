@@ -1,6 +1,5 @@
 const path = require('path')
 const fs = require('fs')
-const isCI = require('is-ci')
 const webpack = require('webpack')
 const yarnGlobal = require('yarn-global')
 const getFullEnvString = require('./utils/getFullEnvString')
@@ -118,21 +117,9 @@ module.exports = poi => {
       stringifyObject(getFullEnvString(poi.options.env))
     ])
 
-    if (command === 'build') {
-      const ProgressPlugin = require('webpack/lib/ProgressPlugin')
-      const NoEmitOnErrorsPlugin = require('webpack/lib/NoEmitOnErrorsPlugin')
+    const NoEmitOnErrorsPlugin = require('webpack/lib/NoEmitOnErrorsPlugin')
 
-      config.plugins.add('no-emit-on-errors', NoEmitOnErrorsPlugin)
-
-      if (
-        process.stderr.isTTY &&
-        process.env.NODE_ENV !== 'test' &&
-        poi.options.progress !== false &&
-        !isCI
-      ) {
-        config.plugins.add('progress-bar', ProgressPlugin)
-      }
-    }
+    config.plugins.add('no-emit-on-errors', NoEmitOnErrorsPlugin)
   }
 
   function setWatchMissingFiles(config) {

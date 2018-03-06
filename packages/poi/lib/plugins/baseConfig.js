@@ -1,3 +1,4 @@
+const isCI = require('is-ci')
 const createWebpackConfig = require('@poi/create-webpack-config')
 
 module.exports = poi => {
@@ -12,6 +13,15 @@ module.exports = poi => {
         clearScreen
       }
     ])
+
+    if (
+      process.stderr.isTTY &&
+      process.env.NODE_ENV !== 'test' &&
+      poi.options.progress !== false &&
+      !isCI
+    ) {
+      config.plugins.add('progress-bar', require('../webpack/ProgressPlugin'))
+    }
   })
 
   createWebpackConfig(poi)
