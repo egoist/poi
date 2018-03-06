@@ -1,0 +1,15 @@
+{
+  "name": "@poi/plugin-babel-minify",
+  "version": "0.0.0",
+  "scripts": {
+    "test": "echo fine"
+  },
+  "files": [
+    "index.js"
+  ],
+  "license": "MIT",
+  "repository": "https://github.com/egoist/poi/tree/master/packages/plugin-babel-minify",
+  "dependencies": {
+    "babel-minify-webpack-plugin": "^0.3.0"
+  }
+}
