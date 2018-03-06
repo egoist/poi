@@ -82,15 +82,12 @@ module.exports = poi => {
   }
 
   function setJSRules(config) {
-    require('./rules/js')(config, {
-      babel: poi.options.babel,
-      transpileModules: poi.options.transpileModules
-    })
+    require('./rules/js')(config, poi.options.babel)
   }
 
   function setVueRules(config) {
     require('./rules/vue')(config, {
-      babel: poi.options.babel,
+      babel: poi.options.babel.config,
       vueOptions: poi.options.vue.loader,
       cssOptions: poi.options.css
     })

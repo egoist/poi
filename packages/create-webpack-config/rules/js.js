@@ -1,9 +1,9 @@
 const path = require('path')
 
-module.exports = (config, { babel, transformModules }) => {
-  // Ensure that transformModules is an array
-  if (typeof transformModules === 'string') {
-    transformModules = [transformModules]
+module.exports = (config, { babel: babelConfig, include }) => {
+  // Ensure that include is an array
+  if (typeof include === 'string') {
+    include = [include]
   }
 
   const jsRule = config.rules.add('js', {
@@ -15,13 +15,9 @@ module.exports = (config, { babel, transformModules }) => {
           return true
         }
         // For specified modules
-        if (Array.isArray(transformModules)) {
-          const hasModuleToTransform = transformModules.some(name => {
-            return (
-              filepath.indexOf(
-                `${path.sep}node_modules${path.sep}${name}${path.sep}`
-              ) >= 0
-            )
+        if (Array.isArray(include)) {
+          const hasModuleToTransform = include.some(name => {
+            return filepath.includes(path.normalize(`/node_modules/${name}/`))
           })
           if (hasModuleToTransform) {
             return true
@@ -35,6 +31,6 @@ module.exports = (config, { babel, transformModules }) => {
   jsRule.loaders.add('babel-loader', {
     // Prevent from using loader in cwd
     loader: require.resolve('babel-loader'),
-    options: babel
+    options: babelConfig
   })
 }

@@ -17,27 +17,61 @@ function getLibraryFilename(component) {
   )
 }
 
+async function handleBabel(options) {
+  const { file, config } = await findBabelConfig(process.cwd(), 2)
+
+  if (file) {
+    // If root babel config file is found
+    // We set `babelrc` to the its path
+    // To prevent `babel-loader` from loading it again
+    logger.debug('babel config location', file)
+    // You can use `babelrc: false` to disable the config file itself
+    if (config.babelrc === false) {
+      options.config.babelrc = false
+    } else {
+      options.config.babelrc = file
+    }
+  } else {
+    // If not found
+    // We set `babelrc` to `false` for the same reason
+    options.config.babelrc = false
+  }
+
+  if (options.config.babelrc === false) {
+    // Use our default preset when no babelrc was specified
+    options.config.presets = [
+      [require.resolve('babel-preset-poi'), { jsx: options.jsx }]
+    ]
+  }
+
+  options.config.cacheDirectory = true
+
+  return options
+}
+
 module.exports = async (options, command) => {
-  options = Object.assign(
-    {
-      entry: 'index.js',
-      cwd: process.cwd(),
-      vue: {},
-      css: {},
-      sourceMap:
-        command === 'build'
-          ? 'source-map'
-          : command === 'test' ? 'inline-source-map' : 'eval-source-map',
-      hash: command === 'build',
-      ...options,
-      devServer: {
-        host: '0.0.0.0',
-        port: 4000,
-        ...options.devServer
-      }
+  options = {
+    entry: 'index.js',
+    cwd: process.cwd(),
+    vue: {},
+    css: {},
+    sourceMap:
+      command === 'build'
+        ? 'source-map'
+        : command === 'test' ? 'inline-source-map' : 'eval-source-map',
+    hash: command === 'build',
+    ...options,
+    devServer: {
+      host: '0.0.0.0',
+      port: 4000,
+      ...options.devServer
     },
-    options
-  )
+    babel: {
+      jsx: 'react',
+      config: {},
+      ...options.babel
+    }
+  }
 
   options.entry = normalizeEntry(options.entry)
   options.filename = getFilename(options.hash, options.filename)
@@ -81,38 +115,7 @@ module.exports = async (options, command) => {
     options.sourceMap = false
   }
 
-  if (options.babel === undefined) {
-    options.babel = {}
-    const { file, config } = await findBabelConfig(process.cwd(), 2)
-
-    if (file) {
-      // If root babel config file is found
-      // We set `babelrc` to the its path
-      // To prevent `babel-loader` from loading it again
-      logger.debug('babel config location', file)
-      // You can use `babelrc: false` to disable the config file itself
-      if (config.babelrc === false) {
-        options.babel.babelrc = false
-      } else {
-        options.babel.babelrc = config
-      }
-    } else {
-      // If not found
-      // We set `babelrc` to `false` for the same reason
-      options.babel.babelrc = false
-    }
-
-    if (options.babel.babelrc === false) {
-      // Use our default preset when no babelrc was specified
-      options.babel.presets = [
-        [require.resolve('babel-preset-poi'), { jsx: options.jsx || 'vue' }]
-      ]
-    }
-  }
-
-  if (typeof options.babel === 'object') {
-    options.babel.cacheDirectory = true
-  }
+  options.babel = await handleBabel(options.babel)
 
   if (options.postcss === undefined) {
     const postcssConfig = await findPostcssConfig({}, options.cwd, {
