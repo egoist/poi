@@ -18,7 +18,6 @@
   "dependencies": {
     "@babel/core": "^7.0.0-beta.40",
     "babel-loader": "^8.0.0-beta.2",
-    "case-sensitive-paths-webpack-plugin": "^2.1.1",
     "copy-webpack-plugin": "^4.5.0",
     "css-loader": "^0.28.10",
     "extract-text-webpack-plugin": "^4.0.0-alpha.0",

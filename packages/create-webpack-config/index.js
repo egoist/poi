@@ -109,11 +109,6 @@ module.exports = poi => {
       config.plugins.add('timefix', require('time-fix-plugin'))
     }
 
-    config.plugins.add(
-      'paths-case-sensitive',
-      require('case-sensitive-paths-webpack-plugin')
-    )
-
     config.plugins.add('replace-string', webpack.DefinePlugin, [
       stringifyObject(getFullEnvString(poi.options.env))
     ])
