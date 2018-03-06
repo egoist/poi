@@ -39,6 +39,7 @@
     "chokidar": "^2.0.0",
     "clipboardy": "^1.1.2",
     "conpack": "^0.3.6",
+    "find-babel-config": "^1.1.0",
     "get-port": "^3.2.0",
     "import-local-file": "^0.2.0",
     "is-ci": "^1.0.10",

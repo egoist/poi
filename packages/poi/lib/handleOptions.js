@@ -1,7 +1,7 @@
 const path = require('path')
 const LoadExternalConfig = require('poi-load-config')
 const kebabCase = require('lodash/kebabCase')
-const buildConfigChain = require('babel-core/lib/transformation/file/options/build-config-chain')
+const findBabelConfig = require('find-babel-config')
 const logger = require('./logger')
 const inferHTML = require('./utils/inferHTML')
 const readProjectPkg = require('./utils/readProjectPkg')
@@ -59,9 +59,7 @@ module.exports = async (options, command) => {
 
   const loadExternalConfig = new LoadExternalConfig({ cwd: options.cwd })
 
-  // options.component is actually a wrong name
-  // god knows why I chose it before...
-  const library = options.library || options.component
+  const library = options.library
   if (library) {
     logger.debug('bundling in library mode')
     const libraryFilename = getLibraryFilename(library)
@@ -87,18 +85,18 @@ module.exports = async (options, command) => {
 
   if (options.babel === undefined) {
     options.babel = {}
-    const externalBabelConfig = await loadExternalConfig.babel(buildConfigChain)
+    const { file, config } = await findBabelConfig(process.cwd(), 2)
 
-    if (externalBabelConfig) {
+    if (file) {
       // If root babel config file is found
       // We set `babelrc` to the its path
       // To prevent `babel-loader` from loading it again
-      logger.debug('babel config location', externalBabelConfig.loc)
+      logger.debug('babel config location', file)
       // You can use `babelrc: false` to disable the config file itself
-      if (externalBabelConfig.options.babelrc === false) {
+      if (config.babelrc === false) {
         options.babel.babelrc = false
       } else {
-        options.babel.babelrc = externalBabelConfig.loc
+        options.babel.babelrc = config
       }
     } else {
       // If not found
