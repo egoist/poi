@@ -73,7 +73,6 @@ module.exports = class Poi extends EventEmitter {
   }
 
   registerPlugins(plugins) {
-    plugins = Array.isArray(plugins) ? plugins : [plugins]
     for (const plugin of parseJsonConfig(plugins, { prefix: 'poi-plugin-' })) {
       this.registerPlugin(plugin)
     }

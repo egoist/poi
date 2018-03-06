@@ -1,6 +1,9 @@
 {
   "name": "@poi/plugin-babel-minify",
   "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "echo fine"
   },
