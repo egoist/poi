@@ -38,5 +38,6 @@
   "peerDependencies": {
     "@poi/dev-utils": "^0.0.0",
     "@poi/logger": "^0.0.0"
-  }
+  },
+  "repository": "https://github.com/egoist/poi/tree/master/packages/create-webpack-config"
 }

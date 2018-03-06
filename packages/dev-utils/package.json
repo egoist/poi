@@ -11,6 +11,7 @@
     "test": "echo fine"
   },
   "license": "MIT",
+  "repository": "https://github.com/egoist/poi/tree/master/packages/dev-utils",
   "author": {
     "name": "EGOIST",
     "email": "0x142857@gmail.com"

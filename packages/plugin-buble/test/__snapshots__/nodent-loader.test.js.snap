@@ -85,7 +85,7 @@ const bar = async () => {
 function foo() {
     return new Promise((function ($return, $error) {
         var res;
-        return bar().then((function ($await_1) {
+        return Promise.resolve(bar()).then((function ($await_1) {
             try {
                 res = $await_1;
                 return $return(res);
@@ -101,7 +101,7 @@ const bar = () => new Promise((function ($return, $error) {
 }).bind(this));
 
 
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImlucHV0LmpzKG9yaWdpbmFsKSJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxTQUFlO0lBQWY7O1FBQ2MsT0FBTSxHQUFBLEdBQU47O2dCQUFOLE1BQU07Z0JBQ1osZUFBTzs7Ozs7Ozs7QUFHVCxLQUFBLENBQU0sU0FBTTtJQUNWLGVBQU87O0FBTlQiLCJmaWxlIjoiaW5wdXQuanMob3JpZ2luYWwpIiwic291cmNlc0NvbnRlbnQiOlsiYXN5bmMgZnVuY3Rpb24gZm9vKCkge1xuICBjb25zdCByZXMgPSBhd2FpdCBiYXIoKVxuICByZXR1cm4gcmVzXG59XG5cbmNvbnN0IGJhciA9IGFzeW5jICgpID0+IHtcbiAgcmV0dXJuICdiYXInXG59XG4iXX0=
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImlucHV0LmpzKG9yaWdpbmFsKSJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxTQUFlO0lBQWY7O1FBQ2MsdUJBQU0sR0FBQSxJQUFOOztnQkFBTixNQUFNO2dCQUNaLGVBQU87Ozs7Ozs7O0FBR1QsS0FBQSxDQUFNLFNBQU07SUFDVixlQUFPOztBQU5UIiwiZmlsZSI6ImlucHV0LmpzKG9yaWdpbmFsKSIsInNvdXJjZXNDb250ZW50IjpbImFzeW5jIGZ1bmN0aW9uIGZvbygpIHtcbiAgY29uc3QgcmVzID0gYXdhaXQgYmFyKClcbiAgcmV0dXJuIHJlc1xufVxuXG5jb25zdCBiYXIgPSBhc3luYyAoKSA9PiB7XG4gIHJldHVybiAnYmFyJ1xufVxuIl19
 
 
 /***/ })

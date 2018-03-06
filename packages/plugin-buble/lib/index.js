@@ -21,40 +21,38 @@ module.exports = ({ asyncAwait = true, bubleOptions } = {}) => {
         bubleOptions
       )
 
-      for (const rule of ['js', 'es']) {
-        const thisRule = config.rules.get(rule)
-        // Remove babel-loader first
-        thisRule.loaders.remove('babel-loader')
+      const jsRule = config.rules.get('js')
+      // Remove babel-loader first
+      jsRule.loaders.delete('babel-loader')
 
-        // Maybe add nodent-loader
-        if (asyncAwait) {
-          thisRule.loaders.add('nodent-loader', {
-            loader: require.resolve('./nodent-loader')
-          })
-        }
-
-        // Add buble-loader
-        thisRule.loaders.add('buble-loader', {
-          loader: require.resolve('./buble-loader'),
-          options: bubleOptions
+      // Maybe add nodent-loader
+      if (asyncAwait) {
+        jsRule.loaders.add('nodent-loader', {
+          loader: require.resolve('./nodent-loader')
         })
       }
 
+      // Add buble-loader
+      jsRule.loaders.add('buble-loader', {
+        loader: require.resolve('./buble-loader'),
+        options: bubleOptions
+      })
+
       const vueRule = config.rules.get('vue')
-      vueRule.loaders.update('vue-loader', vueOptions => {
-        vueOptions.loaders.js = {
+      vueRule.loaders.update('vue-loader', loader => {
+        loader.options.loaders.js = {
           loader: require.resolve('./buble-loader'),
           options: bubleOptions
         }
         if (asyncAwait) {
-          vueOptions.loaders.js = [
+          loader.options.loaders.js = [
             {
               loader: require.resolve('./nodent-loader')
             },
-            vueOptions.loaders.js
+            loader.options.loaders.js
           ]
         }
-        return vueOptions
+        return loader
       })
     })
   }

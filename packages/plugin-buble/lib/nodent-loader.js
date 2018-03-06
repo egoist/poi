@@ -6,7 +6,8 @@ module.exports = function(code, sourceMap) {
   try {
     const compiled = compiler.compile(code, this.resourcePath, sourceMap, {
       promises: true,
-      noRuntime: true
+      noRuntime: true,
+      wrapAwait: true
     })
     cb(null, compiled.code, compiled.sourceMap)
   } catch (err) {

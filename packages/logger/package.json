@@ -7,6 +7,7 @@
   "files": [
     "index.js"
   ],
+  "repository": "https://github.com/egoist/poi/tree/master/packages/logger",
   "dependencies": {
     "log-horizon": "^0.1.1"
   }
