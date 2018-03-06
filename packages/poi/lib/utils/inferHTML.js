@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const { ownDir } = require('./dir')
 const readProjectPkg = require('./readProjectPkg')
-const logger = require('../logger')
+const logger = require('@poi/logger')
 
 function inferHTML(options) {
   const result = {

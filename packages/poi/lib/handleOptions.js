@@ -1,8 +1,8 @@
 const path = require('path')
-const LoadExternalConfig = require('poi-load-config')
 const kebabCase = require('lodash/kebabCase')
 const findBabelConfig = require('find-babel-config')
-const logger = require('./logger')
+const findPostcssConfig = require('postcss-load-config')
+const logger = require('@poi/logger')
 const inferHTML = require('./utils/inferHTML')
 const readProjectPkg = require('./utils/readProjectPkg')
 const normalizeEntry = require('./utils/normalizeEntry')
@@ -56,8 +56,6 @@ module.exports = async (options, command) => {
     NODE_ENV: command === 'build' ? 'production' : 'development',
     ...options.env
   }
-
-  const loadExternalConfig = new LoadExternalConfig({ cwd: options.cwd })
 
   const library = options.library
   if (library) {
@@ -117,7 +115,16 @@ module.exports = async (options, command) => {
   }
 
   if (options.postcss === undefined) {
-    const postcssConfig = await loadExternalConfig.postcss()
+    const postcssConfig = await findPostcssConfig({}, options.cwd, {
+      argv: false
+    }).catch(err => {
+      if (err.message.includes('No PostCSS Config found')) {
+        // Return empty options for PostCSS
+        return {}
+      }
+      throw err
+    })
+
     if (postcssConfig.file) {
       logger.debug('postcss config location', postcssConfig.file)
 

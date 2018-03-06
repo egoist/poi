@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const importLocalFile = require('import-local-file')
-const logger = require('../lib/logger')
+const logger = require('@poi/logger')
 
 const localFile = importLocalFile(__filename)
 if (localFile) {

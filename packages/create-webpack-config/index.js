@@ -1,6 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 const webpack = require('webpack')
+const isCI = require('is-ci')
 const yarnGlobal = require('yarn-global')
 const getFullEnvString = require('./utils/getFullEnvString')
 const stringifyObject = require('./utils/stringifyObject')
@@ -24,7 +25,7 @@ module.exports = poi => {
   }
 
   function setHMR(config) {
-    const devClient = require.resolve('poi-dev-utils/hotDevClient')
+    const devClient = require.resolve('@poi/dev-utils/hotDevClient')
 
     // Add hmr entry using `hotEntry` option
     if (poi.options.hotReload) {
@@ -117,18 +118,34 @@ module.exports = poi => {
       stringifyObject(getFullEnvString(poi.options.env))
     ])
 
-    const NoEmitOnErrorsPlugin = require('webpack/lib/NoEmitOnErrorsPlugin')
+    config.plugins.add(
+      'no-emit-on-errors',
+      require('webpack/lib/NoEmitOnErrorsPlugin')
+    )
+    config.plugins.add('fancy-log', require('./webpack/FancyLogPlugin'), [
+      {
+        command: poi.command,
+        host: poi.options.host,
+        port: poi.options.port,
+        clearScreen: poi.options.clearScreen
+      }
+    ])
 
-    config.plugins.add('no-emit-on-errors', NoEmitOnErrorsPlugin)
+    if (
+      process.stderr.isTTY &&
+      process.env.NODE_ENV !== 'test' &&
+      poi.options.progress !== false &&
+      !isCI
+    ) {
+      config.plugins.add('progress', require('./webpack/ProgressPlugin'))
+    }
   }
 
   function setWatchMissingFiles(config) {
     if (command === 'develop' || command === 'watch') {
-      const WatchMissingNodeModulesPlugin = require('./webpack/WatchMissingNodeModulesPlugin')
-
       config.plugins.add(
         'watch-missing-node-modules',
-        WatchMissingNodeModulesPlugin,
+        require('./webpack/WatchMissingNodeModulesPlugin'),
         [poi.resolveCwd('node_modules')]
       )
     }
@@ -138,8 +155,6 @@ module.exports = poi => {
     const { copy, staticFolder = 'static' } = poi.options
 
     if (copy !== false) {
-      const CopyPlugin = require('copy-webpack-plugin')
-
       let copyOptions = []
       if (fs.existsSync(poi.resolveCwd(staticFolder))) {
         copyOptions.push({
@@ -156,7 +171,11 @@ module.exports = poi => {
         }
       }
       if (copyOptions.length > 0) {
-        config.plugins.add('copy-static-files', CopyPlugin, [copyOptions])
+        config.plugins.add(
+          'copy-static-files',
+          require('copy-webpack-plugin'),
+          [copyOptions]
+        )
       }
     }
   }
@@ -165,8 +184,6 @@ module.exports = poi => {
     let { html } = poi.options
 
     if (html !== false && command !== 'test') {
-      const HtmlPlugin = require('html-webpack-plugin')
-
       html = html || {}
       const htmls = Array.isArray(html) ? html : [html]
       const defaultHtml = {
@@ -175,7 +192,7 @@ module.exports = poi => {
         env: poi.options.env
       }
       htmls.forEach((h, i) => {
-        config.plugins.add(`html-${i}`, HtmlPlugin, [
+        config.plugins.add(`html-${i}`, require('html-webpack-plugin'), [
           Object.assign(
             {
               minify: {

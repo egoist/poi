@@ -1546,10 +1546,6 @@ babel-jest@^22.1.0:
     babel-plugin-istanbul "^4.1.5"
     babel-preset-jest "^22.1.0"
 
-babel-load-config@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/babel-load-config/-/babel-load-config-1.0.0.tgz#533471d214542d71008674296f087aed6366c9bf"
-
 babel-loader@^8.0.0-beta.2:
   version "8.0.0-beta.2"
   resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-8.0.0-beta.2.tgz#4d5b67c964dc8c9cba866fd13d6b90df3acf8723"
@@ -13015,14 +13011,6 @@ url@^0.11.0, url@~0.11.0:
   dependencies:
     punycode "1.3.2"
     querystring "0.2.0"
-
-use-config@^2.0.0:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/use-config/-/use-config-2.0.3.tgz#ee8cda5b2874f953784b8372b61b0fa18d6b5942"
-  dependencies:
-    load-json-file "^2.0.0"
-    path-exists "^3.0.0"
-    pupa "^1.0.0"
 
 use-config@^2.0.4:
   version "2.0.4"

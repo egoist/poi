@@ -27,11 +27,12 @@
   "jest": {
     "testEnvironment": "node"
   },
-  "devDependencies": {
-    "poi-test-utils": "^10.0.0-alpha.0"
-  },
+  "devDependencies": {},
   "dependencies": {
     "@poi/create-webpack-config": "^0.1.1",
+    "@poi/dev-utils": "^0.0.0",
+    "@poi/logger": "^0.0.0",
+    "@poi/test-utils": "^0.0.0",
     "address": "^1.0.1",
     "babel-preset-poi": "^10.0.0-alpha.0",
     "cac": "^4.4.1",
@@ -42,10 +43,8 @@
     "find-babel-config": "^1.1.0",
     "get-port": "^3.2.0",
     "import-local-file": "^0.2.0",
-    "is-ci": "^1.1.0",
     "launch-editor-middleware": "^2.2.0",
     "lodash": "^4.17.4",
-    "log-horizon": "^0.1.0",
     "loud-rejection": "^1.6.0",
     "memory-fs": "^0.4.1",
     "minimost": "^1.0.0",
@@ -53,8 +52,6 @@
     "node-notifier": "^5.1.2",
     "opn": "^5.0.0",
     "parse-json-config": "^0.2.0",
-    "poi-dev-utils": "^10.0.0-alpha.0",
-    "poi-load-config": "^10.0.0-alpha.0",
     "poi-webpack-node-externals": "^2.0.0",
     "rimraf": "^2.6.1",
     "strip-ansi": "^4.0.0",

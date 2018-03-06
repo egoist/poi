@@ -1,5 +1,5 @@
 const path = require('path')
-const { launchBrowser, run } = require('poi-test-utils')
+const { launchBrowser, run } = require('@poi/test-utils')
 
 jest.setTimeout(30000)
 

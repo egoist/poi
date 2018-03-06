@@ -7,7 +7,7 @@ const parseJsonConfig = require('parse-json-config')
 const chokidar = require('chokidar')
 const CLIEngine = require('./cliEngine')
 const handleOptions = require('./handleOptions')
-const logger = require('./logger')
+const logger = require('@poi/logger')
 const { ownDir } = require('./utils/dir')
 
 module.exports = class Poi extends EventEmitter {
