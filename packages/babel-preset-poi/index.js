@@ -2,7 +2,7 @@ const path = require('path')
 
 const env = process.env.BABEL_ENV || process.env.NODE_ENV
 
-module.exports = (ctx, { jsx = 'vue' } = {}) => {
+module.exports = (ctx, { jsx = 'react' } = {}) => {
   const presets = [
     env === 'test'
       ? [
@@ -29,7 +29,7 @@ module.exports = (ctx, { jsx = 'vue' } = {}) => {
   ]
 
   const plugins = [
-    require.resolve('babel-plugin-transform-decorators-legacy'),
+    require.resolve('@babel/plugin-proposal-decorators'),
     require.resolve('@babel/plugin-proposal-class-properties'),
     // require.resolve('babel-macros'),
     [
@@ -55,6 +55,9 @@ module.exports = (ctx, { jsx = 'vue' } = {}) => {
   if (jsx === 'vue') {
     presets.push(require.resolve('babel-preset-vue'))
   } else if (jsx === 'react') {
+    if (process.env.NODE_ENV === 'development') {
+      plugins.push(require.resolve('react-hot-loader/babel'))
+    }
     plugins.push(require.resolve('@babel/plugin-transform-react-jsx'))
     plugins.push(require.resolve('babel-plugin-react-require'))
   } else {

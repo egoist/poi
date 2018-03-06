@@ -1,4 +1,4 @@
-# poi-plugin-buble
+# plugin-buble
 
 Use buble instead of babel to transpile `.js` `.es6` and script tag in `.vue` files
 

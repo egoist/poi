@@ -4,16 +4,14 @@ const { ownDir } = require('./dir')
 const readProjectPkg = require('./readProjectPkg')
 const logger = require('@poi/logger')
 
-function inferHTML(options) {
+function inferHTML(options = {}) {
+  const pkg = readProjectPkg()
   const result = {
-    title: 'Poi App',
+    pkg,
+    title: pkg.productName || pkg.name || 'Poi App',
+    description: pkg.description,
     template: ownDir('lib/index.ejs')
   }
-
-  const pkg = readProjectPkg()
-  result.pkg = pkg
-  result.title = pkg.productName || pkg.name
-  result.description = pkg.description
 
   const templatePath = path.resolve(options.cwd || process.cwd(), 'index.ejs')
   if (fs.existsSync(templatePath)) {

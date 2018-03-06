@@ -175,28 +175,9 @@ module.exports = poi => {
   function setHTML(config) {
     let { html } = poi.options
 
-    if (html !== false && command !== 'test') {
-      html = html || {}
-      const htmls = Array.isArray(html) ? html : [html]
-      const defaultHtml = {
-        title: 'Poi',
-        template: poi.ownDir('lib/index.ejs'),
-        env: poi.options.env
-      }
-      htmls.forEach((h, i) => {
-        config.plugins.add(`html-${i}`, require('html-webpack-plugin'), [
-          Object.assign(
-            {
-              minify: {
-                collapseWhitespace: poi.options.minimize,
-                minifyCSS: poi.options.minimize,
-                minifyJS: poi.options.minimize
-              }
-            },
-            defaultHtml,
-            h
-          )
-        ])
+    if (html && html.length > 0) {
+      html.forEach((v, i) => {
+        config.plugins.add(`html-${i}`, require('html-webpack-plugin'), [v])
       })
     }
   }

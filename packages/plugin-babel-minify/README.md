@@ -1,4 +1,4 @@
-# poi-plugin-babel-minify
+# plugin-babel-minify
 
 Use [babel-minify](https://github.com/babel/babel-minify) to minimize JavaScript.
 

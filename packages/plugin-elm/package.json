@@ -1,0 +1,27 @@
+{
+  "name": "@poi/plugin-elm",
+  "version": "10.0.0-alpha.0",
+  "description": "Use Poi to build your Elm apps.",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "test": "echo fine"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "EGOIST",
+    "email": "0x142857@gmail.com"
+  },
+  "repository": "https://github.com/egoist/poi/tree/master/packages/plugin-elm",
+  "dependencies": {
+    "elm-hot-loader": "^0.5.4",
+    "elm-webpack-loader": "^4.3.1"
+  },
+  "devDependencies": {
+    "elm": "^0.18.0"
+  }
+}

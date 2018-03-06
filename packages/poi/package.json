@@ -53,6 +53,7 @@
     "opn": "^5.0.0",
     "parse-json-config": "^0.2.0",
     "poi-webpack-node-externals": "^2.0.0",
+    "react-hot-loader": "^4.0.0",
     "rimraf": "^2.6.1",
     "strip-ansi": "^4.0.0",
     "tildify": "^1.2.0",

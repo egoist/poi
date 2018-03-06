@@ -1,0 +1,34 @@
+{
+  "name": "@poi/plugin-typescript",
+  "version": "10.0.0-alpha.0",
+  "author": "EGOIST <0x142857@gmail.com>",
+  "dependencies": {
+    "ts-loader": "^3.0.2"
+  },
+  "scripts": {
+    "test": "echo fine",
+    "example": "poi example/index.ts"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "https://github.com/egoist/poi/tree/master/packages/plugin-typescript",
+  "files": [
+    "index.js"
+  ],
+  "poi": {
+    "plugins": [
+      [
+        "./index.js",
+        {}
+      ]
+    ]
+  },
+  "xo": false,
+  "peerDependencies": {
+    "typescript": "^2.2.2"
+  },
+  "devDependencies": {
+    "typescript": "^2.2.2"
+  }
+}

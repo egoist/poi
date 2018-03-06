@@ -2,6 +2,8 @@ const cac = require('cac')
 const Poi = require('../lib')
 const isPath = require('../lib/utils/isPath')
 
+require('loud-rejection')()
+
 const { input, flags } = cac.parse(process.argv.slice(2))
 
 if (flags.version) {

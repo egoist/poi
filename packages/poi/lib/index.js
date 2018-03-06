@@ -15,12 +15,18 @@ module.exports = class Poi extends EventEmitter {
     super()
     logger.setOptions(options)
     logger.debug('command', command)
+    this.logger = logger
     this.command = command
-    this.options = options
+    this.options = Object.assign({}, options)
+    this.rerun = () => {
+      const poi = new Poi(command, options)
+      return poi.run()
+    }
     this.conpack = new Conpack()
     this.cli = new CLIEngine(command)
     this.plugins = new Set()
     this.ownDir = ownDir
+    this.extendWebpackFns = []
     this.cli.cac.on('error', err => {
       if (err.name === 'AppError') {
         logger.error(err.message)
@@ -47,7 +53,7 @@ module.exports = class Poi extends EventEmitter {
   }
 
   extendWebpack(fn) {
-    fn(this.conpack, { command: this.command })
+    this.extendWebpackFns.push(fn)
     return this
   }
 
@@ -73,6 +79,9 @@ module.exports = class Poi extends EventEmitter {
   }
 
   registerPlugins(plugins) {
+    if (typeof plugins === 'string') {
+      plugins = [plugins]
+    }
     for (const plugin of parseJsonConfig(plugins, { prefix: 'poi-plugin-' })) {
       this.registerPlugin(plugin)
     }
@@ -112,6 +121,10 @@ module.exports = class Poi extends EventEmitter {
         plugin(this)
       }
     }
+
+    this.extendWebpackFns.forEach(fn => {
+      fn(this.conpack, { command: this.command })
+    })
   }
 
   async run() {
@@ -133,19 +146,21 @@ module.exports = class Poi extends EventEmitter {
       ...[].concat(this.options.restartOnFileChanges || [])
     ]
 
-    logger.debug('watching files', filesToWatch)
+    if (filesToWatch.length === 0) return
+
+    logger.debug('watching files', filesToWatch.join(', '))
 
     const watcher = chokidar.watch(filesToWatch, {
       ignoreInitial: true
     })
     const handleEvent = filepath => {
-      logger.progress(`Restarting due to changes made in: ${filepath}`)
+      logger.warn(`Restarting due to changes made in: ${filepath}`)
       watcher.close()
       if (devServer) {
-        devServer.close(() => this.run())
+        devServer.close(() => this.rerun())
       } else if (webpackWatcher) {
         webpackWatcher.close()
-        this.run()
+        this.rerun()
       }
     }
     watcher.on('change', handleEvent)
@@ -158,7 +173,16 @@ module.exports = class Poi extends EventEmitter {
       logger.debug('extend webpack from user config')
       this.extendWebpack(this.options.extendWebpack)
     }
-    return this.conpack.toConfig()
+    const config = this.conpack.toConfig()
+    if (this.options.debugWebpack) {
+      console.log(
+        require('util').inspect(config, {
+          depth: null,
+          colors: true
+        })
+      )
+    }
+    return config
   }
 
   resolveCwd(...args) {

@@ -49,6 +49,29 @@ async function handleBabel(options) {
   return options
 }
 
+function handleHTML(options) {
+  const { html, env, minimize } = options
+  if (html === false) return false
+
+  const htmls = Array.isArray(html) ? html : [html || {}]
+
+  const defaultHtmlOption = Object.assign({ env }, inferHTML())
+
+  return htmls.map((h, i) => {
+    return Object.assign(
+      {
+        minify: {
+          collapseWhitespace: minimize,
+          minifyCSS: minimize,
+          minifyJS: minimize
+        }
+      },
+      defaultHtmlOption,
+      h
+    )
+  })
+}
+
 module.exports = async (options, command) => {
   options = {
     entry: 'index.js',
@@ -90,6 +113,11 @@ module.exports = async (options, command) => {
     NODE_ENV: command === 'build' ? 'production' : 'development',
     ...options.env
   }
+  options.html = handleHTML({
+    minimize: options.minimize,
+    env: options.env,
+    html: options.html
+  })
 
   const library = options.library
   if (library) {
@@ -169,17 +197,6 @@ module.exports = async (options, command) => {
     cssModules: options.css.modules,
     fallbackLoader: 'vue-style-loader',
     filename: options.filename.css
-  }
-
-  const defaultHtmlOption = inferHTML(options)
-  if (Array.isArray(options.html)) {
-    options.html = options.html.map(v =>
-      Object.assign({}, defaultHtmlOption, v)
-    )
-  } else if (typeof options.html === 'object') {
-    options.html = Object.assign({}, defaultHtmlOption, options.html)
-  } else if (typeof options.html === 'undefined') {
-    options.html = defaultHtmlOption
   }
 
   if (options.entry === undefined && !options.format) {

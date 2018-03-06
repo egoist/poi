@@ -9,6 +9,7 @@
   ],
   "repository": "https://github.com/egoist/poi/tree/master/packages/logger",
   "dependencies": {
+    "chalk": "^2.3.2",
     "log-horizon": "^0.1.1"
   }
 }

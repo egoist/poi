@@ -1,6 +1,6 @@
 const path = require('path')
 
-module.exports = (config, { babel: babelConfig, include }) => {
+module.exports = (config, { config: babelConfig, include }) => {
   // Ensure that include is an array
   if (typeof include === 'string') {
     include = [include]
