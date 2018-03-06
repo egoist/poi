@@ -1,4 +1,8 @@
-#!/usr/bin/env node --trace-deprecation
+#!/usr/bin/env node --no-deprecation
+// --no-deprecation flag is useds to suppress webpack 4 deprecation warnings
+// we should remove it in RC version
+// blockers:
+//  - html-webpack-plugin
 
 const importLocalFile = require('import-local-file')
 const logger = require('@poi/logger')
