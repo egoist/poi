@@ -78,10 +78,6 @@ module.exports = async (options, command) => {
     cwd: process.cwd(),
     vue: {},
     css: {},
-    sourceMap:
-      command === 'build'
-        ? 'source-map'
-        : command === 'test' ? 'inline-source-map' : 'eval-source-map',
     hash: command === 'build',
     ...options,
     devServer: {
@@ -118,6 +114,12 @@ module.exports = async (options, command) => {
     env: options.env,
     html: options.html
   })
+  options.sourceMap =
+    options.sourceMap === false || typeof options.sourceMap === 'string'
+      ? options.sourceMap
+      : command === 'build'
+        ? 'source-map'
+        : command === 'test' ? 'inline-source-map' : 'eval-source-map'
 
   const library = options.library
   if (library) {
