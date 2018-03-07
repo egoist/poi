@@ -1,6 +1,6 @@
 {
   "name": "@poi/create-webpack-config",
-  "version": "0.1.1",
+  "version": "10.0.0-alpha.1",
   "publishConfig": {
     "access": "public"
   },

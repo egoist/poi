@@ -1,6 +1,6 @@
 {
   "name": "@poi/plugin-coffee",
-  "version": "10.0.0-alpha.0",
+  "version": "10.0.0-alpha.1",
   "description": "Use CoffeeScript in your Poi project",
   "files": [
     "index.js"
