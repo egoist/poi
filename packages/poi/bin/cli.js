@@ -8,8 +8,9 @@ const importLocalFile = require('import-local-file')
 const logger = require('@poi/logger')
 
 const localFile = importLocalFile(__filename)
-if (localFile) {
-  logger.debug('Using local installed version of Poi')
+const forceGlobal = process.argv.includes('--force-global')
+if (localFile && !forceGlobal) {
+  logger.debug('Using local Poi', localFile)
   require(localFile)
 } else {
   // Code for both global and local version

@@ -25,11 +25,10 @@ async function handleBabel(options) {
     // We set `babelrc` to the its path
     // To prevent `babel-loader` from loading it again
     logger.debug('babel config location', file)
+    options.config.babelrc = false
     // You can use `babelrc: false` to disable the config file itself
-    if (config.babelrc === false) {
-      options.config.babelrc = false
-    } else {
-      options.config.babelrc = file
+    if (config.babelrc !== false) {
+      options.config.extends = file
     }
   } else {
     // If not found
@@ -37,7 +36,7 @@ async function handleBabel(options) {
     options.config.babelrc = false
   }
 
-  if (options.config.babelrc === false) {
+  if (!options.config.extends) {
     // Use our default preset when no babelrc was specified
     options.config.presets = [
       [require.resolve('babel-preset-poi'), { jsx: options.jsx }]

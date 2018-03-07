@@ -6,7 +6,7 @@ class Logger extends LogHorizon {
   inspect(title, obj) {
     if (this.options.logLevel < 4) return
 
-    console.log(
+    return this.debug(
       title,
       util.inspect(obj, {
         depth: null,
