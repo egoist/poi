@@ -16,6 +16,9 @@
   "engines": {
     "node": ">= 8"
   },
+  "publishConfig": {
+    "tag": "next"
+  },
   "xo": false,
   "bin": "bin/cli.js",
   "scripts": {
