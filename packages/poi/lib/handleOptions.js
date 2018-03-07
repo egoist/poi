@@ -63,7 +63,9 @@ function handleHTML(options) {
           collapseWhitespace: minimize,
           minifyCSS: minimize,
           minifyJS: minimize
-        }
+        },
+        // TODO: remove this when https://github.com/jantimon/html-webpack-plugin/issues/870 is fixed
+        chunksSortMode: 'none'
       },
       defaultHtmlOption,
       h
