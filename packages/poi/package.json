@@ -27,14 +27,13 @@
   "jest": {
     "testEnvironment": "node"
   },
-  "devDependencies": {},
   "dependencies": {
     "@poi/create-webpack-config": "^0.1.1",
     "@poi/dev-utils": "^0.0.0",
     "@poi/logger": "^0.0.0",
     "@poi/test-utils": "^0.0.0",
     "address": "^1.0.1",
-    "babel-preset-poi": "^10.0.0-alpha.0",
+    "babel-preset-poi": "^10.0.0-alpha.1",
     "cac": "^4.4.1",
     "chalk": "^2.0.1",
     "chokidar": "^2.0.0",
