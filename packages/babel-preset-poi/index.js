@@ -55,9 +55,6 @@ module.exports = (ctx, { jsx = 'react' } = {}) => {
   if (jsx === 'vue') {
     presets.push(require.resolve('babel-preset-vue'))
   } else if (jsx === 'react') {
-    if (process.env.NODE_ENV === 'development') {
-      plugins.push(require.resolve('react-hot-loader/babel'))
-    }
     plugins.push(require.resolve('@babel/plugin-transform-react-jsx'))
     plugins.push(require.resolve('babel-plugin-react-require'))
   } else {
