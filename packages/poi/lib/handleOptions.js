@@ -198,8 +198,9 @@ module.exports = async (options, command) => {
     sourceMap: Boolean(options.sourceMap),
     postcss: options.postcss,
     cssModules: options.css.modules,
-    fallbackLoader: 'vue-style-loader',
-    filename: options.filename.css
+    styleLoader: 'vue-style-loader',
+    filename: options.filename.css,
+    chunkFilename: options.filename.chunk.replace(/\.js$/, '.css')
   }
 
   if (options.entry === undefined && !options.format) {

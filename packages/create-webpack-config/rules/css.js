@@ -12,10 +12,10 @@ exports.standalone = function(config, options) {
   const handleLoader = new HandleCSSLoader(options)
 
   if (options.extract) {
-    config.plugins.add('extract-css', require('extract-text-webpack-plugin'), [
+    config.plugins.add('extract-css', require('mini-css-extract-plugin'), [
       {
         filename: options.filename,
-        allChunks: true
+        chunkFilename: options.chunkFilename
       }
     ])
   }
