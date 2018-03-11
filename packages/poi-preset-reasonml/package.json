@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "description": "Use ReasonML in your Poi project",
   "files": [
-    "index.js"
+    "index.js",
+    "postinstall.js"
   ],
   "scripts": {
     "test": "echo fine",
     "example": "cd example && poi index.js --presets ../index.js",
-    "example:build": "cd example && poi build index.js --presets ../index.js"
+    "example:build": "cd example && poi build index.js --presets ../index.js",
+    "postinstall": "./postinstall.js"
   },
   "license": "MIT",
   "author": {
