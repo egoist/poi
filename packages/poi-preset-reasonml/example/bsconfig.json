@@ -1,0 +1,16 @@
+{
+  "name": "example",
+  "sources": [{
+    "dir": "."
+  }],
+  "bsc-flags": [
+    "-bs-super-errors"
+  ],
+  "reason": {},
+  "refmt": 3,
+  "package-specs": [{
+    "module": "es6",
+    "in-source": false
+  }],
+  "suffix": ".bs.js"
+}
