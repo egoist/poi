@@ -11,11 +11,17 @@ module.exports = ({ loaderOptions } = {}) => {
         .add('.re')
         .add('.ml')
 
-      config.module.rule('reasonml')
-        .test(/\.(re|ml)$/)
-        .use('bs-loader')
-          .loader('bs-loader')
-          .options(loaderOptions)
+      config.module
+        .rule('reasonml')
+          .test(/\.(re|ml)$/)
+          .exclude
+            .add(/node_modules/)
+            .end()
+          .use('bs-loader')
+            .loader('bs-loader')
+            .options(loaderOptions)
+            .end()
+          .end()
     })
   }
 }
