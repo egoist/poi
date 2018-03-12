@@ -17,7 +17,7 @@
     "name": "EGOIST",
     "email": "0x142857@gmail.com"
   },
-  "devDependencies": {
+  "dependencies": {
     "bs-loader": "^2.0.1",
     "bs-platform": "^2.2.2"
   }
