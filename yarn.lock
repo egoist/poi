@@ -2154,6 +2154,22 @@ browserslist@^2.1.2, browserslist@^2.10.2:
     caniuse-lite "^1.0.30000789"
     electron-to-chromium "^1.3.30"
 
+bs-loader@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/bs-loader/-/bs-loader-2.0.1.tgz#e72e3cf0f00f0f41affbf51e34860d1212692b6d"
+  dependencies:
+    bsb-js "^1.0.0"
+    loader-utils "^1.1.0"
+    read-bsconfig "^1.0.1"
+
+bs-platform@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-2.2.2.tgz#95ff37719771bbf310e8376fedd1148865c0da19"
+
+bsb-js@^1.0.0:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/bsb-js/-/bsb-js-1.0.2.tgz#b9e7af1dfdb8de6191bb36fdff43f59359a7dfe7"
+
 bser@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/bser/-/bser-2.0.0.tgz#9ac78d3ed5d915804fd87acb158bc797147a1719"
@@ -9738,6 +9754,12 @@ read-all-stream@^3.0.0:
   dependencies:
     pinkie-promise "^2.0.0"
     readable-stream "^2.0.0"
+
+read-bsconfig@^1.0.1:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/read-bsconfig/-/read-bsconfig-1.0.4.tgz#3dabf6b1c08451a6939274cb5e178733bcbb1bdf"
+  dependencies:
+    json5 "^0.5.1"
 
 read-cmd-shim@^1.0.1:
   version "1.0.1"
