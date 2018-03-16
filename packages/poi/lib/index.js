@@ -3,6 +3,7 @@ const EventEmitter = require('events')
 const Conpack = require('conpack')
 const UseConfig = require('use-config')
 const chalk = require('chalk')
+const get = require('lodash/get')
 const parseJsonConfig = require('parse-json-config')
 const chokidar = require('chokidar')
 const CLIEngine = require('./cliEngine')
@@ -97,8 +98,11 @@ module.exports = class Poi extends EventEmitter {
     })
     const { path: configPath, config } = await useConfig.load()
 
-    logger.debug('poi config path', configPath)
-    this.configFile = configPath
+    if (configPath) {
+      logger.debug('poi config path', configPath)
+      this.configFile = configPath
+    }
+
     this.options = {
       ...config,
       ...this.options
@@ -120,6 +124,11 @@ module.exports = class Poi extends EventEmitter {
       for (const plugin of this.plugins) {
         plugin(this)
       }
+    }
+
+    // Add config.extedWebpack to the end of extendWebpackFns
+    if (config && config.extendWebpack) {
+      this.extendWebpack(config.extendWebpack)
     }
 
     this.extendWebpackFns.forEach(fn => {
@@ -175,11 +184,17 @@ module.exports = class Poi extends EventEmitter {
     }
     const config = this.conpack.toConfig()
     if (this.options.debugWebpack) {
-      console.log(
-        require('util').inspect(config, {
-          depth: null,
-          colors: true
-        })
+      logger.log(
+        chalk.bold('webpack config: ') +
+          require('util').inspect(
+            typeof this.options.debugWebpack === 'string'
+              ? get(config, this.options.debugWebpack)
+              : config,
+            {
+              depth: null,
+              colors: true
+            }
+          )
       )
     }
     return config
