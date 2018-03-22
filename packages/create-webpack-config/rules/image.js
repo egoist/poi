@@ -14,13 +14,10 @@ module.exports = (config, filename) => {
     .rule('svg')
     .test(/\.(svg)(\?.*)?$/)
     .use('file-loader')
+    // SVG files use file-loader directly, why?
+    // See https://github.com/facebookincubator/create-react-app/pull/1180
     .loader('file-loader')
     .options({
-      // SVG files use file-loader directly, why?
-      // See https://github.com/facebookincubator/create-react-app/pull/1180
-      loader: 'file-loader',
-      options: {
-        name: filename.images
-      }
+      name: filename.images
     })
 }
