@@ -5,14 +5,16 @@ const isCI = require('is-ci')
 const yarnGlobal = require('yarn-global')
 const getFullEnvString = require('./utils/getFullEnvString')
 const stringifyObject = require('./utils/stringifyObject')
+const ownDir = require('./utils/ownDir')
 
 module.exports = poi => {
   const { command } = poi
 
   const inWorkspace = __dirname.includes(path.normalize('/poi/packages/'))
+  // node_modules in create-webpack-config/node_modules
   const ownNodeModules = inWorkspace
-    ? poi.ownDir('../../node_modules')
-    : poi.ownDir('node_modules')
+    ? ownDir('../../node_modules')
+    : ownDir('node_modules')
 
   function setOutput(config) {
     config.set('output', {
