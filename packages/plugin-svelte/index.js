@@ -7,17 +7,17 @@
 module.exports = function({ loaderOptions } = {}) {
   return poi => {
     poi.extendWebpack(config => {
-      config.append('resolve.extensions', '.html')
+      config.resolve.extensions.add('.html')
 
-      const jsRule = config.rules.get('js')
-      const isBabel = jsRule.loaders.has('babel-loader')
-      const isBuble = jsRule.loaders.has('buble-loader')
+      const jsRule = config.module.rule('js')
+      const isBabel = jsRule.uses.has('babel-loader')
+      const isBuble = jsRule.uses.has('buble-loader')
 
       let jsLoaderOptions
       if (isBabel || isBuble) {
-        jsLoaderOptions = jsRule.loaders.get(
-          isBabel ? 'babel-loader' : 'buble-loader'
-        ).options
+        jsLoaderOptions = jsRule.module
+          .rule(isBabel ? 'babel-loader' : 'buble-loader')
+          .get('options')
       }
 
       let jsLoaderPath
@@ -31,25 +31,25 @@ module.exports = function({ loaderOptions } = {}) {
       }
 
       if (jsLoaderName) {
-        const svelteRule = config.rules.add('svelte', {
-          test: /\.(html|svelte)$/
-        })
-        svelteRule.loaders.add(jsLoaderName, {
-          loader: jsLoaderPath,
-          options: jsLoaderOptions
-        })
-        svelteRule.loaders.add('svelte-loader', {
-          loader: 'svelte-loader',
-          options: Object.assign(
-            {
-              // Extract CSS in production mode
-              emitCss:
-                poi.cli.isCurrentCommand('build') &&
-                poi.options.extractCSS !== false
-            },
-            loaderOptions
+        const svelteRule = config.module.rule('svelte').test(/\.(html|svelte)$/)
+        svelteRule
+          .use(jsLoaderName)
+          .loader(jsLoaderPath)
+          .options(jsLoaderOptions)
+        svelteRule
+          .use('svelte-loader')
+          .loader('svelte-loader')
+          .options(
+            Object.assign(
+              {
+                // Extract CSS in production mode
+                emitCss:
+                  poi.cli.isCurrentCommand('build') &&
+                  poi.options.extractCSS !== false
+              },
+              loaderOptions
+            )
           )
-        })
       }
     })
   }

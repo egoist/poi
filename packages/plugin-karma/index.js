@@ -27,36 +27,34 @@ module.exports = (options = {}) => {
     poi.extendWebpack(config => {
       const coverage = inferValue('coverage')
 
-      isTypeScript = config.rules.has('typescript')
+      isTypeScript = config.module.rules.has('typescript')
 
       if (coverage) {
         /* for general usage */
-        const istanbulinstrumenterRule = config.rules.add(
-          'istanbul-instrumenter',
-          {
-            test: /\.(jsx?)$/,
-            exclude: [/(node_modules|\.test\.jsx?)/],
-            enforce: 'pre'
-          }
-        )
-        istanbulinstrumenterRule.loaders.add('istanbul-instrumenter-loader', {
-          loader: 'istanbul-instrumenter-loader',
-          options: {
+        const istanbulinstrumenterRule = config.module
+          .rule('istanbul-instrumenter')
+          .test(/\.(jsx?)$/)
+          .exclude.add(/(node_modules|\.test\.jsx?)/)
+          .end()
+          .enforce('pre')
+        istanbulinstrumenterRule
+          .use('istanbul-instrumenter-loader')
+          .loader('istanbul-instrumenter-loader')
+          .options({
             esModules: true
-          }
-        })
+          })
 
         /* for vue (assumes vue-loader) */
-        const vueRule = config.rules.get('vue')
-        vueRule.loaders.update('vue-loader', loader => {
+        const vueRule = config.module.rule('vue')
+        vueRule.use('vue-loader').tap(options => {
           const instrumenterLoader =
             'istanbul-instrumenter-loader?esModules=true'
-          loader.options.preLoaders = loader.options.preLoaders || {}
-          loader.options.preLoaders.js =
-            typeof loader.options.preLoaders.js === 'string'
-              ? `${loader.options.preLoaders.js}!${instrumenterLoader}`
+          options.preLoaders = options.preLoaders || {}
+          options.preLoaders.js =
+            typeof options.preLoaders.js === 'string'
+              ? `${options.preLoaders.js}!${instrumenterLoader}`
               : instrumenterLoader
-          return loader
+          return options
         })
       }
     })

@@ -6,12 +6,11 @@ module.exports = (minifyOpts, pluginOpts) => {
       // Do not use if `minimize` is off
       if (poi.options.minimize) {
         // Always disable webpack's default minimizer
-        config.set('optimization.minimize', false)
+        config.merge({ optimization: { minimize: false } })
         // And use babel-minify plugin instead
-        config.plugins.add('minimize', require('babel-minify-webpack-plugin'), [
-          minifyOpts,
-          pluginOpts
-        ])
+        config
+          .plugin('minimize')
+          .use(require('babel-minify-webpack-plugin'), [minifyOpts, pluginOpts])
       }
     })
   }

@@ -10,11 +10,11 @@ module.exports = ({ loaderOptions } = {}) => {
     poi.extendWebpack(config => {
       let babelOptions
 
-      const jsRule = config.rules.get('js')
-      if (jsRule.loaders.has('babel-loader')) {
+      const jsRule = config.module.rule('js')
+      if (jsRule.uses.has('babel-loader')) {
         babelOptions = Object.assign(
           {},
-          jsRule.loaders.get('babel-loader').options.options
+          jsRule.use('babel-loader').get('options')
         )
         // Delete unnecessary loader-specific options
         delete babelOptions.cacheDirectory
@@ -29,26 +29,27 @@ module.exports = ({ loaderOptions } = {}) => {
         loaderOptions
       )
 
-      config.rules
-        .add('coffee', {
-          test: /\.coffee$/
-        })
-        .loaders.add('coffee-loader', {
-          loader: 'better-coffee-loader',
-          options: coffeeOptions
-        })
+      config.module
+        .rule('coffee')
+        .test(/\.coffee$/)
+        .use('coffee-loader')
+        .loader('better-coffee-loader')
+        .options(coffeeOptions)
 
-      config.append('resolve.extensions', '.coffee')
+      config.resolve.extensions.add('.coffee')
 
-      config.rules.get('vue').loaders.update('vue-loader', loader => {
-        loader.options.loaders.coffee = loader.options.loaders.coffeescript = [
-          {
-            loader: 'better-coffee-loader',
-            options: coffeeOptions
-          }
-        ]
-        return loader
-      })
+      config.module
+        .rule('vue')
+        .use('vue-loader')
+        .tap(options => {
+          options.loaders.coffee = options.loaders.coffeescript = [
+            {
+              loader: 'better-coffee-loader',
+              options: coffeeOptions
+            }
+          ]
+          return options
+        })
     })
   }
 }

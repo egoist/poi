@@ -21,10 +21,15 @@ module.exports = (options = {}) => {
     poi.extendWebpack(config => {
       const outputPath = path.resolve(poi.options.cwd, outputDir)
 
-      config.set('output.path', outputPath)
-      config.set('output.filename', '[name].transformed.js')
+      config.merge({
+        output: {
+          path: outputPath,
+          filename: '[name].transformed.js'
+        }
+      })
 
       // Exclude node_modules in bundle file
+      // TODO: fix this
       poi.webpackUtils.externalize(config)
     })
 

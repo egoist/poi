@@ -10,16 +10,14 @@ module.exports = ({ loaderOptions } = {}) => {
       config.append('resolve.extensions', '.ts')
       config.append('resolve.extensions', '.tsx')
 
-      const tsRule = config.rules.add('typescript', {
-        test: /\.tsx?$/
-      })
-      tsRule.loaders.add('ts-loader', {
-        loader: 'ts-loader',
-        options: Object.assign({ appendTsSuffixTo: [/\.vue$/] }, loaderOptions)
-      })
+      const tsRule = config.module.rule('typescript').test(/\.tsx?$/)
+      tsRule
+        .use('ts-loader')
+        .loader('ts-loader')
+        .options(Object.assign({ appendTsSuffixTo: [/\.vue$/] }, loaderOptions))
 
-      const vueRule = config.rules.get('vue')
-      vueRule.loaders.update('vue-loader', vueOptions => {
+      const vueRule = config.module.rule('vue')
+      vueRule.use('vue-loader').tap(vueOptions => {
         vueOptions.esModule = true
         vueOptions.loaders.ts = [
           {

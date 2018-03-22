@@ -29,52 +29,60 @@ module.exports = poi => {
 
     // Add hmr entry using `hotEntry` option
     if (poi.options.hotReload) {
-      config.plugins.add('hmr', webpack.HotModuleReplacementPlugin)
-      config.plugins.add('named-modules', webpack.NamedModulesPlugin)
-      for (const entryPoint in config.get('entry')) {
-        if (poi.options.hotEntry.includes(entryPoint)) {
-          config.prepend(['entry', entryPoint], devClient)
+      config.plugin('hmr').use(webpack.HotModuleReplacementPlugin)
+      config.plugin('named-modules').use(webpack.NamedModulesPlugin)
+      for (const hotEntry of poi.options.hotEntry) {
+        if (config.entryPoints.has(hotEntry)) {
+          config.entry(hotEntry).prepend(devClient)
         }
       }
     }
   }
 
   function setPerformance(config) {
-    config.set('performance.hints', false)
+    config.performance.hints(false)
   }
 
   function setFormat(config) {
     if (poi.options.format === 'cjs') {
-      config.set('output.libraryTarget', 'commonjs2')
+      config.output.libraryTarget('commonjs2')
     } else if (poi.options.format === 'umd') {
-      config.set('output.libraryTarget', 'umd')
-      config.set('output.library', poi.options.moduleName)
+      config.output.libraryTarget('umd')
+      config.output.library(poi.options.moduleName)
     }
   }
 
   function setExternals(config) {
-    config.set('externals', poi.options.externals)
+    config.externals(poi.options.externals)
   }
 
   function setResolve(config) {
-    config.set('resolve', {
-      symlinks: true,
-      extensions: ['.js', '.jsx', '.json', '.vue'],
-      modules: [poi.resolveCwd('node_modules'), 'node_modules', ownNodeModules],
-      alias: {
-        '@': poi.resolveCwd('src'),
-        vue$: poi.options.vue.fullBuild
+    config.resolve.symlinks(true)
+    config.resolve.extensions
+      .add('.js')
+      .add('.jsx')
+      .add('.json')
+      .add('.vue')
+    config.resolve.modules
+      .add(poi.resolveCwd('node_modules'))
+      .add('node_modules')
+      .add(ownNodeModules)
+    config.resolve.alias
+      .set('@', poi.resolveCwd('src'))
+      .set(
+        'vue$',
+        poi.options.vue.fullBuild
           ? 'vue/dist/vue.esm.js'
           : 'vue/dist/vue.runtime.esm.js'
-      }
-    })
+      )
   }
 
   function setResolveLoader(config) {
-    config.set('resolveLoader', {
-      symlinks: true,
-      modules: [poi.resolveCwd('node_modules'), 'node_modules', ownNodeModules]
-    })
+    config.resolveLoader.set('symlinks', true)
+    config.resolveLoader.modules
+      .add(poi.resolveCwd('node_modules'))
+      .add('node_modules')
+      .add(ownNodeModules)
   }
 
   function setCSSRules(config) {
@@ -111,18 +119,20 @@ module.exports = poi => {
 
   function setPlugins(config) {
     if (command === 'develop' || command === 'watch') {
-      config.plugins.add('timefix', require('time-fix-plugin'))
+      config.plugin('timefix').use(require('time-fix-plugin'))
     }
 
-    config.plugins.add('replace-string', webpack.DefinePlugin, [
-      stringifyObject(getFullEnvString(poi.options.env))
-    ])
+    config
+      .plugin('define-env')
+      .use(webpack.DefinePlugin, [
+        stringifyObject(getFullEnvString(poi.options.env))
+      ])
 
-    config.plugins.add(
-      'no-emit-on-errors',
-      require('webpack/lib/NoEmitOnErrorsPlugin')
-    )
-    config.plugins.add('fancy-log', require('./webpack/FancyLogPlugin'), [
+    config
+      .plugin('no-emit-on-errors')
+      .use(require('webpack/lib/NoEmitOnErrorsPlugin'))
+
+    config.plugin('fancy-log').use(require('./webpack/FancyLogPlugin'), [
       {
         command: poi.command,
         host: poi.options.host,
@@ -137,17 +147,17 @@ module.exports = poi => {
       poi.options.progress !== false &&
       !isCI
     ) {
-      config.plugins.add('progress', require('./webpack/ProgressPlugin'))
+      config.plugin('progress').use(require('./webpack/ProgressPlugin'))
     }
   }
 
   function setWatchMissingFiles(config) {
     if (command === 'develop' || command === 'watch') {
-      config.plugins.add(
-        'watch-missing-node-modules',
-        require('./webpack/WatchMissingNodeModulesPlugin'),
-        [poi.resolveCwd('node_modules')]
-      )
+      config
+        .plugin('watch-missing-node-modules')
+        .use(require('./webpack/WatchMissingNodeModulesPlugin'), [
+          poi.resolveCwd('node_modules')
+        ])
     }
   }
 
@@ -171,11 +181,9 @@ module.exports = poi => {
         }
       }
       if (copyOptions.length > 0) {
-        config.plugins.add(
-          'copy-static-files',
-          require('copy-webpack-plugin'),
-          [copyOptions]
-        )
+        config
+          .plugin('copy-static-files')
+          .use(require('copy-webpack-plugin'), [copyOptions])
       }
     }
   }
@@ -185,19 +193,18 @@ module.exports = poi => {
 
     if (html && html.length > 0) {
       html.forEach((v, i) => {
-        config.plugins.add(`html-${i}`, require('html-webpack-plugin'), [v])
+        config.plugin(`html-${i}`).use(require('html-webpack-plugin'), [v])
       })
     }
   }
 
   poi.extendWebpack(config => {
-    config.set('mode', poi.env === 'production' ? 'production' : 'development')
-
-    config.set('optimization.minimize', poi.options.minimize)
-
-    config.set('devtool', poi.options.sourceMap)
-
-    config.set('entry', poi.options.entry)
+    config.merge({
+      mode: poi.env === 'production' ? 'production' : 'development',
+      entry: poi.options.entry,
+      devtool: poi.options.sourceMap,
+      optimization: { minimize: poi.options.minimize }
+    })
 
     setOutput(config)
     setPerformance(config)
@@ -220,16 +227,15 @@ module.exports = poi => {
     if (yarnGlobal.inDirectory(__dirname)) {
       // modules in yarn global node_modules
       // because of yarn's flat node_modules structure
-      config.append('resolve.modules', poi.ownDir('..'))
+      config.resolve.modules.add(poi.ownDir('..'))
       // loaders in yarn global node_modules
-      config.append('resolveLoader.modules', poi.ownDir('..'))
+      config.resolveLoader.modules.add(poi.ownDir('..'))
     }
 
-    config.plugins.add(
-      'develop-logs',
-      class {
+    config.plugin('develop-logs').use(
+      class DevelopLogs {
         apply(compiler) {
-          compiler.plugin('done', stats => {
+          compiler.hooks.done.tap('develop-logs', stats => {
             if (!stats.hasErrors() && !stats.hasWarnings()) {
               poi.emit('show-develop-logs')
             }

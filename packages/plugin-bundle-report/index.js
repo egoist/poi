@@ -11,9 +11,9 @@ module.exports = pluginOptions => {
       if (poi.options.bundleReport) {
         const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
-        config.plugins.add('bundle-report', BundleAnalyzerPlugin, [
-          pluginOptions
-        ])
+        config
+          .plugin('bundle-report')
+          .use(BundleAnalyzerPlugin, [pluginOptions])
       }
     })
   }

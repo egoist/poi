@@ -5,9 +5,9 @@ module.exports = () => poi => {
   if (!poi.cli.isCurrentCommand('build')) return
 
   poi.extendWebpack(config => {
-    const publicUrl = config.get('output.publicPath')
+    const publicUrl = config.output.get('publicPath')
 
-    config.plugins.updateOptions('replace-string', options => {
+    config.plugin('replace-string').tap(options => {
       // Used by ./register-server-worker.js
       options[0]['process.env.PUBLIC_URL'] = JSON.stringify(publicUrl)
       return options
@@ -15,14 +15,13 @@ module.exports = () => poi => {
 
     // register-service-worker.js is written in ES6
     // We need to transpile it then
-    config.rules.update('js', options => {
-      options.include.push(path.join(__dirname, 'register-service-worker.js'))
-      return options
-    })
+    config.module
+      .rule('js')
+      .include.add(path.join(__dirname, 'register-service-worker.js'))
 
     // Generate a service worker script that will precache, and keep up to date,
     // the HTML & assets that are part of the Webpack build.
-    config.plugins.add('sw-precache', SWPrecacheWebpackPlugin, [
+    config.plugin('sw-precache').use(SWPrecacheWebpackPlugin, [
       {
         // By default, a cache-busting query parameter is appended to requests
         // used to populate the caches, to ensure the responses are fresh.

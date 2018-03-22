@@ -6,7 +6,7 @@ module.exports = ({ pluginOptions } = {}) => {
     if (!poi.cli.isCurrentCommand('build')) return
 
     poi.extendWebpack(config => {
-      config.plugins.add('webpackmonitor', WebpackMonitor, [
+      config.plugin('webpackmonitor').use(WebpackMonitor, [
         Object.assign(
           {
             target: path.resolve('.monitor/stats.json'),

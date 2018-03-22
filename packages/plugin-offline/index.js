@@ -12,20 +12,17 @@ module.exports = ({
     poi.extendWebpack(config => {
       pwa = path.resolve(poi.options.cwd, pwa)
 
-      if (config.get(['entry', entry])) {
-        config.prepend(['entry', entry], pwa)
+      if (config.entryPoints.has(entry)) {
+        config.entry(entry).prepend(pwa)
       } else {
         throw new Error(`Entry "${entry}" was not found.`)
       }
 
       // Our default pwa entry is written in ES2015
       // So we need to include in babel transformation process
-      config.rules.update('js', options => {
-        options.include.push(pwa)
-        return options
-      })
+      config.module.rule('js').include.add(pwa)
 
-      config.plugins.add('offline', OfflinePlugin, [
+      config.plugin('offline').use(OfflinePlugin, [
         Object.assign(
           {
             ServiceWorker: {

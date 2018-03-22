@@ -1,6 +1,6 @@
 const path = require('path')
 const EventEmitter = require('events')
-const Conpack = require('conpack')
+const Config = require('webpack-chain')
 const UseConfig = require('use-config')
 const chalk = require('chalk')
 const get = require('lodash/get')
@@ -23,7 +23,7 @@ module.exports = class Poi extends EventEmitter {
       const poi = new Poi(command, options)
       return poi.run()
     }
-    this.conpack = new Conpack()
+    this.webpackConfig = new Config()
     this.cli = new CLIEngine(command)
     this.plugins = new Set()
     this.ownDir = ownDir
@@ -132,7 +132,7 @@ module.exports = class Poi extends EventEmitter {
     }
 
     this.extendWebpackFns.forEach(fn => {
-      fn(this.conpack, { command: this.command })
+      fn(this.webpackConfig, { command: this.command })
     })
   }
 
@@ -182,7 +182,7 @@ module.exports = class Poi extends EventEmitter {
       logger.debug('extend webpack from user config')
       this.extendWebpack(this.options.extendWebpack)
     }
-    const config = this.conpack.toConfig()
+    const config = this.webpackConfig.toConfig()
     if (this.options.debugWebpack) {
       logger.log(
         chalk.bold('webpack config: ') +
