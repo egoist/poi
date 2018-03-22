@@ -17,7 +17,7 @@ module.exports = poi => {
     : ownDir('node_modules')
 
   function setOutput(config) {
-    config.set('output', {
+    config.output.merge({
       path: poi.options.outDir,
       pathinfo: true,
       filename: poi.options.filename.js,
