@@ -53,7 +53,10 @@ module.exports = (ctx, { jsx = 'react' } = {}) => {
   ]
 
   if (jsx === 'vue') {
-    presets.push(require.resolve('babel-preset-vue'))
+    presets.push([
+      require.resolve('babel-preset-vue'),
+      { eventModifiers: false, vModel: false }
+    ])
   } else if (jsx === 'react') {
     plugins.push(require.resolve('@babel/plugin-transform-react-jsx'))
     plugins.push(require.resolve('babel-plugin-react-require'))

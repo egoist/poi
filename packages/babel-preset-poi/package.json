@@ -23,7 +23,7 @@
     "@babel/runtime": "^7.0.0-beta.40",
     "babel-macros": "^1.2.0",
     "babel-plugin-react-require": "^3.0.0",
-    "babel-preset-vue": "^2.0.1"
+    "babel-preset-vue": "^2.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.40"
