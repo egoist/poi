@@ -1,6 +1,6 @@
 {
   "name": "poi",
-  "version": "10.0.0-beta.6",
+  "version": "10.0.0-beta.7",
   "description": "Fast prototype and distribute modern web apps like a pro.",
   "repository": {
     "url": "egoist/poi",
@@ -31,11 +31,11 @@
     "testEnvironment": "node"
   },
   "dependencies": {
-    "@poi/create-webpack-config": "^10.0.0-alpha.1",
-    "@poi/dev-utils": "^10.0.0-alpha.1",
-    "@poi/logger": "^10.0.0-alpha.1",
+    "@poi/create-webpack-config": "^10.0.0-beta.7",
+    "@poi/dev-utils": "^10.0.0-beta.7",
+    "@poi/logger": "^10.0.0-beta.7",
     "address": "^1.0.1",
-    "babel-preset-poi": "^10.0.0-alpha.1",
+    "babel-preset-poi": "^10.0.0-beta.7",
     "cac": "^4.4.1",
     "chalk": "^2.0.1",
     "chokidar": "^2.0.0",
@@ -66,6 +66,6 @@
     "yarn-global": "^1.1.0"
   },
   "devDependencies": {
-    "@poi/test-utils": "^10.0.0-alpha.1"
+    "@poi/test-utils": "^10.0.0-beta.7"
   }
 }

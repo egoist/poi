@@ -1,6 +1,6 @@
 {
   "name": "@poi/plugin-riot",
-  "version": "10.0.0-alpha.1",
+  "version": "10.0.0-beta.7",
   "license": "MIT",
   "files": [
     "index.js"

@@ -1,6 +1,6 @@
 {
   "name": "@poi/plugin-transform-test-files",
-  "version": "10.0.0-alpha.1",
+  "version": "10.0.0-beta.7",
   "licenst": "MIT",
   "author": "EGOIST <0x142857@gmail.com>",
   "publishConfig": {
