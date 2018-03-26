@@ -9,6 +9,7 @@ const launchEditorEndpoint = require('@poi/dev-utils/launchEditorEndpoint')
 const logger = require('@poi/logger')
 const unspecifiedAddress = require('../utils/unspecifiedAddress')
 const isPath = require('../utils/isPath')
+const sharedCLIOptions = require('../utils/sharedCLIOptions')
 
 module.exports = poi => {
   const command = poi.cli.handleCommand(
@@ -112,6 +113,8 @@ module.exports = poi => {
       }
     }
   )
+
+  sharedCLIOptions(command)
 
   command
     .option('host', {

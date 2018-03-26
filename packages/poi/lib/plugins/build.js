@@ -1,3 +1,5 @@
+const sharedCLIOptions = require('../utils/sharedCLIOptions')
+
 module.exports = poi => {
   const command = poi.cli.handleCommand(
     'build',
@@ -5,8 +7,5 @@ module.exports = poi => {
     () => poi.runCompiler()
   )
 
-  command.option('minimize', {
-    desc: 'Minimize the output',
-    alias: 'm'
-  })
+  sharedCLIOptions(command)
 }
