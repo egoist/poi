@@ -23,14 +23,6 @@ module.exports = ({ asyncAwait = true, bubleOptions } = {}) => {
 
       const jsRule = config.module.rule('js')
 
-      // Maybe add nodent-loader
-      if (asyncAwait) {
-        jsRule
-          .use('nodent-loader')
-          .loader(require.resolve('./nodent-loader'))
-          .after('babel-loader')
-      }
-
       // Add buble-loader
       jsRule
         .use('buble-loader')
@@ -38,8 +30,16 @@ module.exports = ({ asyncAwait = true, bubleOptions } = {}) => {
         .options(bubleOptions)
         .after('babel-loader')
 
-      // Remove babel-loader eventually
+      // Remove babel-loader
       jsRule.uses.delete('babel-loader')
+
+      // Maybe add nodent-loader
+      if (asyncAwait) {
+        jsRule
+          .use('nodent-loader')
+          .loader(require.resolve('./nodent-loader'))
+          .before('buble-loader')
+      }
 
       const vueRule = config.module.rule('vue')
       vueRule.use('vue-loader').tap(options => {
