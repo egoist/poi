@@ -1,11 +1,11 @@
 const url = require('url')
-const Server = require('webpack-dev-server')
 const opn = require('opn')
 const chalk = require('chalk')
 const launchEditorMiddlewarre = require('launch-editor-middleware')
 const getPort = require('get-port')
 const address = require('address')
 const launchEditorEndpoint = require('@poi/dev-utils/launchEditorEndpoint')
+const createDevServer = require('@poi/core/createDevServer')
 const logger = require('@poi/logger')
 const unspecifiedAddress = require('../utils/unspecifiedAddress')
 const isPath = require('../utils/isPath')
@@ -51,18 +51,6 @@ module.exports = poi => {
         existingBefore && existingBefore(app)
       }
 
-      if (typeof devServerOptions.proxy === 'string') {
-        devServerOptions.proxy = {
-          '/api': {
-            target: devServerOptions.proxy,
-            changeOrigin: true,
-            pathRewrite: {
-              '^/api': ''
-            }
-          }
-        }
-      }
-
       const host = poi.options.devServer.host
       const port = await getPort({ port: poi.options.devServer.port, host })
       if (port !== poi.options.devServer.port) {
@@ -73,7 +61,7 @@ module.exports = poi => {
         )
       }
 
-      const server = new Server(compiler, devServerOptions)
+      const server = createDevServer(compiler, devServerOptions)
       server.listen(port, host)
       let lanIP
       poi.on('show-develop-logs', () => {

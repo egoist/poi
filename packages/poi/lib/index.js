@@ -70,7 +70,7 @@ module.exports = class Poi extends EventEmitter {
   createCompiler(webpackConfig) {
     webpackConfig = webpackConfig || this.createWebpackConfig()
 
-    return require('@poi/create-webpack-config/webpack')(webpackConfig)
+    return require('@poi/core/webpack')(webpackConfig)
   }
 
   runCompiler(webpackConfig) {

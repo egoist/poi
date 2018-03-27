@@ -11,7 +11,7 @@ module.exports = poi => {
   const { command } = poi
 
   const inWorkspace = __dirname.includes(path.normalize('/poi/packages/'))
-  // node_modules in create-webpack-config/node_modules
+  // node_modules in @poi/core/node_modules
   const ownNodeModules = inWorkspace
     ? ownDir('../../node_modules')
     : ownDir('node_modules')

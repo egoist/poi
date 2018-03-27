@@ -1,7 +1,5 @@
 const path = require('path')
-const {
-  ProgressPlugin: WebpackProgressPlugin
-} = require('@poi/create-webpack-config/webpack')
+const { ProgressPlugin: WebpackProgressPlugin } = require('@poi/core/webpack')
 const logger = require('@poi/logger')
 
 const prettyPath = p => path.relative(process.cwd(), p)

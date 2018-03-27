@@ -1,1 +1,1 @@
-module.exports = require('@poi/create-webpack-config')
+module.exports = require('@poi/core/createWebpackConfig')
