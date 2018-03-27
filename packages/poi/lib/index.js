@@ -164,7 +164,7 @@ module.exports = class Poi extends EventEmitter {
     }
 
     const filesToWatch = [
-      ...[].concat(this.options.config || ['poi.config.js', '.poirc']),
+      ...[].concat(this.configFile || ['poi.config.js', '.poirc']),
       ...[].concat(this.options.restartOnFileChanges || [])
     ]
 
