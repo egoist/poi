@@ -73,7 +73,7 @@ function handleHTML(options) {
 
 module.exports = async (options, command) => {
   options = {
-    entry: 'index.js',
+    entry: readProjectPkg().main || 'index.js',
     cwd: process.cwd(),
     vue: {},
     css: {},
