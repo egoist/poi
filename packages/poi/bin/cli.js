@@ -4,7 +4,10 @@ const importLocalFile = require('import-local-file')
 const logger = require('@poi/logger')
 
 const localFile = importLocalFile(__filename)
-const forceGlobal = process.argv.includes('--force-global')
+// Whether to force using globally installed Poi
+const forceGlobal =
+  process.argv.includes('--force-global') ||
+  process.argv.includes('--forceGlobal')
 if (localFile && !forceGlobal) {
   logger.debug('Using local Poi', localFile)
   require(localFile)

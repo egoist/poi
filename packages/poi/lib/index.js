@@ -4,6 +4,7 @@ const Config = require('webpack-chain')
 const UseConfig = require('use-config')
 const chalk = require('chalk')
 const get = require('lodash/get')
+const merge = require('lodash/merge')
 const parseJsonConfig = require('parse-json-config')
 const chokidar = require('chokidar')
 const CLIEngine = require('./cliEngine')
@@ -16,7 +17,11 @@ module.exports = class Poi extends EventEmitter {
     super()
     logger.setOptions(options)
     logger.debug('command', command)
+
+    // Assign stuffs to context so external plugins can access them as well
     this.logger = logger
+    this.ownDir = ownDir
+
     this.command = command
     this.options = Object.assign({}, options)
     this.rerun = () => {
@@ -26,7 +31,7 @@ module.exports = class Poi extends EventEmitter {
     this.webpackConfig = new Config()
     this.cli = new CLIEngine(command)
     this.plugins = new Set()
-    this.ownDir = ownDir
+
     this.extendWebpackFns = []
     this.cli.cac.on('error', err => {
       if (err.name === 'AppError') {
@@ -90,47 +95,55 @@ module.exports = class Poi extends EventEmitter {
   }
 
   async prepare() {
-    const useConfig = new UseConfig({
-      name: 'poi',
-      files: this.options.config
-        ? [this.options.config]
-        : ['{name}.config.js', '.{name}rc', 'package.json']
-    })
-    const { path: configPath, config } = await useConfig.load()
+    let config
 
-    if (configPath) {
-      logger.debug('poi config path', configPath)
-      this.configFile = configPath
+    // Load Poi config file
+    // You can disable this by setting `config` to false
+    if (this.options.config !== false) {
+      const useConfig = new UseConfig({
+        name: 'poi',
+        files: this.options.config
+          ? [this.options.config]
+          : ['{name}.config.js', '.{name}rc', 'package.json']
+      })
+      const poiConfig = await useConfig.load()
+      if (poiConfig.path) {
+        logger.debug('poi config path', poiConfig.path)
+        this.configFile = poiConfig.path
+        config = poiConfig.config
+      }
     }
 
-    this.options = {
-      ...config,
-      ...this.options
-    }
+    this.options = merge(config, this.options)
     this.options = await handleOptions(this.options, this.command)
 
     logger.inspect('poi options', this.options)
 
+    // Register our internal plugins
     this.registerPlugin(require('./plugins/baseConfig'))
     this.registerPlugin(require('./plugins/develop'))
     this.registerPlugin(require('./plugins/build'))
     this.registerPlugin(require('./plugins/watch'))
 
+    // Register user plugins
     if (this.options.plugins) {
       this.registerPlugins(this.options.plugins)
     }
 
+    // Call plugins
     if (this.plugins.size > 0) {
       for (const plugin of this.plugins) {
         plugin(this)
       }
     }
 
-    // Add config.extedWebpack to the end of extendWebpackFns
-    if (config && config.extendWebpack) {
-      this.extendWebpack(config.extendWebpack)
+    // Add options.extedWebpack to the end of extendWebpackFns
+    if (this.options.extendWebpack) {
+      logger.debug('Use extendWebpack defined in your config file')
+      this.extendWebpack(this.options.extendWebpack)
     }
 
+    // Run all `extendWebpack` functions
     this.extendWebpackFns.forEach(fn => {
       fn(this.webpackConfig, { command: this.command })
     })
@@ -178,10 +191,6 @@ module.exports = class Poi extends EventEmitter {
   }
 
   createWebpackConfig() {
-    if (this.options.extendWebpack) {
-      logger.debug('extend webpack from user config')
-      this.extendWebpack(this.options.extendWebpack)
-    }
     const config = this.webpackConfig.toConfig()
     if (this.options.debugWebpack) {
       logger.log(
