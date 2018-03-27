@@ -1,8 +1,12 @@
 const cac = require('cac')
+const updateNotifier = require('update-notifier')
 const Poi = require('../lib')
 const isPath = require('../lib/utils/isPath')
+const pkg = require('../package')
 
 require('loud-rejection')()
+
+updateNotifier({ pkg }).notify()
 
 // To start Poi, we will need to know which `command` you're calling
 // And you can also supply options via CLI flags
