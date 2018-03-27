@@ -80,8 +80,8 @@ module.exports = async (options, command) => {
     hash: command === 'build',
     ...options,
     devServer: {
-      host: '0.0.0.0',
-      port: 4000,
+      host: process.env.HOST || '0.0.0.0',
+      port: process.env.PORT || 4000,
       ...options.devServer
     },
     babel: {
