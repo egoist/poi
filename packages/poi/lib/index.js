@@ -11,6 +11,7 @@ const CLIEngine = require('./cliEngine')
 const handleOptions = require('./handleOptions')
 const logger = require('@poi/logger')
 const { ownDir } = require('./utils/dir')
+const deleteCache = require('./utils/deleteCache')
 
 module.exports = class Poi extends EventEmitter {
   constructor(command = 'build', options = {}) {
@@ -25,6 +26,9 @@ module.exports = class Poi extends EventEmitter {
     this.command = command
     this.options = Object.assign({}, options)
     this.rerun = () => {
+      // Delete cache
+      deleteCache()
+
       const poi = new Poi(command, options)
       return poi.run()
     }
