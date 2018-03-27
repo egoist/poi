@@ -1,4 +1,4 @@
-const AppError = require('./AppError')
+const PoiError = require('./PoiError')
 const { cwd } = require('./dir')
 
 let projectPkgCache
@@ -11,7 +11,7 @@ function readProjectPkg() {
     if (err.code === 'MODULE_NOT_FOUND') {
       return {}
     }
-    throw new AppError(err.message)
+    throw new PoiError(err.message)
   }
 }
 

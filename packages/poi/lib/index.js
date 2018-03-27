@@ -34,7 +34,7 @@ module.exports = class Poi extends EventEmitter {
 
     this.extendWebpackFns = []
     this.cli.cac.on('error', err => {
-      if (err.name === 'AppError') {
+      if (err.name === 'PoiError') {
         logger.error(err.message)
       } else {
         logger.error(chalk.dim(err.stack))
