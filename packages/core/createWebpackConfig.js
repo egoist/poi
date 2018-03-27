@@ -234,6 +234,21 @@ module.exports = poi => {
       config.resolveLoader.modules.add(poi.ownDir('..'))
     }
 
+    config.plugin('clean-out-dir').use(
+      class CleanOutDir {
+        apply(compiler) {
+          compiler.hooks.emit.tapPromise('clean-out-dir', async () => {
+            if (
+              poi.options.clean !== false &&
+              /\[(chunk)?hash(:\d+)?\]/.test(compiler.options.output.filename)
+            ) {
+              await require('trash')([compiler.options.output.path])
+            }
+          })
+        }
+      }
+    )
+
     config.plugin('develop-logs').use(
       class DevelopLogs {
         apply(compiler) {
