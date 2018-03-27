@@ -173,21 +173,6 @@ module.exports = async (options, command) => {
   }
 
   options.postcss = options.postcss || {}
-  // Use our postcss config file if no user config file was found
-  if (
-    (!options.postcss.config || !options.postcss.config.path) &&
-    options.autoprefixer !== false
-  ) {
-    options.postcss = {
-      config: {
-        path: require.resolve('../app/postcss.config'),
-        ctx: {
-          autoprefixer: options.autoprefixer,
-          config: options.postcss
-        }
-      }
-    }
-  }
 
   options.css = {
     minimize: options.minimize,
