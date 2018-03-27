@@ -1,6 +1,7 @@
 const path = require('path')
 const EventEmitter = require('events')
 const Config = require('webpack-chain')
+const webpackMerge = require('webpack-merge')
 const UseConfig = require('use-config')
 const chalk = require('chalk')
 const get = require('lodash/get')
@@ -195,7 +196,12 @@ module.exports = class Poi extends EventEmitter {
   }
 
   createWebpackConfig() {
-    const config = this.webpackConfig.toConfig()
+    let config = this.webpackConfig.toConfig()
+    if (typeof this.options.webpack === 'object') {
+      config = webpackMerge(config, this.options.webpack)
+    } else if (typeof this.options.webpack === 'function') {
+      config = this.options.webpack(config) || config
+    }
     if (this.options.debugWebpack) {
       logger.log(
         chalk.bold('webpack config: ') +
