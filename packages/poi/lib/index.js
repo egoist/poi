@@ -13,6 +13,7 @@ const handleOptions = require('./handleOptions')
 const logger = require('@poi/logger')
 const { ownDir } = require('./utils/dir')
 const deleteCache = require('./utils/deleteCache')
+const PoiError = require('./utils/PoiError')
 
 module.exports = class Poi extends EventEmitter {
   constructor(command = 'build', options = {}) {
@@ -116,6 +117,11 @@ module.exports = class Poi extends EventEmitter {
         logger.debug('poi config path', poiConfig.path)
         this.configFile = poiConfig.path
         config = poiConfig.config
+      } else if (this.options.config) {
+        // Config file was specified but not found
+        throw new PoiError(
+          `Config file was not found at ${this.options.config}`
+        )
       }
     }
 
