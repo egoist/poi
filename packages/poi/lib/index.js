@@ -119,7 +119,10 @@ module.exports = class Poi extends EventEmitter {
       }
     }
 
-    this.options = merge(config, this.options)
+    this.options = merge(
+      typeof config === 'function' ? config(this.options) : config,
+      this.options
+    )
     this.options = await handleOptions(this.options, this.command)
 
     logger.inspect('poi options', this.options)
