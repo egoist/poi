@@ -97,9 +97,6 @@ module.exports = async (options, command) => {
   options.publicPath = getPublicPath(command, options.publicPath)
   options.hotReload = options.hotReload !== false && command === 'develop'
   options.hotEntry = getHotEntry(options.hotEntry)
-  options.externals = getExternals(options.format).concat(
-    options.externals || []
-  )
   options.minimize =
     typeof options.minimize === 'boolean'
       ? options.minimize
@@ -145,6 +142,9 @@ module.exports = async (options, command) => {
     options.sourceMap = false
   }
 
+  options.externals = getExternals(options.format).concat(
+    options.externals || []
+  )
   options.babel = await handleBabel(options.babel)
 
   if (options.postcss === undefined) {
