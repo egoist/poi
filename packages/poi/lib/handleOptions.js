@@ -124,6 +124,7 @@ module.exports = async (options, command) => {
   if (library) {
     logger.debug('bundling in library mode')
     const libraryFilename = getLibraryFilename(library)
+    options.hash = false
     options.filename = Object.assign(
       {
         js: `${libraryFilename}.js`,
