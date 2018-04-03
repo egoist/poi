@@ -75,7 +75,11 @@ module.exports = class Poi extends EventEmitter {
   createCompiler(webpackConfig) {
     webpackConfig = webpackConfig || this.createWebpackConfig()
 
-    return require('@poi/core/webpack')(webpackConfig)
+    const compiler = require('@poi/core/webpack')(webpackConfig)
+    if (this.options.outputFileSystem) {
+      compiler.outputFileSystem = this.options.outputFileSystem
+    }
+    return compiler
   }
 
   runCompiler(webpackConfig) {
