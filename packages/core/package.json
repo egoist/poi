@@ -38,8 +38,8 @@
     "yarn-global": "^1.1.0"
   },
   "peerDependencies": {
-    "@poi/dev-utils": "^0.0.0",
-    "@poi/logger": "^0.0.0"
+    "@poi/dev-utils": "*",
+    "@poi/logger": "*"
   },
   "repository": "https://github.com/egoist/poi/tree/master/packages/core"
 }
