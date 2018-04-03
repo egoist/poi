@@ -17,7 +17,7 @@ module.exports = command => {
     .option('module-name', {
       desc: 'Define module name'
     })
-    .option('dot-env', {
+    .option('env', {
       desc: 'Load .env file (default: true)'
     })
     .option('minimize', {

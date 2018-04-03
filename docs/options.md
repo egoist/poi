@@ -48,7 +48,7 @@ Bundle format, not set by default meaning it will be bundled in iife format.
 Type: `string`<br>
 Default: `react`<br>
 Possible values: `react` `vue` or any JSX pragma like `h` for Preact et al.<br>
-CLI flags: `--babel.jsx` `--jsx`
+CLI flags: `--babel.jsx`
 
 Controlling how to transform JSX.
 
@@ -69,11 +69,11 @@ CLI flags: `--module-name`
 
 When you're bundling in umd [format](#format), you need to set module name so that your library can be accessed via `window.YOUR_MODULE_NAME`.
 
-### dotEnv
+### env
 
 Type: `boolean`<br>
 Default: `true`<br>
-CLI flags: `--dot-env`
+CLI flags: `--env`
 
 Load `.env` file from current working directory, the defined env variables will be available in both Node.js process and your application code.
 

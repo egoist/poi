@@ -61,7 +61,9 @@ module.exports = class Poi extends EventEmitter {
     this.env = {
       NODE_ENV: process.env.NODE_ENV
     }
-    Object.assign(this.env, loadEnv(process.env.NODE_ENV))
+    if (this.options.env !== false) {
+      Object.assign(this.env, loadEnv(process.env.NODE_ENV))
+    }
     logger.debug('env', this.env)
   }
 
