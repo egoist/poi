@@ -77,6 +77,17 @@ CLI flags: `--dot-env`
 
 Load `.env` file from current working directory, the defined env variables will be available in both Node.js process and your application code.
 
+> __NOTE__: This is not available in config file since env variables should be defined before loading your config file.
+
+### define
+
+Type: `object`<br>
+Default: `undefined`
+
+Define global constants which can be configured at compile time.
+
+Please refer to relevant [webpack docs](https://webpack.js.org/plugins/define-plugin/#usage) for more usage of this.
+
 ### sourceMap
 
 Type: `boolean` `string`<br>

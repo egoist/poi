@@ -125,9 +125,13 @@ module.exports = poi => {
     }
 
     config
-      .plugin('define-env')
+      .plugin('define')
       .use(webpack.DefinePlugin, [
-        stringifyObject(getFullEnvString(poi.options.env))
+        Object.assign(
+          {},
+          stringifyObject(getFullEnvString(poi.env)),
+          poi.options.define
+        )
       ])
 
     config
@@ -202,7 +206,7 @@ module.exports = poi => {
 
   poi.extendWebpack(config => {
     config.merge({
-      mode: poi.env === 'production' ? 'production' : 'development',
+      mode: poi.command === 'build' ? 'production' : 'development',
       entry: poi.options.entry,
       devtool: poi.options.sourceMap,
       optimization: { minimize: poi.options.minimize }

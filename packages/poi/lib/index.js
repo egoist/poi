@@ -14,6 +14,7 @@ const logger = require('@poi/logger')
 const { ownDir } = require('./utils/dir')
 const deleteCache = require('./utils/deleteCache')
 const PoiError = require('./utils/PoiError')
+const loadEnv = require('./utils/loadEnv')
 
 module.exports = class Poi extends EventEmitter {
   constructor(command = 'build', options = {}) {
@@ -47,7 +48,6 @@ module.exports = class Poi extends EventEmitter {
       }
     })
 
-    const oldEnv = process.env.NODE_ENV
     switch (this.command) {
       case 'build':
         process.env.NODE_ENV = 'production'
@@ -58,10 +58,11 @@ module.exports = class Poi extends EventEmitter {
       default:
         process.env.NODE_ENV = 'development'
     }
-    this.env = process.env.NODE_ENV
-    if (oldEnv && this.env !== oldEnv) {
-      logger.debug('set process.env.NODE_ENV', this.env)
+    this.env = {
+      NODE_ENV: process.env.NODE_ENV
     }
+    Object.assign(this.env, loadEnv(process.env.NODE_ENV))
+    logger.debug('env', this.env)
   }
 
   extendWebpack(fn) {

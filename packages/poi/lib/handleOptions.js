@@ -101,10 +101,6 @@ module.exports = async (options, command) => {
     typeof options.minimize === 'boolean'
       ? options.minimize
       : command === 'build'
-  options.env = {
-    NODE_ENV: command === 'build' ? 'production' : 'development',
-    ...options.env
-  }
   options.html = handleHTML({
     minimize: options.minimize,
     env: options.env,
