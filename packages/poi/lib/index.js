@@ -48,15 +48,17 @@ module.exports = class Poi extends EventEmitter {
       }
     })
 
-    switch (this.command) {
-      case 'build':
-        process.env.NODE_ENV = 'production'
-        break
-      case 'test':
-        process.env.NODE_ENV = 'test'
-        break
-      default:
-        process.env.NODE_ENV = 'development'
+    if (!process.env.NODE_ENV) {
+      switch (this.command) {
+        case 'build':
+          process.env.NODE_ENV = 'production'
+          break
+        case 'test':
+          process.env.NODE_ENV = 'test'
+          break
+        default:
+          process.env.NODE_ENV = 'development'
+      }
     }
     this.env = {
       NODE_ENV: process.env.NODE_ENV
@@ -172,7 +174,9 @@ module.exports = class Poi extends EventEmitter {
 
   async run() {
     await this.prepare()
-    this.watchRun(await this.cli.runCommand())
+    const res = await this.cli.runCommand()
+    this.watchRun(res)
+    return res
   }
 
   watchRun({ devServer, webpackWatcher } = {}) {

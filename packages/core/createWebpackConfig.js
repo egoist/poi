@@ -138,14 +138,16 @@ module.exports = poi => {
       .plugin('no-emit-on-errors')
       .use(require('webpack/lib/NoEmitOnErrorsPlugin'))
 
-    config.plugin('fancy-log').use(require('./webpack/FancyLogPlugin'), [
-      {
-        command: poi.command,
-        host: poi.options.host,
-        port: poi.options.port,
-        clearScreen: poi.options.clearScreen
-      }
-    ])
+    if (process.env.NODE_ENV !== 'test') {
+      config.plugin('fancy-log').use(require('./webpack/FancyLogPlugin'), [
+        {
+          command: poi.command,
+          host: poi.options.host,
+          port: poi.options.port,
+          clearScreen: poi.options.clearScreen
+        }
+      ])
+    }
 
     if (
       process.stderr.isTTY &&
@@ -209,7 +211,13 @@ module.exports = poi => {
       mode: poi.command === 'build' ? 'production' : 'development',
       entry: poi.options.entry,
       devtool: poi.options.sourceMap,
-      optimization: { minimize: poi.options.minimize }
+      optimization: {
+        minimize: poi.options.minimize,
+        splitChunks: {
+          chunks: 'all'
+        },
+        runtimeChunk: true
+      }
     })
 
     setOutput(config)

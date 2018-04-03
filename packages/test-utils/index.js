@@ -4,6 +4,8 @@ const puppeteer = require('puppeteer')
 const serveStatic = require('serve-static')
 const getPort = require('get-port')
 const execa = require('execa')
+const Poi = require('poi')
+const MemoryFS = require('memory-fs')
 
 const _ = (module.exports = {})
 
@@ -40,4 +42,9 @@ _.launchBrowser = dir => {
       }
     }
   })
+}
+
+_.bundle = options => {
+  const mfs = new MemoryFS()
+  return new Poi('build', Object.assign({ outputFileSystem: mfs }, options))
 }

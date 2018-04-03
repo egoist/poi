@@ -126,7 +126,7 @@ Output filename for `.js` files.
 #### chunk
 
 Type: `string`<br>
-Default: `[name].[chunkhash:8].chunk.js` in `poi build`, `[name].chunk.js` otherwise.<br>
+Default: `[name].[chunkhash:8].js` in `poi build`, `[name].js` otherwise.<br>
 CLI flags: `--filename.chunk`
 
 Output filename for lazy-loaded chunk files.
