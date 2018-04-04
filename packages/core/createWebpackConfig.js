@@ -214,9 +214,8 @@ module.exports = poi => {
       optimization: {
         minimize: poi.options.minimize,
         splitChunks: {
-          chunks: 'all'
-        },
-        runtimeChunk: true
+          chunks: poi.options.format ? undefined : 'all'
+        }
       }
     })
 

@@ -1,5 +1,4 @@
 const path = require('path')
-const kebabCase = require('lodash/kebabCase')
 const findBabelConfig = require('find-babel-config')
 const findPostcssConfig = require('postcss-load-config')
 const logger = require('@poi/logger')
@@ -10,12 +9,6 @@ const getFilename = require('./utils/getFilename')
 const getPublicPath = require('./utils/getPublicPath')
 const getHotEntry = require('./utils/getHotEntry')
 const getExternals = require('./utils/getExternals')
-
-function getLibraryFilename(component) {
-  return kebabCase(
-    typeof component === 'string' ? component : path.basename(process.cwd())
-  )
-}
 
 async function handleBabel(options) {
   const { file, config } = await findBabelConfig(process.cwd(), 2)
@@ -77,7 +70,7 @@ module.exports = async (options, command) => {
     cwd: process.cwd(),
     vue: {},
     css: {},
-    hash: command === 'build',
+    hash: !options.format && command === 'build',
     ...options,
     devServer: {
       host: process.env.HOST || '0.0.0.0',
@@ -101,42 +94,20 @@ module.exports = async (options, command) => {
     typeof options.minimize === 'boolean'
       ? options.minimize
       : command === 'build'
-  options.html = handleHTML({
-    minimize: options.minimize,
-    env: options.env,
-    html: options.html
-  })
-  options.sourceMap =
-    options.sourceMap === false || typeof options.sourceMap === 'string'
+  options.html = options.format
+    ? false
+    : handleHTML({
+        minimize: options.minimize,
+        env: options.env,
+        html: options.html
+      })
+  options.sourceMap = options.format
+    ? false
+    : options.sourceMap === false || typeof options.sourceMap === 'string'
       ? options.sourceMap
       : command === 'build'
         ? 'source-map'
         : command === 'test' ? 'inline-source-map' : 'eval-source-map'
-
-  const library = options.library
-  if (library) {
-    logger.debug('bundling in library mode')
-    const libraryFilename = getLibraryFilename(library)
-    options.hash = false
-    options.filename = Object.assign(
-      {
-        js: `${libraryFilename}.js`,
-        css: `${libraryFilename}.css`
-      },
-      options.filename
-    )
-
-    if (typeof library === 'string') {
-      options.format = 'umd'
-      options.moduleName = library
-    } else {
-      options.format = 'cjs'
-    }
-    logger.debug('bundle format', options.format)
-
-    options.html = false
-    options.sourceMap = false
-  }
 
   options.externals = getExternals(options.format).concat(
     options.externals || []

@@ -2,9 +2,8 @@
   "private": true,
   "scripts": {
     "precommit": "npm test",
-    "test": "npm run lint && npm run jest",
-    "lint": "eslint .",
-    "jest": "jest -i"
+    "test": "npm run lint && jest",
+    "lint": "eslint ."
   },
   "repository": "git@github.com:egoist/poi.git",
   "author": "EGOIST <0x142857@gmail.com>",
