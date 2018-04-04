@@ -3,10 +3,10 @@
   "version": "independent",
   "commands": {
     "publish": {
-      "ignore": [
+      "ignoreChanges": [
         "*.md",
-        "example/**",
-        "test/**"
+        "**/example/**",
+        "**/test/**"
       ]
     }
   },
