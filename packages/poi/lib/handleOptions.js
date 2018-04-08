@@ -94,13 +94,14 @@ module.exports = async (options, command) => {
     typeof options.minimize === 'boolean'
       ? options.minimize
       : command === 'build'
-  options.html = options.format
-    ? false
-    : handleHTML({
-        minimize: options.minimize,
-        env: options.env,
-        html: options.html
-      })
+  options.html =
+    options.format || command === 'test'
+      ? false
+      : handleHTML({
+          minimize: options.minimize,
+          env: options.env,
+          html: options.html
+        })
   options.sourceMap = options.format
     ? false
     : options.sourceMap === false || typeof options.sourceMap === 'string'
@@ -109,9 +110,7 @@ module.exports = async (options, command) => {
         ? 'source-map'
         : command === 'test' ? 'inline-source-map' : 'eval-source-map'
 
-  options.externals = getExternals(options.format).concat(
-    options.externals || []
-  )
+  options.externals = getExternals(options).concat(options.externals || [])
   options.babel = await handleBabel(options.babel)
 
   if (options.postcss === undefined) {

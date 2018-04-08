@@ -8,7 +8,8 @@
   },
   "repository": "https://github.com/egoist/poi/tree/master/packages/plugin-transform-test-files",
   "scripts": {
-    "test": "echo fine"
+    "test": "echo fine",
+    "example": "poi test"
   },
   "files": [
     "index.js"

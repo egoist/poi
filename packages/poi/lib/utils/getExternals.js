@@ -1,13 +1,11 @@
-const nodeExternals = require('poi-webpack-node-externals')
+const nodeExternals = require('webpack-node-externals')
 
-module.exports = format => {
-  return format === 'cjs'
+module.exports = ({ format, excludeNodeModules }) => {
+  return format === 'cjs' || excludeNodeModules
     ? [
         nodeExternals({
           whitelist: [/\.(?!(?:jsx?|json)$).{1,5}$/i]
-        }),
-        'vue',
-        'babel-runtime'
+        })
       ]
     : []
 }

@@ -6,17 +6,21 @@ module.exports = (options = {}) => {
     if (!poi.cli.isCurrentCommand('test')) return
 
     const getOption = (name, defaultValue) =>
-      poi.argv[name] || options[name] || defaultValue
+      poi.options[name] || options[name] || defaultValue
 
     const baseDir = getOption('baseDir', poi.options.cwd)
     const outputDir = getOption('outputDir', baseDir)
-    const input = poi.argv._.slice(1)
+    const input = process.argv.slice(3)
+
     const testFiles =
-      input.length > 0 ? input : options.testFiles || '**/*.{test,spec}.js'
+      input.length > 0 ? input : getOption('testFiles', '**/*.{test,spec}.js')
     const ignoreFiles = getOption('ignoreFiles', [
       '!**/node_modules/**',
       '!**/vendor/**'
     ])
+
+    // Exclude node modules in bundled files
+    poi.options.excludeNodeModules = true
 
     poi.extendWebpack(config => {
       const outputPath = path.resolve(poi.options.cwd, outputDir)
@@ -25,12 +29,9 @@ module.exports = (options = {}) => {
         output: {
           path: outputPath,
           filename: '[name].transformed.js'
-        }
+        },
+        target: 'node'
       })
-
-      // Exclude node_modules in bundle file
-      // TODO: fix this
-      poi.webpackUtils.externalize(config)
     })
 
     poi.cli.handleCommand('test', 'Transform test files with Poi', () => {
@@ -38,7 +39,7 @@ module.exports = (options = {}) => {
 
       return globby([].concat(testFiles).concat(ignoreFiles), { cwd: baseDir })
         .then(files => {
-          delete webpackConfig.entry.client
+          delete webpackConfig.entry.main
           webpackConfig.entry = files.reduce((acc, filename) => {
             return Object.assign(acc, {
               [filename.replace(/\.[^/.]+$/, '')]: path.resolve(
@@ -49,6 +50,11 @@ module.exports = (options = {}) => {
           }, {})
         })
         .then(() => poi.runCompiler(webpackConfig))
+        .then(stats => {
+          if (stats.hasErrors()) {
+            console.log(stats.toString('errors-only'))
+          }
+        })
     })
   }
 }

@@ -48,11 +48,11 @@
     "loud-rejection": "^1.6.0",
     "opn": "^5.0.0",
     "parse-json-config": "^0.2.0",
-    "poi-webpack-node-externals": "^2.0.0",
     "update-notifier": "^2.1.0",
     "use-config": "^2.0.4",
     "webpack-chain": "^4.5.0",
     "webpack-merge": "^4.1.0",
+    "webpack-node-externals": "^1.7.2",
     "yarn-global": "^1.1.0"
   },
   "devDependencies": {
