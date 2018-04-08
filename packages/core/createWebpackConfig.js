@@ -214,7 +214,7 @@ module.exports = poi => {
       optimization: {
         minimize: poi.options.minimize,
         splitChunks: {
-          chunks: poi.options.format ? undefined : 'all'
+          chunks: poi.options.format || poi.command === 'test' ? 'async' : 'all'
         }
       }
     })

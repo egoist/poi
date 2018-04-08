@@ -30,6 +30,10 @@ Or run `poi test --watch` to run Karma in watch mode.
 
 Or run `poi test --coverage` to get code coverage as well.
 
+### Use with Assertion Library
+
+By default this plugin does not add any assertion library, to use one like [chai.js](http://www.chaijs.com/) you can simply install it and use it in your test files, here's an [example](./example/App.test.js).
+
 ## Options
 
 ### port
@@ -84,6 +88,10 @@ Default: `false`
 
 Generate code coverage.
 
+### karma
+
+Type: `object` `karmaConfig => newkarmaConfig`
+
 ### extendWebpack
 
 Type: `function`<br>
@@ -97,33 +105,6 @@ require('poi-plugin-karma')({
     config.some.action()
   }
 })
-```
-
-## Advanced
-
-This plugin can also directly read Karma config from `karma` property in `poi.config.js`, and it will be merged with default karma config we use:
-
-```js
-// poi.config.js
-module.exports = {
-  karma: {
-    frameworks: ['mocha', 'chai']
-  }
-}
-```
-
-We use `Object.assign` to merge custom karma config with our default one.
-
-`karma` could also be a function, then we will use its return value as karma config:
-
-```js
-// poi.config.js
-module.exports = {
-  karma(config) {
-    config.reporters = ['nyancat']
-    return config
-  }
-}
 ```
 
 ### TypeScript support

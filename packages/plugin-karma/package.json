@@ -12,20 +12,23 @@
     "index.js"
   ],
   "dependencies": {
+    "is-ci": "^1.1.0",
     "istanbul-instrumenter-loader": "^3.0.0",
     "jasmine-core": "^2.8.0",
     "karma": "^2.0.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.1",
+    "karma-jasmine": "^1.1.1",
     "karma-mocha": "^1.3.0",
     "karma-mocha-reporter": "^2.2.4",
     "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^2.0.4",
+    "karma-webpack": "^4.0.0-beta.0",
     "mocha": "^5.0.0"
   },
   "xo": false,
   "devDependencies": {
-    "webpack": "^4.0.0"
+    "chai": "^4.1.2",
+    "poi": "^10.0.0-beta.12"
   },
   "repository": "https://github.com/egoist/poi/tree/master/packages/plugin-karma"
 }

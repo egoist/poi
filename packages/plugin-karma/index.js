@@ -1,4 +1,5 @@
 const { Server } = require('karma')
+const isCI = require('is-ci')
 
 function ensureArray(v) {
   if (!Array.isArray(v)) {
@@ -18,6 +19,9 @@ module.exports = (options = {}) => {
     const inferValue = (key, fallback) => {
       if (typeof poi.options[key] !== 'undefined') {
         return poi.options[key]
+      }
+      if (typeof options[key] !== 'undefined') {
+        return options[key]
       }
       return fallback
     }
@@ -78,7 +82,7 @@ module.exports = (options = {}) => {
       frameworks = ensureArray(frameworks)
       frameworks = frameworks.concat(isTypeScript ? ['karma-typescript'] : [])
 
-      const watch = inferValue('watch', false)
+      const watch = !isCI && inferValue('watch', false)
       const coverage = inferValue('coverage')
 
       let reporters = inferValue('reporters', ['mocha'])
@@ -139,13 +143,12 @@ module.exports = (options = {}) => {
       delete webpackConfig.entry
 
       const karmaConfig =
-        typeof poi.options.karma === 'function'
-          ? poi.options.karma(defaultConfig)
-          : Object.assign({}, defaultConfig, poi.options.karma)
+        typeof options.karma === 'function'
+          ? options.karma(defaultConfig)
+          : Object.assign({}, defaultConfig, options.karma)
       karmaConfig.webpack = webpackConfig
 
       const server = new Server(karmaConfig)
-
       server.start()
     })
   }

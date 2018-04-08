@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --trace-deprecation
 
 const importLocalFile = require('import-local-file')
 const logger = require('@poi/logger')
