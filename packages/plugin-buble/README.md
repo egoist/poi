@@ -44,4 +44,4 @@ Transform `async/await` to pure `Promise` using [nodent](https://github.com/MatA
 
 ## License
 
-MIT © [EGOIST](https://github.com/egoist)
+[MIT](https://oss.ninja/mit/egoist) &copy; [EGOIST](https://github.com/egoist)

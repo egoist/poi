@@ -43,4 +43,4 @@ Options for [webpack-bundle-analyzer](https://github.com/th0r/webpack-bundle-ana
 
 ## LICENSE
 
-MIT © [EGOIST](https://github.com/egoist)
+[MIT](https://oss.ninja/mit/egoist) &copy; [EGOIST](https://github.com/egoist)

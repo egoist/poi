@@ -61,4 +61,4 @@ You can use your own version of [./register-service-worker.js](./register-servic
 
 ## License
 
-MIT &copy; [EGOIST](https://github.com/egoist)
+[MIT](https://oss.ninja/mit/egoist) &copy; [EGOIST](https://github.com/egoist)

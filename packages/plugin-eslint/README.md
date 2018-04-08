@@ -39,4 +39,4 @@ Run eslint in certain commands, you can also use `'*'` to run it in all commands
 
 ## License
 
-MIT © [EGOIST](https://github.com/egoist)
+[MIT](https://oss.ninja/mit/egoist) &copy; [EGOIST](https://github.com/egoist)
