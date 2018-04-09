@@ -75,6 +75,11 @@ module.exports = class Poi extends EventEmitter {
     return this
   }
 
+  configureDevServer(fn) {
+    this.hooks.add('configureDevServer', fn)
+    return this
+  }
+
   createCompiler(webpackConfig) {
     webpackConfig = webpackConfig || this.createWebpackConfig()
 

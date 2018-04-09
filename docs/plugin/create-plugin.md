@@ -46,3 +46,11 @@ poi.chainWebpack(config => {
 ```
 
 The `config` here is a [webpack-chain](https://github.com/mozilla-neutrino/webpack-chain) instance.
+
+## Configure Dev Server
+
+```js
+poi.configureDevServer(app => {
+  // app is an express instance
+})
+```
