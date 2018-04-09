@@ -2,7 +2,7 @@ const path = require('path')
 const OfflinePlugin = require('offline-plugin')
 
 module.exports = ({
-  entry = 'client',
+  entry = 'main',
   pwa = path.join(__dirname, 'pwa.js'),
   pluginOptions
 } = {}) => {
