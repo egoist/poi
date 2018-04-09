@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`class properties: class properties 1`] = `
-"class Foo {
+"\\"use strict\\";
+
+class Foo {
   constructor() {
     Object.defineProperty(this, \\"state\\", {
       configurable: true,
@@ -15,9 +17,19 @@ exports[`class properties: class properties 1`] = `
 `;
 
 exports[`decorators legacy: decorators legacy 1`] = `
-"var _class;
+"\\"use strict\\";
+
+var _class;
 
 let Foo = bound(_class = class Foo {}) || _class;"
 `;
 
-exports[`object reset spread: object reset spread 1`] = `"const a = Object.assign({}, foo);"`;
+exports[`object reset spread: object reset spread 1`] = `
+"\\"use strict\\";
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+const a = _objectSpread({}, foo);"
+`;

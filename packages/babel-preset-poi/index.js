@@ -42,12 +42,7 @@ module.exports = (ctx, { jsx = 'react' } = {}) => {
         moduleName: path.dirname(require.resolve('@babel/runtime/package'))
       }
     ],
-    [
-      require.resolve('@babel/plugin-proposal-object-rest-spread'),
-      {
-        useBuiltIns: true
-      }
-    ],
+    require.resolve('@babel/plugin-proposal-object-rest-spread'),
     // For dynamic import that you will use a lot in code-split
     require.resolve('@babel/plugin-syntax-dynamic-import')
   ]
