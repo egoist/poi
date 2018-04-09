@@ -61,6 +61,24 @@ Default: `undefined`
 
 Transpile certain modules with Babel.
 
+### css
+
+#### extract
+
+Type: `boolean`<br>
+Default: `true` in `poi build`, `false` otherwise.
+
+Extract CSS into standalone files.
+
+#### modules
+
+Type: `boolean`<br>
+Default: `false`
+
+Enable CSS modules for all CSS files.
+
+> __NOTE__: CSS modules are enabled by default for `.module.css` etc.
+
 ### moduleName
 
 Type: `string`<br>
@@ -147,6 +165,20 @@ CLI flags: `--filename.image`
 
 Output filename for image files.
 
+### vue
+
+#### fullBuild
+
+Type: `boolean`<br>
+Default: `false`
+
+Use [Runtime + Compile](https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only) build of Vue.js,
+
+#### loaderOptions
+
+Type: `object` `loaderOptions => newLoaderOptions`
+
+Merge this object with default options of `vue-loader` using `lodash.merge`.
 
 ## Dev options
 
@@ -165,6 +197,28 @@ Type: `number` `string`<br>
 Default: `process.env.PORT || 4000`
 
 Port for development server.
+
+### hotReload
+
+Type: `boolean`<br>
+Default: `true` in `poi` and `poi dev`, `false` otherwise
+
+Toggle HMR.
+
+### hotEntry
+
+Type: `string` `string[]`<br>
+Default: `main`
+
+Add HMR client to specific entries.
+
+### restartOnFileChanges
+
+Type: `string` `string[]`
+
+Restart the Poi process when specific files are modified.
+
+> __NOTE__: We always watch Poi config file unless this option is set to `false`.
 
 ## Build options
 

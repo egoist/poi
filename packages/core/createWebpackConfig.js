@@ -106,7 +106,7 @@ module.exports = poi => {
   function setVueRules(config) {
     require('./rules/vue')(config, {
       babel: poi.options.babel.config,
-      vueOptions: poi.options.vue.loader,
+      vueOptions: poi.options.vue.loaderOptions,
       cssOptions: poi.options.css
     })
   }

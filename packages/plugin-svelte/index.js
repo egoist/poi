@@ -45,7 +45,7 @@ module.exports = function({ loaderOptions } = {}) {
                 // Extract CSS in production mode
                 emitCss:
                   poi.cli.isCurrentCommand('build') &&
-                  poi.options.extractCSS !== false
+                  poi.options.css.extract !== false
               },
               loaderOptions
             )
