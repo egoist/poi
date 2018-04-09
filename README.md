@@ -32,7 +32,7 @@ In most cases, you don't need to configure anything to make your app work with P
 - Vue, no config is required for your Vue applications
 - etc..
 
-You can dive into the [documentation](https://poi.js.org) for more information.
+You can dive into the [documentation](./docs) for more information.
 
 ## Contributing
 
@@ -42,7 +42,7 @@ Please make sure to read the [Contributing Guide](./CONTRIBUTING.md) before maki
 
 ## Author
 
-**poi** © [EGOIST](https://github.com/egoist), Released under the [MIT](./LICENSE) License.<br>
+**Poi** © [EGOIST](https://github.com/egoist), Released under the [MIT](./LICENSE) License.<br>
 Authored and maintained by egoist with help from contributors ([list](https://github.com/egoist/poi/contributors)).
 
 > [egoist.moe](https://egoist.moe) · GitHub [@egoist](https://github.com/egoist) · Twitter [@_egoistlily](https://twitter.com/_egoistlily)
