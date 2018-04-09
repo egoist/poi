@@ -112,7 +112,7 @@ module.exports = poi => {
   }
 
   function setImageRules(config) {
-    require('./rules/image')(config, poi.options.filename)
+    require('./rules/image')(config, poi.options)
   }
 
   function setFontRules(config) {

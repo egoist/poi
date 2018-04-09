@@ -1,13 +1,13 @@
-module.exports = (config, filename) => {
+module.exports = (config, { filename, inlineImageMaxSize = 10000 }) => {
   config.module
     .rule('image')
     .test([/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/])
     .use('url-loader')
     .loader('url-loader')
     .options({
-      name: filename.images
+      name: filename.images,
       // inline the file if < max size
-      // limit: inlineImageMaxSize
+      limit: inlineImageMaxSize
     })
 
   config.module
