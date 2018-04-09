@@ -1,0 +1,25 @@
+{
+  "name": "@poi/plugin-offline",
+  "version": "10.0.0-beta.10",
+  "main": "index.js",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "echo fine"
+  },
+  "files": [
+    "*.js"
+  ],
+  "devDependencies": {
+    "documentation": "^5.0.0",
+    "offline-plugin": "^4.8.0",
+    "webpack": "^3.0.0"
+  },
+  "peerDependencies": {
+    "offline-plugin": "^4.8.0"
+  },
+  "xo": false,
+  "repository": "https://github.com/egoist/poi/tree/master/packages/plugin-offline"
+}

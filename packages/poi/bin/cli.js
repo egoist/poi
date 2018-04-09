@@ -1,9 +1,15 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --trace-deprecation
+
 const importLocalFile = require('import-local-file')
+const logger = require('@poi/logger')
 
 const localFile = importLocalFile(__filename)
-if (localFile) {
-  console.log('> Using local installed version of Poi')
+// Whether to force using globally installed Poi
+const forceGlobal =
+  process.argv.includes('--force-global') ||
+  process.argv.includes('--forceGlobal')
+if (localFile && !forceGlobal) {
+  logger.debug('Using local Poi', localFile)
   require(localFile)
 } else {
   // Code for both global and local version

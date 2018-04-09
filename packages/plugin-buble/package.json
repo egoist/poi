@@ -1,0 +1,36 @@
+{
+  "name": "@poi/plugin-buble",
+  "version": "10.0.0-beta.10",
+  "description": "Use buble to compile js files",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "repository": "https://github.com/egoist/poi/tree/master/packages/plugin-buble",
+  "author": "EGOIST <0x142857@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "buble": "^0.18.0",
+    "loader-utils": "^1.1.0",
+    "nodent-compiler": "^3.1.5"
+  },
+  "scripts": {
+    "example": "poi build example/index.js",
+    "docs": "documentation readme lib/index.js -s API",
+    "test": "jest --env node"
+  },
+  "files": [
+    "lib"
+  ],
+  "xo": false,
+  "poi": {
+    "plugins": [
+      "./lib/index.js"
+    ]
+  },
+  "devDependencies": {
+    "jest": "^22.0.3",
+    "memory-fs": "^0.4.1",
+    "webpack": "^3.10.0"
+  }
+}

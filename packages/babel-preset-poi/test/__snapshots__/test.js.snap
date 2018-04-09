@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`class properties: class properties 1`] = `
+"class Foo {
+  constructor() {
+    Object.defineProperty(this, \\"state\\", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: 1
+    });
+  }
+
+}"
+`;
+
+exports[`decorators legacy: decorators legacy 1`] = `
+"var _class;
+
+let Foo = bound(_class = class Foo {}) || _class;"
+`;
+
+exports[`object reset spread: object reset spread 1`] = `"const a = Object.assign({}, foo);"`;

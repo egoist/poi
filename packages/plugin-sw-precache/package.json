@@ -1,0 +1,25 @@
+{
+  "name": "@poi/plugin-sw-precache",
+  "version": "10.0.0-beta.10",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "index.js",
+    "register-service-worker.js"
+  ],
+  "scripts": {
+    "test": "echo fine",
+    "build": "poi build example/index.js --plugins ./index.js",
+    "deploy": "npm run build && surge -d poi-sw-precache.surge.sh -p dist"
+  },
+  "author": {
+    "name": "EGOIST",
+    "email": "0x142857@gmail.com"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/egoist/poi/tree/master/packages/plugin-sw-precache",
+  "dependencies": {
+    "sw-precache-webpack-plugin": "^0.11.4"
+  }
+}

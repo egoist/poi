@@ -1,12 +1,11 @@
-import test from 'ava'
-import * as babel from 'babel-core'
+const babel = require('@babel/core')
 
 function snapshot({ title, input }) {
-  test(title, t => {
+  test(title, () => {
     const { code } = babel.transform(input, {
       presets: [require.resolve('..')]
     })
-    t.snapshot(code, title)
+    expect(code).toMatchSnapshot(title)
   })
 }
 

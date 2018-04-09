@@ -1,0 +1,15 @@
+{
+  "name": "@poi/test-utils",
+  "version": "10.0.0-beta.10",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.js",
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "memory-fs": "^0.4.1"
+  }
+}

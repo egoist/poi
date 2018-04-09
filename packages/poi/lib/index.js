@@ -1,198 +1,252 @@
 const path = require('path')
 const EventEmitter = require('events')
-const yargs = require('yargs')
-const webpack = require('webpack')
-const PostCompilePlugin = require('post-compile-webpack-plugin')
+const Config = require('webpack-chain')
 const webpackMerge = require('webpack-merge')
-const rm = require('rimraf')
-const ware = require('ware')
+const UseConfig = require('use-config')
+const chalk = require('chalk')
+const get = require('lodash/get')
 const merge = require('lodash/merge')
-const MemoryFS = require('memory-fs')
-const parsePresets = require('parse-json-config')
-const webpackUtils = require('./webpack-utils')
-const createConfig = require('./create-config')
-const createServer = require('./server')
-const { promisify, readPkg } = require('./utils')
-const handleOptions = require('./handle-options')
+const parseJsonConfig = require('parse-json-config')
+const chokidar = require('chokidar')
+const CLIEngine = require('./cliEngine')
+const handleOptions = require('./handleOptions')
+const logger = require('@poi/logger')
+const { ownDir } = require('./utils/dir')
+const deleteCache = require('./utils/deleteCache')
+const PoiError = require('./utils/PoiError')
+const loadEnv = require('./utils/loadEnv')
 
-function runWebpack(compiler) {
-  return new Promise((resolve, reject) => {
-    compiler.run((err, stats) => {
-      if (err) return reject(err)
-      resolve(stats)
-    })
-  })
-}
-
-class Poi extends EventEmitter {
-  constructor(options) {
+module.exports = class Poi extends EventEmitter {
+  constructor(command = 'build', options = {}) {
     super()
-    this.options = Object.assign(
-      {
-        cwd: '.',
-        argv: yargs.argv,
-        // Required for cloud IDE like cloud9
-        host: process.env.HOST || '0.0.0.0',
-        port: process.env.PORT || 4000
-      },
-      options
-    )
+    logger.setOptions(options)
+    logger.debug('command', command)
+
+    // Assign stuffs to context so external plugins can access them as well
+    this.logger = logger
+    this.ownDir = ownDir
+
+    this.command = command
+    this.options = Object.assign({}, options)
+    this.rerun = () => {
+      // Delete cache
+      deleteCache()
+
+      const poi = new Poi(command, options)
+      return poi.run()
+    }
+    this.webpackConfig = new Config()
+    this.cli = new CLIEngine(command)
+    this.plugins = new Set()
+
+    this.extendWebpackFns = []
+    this.cli.cac.on('error', err => {
+      if (err.name === 'PoiError') {
+        logger.error(err.message)
+      } else {
+        logger.error(chalk.dim(err.stack))
+      }
+    })
 
     if (!process.env.NODE_ENV) {
-      // env could be `production` `development` `test`
-      process.env.NODE_ENV =
-        this.options.mode === 'watch' ? 'development' : this.options.mode
+      switch (this.command) {
+        case 'build':
+          process.env.NODE_ENV = 'production'
+          break
+        case 'test':
+          process.env.NODE_ENV = 'test'
+          break
+        default:
+          process.env.NODE_ENV = 'development'
+      }
     }
-
-    this.manifest = readPkg()
-    this.middlewares = []
-    this.webpackFlows = []
+    this.env = {
+      NODE_ENV: process.env.NODE_ENV
+    }
+    if (this.options.env !== false) {
+      Object.assign(this.env, loadEnv(process.env.NODE_ENV))
+    }
+    logger.debug('env', this.env)
   }
 
-  /*
-  Load everything that's required for creating our webpack config
-  */
-  prepare() {
-    return handleOptions(this.options).then(options => {
-      this.options = options
+  extendWebpack(fn) {
+    this.extendWebpackFns.push(fn)
+    return this
+  }
+
+  createCompiler(webpackConfig) {
+    webpackConfig = webpackConfig || this.createWebpackConfig()
+
+    const compiler = require('@poi/core/webpack')(webpackConfig)
+    if (this.options.outputFileSystem) {
+      compiler.outputFileSystem = this.options.outputFileSystem
+    }
+    return compiler
+  }
+
+  runCompiler(webpackConfig) {
+    const compiler = this.createCompiler(webpackConfig)
+    return new Promise((resolve, reject) => {
+      compiler.run((err, stats) => {
+        if (err) return reject(err)
+        resolve(stats)
+      })
     })
+  }
+
+  registerPlugin(plugin) {
+    this.plugins.add(plugin)
+    return this
+  }
+
+  registerPlugins(plugins) {
+    if (typeof plugins === 'string') {
+      plugins = [plugins]
+    }
+    for (const plugin of parseJsonConfig(plugins, { prefix: 'poi-plugin-' })) {
+      this.registerPlugin(plugin)
+    }
+    return this
+  }
+
+  async prepare() {
+    let config
+
+    // Load Poi config file
+    // You can disable this by setting `config` to false
+    if (this.options.config !== false) {
+      const useConfig = new UseConfig({
+        name: 'poi',
+        files: this.options.config
+          ? [this.options.config]
+          : ['{name}.config.js', '.{name}rc', 'package.json']
+      })
+      const poiConfig = await useConfig.load()
+      if (poiConfig.path) {
+        logger.debug('poi config path', poiConfig.path)
+        this.configFile = poiConfig.path
+        config = poiConfig.config
+      } else if (this.options.config) {
+        // Config file was specified but not found
+        throw new PoiError(
+          `Config file was not found at ${this.options.config}`
+        )
+      }
+    }
+
+    this.options = merge(
+      typeof config === 'function' ? config(this.options) : config,
+      this.options
+    )
+    this.options = await handleOptions(this.options, this.command)
+
+    logger.inspect('poi options', this.options)
+
+    // Register our internal plugins
+    this.registerPlugin(require('./plugins/baseConfig'))
+    this.registerPlugin(require('./plugins/develop'))
+    this.registerPlugin(require('./plugins/build'))
+    this.registerPlugin(require('./plugins/watch'))
+
+    // Register user plugins
+    if (this.options.plugins) {
+      this.registerPlugins(this.options.plugins)
+    }
+
+    // Call plugins
+    if (this.plugins.size > 0) {
+      for (const plugin of this.plugins) {
+        plugin(this)
+      }
+    }
+
+    // Add options.extedWebpack to the end of extendWebpackFns
+    if (this.options.extendWebpack) {
+      logger.debug('Use extendWebpack defined in your config file')
+      this.extendWebpack(this.options.extendWebpack)
+    }
+
+    // Run all `extendWebpack` functions
+    this.extendWebpackFns.forEach(fn => {
+      fn(this.webpackConfig, { command: this.command })
+    })
+  }
+
+  async run() {
+    await this.prepare()
+    const res = await this.cli.runCommand()
+    this.watchRun(res)
+    return res
+  }
+
+  watchRun({ devServer, webpackWatcher } = {}) {
+    if (
+      this.options.restartOnFileChanges === false ||
+      !['watch', 'develop'].includes(this.command) ||
+      this.cli.willShowHelp()
+    ) {
+      return
+    }
+
+    const filesToWatch = [
+      ...[].concat(this.configFile || ['poi.config.js', '.poirc']),
+      ...[].concat(this.options.restartOnFileChanges || [])
+    ]
+
+    if (filesToWatch.length === 0) return
+
+    logger.debug('watching files', filesToWatch.join(', '))
+
+    const watcher = chokidar.watch(filesToWatch, {
+      ignoreInitial: true
+    })
+    const handleEvent = filepath => {
+      logger.warn(`Restarting due to changes made in: ${filepath}`)
+      watcher.close()
+      if (devServer) {
+        devServer.close(() => this.rerun())
+      } else if (webpackWatcher) {
+        webpackWatcher.close()
+        this.rerun()
+      }
+    }
+    watcher.on('change', handleEvent)
+    watcher.on('add', handleEvent)
+    watcher.on('unlink', handleEvent)
   }
 
   createWebpackConfig() {
-    if (this.webpackConfig) return this.webpackConfig.toConfig()
-
-    this.usePresets()
-    this.addWebpackFlow(config => {
-      config.plugin('compile-notifier').use(PostCompilePlugin, [
-        stats => {
-          this.emit('compile-done', stats)
-        }
-      ])
-    })
-    if (this.options.extendWebpack) {
-      this.addWebpackFlow(this.options.extendWebpack)
+    let config = this.webpackConfig.toConfig()
+    if (typeof this.options.webpack === 'object') {
+      config = webpackMerge(config, this.options.webpack)
+    } else if (typeof this.options.webpack === 'function') {
+      config = this.options.webpack(config) || config
     }
-
-    this.webpackConfig = createConfig(this.options)
-    this.webpackFlows.forEach(flow => flow(this.webpackConfig))
-    const config = this.webpackConfig.toConfig()
-    if (this.options.webpack) {
-      return typeof this.options.webpack === 'function' ?
-        this.options.webpack(config) :
-        webpackMerge(config, this.options.webpack)
+    if (this.options.debugWebpack) {
+      logger.log(
+        chalk.bold('webpack config: ') +
+          require('util').inspect(
+            typeof this.options.debugWebpack === 'string'
+              ? get(config, this.options.debugWebpack)
+              : config,
+            {
+              depth: null,
+              colors: true
+            }
+          )
+      )
     }
     return config
   }
 
-  build() {
-    return this.prepare()
-      .then(() => this.runMiddlewares())
-      .then(webpackConfig => {
-        this.createCompiler(webpackConfig)
-        const { filename, path: outputPath } = this.compiler.options.output
-        // Only remove dist file when name contains hash
-        const implicitlyRemoveDist =
-          this.options.removeDist !== false &&
-          /\[(chunk)?hash:?\d?\]/.test(filename)
-        if (this.options.removeDist === true || implicitlyRemoveDist) {
-          return promisify(rm)(path.join(outputPath, '*'))
-        }
-      })
-      .then(() => runWebpack(this.compiler))
+  resolveCwd(...args) {
+    return path.resolve(this.options.cwd, ...args)
   }
 
-  watch() {
-    return this.prepare()
-      .then(() => this.runMiddlewares())
-      .then(webpackConfig => {
-        this.createCompiler(webpackConfig)
-        return this.compiler.watch({}, () => {})
-      })
-  }
-
-  dev() {
-    return this.prepare()
-      .then(() => this.runMiddlewares())
-      .then(webpackConfig => {
-        this.createCompiler(webpackConfig)
-        return createServer(this.compiler, this.options)
-      })
-  }
-
-  createCompiler(webpackConfig) {
-    this.compiler = webpack(webpackConfig)
-    if (this.options.inMemory) {
-      this.compiler.outputFileSystem = new MemoryFS()
+  inferDefaultValue(value) {
+    if (typeof value !== 'undefined') {
+      return value
     }
-    return this
-  }
-
-  addWebpackFlow(mode, fn) {
-    if (typeof mode === 'function') {
-      this.webpackFlows.push(mode)
-    } else if (this.isMode(mode)) {
-      this.webpackFlows.push(fn)
-    }
-    return this
-  }
-
-  addMiddleware(mode, fn) {
-    if (typeof mode === 'function') {
-      this.middlewares.push(mode)
-    } else if (this.isMode(mode)) {
-      this.middlewares.push(fn)
-    }
-    return this
-  }
-
-  isMode(mode) {
-    const currentMode = this.options.mode
-    const isWildcard = mode === '*'
-    const isMode = typeof mode === 'string' && mode === currentMode
-    const hasMode = Array.isArray(mode) && mode.indexOf(currentMode) > -1
-    return isWildcard || isMode || hasMode
-  }
-
-  usePresets() {
-    const presetContext = {
-      isMode: this.isMode.bind(this),
-      run: this.addMiddleware.bind(this),
-      extendWebpack: this.addWebpackFlow.bind(this),
-      on: this.on.bind(this),
-      once: this.once.bind(this),
-      options: this.options,
-      argv: this.options.argv,
-      manifest: this.manifest,
-      webpackUtils,
-      runWebpack,
-      merge
-    }
-
-    let presets = this.options.presets
-    if (presets) {
-      if (typeof presets === 'string' || typeof presets === 'function') {
-        presets = [presets]
-      }
-      presets = parsePresets(presets, {
-        prefix: 'poi-preset-'
-      })
-      if (presets) {
-        presets.forEach(preset => preset(presetContext))
-      }
-    }
-  }
-
-  runMiddlewares() {
-    return new Promise((resolve, reject) => {
-      const webpackConfig = this.createWebpackConfig()
-      ware()
-        .use(this.middlewares)
-        .run(webpackConfig, err => {
-          if (err) return reject(err)
-          resolve(webpackConfig)
-        })
-    })
+    return this.command === 'build'
   }
 }
-
-module.exports = options => new Poi(options)

@@ -1,0 +1,22 @@
+{
+  "name": "@poi/plugin-webpackmonitor",
+  "version": "10.0.0-beta.10",
+  "description": "monitoring webpack optimization metrics",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "echo fine",
+    "example": "poi build example/index.js --plugins ./index.js --webpackmonitor"
+  },
+  "repository": "https://github.com/egoist/poi/tree/master/packages/plugin-webpackmonitor",
+  "author": "EGOIST",
+  "license": "MIT",
+  "dependencies": {
+    "webpack-monitor": "^1.0.13"
+  }
+}

@@ -27,4 +27,4 @@ By default it supports [Vue JSX](https://github.com/vuejs/babel-preset-vue).
 
 ## License
 
-MIT &copy; [EGOIST](https://github.com/egoist)
+[MIT](https://oss.ninja/mit/egoist) &copy; [EGOIST](https://github.com/egoist)

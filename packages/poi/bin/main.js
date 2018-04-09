@@ -1,102 +1,53 @@
 const cac = require('cac')
-const loudRejection = require('loud-rejection')
-const update = require('update-notifier')
-const pkg = require('../package.json')
+const updateNotifier = require('update-notifier')
+const Poi = require('../lib')
+const isPath = require('../lib/utils/isPath')
+const pkg = require('../package')
 
-loudRejection()
+require('loud-rejection')()
 
-update({ pkg }).notify()
+updateNotifier({ pkg }).notify()
 
-function getOpts(input, flags, mode) {
-  const opts = Object.keys(flags).reduce((res, next) => {
-    if (typeof flags[next] !== 'undefined') {
-      res[next] = flags[next]
-    }
-    return res
-  }, {})
+// To start Poi, we will need to know which `command` you're calling
+// And you can also supply options via CLI flags
+const { input, flags } = cac.parse(process.argv.slice(2))
 
-  if (input.length > 0) {
-    opts.entry = input
-  }
-  return Object.assign({ mode }, opts)
+// Handle `--version` before starting Poi
+if (flags.version || flags.v) {
+  console.log(require('../package').version)
+  process.exit()
 }
 
-function createHandler(mode) {
-  return (input, flags) => {
-    const run = require('./run')
-    run(getOpts(input, flags, mode)).catch(run.handleError)
-  }
+// Get command from CLI input
+// When there's no input or the first element of input is a file path
+// We think you're in the `develop` command
+// Otherwise you're in the `input[0]` command
+// And the rest of input becomes the webpack `entry`
+let command
+let entry
+if (!input[0] || isPath(input[0])) {
+  command = 'develop'
+  entry = input
+} else {
+  command = input[0]
+  entry = input.slice(1)
 }
 
-const cli = cac()
+// Create Poi options
+const options = {
+  ...flags,
+  entry,
+  // Keep flags as flags so we know which options are from CLI
+  flags
+}
 
-cli.option('dist', {
-  alias: 'd',
-  desc: 'Output directory'
-})
-.option('config', {
-  alias: 'c',
-  desc: 'Use custom path to config file'
-})
-.option('templateCompiler', {
-  desc: 'Use full build of Vue'
-})
-.option('jsx', {
-  desc: 'Specify JSX transformer, like "vue", "react" or any JSX pragma'
-})
-.option('rawErrors', {
-  desc: 'Output original webpack errors'
-})
-.option('no-clear', {
-  desc: 'Do not clear screen'
-})
-.option('inspectOptions', {
-  desc: 'Output final options'
-})
-.option('require', {
-  desc: 'Require modules like `ts-node/register` before running Poi'
-})
+if (entry.length === 0) {
+  delete options.entry
+}
 
-cli
-  .command('build', 'Build app in production mode', createHandler('production'))
-  .option('generate-stats', {
-    desc: 'Generate webpack stats for the bundle file'
-  })
-  .option('no-progress', {
-    desc: 'Disable progress bar'
-  })
-  .option('library', {
-    desc: 'Build as a library'
-  })
+const app = new Poi(command, options)
 
-cli
-  .command('*', {
-    desc: 'Run app in development mode',
-    alias: 'dev'
-  }, createHandler('development'))
-  .option('port', {
-    desc: 'Custom dev server port'
-  })
-  .option('proxy', {
-    desc: 'Proxy API request',
-    type: 'string'
-  })
-  .option('open', {
-    alias: 'o',
-    desc: 'Open App after compiling'
-  })
-  .option('restartOnFileChanges', {
-    alias: 'rs',
-    desc: 'Restart Poi on file changes'
-  })
-
-cli
-  .command('watch', 'Run app in watch mode', createHandler('watch'))
-  .option('restart-on-file-changes', {
-    alias: 'rs',
-    desc: 'Restart Poi on file changes'
-  })
-
-cli.command('test', 'Run app in test mode', createHandler('test'))
-
-cli.parse()
+app.run().catch(err => {
+  console.error(err.stack)
+  process.exit(1)
+})
