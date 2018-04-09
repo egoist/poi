@@ -1,6 +1,6 @@
 # Hot Reloading
 
-Hot reloading (HMR) is enabled in development, a.k.a. the `poi` or `poi dev` command.
+Hot reloading (HMR) is enabled in development, a.k.a. the `poi` or `poi develop` command.
 
 ## Frameworks
 

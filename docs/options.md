@@ -182,7 +182,7 @@ Merge this object with default options of `vue-loader` using `lodash.merge`.
 
 ## Dev options
 
-These options are only for `poi` and `poi dev`.
+These options are only for `poi` and `poi develop`.
 
 ### host
 
@@ -201,7 +201,7 @@ Port for development server.
 ### hotReload
 
 Type: `boolean`<br>
-Default: `true` in `poi` and `poi dev`, `false` otherwise
+Default: `true` in `poi` and `poi develop`, `false` otherwise
 
 Toggle HMR.
 
