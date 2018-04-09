@@ -180,6 +180,29 @@ Type: `object` `loaderOptions => newLoaderOptions`
 
 Merge this object with default options of `vue-loader` using `lodash.merge`.
 
+### html
+
+Options for [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin).
+
+Default:
+
+(`pkg` is the data of your `package.json`)
+
+```js
+{
+  // Default to `pkg.title` or directory name
+  title,
+  // Default to `pkg.description`
+  description,
+  // The environment variables you defined
+  env,
+  // Entire `pkg`
+  pkg
+}
+```
+
+You can access these options in template file via `htmlWebpackPlugin.options`.
+
 ## Dev options
 
 These options are only for `poi` and `poi develop`.

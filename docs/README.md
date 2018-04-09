@@ -2,6 +2,7 @@
 
 - [Options](./options.md)
 - Guides
+  - [`index.html`](./guides/index-html.md)
   - [Using Babel](./guides/using-babel.md)
   - [Using CSS](./guides/using-css.md)
   - [Hot Reloading](./guides/hot-reloading.md)

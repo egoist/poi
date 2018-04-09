@@ -75,6 +75,13 @@ module.exports = class Poi extends EventEmitter {
     return this
   }
 
+  configureWebpack(fn) {
+    this.hooks.add('configureWebpack', updateConfig => {
+      updateConfig(fn)
+    })
+    return this
+  }
+
   configureDevServer(fn) {
     this.hooks.add('configureDevServer', fn)
     return this
@@ -144,7 +151,7 @@ module.exports = class Poi extends EventEmitter {
       typeof config === 'function' ? config(this.options) : config,
       this.options
     )
-    this.options = await handleOptions(this.options, this.command)
+    this.options = await handleOptions(this)
 
     logger.inspect('poi options', this.options)
 
@@ -167,9 +174,17 @@ module.exports = class Poi extends EventEmitter {
     }
 
     // Add options.chainWebpack to the end
-    if (this.options.chainWebpack) {
+    const chainWebpack = this.options.chainWebpack || this.options.extendWebpack
+    if (chainWebpack) {
       logger.debug('Use chainWebpack defined in your config file')
-      this.chainWebpack(this.options.chainWebpack)
+      this.chainWebpack(chainWebpack)
+    }
+
+    const configureWebpack =
+      this.options.configureWebpack || this.options.webpack
+    if (configureWebpack) {
+      logger.debug('Use configureWebpack defined in your config file')
+      this.configureWebpack(configureWebpack)
     }
 
     this.hooks.invoke('chainWebpack', this.webpackConfig, {
@@ -222,11 +237,13 @@ module.exports = class Poi extends EventEmitter {
 
   createWebpackConfig() {
     let config = this.webpackConfig.toConfig()
-    if (typeof this.options.webpack === 'object') {
-      config = webpackMerge(config, this.options.webpack)
-    } else if (typeof this.options.webpack === 'function') {
-      config = this.options.webpack(config) || config
-    }
+    this.hooks.invoke('configureWebpack', fn => {
+      if (typeof fn === 'object') {
+        config = webpackMerge(config, fn)
+      } else if (typeof fn === 'function') {
+        config = fn(config) || config
+      }
+    })
     if (this.options.debugWebpack) {
       logger.log(
         chalk.bold('webpack config: ') +

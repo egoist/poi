@@ -41,8 +41,7 @@ async function handleBabel(options) {
   return options
 }
 
-function handleHTML(options) {
-  const { html, env, minimize } = options
+function handleHTML({ html, minimize, env }) {
   if (html === false) return false
 
   const htmls = Array.isArray(html) ? html : [html || {}]
@@ -64,7 +63,7 @@ function handleHTML(options) {
   })
 }
 
-module.exports = async (options, command) => {
+module.exports = async ({ options, command, env }) => {
   options = {
     entry: readProjectPkg().main || 'index.js',
     cwd: process.cwd(),
@@ -99,7 +98,7 @@ module.exports = async (options, command) => {
       ? false
       : handleHTML({
           minimize: options.minimize,
-          env: options.env,
+          env,
           html: options.html
         })
   options.sourceMap = options.format

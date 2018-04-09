@@ -34,11 +34,13 @@ module.exports = {
 
 *To be written..*
 
-## Extending Webpack Config
+## Chain Webpack Config
+
+Use [webpack-chain](https://github.com/mozilla-neutrino/webpack-chain) to modify webpack config.
 
 ```js
 poi.chainWebpack(config => {
-  // extend config..
+  // chain webpack config..
   // e.g. add a webpack plugin
   config.plugin('some-plugin')
     .use(SomeWebpackPlugin, [pluginOptions])
@@ -46,6 +48,23 @@ poi.chainWebpack(config => {
 ```
 
 The `config` here is a [webpack-chain](https://github.com/mozilla-neutrino/webpack-chain) instance.
+
+## Configure Webpack Config
+
+Directly mutate or merge webpack config:
+
+```js
+poi.configureWebpack(config => {
+  config.devtool = false
+  // Optionally return the config
+  // return config
+})
+
+// Or use webpack-merge
+poi.configureWebpack({
+  devtool: false
+})
+```
 
 ## Configure Dev Server
 
