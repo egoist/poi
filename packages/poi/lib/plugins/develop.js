@@ -47,7 +47,7 @@ module.exports = poi => {
             )
           )
         )
-        poi.invoke('configureDevServer', app)
+        poi.hooks.invoke('configureDevServer', app)
         existingBefore && existingBefore(app)
       }
 
