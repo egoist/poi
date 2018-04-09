@@ -1,7 +1,6 @@
 const path = require('path')
 const fs = require('fs')
 const webpack = require('webpack')
-const isCI = require('is-ci')
 const yarnGlobal = require('yarn-global')
 const getFullEnvString = require('./utils/getFullEnvString')
 const stringifyObject = require('./utils/stringifyObject')
@@ -138,24 +137,25 @@ module.exports = poi => {
       .plugin('no-emit-on-errors')
       .use(require('webpack/lib/NoEmitOnErrorsPlugin'))
 
-    if (process.env.NODE_ENV !== 'test') {
-      config.plugin('fancy-log').use(require('./webpack/FancyLogPlugin'), [
+    if (process.env.NODE_ENV !== 'test' && poi.options.progress !== false) {
+      // config.plugin('progress').use(require('./webpack/ProgressPlugin'))
+      config.plugin('webpackbar').use(require('webpackbar'), [
         {
-          command: poi.command,
-          host: poi.options.host,
-          port: poi.options.port,
-          clearScreen: poi.options.clearScreen
+          name: 'Poi',
+          profile: poi.options.profile,
+          compiledIn: false
         }
       ])
     }
 
-    if (
-      process.stderr.isTTY &&
-      process.env.NODE_ENV !== 'test' &&
-      poi.options.progress !== false &&
-      !isCI
-    ) {
-      config.plugin('progress').use(require('./webpack/ProgressPlugin'))
+    if (process.env.NODE_ENV !== 'test') {
+      config
+        .plugin('report-status')
+        .use(require('./webpack/ReportStatusPlugin'), [
+          {
+            command: poi.command
+          }
+        ])
     }
   }
 

@@ -24,4 +24,7 @@ module.exports = command => {
       desc: `Minimize bundle (default: ${command.command.name === 'build'})`,
       alias: 'm'
     })
+    .option('progress', {
+      desc: 'Toggle progress bar'
+    })
 }

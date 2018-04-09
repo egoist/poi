@@ -29,7 +29,6 @@ module.exports = poi => {
           quiet: true,
           historyApiFallback: true,
           overlay: true,
-          noInfo: true,
           disableHostCheck: true,
           publicPath: compiler.options.output.publicPath
         },
