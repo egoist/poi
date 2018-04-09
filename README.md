@@ -23,7 +23,7 @@ $ poi
 
 Then your application will be running at `http://localhost:4000`
 
-![preview](https://i.loli.net/2018/03/27/5ab9f9699682b.png)
+<img src="https://i.loli.net/2018/03/27/5ab9f9699682b.png" width="400" alt="preview">
 
 In most cases, you don't need to configure anything to make your app work with Poi, since Poi has great built-in support for:
 
