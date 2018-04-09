@@ -7,7 +7,7 @@
  */
 module.exports = ({ loaderOptions } = {}) => {
   return poi => {
-    poi.extendWebpack(config => {
+    poi.chainWebpack(config => {
       let babelOptions
 
       const jsRule = config.module.rule('js')

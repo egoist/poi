@@ -205,7 +205,7 @@ module.exports = poi => {
     }
   }
 
-  poi.extendWebpack(config => {
+  poi.chainWebpack(config => {
     config.merge({
       mode: poi.command === 'build' ? 'production' : 'development',
       entry: poi.options.entry,

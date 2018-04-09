@@ -12,8 +12,8 @@ module.exports = (options = {}) => {
   return poi => {
     if (!poi.cli.isCurrentCommand('test')) return
 
-    if (typeof options.extendWebpack === 'function') {
-      poi.extendWebpack(options.extendWebpack)
+    if (typeof options.chainWebpack === 'function') {
+      poi.chainWebpack(options.chainWebpack)
     }
 
     const inferValue = (key, fallback) => {
@@ -28,7 +28,7 @@ module.exports = (options = {}) => {
 
     let isTypeScript = false
 
-    poi.extendWebpack(config => {
+    poi.chainWebpack(config => {
       const coverage = inferValue('coverage')
 
       isTypeScript = config.module.rules.has('typescript')

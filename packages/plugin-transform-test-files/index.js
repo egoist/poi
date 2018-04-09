@@ -22,7 +22,7 @@ module.exports = (options = {}) => {
     // Exclude node modules in bundled files
     poi.options.excludeNodeModules = true
 
-    poi.extendWebpack(config => {
+    poi.chainWebpack(config => {
       const outputPath = path.resolve(poi.options.cwd, outputDir)
 
       config.merge({

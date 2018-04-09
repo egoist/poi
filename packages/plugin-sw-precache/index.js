@@ -4,7 +4,7 @@ const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 module.exports = () => poi => {
   if (!poi.cli.isCurrentCommand('build')) return
 
-  poi.extendWebpack(config => {
+  poi.chainWebpack(config => {
     const publicUrl = config.output.get('publicPath')
 
     config.plugin('replace-string').tap(options => {

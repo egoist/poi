@@ -92,16 +92,16 @@ Generate code coverage.
 
 Type: `object` `karmaConfig => newkarmaConfig`
 
-### extendWebpack
+### chainWebpack
 
 Type: `function`<br>
 Default: `undefined`
 
-Extend webpack config using webpack-chain:
+Extending webpack config using webpack-chain:
 
 ```js
 require('poi-plugin-karma')({
-  extendWebpack(config) {
+  chainWebpack(config) {
     config.some.action()
   }
 })

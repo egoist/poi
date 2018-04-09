@@ -6,7 +6,7 @@
  */
 module.exports = ({ loaderOptions } = {}) => {
   return poi => {
-    poi.extendWebpack(config => {
+    poi.chainWebpack(config => {
       config.append('resolve.extensions', '.ts')
       config.append('resolve.extensions', '.tsx')
 

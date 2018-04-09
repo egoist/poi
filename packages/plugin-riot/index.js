@@ -1,5 +1,5 @@
 module.exports = ({ loaderOptions } = {}) => poi => {
-  poi.extendWebpack(config => {
+  poi.chainWebpack(config => {
     config.module
       .rule('riot')
       .test(/\.tag$/)

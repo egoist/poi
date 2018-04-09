@@ -15,6 +15,7 @@ const { ownDir } = require('./utils/dir')
 const deleteCache = require('./utils/deleteCache')
 const PoiError = require('./utils/PoiError')
 const loadEnv = require('./utils/loadEnv')
+const Hooks = require('./utils/hooks')
 
 module.exports = class Poi extends EventEmitter {
   constructor(command = 'build', options = {}) {
@@ -38,8 +39,8 @@ module.exports = class Poi extends EventEmitter {
     this.webpackConfig = new Config()
     this.cli = new CLIEngine(command)
     this.plugins = new Set()
+    this.hooks = new Hooks()
 
-    this.extendWebpackFns = []
     this.cli.cac.on('error', err => {
       if (err.name === 'PoiError') {
         logger.error(err.message)
@@ -69,8 +70,8 @@ module.exports = class Poi extends EventEmitter {
     logger.debug('env', this.env)
   }
 
-  extendWebpack(fn) {
-    this.extendWebpackFns.push(fn)
+  chainWebpack(fn) {
+    this.hooks.add('chainWebpack', fn)
     return this
   }
 
@@ -160,15 +161,14 @@ module.exports = class Poi extends EventEmitter {
       }
     }
 
-    // Add options.extedWebpack to the end of extendWebpackFns
-    if (this.options.extendWebpack) {
-      logger.debug('Use extendWebpack defined in your config file')
-      this.extendWebpack(this.options.extendWebpack)
+    // Add options.chainWebpack to the end
+    if (this.options.chainWebpack) {
+      logger.debug('Use chainWebpack defined in your config file')
+      this.chainWebpack(this.options.chainWebpack)
     }
 
-    // Run all `extendWebpack` functions
-    this.extendWebpackFns.forEach(fn => {
-      fn(this.webpackConfig, { command: this.command })
+    this.hooks.invoke('chainWebpack', this.webpackConfig, {
+      command: this.command
     })
   }
 

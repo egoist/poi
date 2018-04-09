@@ -37,7 +37,7 @@ module.exports = {
 ## Extending Webpack Config
 
 ```js
-poi.extendWebpack(config => {
+poi.chainWebpack(config => {
   // extend config..
   // e.g. add a webpack plugin
   config.plugin('some-plugin')

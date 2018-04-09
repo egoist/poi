@@ -8,7 +8,7 @@
  */
 module.exports = ({ asyncAwait = true, bubleOptions } = {}) => {
   return poi => {
-    poi.extendWebpack(config => {
+    poi.chainWebpack(config => {
       bubleOptions = Object.assign(
         {
           transforms: {

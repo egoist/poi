@@ -6,7 +6,7 @@
  */
 module.exports = function({ loaderOptions } = {}) {
   return poi => {
-    poi.extendWebpack(config => {
+    poi.chainWebpack(config => {
       config.resolve.extensions.add('.html')
 
       const jsRule = config.module.rule('js')

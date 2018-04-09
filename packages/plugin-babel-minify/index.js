@@ -2,7 +2,7 @@ module.exports = (minifyOpts, pluginOpts) => {
   return poi => {
     if (!poi.cli.isCurrentCommand('build')) return
 
-    poi.extendWebpack(config => {
+    poi.chainWebpack(config => {
       // Do not use if `minimize` is off
       if (poi.options.minimize) {
         // Always disable webpack's default minimizer

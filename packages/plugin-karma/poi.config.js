@@ -2,7 +2,7 @@ module.exports = {
   plugins: [
     require('.')({
       files: 'example/*.test.js',
-      extendWebpack() {
+      chainWebpack() {
         console.log('extending webpack config')
       }
     })

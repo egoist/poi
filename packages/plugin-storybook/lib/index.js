@@ -29,7 +29,7 @@ module.exports = ({
     poi.options.vue.fullBuild = true
   }
 
-  poi.extendWebpack(config => {
+  poi.chainWebpack(config => {
     const entry = [...config.entryPoints.get('main')]
     config.entryPoints.delete('main')
     const addonsIndex = poi.command === 'develop' ? 2 : 1

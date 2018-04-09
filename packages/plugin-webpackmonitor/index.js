@@ -5,7 +5,7 @@ module.exports = ({ pluginOptions } = {}) => {
   return poi => {
     if (!poi.cli.isCurrentCommand('build')) return
 
-    poi.extendWebpack(config => {
+    poi.chainWebpack(config => {
       config.plugin('webpackmonitor').use(WebpackMonitor, [
         Object.assign(
           {

@@ -13,7 +13,7 @@ module.exports = (options = {}) => {
       options.loaderOptions
     )
 
-    poi.extendWebpack(config => {
+    poi.chainWebpack(config => {
       config.module
         .rule('elm')
         .test(/\.elm$/)

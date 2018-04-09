@@ -9,7 +9,7 @@ module.exports = ({
   return poi => {
     if (!poi.cli.isCurrentCommand('build')) return
 
-    poi.extendWebpack(config => {
+    poi.chainWebpack(config => {
       pwa = path.resolve(poi.options.cwd, pwa)
 
       if (config.entryPoints.has(entry)) {

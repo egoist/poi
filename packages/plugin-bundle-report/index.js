@@ -7,7 +7,7 @@ module.exports = pluginOptions => {
   return poi => {
     if (!poi.cli.isCurrentCommand('build')) return
 
-    poi.extendWebpack(config => {
+    poi.chainWebpack(config => {
       if (poi.options.bundleReport) {
         const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
