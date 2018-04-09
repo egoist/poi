@@ -142,8 +142,7 @@ module.exports = poi => {
       config.plugin('webpackbar').use(require('webpackbar'), [
         {
           name: 'Poi',
-          profile: poi.options.profile,
-          compiledIn: false
+          profile: poi.options.profile
         }
       ])
     }
