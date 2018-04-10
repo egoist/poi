@@ -30,7 +30,7 @@ module.exports = ({
   }
 
   poi.chainWebpack(config => {
-    const entry = [...config.entryPoints.get('main')]
+    const entry = [...config.entryPoints.get('main').store]
     config.entryPoints.delete('main')
     const addonsIndex = poi.command === 'develop' ? 2 : 1
     config.entry('iframe').merge(entry.slice(0, addonsIndex))
