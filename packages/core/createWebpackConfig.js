@@ -242,6 +242,10 @@ module.exports = poi => {
       }
     })
 
+    function setGraphql(config) {
+      require('./rules/graphql')(config)
+    }
+
     setOutput(config)
     setPerformance(config)
     setExternals(config)
@@ -259,6 +263,7 @@ module.exports = poi => {
     setWatchMissingFiles(config)
     setCopyFiles(config)
     setHTML(config)
+    setGraphql(config)
 
     // installed by `yarn global add`
     if (yarnGlobal.inDirectory(__dirname)) {
