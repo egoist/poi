@@ -20,4 +20,6 @@ class Logger extends LogHorizon {
   }
 }
 
-module.exports = new Logger()
+module.exports = new Logger({
+  logUpdate: false
+})
