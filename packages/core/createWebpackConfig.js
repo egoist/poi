@@ -145,17 +145,20 @@ module.exports = poi => {
       config.plugin('webpackbar').use(require('webpackbar'), [
         {
           name: 'Poi',
-          profile: poi.options.profile
+          profile: poi.options.profile,
+          compiledIn: false
         }
       ])
     }
 
     if (process.env.NODE_ENV !== 'test') {
       config
-        .plugin('report-status')
-        .use(require('./webpack/ReportStatusPlugin'), [
+        .plugin('friendly-reporter')
+        .use(require('friendly-webpack-reporter'), [
           {
-            command: poi.command
+            showFileStats: poi.command === 'build',
+            logger: require('@poi/logger'),
+            clearConsole: poi.options.clearConsole
           }
         ])
     }

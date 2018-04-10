@@ -8008,9 +8008,9 @@ lodash@^4.0.0, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.3, l
   version "4.17.5"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
 
-log-horizon@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/log-horizon/-/log-horizon-0.1.1.tgz#3d9a5c1a86b60b234dac72fdde413125cae194f7"
+log-horizon@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/log-horizon/-/log-horizon-0.1.2.tgz#b253a43673bd6dcb44ce1d504663500ecd193fec"
   dependencies:
     chalk "^2.3.1"
     log-update "^2.3.0"
