@@ -212,6 +212,26 @@ module.exports = poi => {
       devtool: poi.options.sourceMap,
       optimization: {
         minimize: poi.options.minimize,
+        minimizer: [
+          {
+            apply(compiler) {
+              const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+              new UglifyJsPlugin({
+                cache: true,
+                parallel: true,
+                sourceMap:
+                  poi.options.sourceMap &&
+                  /source-?map/.test(poi.options.sourceMap),
+                uglifyOptions: {
+                  output: {
+                    comments: false
+                  },
+                  mangle: true
+                }
+              }).apply(compiler)
+            }
+          }
+        ],
         splitChunks: {
           chunks: poi.options.format || poi.command === 'test' ? 'async' : 'all'
         }
