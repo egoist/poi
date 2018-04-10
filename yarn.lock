@@ -2358,12 +2358,6 @@ better-assert@~1.0.0:
   dependencies:
     callsite "1.0.0"
 
-better-coffee-loader@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/better-coffee-loader/-/better-coffee-loader-0.1.0.tgz#c5dd7c9cc9b339fe0741b69ab578b468f16e709f"
-  dependencies:
-    loader-utils "^1.1.0"
-
 bfj-node4@^5.2.0:
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/bfj-node4/-/bfj-node4-5.3.1.tgz#e23d8b27057f1d0214fc561142ad9db998f26830"
@@ -3206,10 +3200,6 @@ code-excerpt@^2.1.0:
 code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
-
-coffeescript@^2.0.1:
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/coffeescript/-/coffeescript-2.2.4.tgz#427c038e17a125e52a79fdb3106761753b8585d2"
 
 collapse-white-space@^1.0.0, collapse-white-space@^1.0.2:
   version "1.0.3"
@@ -4200,6 +4190,13 @@ detect-newline@^2.1.0:
 detect-node@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/detect-node/-/detect-node-2.0.3.tgz#a2033c09cc8e158d37748fbde7507832bd6ce127"
+
+detect-package-manager@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/detect-package-manager/-/detect-package-manager-1.1.0.tgz#af05738105d30cf99eb8578f90747652a94cbae1"
+  dependencies:
+    execa "^0.8.0"
+    path-exists "^3.0.0"
 
 detective@^4.0.0:
   version "4.7.1"
