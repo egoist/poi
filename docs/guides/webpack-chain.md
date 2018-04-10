@@ -18,7 +18,6 @@ We use [webpack-chain](https://github.com/mozilla-neutrino/webpack-chain) to man
 
 |name|package|options|
 |---|---|---|
-|progress|[ProgressPlugin](/packages/core/webpack/webpack/ProgressPlugin.js)||
 |watch-missing-node-modules|[WatchMissingNodeModulesPlugin](/packages/core/webpack/WatchMissingNodeModulesPlugin.js)||
 |copy-static-files|copy-webpack-plugin||
 |hmr|`webpack.HotModuleReplacementPlugin`||
