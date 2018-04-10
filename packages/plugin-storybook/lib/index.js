@@ -15,13 +15,13 @@ module.exports = ({
       description: html.description,
       template: managerTemplate,
       filename: 'index.html',
-      excludeChunks: ['iframe']
+      chunks: ['manager', 'vendors~manager', 'vendors~iframe~manager']
     },
     {
       title: 'Iframe',
       template: iframeTemplate,
       filename: 'iframe.html',
-      excludeChunks: ['manager']
+      chunks: ['iframe', 'vendors~iframe', 'vendors~iframe~manager']
     }
   ]
 
