@@ -64,24 +64,30 @@ function handleHTML({ html, minimize, env }) {
 }
 
 module.exports = async ({ options, command, env }) => {
-  options = {
-    entry: readProjectPkg().main || 'index.js',
-    cwd: process.cwd(),
-    vue: {},
-    css: {},
-    hash: !options.format && command === 'build',
-    ...options,
-    devServer: {
-      host: process.env.HOST || '0.0.0.0',
-      port: process.env.PORT || 4000,
-      ...options.devServer
+  options = Object.assign(
+    {
+      entry: readProjectPkg().main || 'index.js',
+      cwd: process.cwd(),
+      vue: {},
+      css: {},
+      hash: !options.format && command === 'build'
     },
-    babel: {
+    options
+  )
+  options.devServer = Object.assign(
+    {
+      host: process.env.HOST || '0.0.0.0',
+      port: process.env.PORT || 4000
+    },
+    options.devServer
+  )
+  options.babel = Object.assign(
+    {
       jsx: 'react',
-      config: {},
-      ...options.babel
-    }
-  }
+      config: {}
+    },
+    options.babel
+  )
 
   options.entry = normalizeEntry(options.entry)
   options.filename = getFilename(options.hash, options.filename)

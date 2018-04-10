@@ -34,12 +34,11 @@ if (!input[0] || isPath(input[0])) {
 }
 
 // Create Poi options
-const options = {
-  ...flags,
+const options = Object.assign({}, flags, {
   entry,
   // Keep flags as flags so we know which options are from CLI
   flags
-}
+})
 
 if (entry.length === 0) {
   delete options.entry
