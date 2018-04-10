@@ -102,6 +102,10 @@ module.exports = poi => {
     require('./rules/js')(config, poi.options.babel)
   }
 
+  function setCoffeeRules(config) {
+    require('./rules/coffee')(config, poi.options.babel)
+  }
+
   function setVueRules(config) {
     require('./rules/vue')(config, {
       babel: poi.options.babel.config,
@@ -250,6 +254,7 @@ module.exports = poi => {
     setVueRules(config)
     setImageRules(config)
     setFontRules(config)
+    setCoffeeRules(config)
     setPlugins(config)
     setWatchMissingFiles(config)
     setCopyFiles(config)
