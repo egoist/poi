@@ -6,7 +6,8 @@
   },
   "main": "lib/index.js",
   "files": [
-    "lib"
+    "lib",
+    "app"
   ],
   "peerDependencies": {
     "vue-router": "^3.0.1"
