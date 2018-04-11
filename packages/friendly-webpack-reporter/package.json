@@ -1,6 +1,6 @@
 {
   "name": "friendly-webpack-reporter",
-  "version": "0.0.1-rc.0",
+  "version": "0.0.1-rc.1",
   "files": [
     "lib"
   ],
