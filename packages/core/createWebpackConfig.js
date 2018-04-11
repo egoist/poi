@@ -248,6 +248,10 @@ module.exports = poi => {
       require('./rules/graphql')(config)
     }
 
+    function setReason(config) {
+      require('./rules/reason')(config)
+    }
+
     setOutput(config)
     setPerformance(config)
     setExternals(config)
@@ -266,6 +270,7 @@ module.exports = poi => {
     setCopyFiles(config)
     setHTML(config)
     setGraphql(config)
+    setReason(config)
 
     // installed by `yarn global add`
     if (yarnGlobal.inDirectory(__dirname)) {

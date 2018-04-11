@@ -20,7 +20,13 @@ module.exports = async obj => {
       `"${location}"`
     )}!\nYou may run ${chalk.cyan(
       `${pm} ${command} ${deps.join(' ')}${dev ? devFlag : ''}`
-    )} to install missing dependencies.`
+    )} to install missing dependencies.${
+      dev
+        ? ''
+        : `\nYou may also append${chalk.cyan(
+            devFlag
+          )} flag for devDependencies.`
+    }`
   }
 
   return obj.message

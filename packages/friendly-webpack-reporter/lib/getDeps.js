@@ -18,6 +18,14 @@ const DEPS = {
   'better-coffee-loader': {
     deps: ['coffeescript', 'better-coffee-loader'],
     dev: true
+  },
+  'bs-loader': {
+    deps: ['bs-loader', 'bs-platform'],
+    dev: true
+  },
+  'bs-platform': {
+    deps: ['bs-platform'],
+    dev: true
   }
 }
 
