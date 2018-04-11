@@ -1,5 +1,3 @@
-const chalk = require('chalk')
-
 const MODULE_NOT_FOUND_RE = /Can't resolve '([^']+)' in '([^']+)'/
 
 function isFile(file) {
@@ -22,11 +20,6 @@ module.exports = error => {
 
   return {
     type: 'UNKNOWN',
-    // Internal stacks are generally useless so we strip them
-    message: chalk.red(
-      error.message
-        .replace(/^\s*at\s((?!webpack:).)*:\d+:\d+[\s)]*(\n|$)/gm, '')
-        .trim()
-    )
+    message: error.message.trim()
   }
 }
