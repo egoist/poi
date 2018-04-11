@@ -18,7 +18,7 @@ yarn add bs-platform --dev
     "subdirs": true
   },
   "package-specs": {
-    "module": "commonjs",
+    "module": "es6",
     "in-source": true
   },
   "suffix": ".bs.js",
@@ -32,7 +32,7 @@ yarn add bs-platform --dev
 }
 ```
 
-`index.js`:
+`src/index.js`:
 
 ```js
 import { sum } from './sum.re'
@@ -41,7 +41,7 @@ console.log(sum(1, 2))
 //=> 3
 ```
 
-`sum.re`:
+`src/sum.re`:
 
 ```reason
 let sum = (x, y) => x + y;
