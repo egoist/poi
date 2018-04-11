@@ -142,13 +142,17 @@ module.exports = poi => {
       .use(require('webpack/lib/NoEmitOnErrorsPlugin'))
 
     if (process.env.NODE_ENV !== 'test' && poi.options.progress !== false) {
-      config.plugin('webpackbar').use(require('webpackbar'), [
-        {
-          name: 'Poi',
-          profile: poi.options.profile,
-          compiledIn: false
-        }
-      ])
+      if (poi.options.progress === 'simple') {
+        config.plugin('simple-progress').use(webpack.ProgressPlugin)
+      } else {
+        config.plugin('webpackbar').use(require('webpackbar'), [
+          {
+            name: 'Poi',
+            profile: poi.options.profile,
+            compiledIn: false
+          }
+        ])
+      }
     }
 
     if (process.env.NODE_ENV !== 'test') {
