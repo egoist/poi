@@ -4,7 +4,7 @@ __Status: Beta__ (It works but not heavily tested!)
 
 ## How does this work
 
-`@poi/plugin-vue-static` is plugin that generates static HTML pages for you when you run `poi build`, thanks to [vue-server-renderer](vue-server-renderer](https://ssr.vuejs.org/).
+`@poi/plugin-vue-static` is plugin that generates static HTML pages for you when you run `poi build`, thanks to [vue-server-renderer](https://ssr.vuejs.org/).
 
 In development mode, i.e. when running with the `poi` or `poi develop` command, you app will still be running as an SPA.
 
