@@ -19,6 +19,10 @@ const updateFriendlyReporter = config => {
   }
 }
 
+const setEnvs = (config, envs) => {
+  config.plugin('define').tap(([options]) => [Object.assign({}, options, envs)])
+}
+
 module.exports = ({ routes = ['/'] } = {}) => {
   return poi => {
     const projectEntry = poi.options.entry.main[0]
@@ -63,6 +67,10 @@ module.exports = ({ routes = ['/'] } = {}) => {
                 ])
               }
               updateFriendlyReporter(config)
+              setEnvs(config, {
+                'process.browser': 'true',
+                'process.server': 'false'
+              })
             }
           })
 
@@ -84,6 +92,10 @@ module.exports = ({ routes = ['/'] } = {}) => {
                 ])
               }
               updateFriendlyReporter(config)
+              setEnvs(config, {
+                'process.server': 'true',
+                'process.browser': 'false'
+              })
               config.merge({
                 target: 'node',
                 output: {
