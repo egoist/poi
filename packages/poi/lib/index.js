@@ -67,7 +67,7 @@ module.exports = class Poi extends EventEmitter {
     if (this.options.env !== false) {
       Object.assign(this.env, loadEnv(process.env.NODE_ENV))
     }
-    logger.debug('env', this.env)
+    logger.inspect('env', this.env)
   }
 
   chainWebpack(fn) {
