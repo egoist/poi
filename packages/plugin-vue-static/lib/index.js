@@ -11,8 +11,8 @@ const updateFriendlyReporter = config => {
   if (config.plugins.has('friendly-reporter')) {
     config.plugin('friendly-reporter').tap(([options]) => [
       Object.assign({}, options, {
-        fileStats: false,
-        compiledIn: false,
+        showFileStats: false,
+        showCompiledIn: false,
         clearConsole: false
       })
     ])

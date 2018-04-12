@@ -6,11 +6,11 @@ const transformer = require('./transformer')
 const formater = require('./formater')
 
 module.exports = class FriendlyWebpackReporter {
-  constructor({ logger, showFileStats, clearConsole, compiledIn = true }) {
+  constructor({ logger, showFileStats, clearConsole, showCompiledIn = true }) {
     this.logger = logger
     this.showFileStats = showFileStats
     this.shouldClearConsole = clearConsole
-    this.showCompiledIn = compiledIn
+    this.showCompiledIn = showCompiledIn
   }
 
   apply(compiler) {
