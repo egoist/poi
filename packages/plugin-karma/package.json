@@ -1,6 +1,6 @@
 {
   "name": "@poi/plugin-karma",
-  "version": "10.0.0",
+  "version": "10.0.1",
   "scripts": {
     "test": "echo fine",
     "example": "poi test"
@@ -28,7 +28,7 @@
   "xo": false,
   "devDependencies": {
     "chai": "^4.1.2",
-    "poi": "^10.0.0"
+    "poi": "^10.0.1"
   },
   "repository": "https://github.com/egoist/poi/tree/master/packages/plugin-karma"
 }
