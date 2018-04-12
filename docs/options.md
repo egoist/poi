@@ -93,7 +93,9 @@ Type: `boolean`<br>
 Default: `true`<br>
 CLI flags: `--env`
 
-Load `.env` file from current working directory, the defined env variables will be available in both Node.js process and your application code.
+Load `.env.{NODE_ENV}` file from current working directory, the defined env variables will be available in both Node.js process and your application code.
+
+e.g. It will load `.env.development` file in development build or `.env.production` file in production build.
 
 > __NOTE__: This is not available in config file since env variables should be defined before loading your config file.
 
