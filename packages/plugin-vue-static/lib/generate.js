@@ -24,7 +24,7 @@ module.exports = async (routes, outDir) => {
   )
   const renderer = createBundleRenderer(serverBundle, {
     basedir: process.cwd(),
-    runInNewContext: false,
+    runInNewContext: true,
     clientManifest,
     template: fs.readFileSync(
       path.join(__dirname, '../app/index.template.html'),
