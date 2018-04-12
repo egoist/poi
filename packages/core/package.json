@@ -1,6 +1,6 @@
 {
   "name": "@poi/core",
-  "version": "10.0.0-rc.5",
+  "version": "10.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -17,13 +17,13 @@
   "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.0.0-beta.40",
-    "@poi/bs-loader": "^0.0.1-rc.0",
+    "@poi/bs-loader": "^1.0.0",
     "babel-loader": "^8.0.0-beta.2",
     "chalk": "^2.3.2",
     "copy-webpack-plugin": "^4.5.0",
     "css-loader": "^0.28.10",
     "file-loader": "^1.1.11",
-    "friendly-webpack-reporter": "^0.0.1-rc.1",
+    "friendly-webpack-reporter": "^1.0.0",
     "html-webpack-plugin": "^3.1.0",
     "lodash.merge": "^4.6.1",
     "mini-css-extract-plugin": "^0.2.0",

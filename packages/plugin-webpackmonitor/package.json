@@ -1,6 +1,6 @@
 {
   "name": "@poi/plugin-webpackmonitor",
-  "version": "10.0.0-rc.1",
+  "version": "10.0.0",
   "description": "monitoring webpack optimization metrics",
   "main": "index.js",
   "files": [

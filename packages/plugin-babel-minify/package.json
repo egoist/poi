@@ -1,6 +1,6 @@
 {
   "name": "@poi/plugin-babel-minify",
-  "version": "10.0.0-rc.1",
+  "version": "10.0.0",
   "publishConfig": {
     "access": "public"
   },

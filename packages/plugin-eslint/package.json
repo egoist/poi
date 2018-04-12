@@ -1,6 +1,6 @@
 {
   "name": "@poi/plugin-eslint",
-  "version": "10.0.0-rc.1",
+  "version": "10.0.0",
   "description": "Run eslint as building app using Poi",
   "main": "index.js",
   "scripts": {
