@@ -221,6 +221,10 @@ Default: `process.env.PORT || 4000`
 
 Port for development server.
 
+### devServer
+
+Options for [webpack-dev-server](https://webpack.js.org/configuration/dev-server/#devserver).
+
 ### hotReload
 
 Type: `boolean`<br>

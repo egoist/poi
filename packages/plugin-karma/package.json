@@ -27,8 +27,7 @@
   },
   "xo": false,
   "devDependencies": {
-    "chai": "^4.1.2",
-    "poi": "^10.0.2"
+    "chai": "^4.1.2"
   },
   "repository": "https://github.com/egoist/poi/tree/master/packages/plugin-karma"
 }

@@ -77,8 +77,8 @@ module.exports = async ({ options, command, env }) => {
 
   options.devServer = Object.assign(
     {
-      host: process.env.HOST || '0.0.0.0',
-      port: process.env.PORT || 4000
+      host: options.host || process.env.HOST || '0.0.0.0',
+      port: options.port || process.env.PORT || 4000
     },
     options.devServer
   )
