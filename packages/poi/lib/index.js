@@ -36,7 +36,7 @@ module.exports = class Poi extends EventEmitter {
       const poi = new Poi(command, options)
       return poi.run()
     }
-    this.webpackConfig = new Config()
+
     this.cli = new CLIEngine(command)
     this.plugins = new Set()
     this.hooks = new Hooks()
@@ -88,9 +88,9 @@ module.exports = class Poi extends EventEmitter {
   }
 
   createCompiler(webpackConfig) {
-    webpackConfig = this.createWebpackConfig(webpackConfig)
-
+    webpackConfig = webpackConfig || this.createWebpackConfig()
     const compiler = require('@poi/core/webpack')(webpackConfig)
+    // TODO: Handle MultiCompiler
     if (this.options.outputFileSystem) {
       compiler.outputFileSystem = this.options.outputFileSystem
     }
@@ -186,10 +186,6 @@ module.exports = class Poi extends EventEmitter {
       logger.debug('Use configureWebpack defined in your config file')
       this.configureWebpack(configureWebpack)
     }
-
-    this.hooks.invoke('chainWebpack', this.webpackConfig, {
-      command: this.command
-    })
   }
 
   async run() {
@@ -235,41 +231,41 @@ module.exports = class Poi extends EventEmitter {
     watcher.on('unlink', handleEvent)
   }
 
-  createWebpackConfig(webpackConfig) {
-    let config = webpackConfig || this.webpackConfig.toConfig()
-    this.hooks.invoke('configureWebpack', fn => {
-      if (typeof fn === 'object') {
-        config = Array.isArray(config)
-          ? config.map(v => webpackMerge(v, fn))
-          : webpackMerge(config, fn)
-      } else if (typeof fn === 'function') {
-        config = fn(config) || config
+  createWebpackConfig({ config, context, chainWebpack } = {}) {
+    config = config || new Config()
+    context = Object.assign({ type: 'client', command: this.command }, context)
+    this.hooks.invoke('chainWebpack', config, context)
+    if (chainWebpack) {
+      chainWebpack(config, context)
+    }
+    let webpackConfig = config.toConfig()
+    this.hooks.invoke('configureWebpack', userConfig => {
+      if (typeof userConfig === 'object') {
+        return webpackMerge(webpackConfig, userConfig)
+      }
+      if (typeof userConfig === 'function') {
+        return userConfig(webpackConfig, context) || webpackConfig
       }
     })
     if (this.options.debugWebpack) {
-      const log = (config, index) => {
-        logger.log(
-          chalk.bold(
-            `webpack config${typeof index === 'number' ? ` at ${index}` : ''}: `
-          ) +
-            require('util').inspect(
-              typeof this.options.debugWebpack === 'string'
-                ? get(config, this.options.debugWebpack)
-                : config,
-              {
-                depth: null,
-                colors: true
-              }
-            )
-        )
-      }
-      if (Array.isArray(config)) {
-        config.forEach(log)
-      } else {
-        log(config)
-      }
+      logger.log(
+        chalk.bold(
+          `webpack config${
+            context && context.type ? ` for ${context.type}` : ''
+          }: `
+        ) +
+          require('util').inspect(
+            typeof this.options.debugWebpack === 'string'
+              ? get(webpackConfig, this.options.debugWebpack)
+              : webpackConfig,
+            {
+              depth: null,
+              colors: true
+            }
+          )
+      )
     }
-    return config
+    return webpackConfig
   }
 
   resolveCwd(...args) {

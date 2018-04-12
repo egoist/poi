@@ -1,10 +1,23 @@
 const path = require('path')
 const ClientPlugin = require('vue-server-renderer/client-plugin')
 const ServerPlugin = require('vue-server-renderer/server-plugin')
+const chalk = require('chalk')
 
 const clientEntry = path.join(__dirname, '../app', 'client-entry.js')
 
 const serverEntry = path.join(__dirname, '../app', 'server-entry.js')
+
+const updateFriendlyReporter = config => {
+  if (config.plugins.has('friendly-reporter')) {
+    config.plugin('friendly-reporter').tap(([options]) => [
+      Object.assign({}, options, {
+        fileStats: false,
+        compiledIn: false,
+        clearConsole: false
+      })
+    ])
+  }
+}
 
 module.exports = ({ routes = ['/'] } = {}) => {
   return poi => {
@@ -31,54 +44,76 @@ module.exports = ({ routes = ['/'] } = {}) => {
     poi.cli.cac.commands = poi.cli.cac.commands.filter(command => {
       if (command.command.name === 'build') {
         command.handler = async () => {
-          const config = poi.webpackConfig
-          config.plugins.delete('friendly-reporter')
-
           // Create client config
-          config
-            .entry('main')
-            .clear()
-            .add(clientEntry)
-          config.plugin('ssr').use(ClientPlugin)
-          config.output.path(path.resolve('.vue-static/client'))
-          config
-            .plugin('webpackbar')
-            .tap(([options]) => [
-              Object.assign({}, options, { name: 'client' })
-            ])
-          const clientConfig = config.toConfig()
-
-          // Create server config
-          config
-            .entry('main')
-            .clear()
-            .add(serverEntry)
-          config.plugin('ssr').use(ServerPlugin)
-          config
-            .plugin('webpackbar')
-            .tap(([options]) => [
-              Object.assign({}, options, { name: 'server' })
-            ])
-          config.merge({
-            target: 'node',
-            output: {
-              path: path.resolve('.vue-static/server'),
-              libraryTarget: 'commonjs2'
-            },
-            externals: [
-              require('webpack-node-externals')({
-                whitelist: [/\.(?!(?:jsx?|json)$).{1,5}$/i]
-              })
-            ],
-            optimization: {
-              splitChunks: false
+          const clientConfig = poi.createWebpackConfig({
+            context: { type: 'client' },
+            chainWebpack(config) {
+              config
+                .entry('main')
+                .clear()
+                .add(clientEntry)
+              config.plugin('ssr').use(ClientPlugin)
+              config.output.path(path.resolve('.vue-static/client'))
+              if (config.plugins.has('webpackbar')) {
+                config.plugin('webpackbar').tap(([options]) => [
+                  Object.assign({}, options, {
+                    name: 'client',
+                    color: 'magentaBright'
+                  })
+                ])
+              }
+              updateFriendlyReporter(config)
             }
           })
-          const serverConfig = config.toConfig()
 
-          await poi.runCompiler([clientConfig, serverConfig])
+          // Create server config
+          const serverConfig = poi.createWebpackConfig({
+            context: { type: 'server' },
+            chainWebpack(config) {
+              config
+                .entry('main')
+                .clear()
+                .add(serverEntry)
+              config.plugin('ssr').use(ServerPlugin)
+              if (config.plugins.has('webpackbar')) {
+                config.plugin('webpackbar').tap(([options]) => [
+                  Object.assign({}, options, {
+                    name: 'server',
+                    color: 'cyanBright'
+                  })
+                ])
+              }
+              updateFriendlyReporter(config)
+              config.merge({
+                target: 'node',
+                output: {
+                  path: path.resolve('.vue-static/server'),
+                  libraryTarget: 'commonjs2'
+                },
+                externals: [
+                  require('webpack-node-externals')({
+                    whitelist: [/\.(?!(?:jsx?|json)$).{1,5}$/i]
+                  })
+                ],
+                optimization: {
+                  splitChunks: false
+                }
+              })
+            }
+          })
 
-          await require('./generate')(routes, poi.options.outDir)
+          const start = Date.now()
+          const stats = await poi.runCompiler([clientConfig, serverConfig])
+          if (!stats.hasErrors()) {
+            await require('./generate')(routes, poi.options.outDir)
+            const end = Date.now()
+
+            poi.logger.success(
+              `Successfully generated into ${chalk.green(
+                path.relative(process.cwd(), poi.options.outDir)
+              )} folder in ${end - start}ms.`
+            )
+          }
         }
       }
       return command

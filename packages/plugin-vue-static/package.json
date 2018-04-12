@@ -16,6 +16,7 @@
     "vue-router": "^3.0.1"
   },
   "dependencies": {
+    "chalk": "^2.3.2",
     "fs-extra": "^5.0.0",
     "vue-server-renderer": "^2.5.16"
   }

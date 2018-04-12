@@ -6,10 +6,11 @@ const transformer = require('./transformer')
 const formater = require('./formater')
 
 module.exports = class FriendlyWebpackReporter {
-  constructor({ logger, showFileStats, clearConsole }) {
+  constructor({ logger, showFileStats, clearConsole, compiledIn = true }) {
     this.logger = logger
     this.showFileStats = showFileStats
     this.shouldClearConsole = clearConsole
+    this.showCompiledIn = compiledIn
   }
 
   apply(compiler) {
@@ -57,11 +58,13 @@ module.exports = class FriendlyWebpackReporter {
 
   displaySuccess(stats) {
     this.clearConsole()
-    this.logger.success(
-      chalk.green(
-        `Compiled successfully in ${stats.endTime - stats.startTime} ms!`
+    if (this.showCompiledIn) {
+      this.logger.success(
+        chalk.green(
+          `Compiled successfully in ${stats.endTime - stats.startTime} ms!`
+        )
       )
-    )
+    }
     if (this.showFileStats) {
       console.log(
         '\n' +

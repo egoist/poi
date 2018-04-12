@@ -7,6 +7,7 @@
   - [Using CSS](./guides/using-css.md)
   - [Hot Reloading](./guides/hot-reloading.md)
   - [Reason/Ocaml](./guides/reason-ocaml.md)
+  - [Update Webpack Config](./guides/update-webpack-config.md)
   - [Webpack Chain](./guides/webpack-chain.md)
 - Plugin
   - [Use Plugin](./plugin/use-plugin.md)

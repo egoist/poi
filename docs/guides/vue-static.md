@@ -102,6 +102,25 @@ export default {
 
 Your app will only be rendered when `prepare` is resolved.
 
+### Extending webpack config
+
+In development, it runs as SPA, so there's only `client` webpack config.
+
+In production mode, it uses two webpack configs to generate a server build and a client build:
+
+```js
+// poi.config.js
+module.exports = {
+  chainWebpack(config, { command, type }) {
+    // command: build / develop
+    // type: client / server
+  },
+  configureWebpack(config, { command, type }) {
+    // The same applies to `configureWebpack`
+  }
+}
+```
+
 ## API
 
 ### options
