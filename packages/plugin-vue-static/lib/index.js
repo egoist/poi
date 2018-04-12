@@ -9,18 +9,14 @@ const serverEntry = path.join(__dirname, '../app', 'server-entry.js')
 module.exports = ({ routes = ['/'] } = {}) => {
   return poi => {
     const projectEntry = poi.options.entry.main[0]
-    poi.options.entry.main = [
-      path.join(
-        __dirname,
-        '../app',
-        poi.command === 'develop' ? 'client-entry.js' : 'prod-entry.js'
-      )
-    ]
 
     if (poi.command === 'build') {
       // Disable HTML generation in `poi build`
       // Since we use `app/index.template.html` with Vue SSR instead
       poi.options.html = false
+    } else if (poi.command === 'develop') {
+      // Always use client-entry in development mode
+      poi.options.entry.main = [clientEntry]
     }
 
     poi.chainWebpack(config => {
