@@ -88,7 +88,7 @@ module.exports = class Poi extends EventEmitter {
   }
 
   createCompiler(webpackConfig) {
-    webpackConfig = webpackConfig || this.createWebpackConfig()
+    webpackConfig = this.createWebpackConfig(webpackConfig)
 
     const compiler = require('@poi/core/webpack')(webpackConfig)
     if (this.options.outputFileSystem) {
@@ -235,8 +235,8 @@ module.exports = class Poi extends EventEmitter {
     watcher.on('unlink', handleEvent)
   }
 
-  createWebpackConfig() {
-    let config = this.webpackConfig.toConfig()
+  createWebpackConfig(webpackConfig) {
+    let config = webpackConfig || this.webpackConfig.toConfig()
     this.hooks.invoke('configureWebpack', fn => {
       if (typeof fn === 'object') {
         config = webpackMerge(config, fn)
@@ -245,18 +245,27 @@ module.exports = class Poi extends EventEmitter {
       }
     })
     if (this.options.debugWebpack) {
-      logger.log(
-        chalk.bold('webpack config: ') +
-          require('util').inspect(
-            typeof this.options.debugWebpack === 'string'
-              ? get(config, this.options.debugWebpack)
-              : config,
-            {
-              depth: null,
-              colors: true
-            }
-          )
-      )
+      const log = (config, index) => {
+        logger.log(
+          chalk.bold(
+            `webpack config${typeof index === 'number' ? ` at ${index}` : ''}: `
+          ) +
+            require('util').inspect(
+              typeof this.options.debugWebpack === 'string'
+                ? get(config, this.options.debugWebpack)
+                : config,
+              {
+                depth: null,
+                colors: true
+              }
+            )
+        )
+      }
+      if (Array.isArray(config)) {
+        config.forEach(log)
+      } else {
+        log(config)
+      }
     }
     return config
   }
