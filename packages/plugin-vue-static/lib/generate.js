@@ -32,6 +32,7 @@ module.exports = async (routes, outDir) => {
     ),
     inject: false
   })
+  await fs.remove(outDir)
   await fs.move('.vue-static/client', outDir)
   await Promise.all(
     routes.map(async route => {
