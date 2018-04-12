@@ -12,12 +12,24 @@ exports.standalone = function(config, options) {
   const handleLoader = new HandleCSSLoader(options)
 
   if (options.extract) {
-    config.plugin('extract-css').use(require('mini-css-extract-plugin'), [
-      {
-        filename: options.filename,
-        chunkFilename: options.chunkFilename
-      }
-    ])
+    if (
+      options.extractLoader &&
+      options.extractLoader.indexOf('extract-text-webpack-plugin') > -1
+    ) {
+      config.plugin('extract-css').use(require('extract-text-webpack-plugin'), [
+        {
+          // https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/763
+          filename: options.filename.replace('contenthash', 'hash')
+        }
+      ])
+    } else {
+      config.plugin('extract-css').use(require('mini-css-extract-plugin'), [
+        {
+          filename: options.filename,
+          chunkFilename: options.chunkFilename
+        }
+      ])
+    }
   }
 
   for (const lang of LANGS) {

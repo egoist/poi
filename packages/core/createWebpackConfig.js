@@ -87,15 +87,7 @@ module.exports = poi => {
   }
 
   function setCSSRules(config) {
-    require('./rules/css').standalone(
-      config,
-      Object.assign(
-        {
-          extractLoader: require.resolve('mini-css-extract-plugin/dist/loader')
-        },
-        poi.options.css
-      )
-    )
+    require('./rules/css').standalone(config, poi.options.css)
   }
 
   function setJSRules(config) {

@@ -74,6 +74,7 @@ module.exports = async ({ options, command, env }) => {
     },
     options
   )
+
   options.devServer = Object.assign(
     {
       host: process.env.HOST || '0.0.0.0',
@@ -156,7 +157,11 @@ module.exports = async ({ options, command, env }) => {
       typeof options.css.extract === 'boolean'
         ? options.css.extract
         : command === 'build',
-    sourceMap: Boolean(options.sourceMap),
+    extractLoader: options.css.extractLoader,
+    sourceMap:
+      typeof options.css.sourceMap === 'boolean'
+        ? options.css.sourceMap
+        : command === 'develop' && Boolean(options.sourceMap), // Only enable CSS sourceMap in dev mode
     postcss: options.postcss,
     cssModules: options.css.modules,
     styleLoader: 'vue-style-loader',

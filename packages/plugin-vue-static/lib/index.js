@@ -31,6 +31,9 @@ module.exports = ({ routes = ['/'] } = {}) => {
       // Disable HTML generation in `poi build`
       // Since we use `app/index.template.html` with Vue SSR instead
       poi.options.html = false
+      // Do not extract CSS (but inline it) for now
+      // Until we figure out a better solution for https://github.com/webpack-contrib/mini-css-extract-plugin/issues/48
+      poi.options.css.extract = false
     } else if (poi.command === 'develop') {
       // Always use client-entry in development mode
       poi.options.entry.main = [clientEntry]
