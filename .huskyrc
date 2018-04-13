@@ -1,0 +1,6 @@
+{
+  "hooks": {
+    "pre-commit": "npm test",
+    "commit-msg": "commitlint -e $GIT_PARAMS"
+  }
+}
