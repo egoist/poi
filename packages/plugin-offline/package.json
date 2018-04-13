@@ -14,11 +14,11 @@
   ],
   "devDependencies": {
     "documentation": "^5.0.0",
-    "offline-plugin": "^5.0.0",
+    "offline-plugin": "^5.0.0-0",
     "webpack": "^3.0.0"
   },
   "peerDependencies": {
-    "offline-plugin": "^5.0.0"
+    "offline-plugin": "^5.0.0-0"
   },
   "xo": false,
   "repository": "https://github.com/egoist/poi/tree/master/packages/plugin-offline"
