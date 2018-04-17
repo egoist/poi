@@ -282,7 +282,7 @@ module.exports = poi => {
         apply(compiler) {
           compiler.hooks.emit.tapPromise('clean-out-dir', async () => {
             if (
-              poi.options.clean !== false &&
+              poi.options.cleanOutDir ||
               /\[(chunk)?hash(:\d+)?\]/.test(compiler.options.output.filename)
             ) {
               await require('trash')([compiler.options.output.path])
