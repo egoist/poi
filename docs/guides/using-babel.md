@@ -39,6 +39,26 @@ module.exports = {
 }
 ```
 
+## Using babel plugins
+
+Because `.babelrc` doesn't allow callbacks, sometimes this is a only way to implement your ideas.
+
+```js
+module.exports = {
+  babel: {
+    config: {
+      plugins: [
+        // Using babel-plugin-import to import components and their styles on demand
+        [require.resolve('babel-plugin-import'), {
+          libraryName: 'fir-ui',
+          style: componentName => `${componentName}.css`
+        }]
+      ]
+    }
+  }
+}
+```
+
 ## Using `.babelrc`
 
 Poi will respect `.babelrc` or any kind of babel config file in current working directory (`process.cwd()`). It will use this file instead of the default `babel-preset-poi` when it's present.
