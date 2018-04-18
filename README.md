@@ -34,7 +34,7 @@ In most cases, you don't need to configure anything to make your app work with P
 - Vue, no config is required for your Vue applications
 - etc..
 
-You can dive into the [documentation](./docs) for more information.
+__You can dive into the [documentation](https://poi.js.org) for detailed usage.__
 
 ## Contributing
 
