@@ -1,3 +1,4 @@
+import './main'
 import Vue from 'vue'
 import app from '@project-entry'
 import { routerReady, prepareComponents } from './utils'

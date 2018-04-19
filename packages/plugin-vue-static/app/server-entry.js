@@ -1,3 +1,4 @@
+import './main'
 import app from '@project-entry'
 import { routerReady, prepareComponents } from './utils'
 
