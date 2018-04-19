@@ -154,8 +154,15 @@ module.exports = class Poi extends EventEmitter {
       useConfig.addLoader({
         test: /\.ts$/,
         loader(filepath) {
-          require(path.resolve('node_modules', 'ts-node/register'))
-          return require(filepath).default
+          require(path.resolve('node_modules', 'ts-node')).register({
+            transpileOnly: true,
+            compilerOptions: {
+              module: 'commonjs',
+              moduleResolution: 'node'
+            }
+          })
+          const config = require(filepath)
+          return config.default || config
         }
       })
       const poiConfig = await useConfig.load()
