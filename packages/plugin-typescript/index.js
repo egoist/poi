@@ -3,20 +3,23 @@
  * @name pluginTypescript
  * @param {Object} options
  * @param {any} [options.loaderOptions=undefined] - Options for ts-loader.
+ * @param {any} [options.tsChecker=undefined] - Options for fork-ts-checker.
  */
 module.exports = ({ loaderOptions, tsChecker } = {}) => {
+  const tsLoaderOptions = Object.assign(
+    {
+      appendTsSuffixTo: [/\.vue$/]
+    },
+    loaderOptions
+  )
+
   return poi => {
     poi.chainWebpack(config => {
       const tsRule = config.module.rule('typescript').test(/\.tsx?$/)
       tsRule
         .use('ts-loader')
         .loader('ts-loader')
-        .options(
-          Object.assign(
-            { appendTsSuffixTo: [/\.vue$/], transpileOnly: true },
-            loaderOptions
-          )
-        )
+        .options(tsLoaderOptions)
 
       config.resolve.extensions.add('.ts').add('.tsx')
 
@@ -41,7 +44,7 @@ module.exports = ({ loaderOptions, tsChecker } = {}) => {
         vueOptions.loaders.ts = [
           {
             loader: 'ts-loader',
-            options: loaderOptions
+            options: tsLoaderOptions
           }
         ]
         return vueOptions
