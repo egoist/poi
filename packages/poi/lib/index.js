@@ -23,6 +23,18 @@ module.exports = class Poi extends EventEmitter {
     logger.setOptions(options)
     logger.debug('command', command)
 
+    if (typeof options.require === 'string' || Array.isArray(options.require)) {
+      const requires = [].concat(options.require)
+      requires.forEach(name => {
+        if (name === 'ts-node/register') {
+          return logger.warn(
+            `TypeScript is supported by default, no need to require ${name}`
+          )
+        }
+        require(path.resolve('node_modules', name))
+      })
+    }
+
     // Assign stuffs to context so external plugins can access them as well
     this.logger = logger
     this.ownDir = ownDir
@@ -133,6 +145,13 @@ module.exports = class Poi extends EventEmitter {
         files: this.options.config
           ? [this.options.config]
           : ['{name}.config.js', '.{name}rc', 'package.json']
+      })
+      useConfig.addLoader({
+        test: /\.ts$/,
+        loader(filepath) {
+          require(path.resolve('node_modules', 'ts-node/register'))
+          return require(filepath).default
+        }
       })
       const poiConfig = await useConfig.load()
       if (poiConfig.path) {

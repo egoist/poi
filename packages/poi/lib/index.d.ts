@@ -48,7 +48,7 @@ interface HTMLOpts {
   [k: string]: any
 }
 
-export interface Options {
+interface PoiOptions {
   /**
    * The entry file of your app.
    */
@@ -157,4 +157,15 @@ export interface Options {
    * Toggle hash in output filenames
    */
   hash?: boolean
+
+  /**
+   * Whatever else
+   */
+  [k: string]: any
+}
+
+type Options = PoiOptions | ((opts: PoiOptions) => PoiOptions)
+
+export {
+  Options
 }
