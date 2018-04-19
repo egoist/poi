@@ -159,6 +159,11 @@ interface PoiOptions {
   hash?: boolean
 
   /**
+   * Use Poi plugins
+   */
+  plugins?: any // TODO: type this
+
+  /**
    * Whatever else
    */
   [k: string]: any
