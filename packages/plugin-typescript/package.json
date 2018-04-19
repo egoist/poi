@@ -1,6 +1,6 @@
 {
   "name": "@poi/plugin-typescript",
-  "version": "10.1.1",
+  "version": "10.1.2",
   "author": "EGOIST <0x142857@gmail.com>",
   "dependencies": {
     "fork-ts-checker-webpack-plugin": "^0.4.1",
