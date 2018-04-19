@@ -144,7 +144,12 @@ module.exports = class Poi extends EventEmitter {
         name: 'poi',
         files: this.options.config
           ? [this.options.config]
-          : ['{name}.config.js', '.{name}rc', 'package.json']
+          : [
+              '{name}.config.js',
+              '{name}.config.ts',
+              '.{name}rc',
+              'package.json'
+            ]
       })
       useConfig.addLoader({
         test: /\.ts$/,
