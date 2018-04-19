@@ -4213,6 +4213,10 @@ deepmerge@^1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-1.5.2.tgz#10499d868844cdad4fee0842df8c7f6f0c95a753"
 
+deepmerge@^2.0.1:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-2.1.0.tgz#511a54fff405fc346f0240bb270a3e9533a31102"
+
 default-require-extensions@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/default-require-extensions/-/default-require-extensions-1.0.0.tgz#f37ea15d3e13ffd9b437d33e1a75b5fb97874cb8"
@@ -12465,6 +12469,22 @@ ts-loader@^4.2.0:
     loader-utils "^1.0.2"
     micromatch "^3.1.4"
     semver "^5.0.1"
+
+tsconfig-paths-webpack-plugin@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/tsconfig-paths-webpack-plugin/-/tsconfig-paths-webpack-plugin-3.0.4.tgz#05a72fbc666910b797326b12ba6aa8521e0a01ba"
+  dependencies:
+    chalk "^2.3.0"
+    tsconfig-paths "^3.2.0"
+
+tsconfig-paths@^3.2.0:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/tsconfig-paths/-/tsconfig-paths-3.3.1.tgz#e2f4f46ea23a245fc07ba2f84be5f3fab17ee2d5"
+  dependencies:
+    deepmerge "^2.0.1"
+    minimist "^1.2.0"
+    strip-bom "^3.0.0"
+    strip-json-comments "^2.0.1"
 
 tsscmp@~1.0.0:
   version "1.0.5"
