@@ -12065,7 +12065,7 @@ svelte-dev-helper@^1.1.4:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/svelte-dev-helper/-/svelte-dev-helper-1.1.7.tgz#b7d887c7be5abf7e2436f9467560061b1e2a935f"
 
-svelte-loader@^2.0.1:
+svelte-loader@^2.8.1:
   version "2.8.1"
   resolved "https://registry.yarnpkg.com/svelte-loader/-/svelte-loader-2.8.1.tgz#6ed92209cac35b6bfb8297c3934e16de80901f16"
   dependencies:
@@ -12073,9 +12073,9 @@ svelte-loader@^2.0.1:
     svelte-dev-helper "^1.1.4"
     tmp "0.0.31"
 
-svelte@^1.18.1:
-  version "1.60.2"
-  resolved "https://registry.yarnpkg.com/svelte/-/svelte-1.60.2.tgz#560e9f33219203759af0ce078146c26ee135f8e9"
+svelte@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-2.0.0.tgz#d10eafbdae89a66b02ac05ef913e8288c031b71c"
 
 svg-tag-names@^1.1.0:
   version "1.1.1"

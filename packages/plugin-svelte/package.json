@@ -22,7 +22,7 @@
     "index.js"
   ],
   "dependencies": {
-    "svelte": "^1.18.1",
-    "svelte-loader": "^2.0.1"
+    "svelte": "^2.0.0",
+    "svelte-loader": "^2.8.1"
   }
 }

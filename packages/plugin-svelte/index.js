@@ -9,6 +9,10 @@ module.exports = function({ loaderOptions } = {}) {
     poi.chainWebpack(config => {
       config.resolve.extensions.add('.html')
 
+      config.resolve.mainFields
+        .clear()
+        .merge(['svelte', 'browser', 'module', 'main'])
+
       const jsRule = config.module.rule('js')
       const isBabel = jsRule.uses.has('babel-loader')
       const isBuble = jsRule.uses.has('buble-loader')
@@ -45,7 +49,8 @@ module.exports = function({ loaderOptions } = {}) {
                 // Extract CSS in production mode
                 emitCss:
                   poi.cli.isCurrentCommand('build') &&
-                  poi.options.css.extract !== false
+                  poi.options.css.extract !== false,
+                hotReload: poi.options.hotReload
               },
               loaderOptions
             )

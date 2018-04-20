@@ -1,4 +1,4 @@
-<h1>{{ salutation }}, counted to {{ count }} already!</h1>
+<h1>{salutation}, counted to {count} already!</h1>
 
 <script>
   import { hello } from './helpers';
@@ -10,7 +10,7 @@
       }
     },
     computed: {
-      salutation(dude) {
+      salutation({ dude }) {
         return hello(dude);
       }
     }
