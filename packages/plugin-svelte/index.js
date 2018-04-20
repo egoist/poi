@@ -15,8 +15,8 @@ module.exports = function({ loaderOptions } = {}) {
 
       let jsLoaderOptions
       if (isBabel || isBuble) {
-        jsLoaderOptions = jsRule.module
-          .rule(isBabel ? 'babel-loader' : 'buble-loader')
+        jsLoaderOptions = jsRule
+          .use(isBabel ? 'babel-loader' : 'buble-loader')
           .get('options')
       }
 
