@@ -5,12 +5,7 @@ exports[`class properties: class properties 1`] = `
 
 class Foo {
   constructor() {
-    Object.defineProperty(this, \\"state\\", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: 1
-    });
+    this.state = 1;
   }
 
 }"

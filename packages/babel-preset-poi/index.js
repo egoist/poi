@@ -29,8 +29,18 @@ module.exports = (ctx, { jsx = 'react' } = {}) => {
   ]
 
   const plugins = [
-    require.resolve('@babel/plugin-proposal-decorators'),
-    require.resolve('@babel/plugin-proposal-class-properties'),
+    [
+      require.resolve('@babel/plugin-proposal-decorators'),
+      {
+        legacy: true
+      }
+    ],
+    [
+      require.resolve('@babel/plugin-proposal-class-properties'),
+      {
+        loose: true
+      }
+    ],
     // require.resolve('babel-macros'),
     [
       require.resolve('@babel/plugin-transform-runtime'),
