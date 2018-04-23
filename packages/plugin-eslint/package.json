@@ -16,13 +16,13 @@
     "index.js"
   ],
   "dependencies": {
-    "eslint-loader": "^1.7.1"
+    "eslint-loader": "^2.0.0"
   },
   "peerDependencies": {
-    "eslint": "^4.0.0"
+    "eslint": "^4.19.1"
   },
   "devDependencies": {
-    "eslint": "^4.0.0",
+    "eslint": "^4.19.1",
     "eslint-config-vue-app": "^1.3.3"
   }
 }
