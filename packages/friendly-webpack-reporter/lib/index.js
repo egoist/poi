@@ -26,7 +26,7 @@ module.exports = class FriendlyWebpackReporter {
       return this.displayErrors(stats, 'error')
     }
     if (stats.hasWarnings()) {
-      return this.displayWarnings(stats, 'warning')
+      return this.displayErrors(stats, 'warning')
     }
     return this.displaySuccess(stats)
   }
