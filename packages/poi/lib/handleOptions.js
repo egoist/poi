@@ -11,25 +11,20 @@ const getHotEntry = require('./utils/getHotEntry')
 const getExternals = require('./utils/getExternals')
 
 async function handleBabel(options) {
-  const { file, config } = await findBabelConfig(process.cwd(), 2)
+  const { file } = await findBabelConfig(process.cwd(), 2)
 
   if (file) {
     // If root babel config file is found
     // We set `babelrc` to the its path
     // To prevent `babel-loader` from loading it again
     logger.debug('babel config location', file)
-    options.config.babelrc = false
-    // You can use `babelrc: false` to disable the config file itself
-    if (config.babelrc !== false) {
-      options.config.extends = file
-    }
   } else {
     // If not found
     // We set `babelrc` to `false` for the same reason
     options.config.babelrc = false
   }
 
-  if (!options.config.extends) {
+  if (options.config.babelrc === false) {
     // Use our default preset when no babelrc was specified
     options.config.presets = [
       [require.resolve('babel-preset-poi'), { jsx: options.jsx }]
