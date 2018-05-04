@@ -6,7 +6,7 @@ __Poi is supported by [these awesome backers and sponsors](./BACKERS.md).__
 
 ## Introduction
 
-Poi is a __zero-config__ bundler built on the top of webpack. By using the buzz word `zero-config`, it does not mean that there's no config, instead we pre-configured many things for you. To prevent Poi from becoming too bloated to use, we also introduced some kind of `plugin` system to make extra features opt-in.
+Poi is a __zero-config__ bundler built on the top of webpack. By using the buzz word `zero-config`, it does not mean that there's no config. Instead, we pre-configured many things for you. To prevent Poi from becoming too bloated to use, we also introduced some kind of `plugin` system to make extra features opt-in.
 
 To get a quick taste of Poi, you can install it globally via npm or yarn:
 
