@@ -6,6 +6,12 @@ function isFile(file) {
 }
 
 module.exports = error => {
+  if (typeof error === 'string') {
+    error = {
+      message: error
+    }
+  }
+
   // Errors thrown by @poi/bs-loader etc
   if (
     error.name === 'ModuleBuildError' &&
