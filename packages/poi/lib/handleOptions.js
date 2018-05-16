@@ -109,7 +109,9 @@ module.exports = async ({ options, command, env }) => {
       ? options.sourceMap
       : command === 'build'
         ? 'source-map'
-        : command === 'test' ? 'inline-source-map' : 'eval-source-map'
+        : command === 'test'
+          ? 'inline-source-map'
+          : 'eval-source-map'
 
   options.externals = getExternals(options).concat(options.externals || [])
   options.babel = await handleBabel(options.babel)
