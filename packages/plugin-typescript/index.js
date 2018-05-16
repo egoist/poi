@@ -8,7 +8,8 @@
 module.exports = ({ loaderOptions, tsChecker } = {}) => {
   const tsLoaderOptions = Object.assign(
     {
-      appendTsSuffixTo: [/\.vue$/]
+      appendTsSuffixTo: [/\.vue$/],
+      transpileOnly: true 
     },
     loaderOptions
   )
