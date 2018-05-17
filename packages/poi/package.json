@@ -1,6 +1,6 @@
 {
   "name": "poi",
-  "version": "10.1.7",
+  "version": "10.1.8",
   "description": "Fast prototype and distribute modern web apps like a pro.",
   "repository": {
     "url": "egoist/poi",
@@ -28,7 +28,7 @@
     "testEnvironment": "node"
   },
   "dependencies": {
-    "@poi/core": "^10.0.5",
+    "@poi/core": "^10.0.6",
     "@poi/dev-utils": "^10.0.0",
     "@poi/logger": "^10.0.0",
     "address": "^1.0.1",

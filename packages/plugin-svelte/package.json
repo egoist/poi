@@ -1,6 +1,6 @@
 {
   "name": "@poi/plugin-svelte",
-  "version": "11.0.0",
+  "version": "11.0.1",
   "scripts": {
     "test": "echo fine",
     "example": "poi example/index.js"

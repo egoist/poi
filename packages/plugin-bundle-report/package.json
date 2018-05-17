@@ -1,6 +1,6 @@
 {
   "name": "@poi/plugin-bundle-report",
-  "version": "10.0.0",
+  "version": "10.0.1",
   "main": "index.js",
   "files": [
     "index.js"
