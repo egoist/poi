@@ -119,8 +119,23 @@ module.exports = class Poi extends EventEmitter {
     })
   }
 
+  hasPlugin(name) {
+    return [...this.plugins].find(plugin => plugin.name === name)
+  }
+
   registerPlugin(plugin) {
-    this.plugins.add(plugin)
+    // For legacy plugins
+    if (typeof plugin === 'function') {
+      plugin = { name: 'unknown', apply: plugin }
+    }
+
+    if (plugin.command) {
+      if (this.cli.isCurrentCommand(plugin.command)) {
+        this.plugins.add(plugin)
+      }
+    } else {
+      this.plugins.add(plugin)
+    }
     return this
   }
 
@@ -200,7 +215,8 @@ module.exports = class Poi extends EventEmitter {
     // Call plugins
     if (this.plugins.size > 0) {
       for (const plugin of this.plugins) {
-        plugin(this)
+        logger.debug(`Using plugin: ${plugin.name}`)
+        plugin.apply(this)
       }
     }
 

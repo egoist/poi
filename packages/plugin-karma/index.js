@@ -9,147 +9,149 @@ function ensureArray(v) {
 }
 
 module.exports = (options = {}) => {
-  return poi => {
-    if (!poi.cli.isCurrentCommand('test')) return
-
-    if (typeof options.chainWebpack === 'function') {
-      poi.chainWebpack(options.chainWebpack)
-    }
-
-    const inferValue = (key, fallback) => {
-      if (typeof poi.options[key] !== 'undefined') {
-        return poi.options[key]
+  return {
+    name: 'karma',
+    command: 'test',
+    apply(poi) {
+      if (typeof options.chainWebpack === 'function') {
+        poi.chainWebpack(options.chainWebpack)
       }
-      if (typeof options[key] !== 'undefined') {
-        return options[key]
+
+      const inferValue = (key, fallback) => {
+        if (typeof poi.options[key] !== 'undefined') {
+          return poi.options[key]
+        }
+        if (typeof options[key] !== 'undefined') {
+          return options[key]
+        }
+        return fallback
       }
-      return fallback
-    }
 
-    let isTypeScript = false
+      let isTypeScript = false
 
-    poi.chainWebpack(config => {
-      const coverage = inferValue('coverage')
+      poi.chainWebpack(config => {
+        const coverage = inferValue('coverage')
 
-      isTypeScript = config.module.rules.has('typescript')
+        isTypeScript = config.module.rules.has('typescript')
 
-      if (coverage) {
-        /* for general usage */
-        const istanbulinstrumenterRule = config.module
-          .rule('istanbul-instrumenter')
-          .test(/\.(jsx?)$/)
-          .exclude.add(/(node_modules|\.test\.jsx?)/)
-          .end()
-          .enforce('pre')
-        istanbulinstrumenterRule
-          .use('istanbul-instrumenter-loader')
-          .loader('istanbul-instrumenter-loader')
-          .options({
-            esModules: true
+        if (coverage) {
+          /* for general usage */
+          const istanbulinstrumenterRule = config.module
+            .rule('istanbul-instrumenter')
+            .test(/\.(jsx?)$/)
+            .exclude.add(/(node_modules|\.test\.jsx?)/)
+            .end()
+            .enforce('pre')
+          istanbulinstrumenterRule
+            .use('istanbul-instrumenter-loader')
+            .loader('istanbul-instrumenter-loader')
+            .options({
+              esModules: true
+            })
+
+          /* for vue (assumes vue-loader) */
+          const vueRule = config.module.rule('vue')
+          vueRule.use('vue-loader').tap(options => {
+            const instrumenterLoader =
+              'istanbul-instrumenter-loader?esModules=true'
+            options.preLoaders = options.preLoaders || {}
+            options.preLoaders.js =
+              typeof options.preLoaders.js === 'string'
+                ? `${options.preLoaders.js}!${instrumenterLoader}`
+                : instrumenterLoader
+            return options
           })
-
-        /* for vue (assumes vue-loader) */
-        const vueRule = config.module.rule('vue')
-        vueRule.use('vue-loader').tap(options => {
-          const instrumenterLoader =
-            'istanbul-instrumenter-loader?esModules=true'
-          options.preLoaders = options.preLoaders || {}
-          options.preLoaders.js =
-            typeof options.preLoaders.js === 'string'
-              ? `${options.preLoaders.js}!${instrumenterLoader}`
-              : instrumenterLoader
-          return options
-        })
-      }
-    })
-
-    poi.cli.handleCommand('test', 'Unit testing with Karma', () => {
-      const webpackConfig = poi.createWebpackConfig()
-
-      let files = inferValue('files', ['test/unit/**/*.test.js'])
-      files = ensureArray(files)
-      files.push({
-        pattern: 'static/**/*',
-        watched: false,
-        included: false,
-        served: true,
-        nocache: false
+        }
       })
 
-      const port = inferValue('port', 5001)
+      poi.cli.handleCommand('test', 'Unit testing with Karma', () => {
+        const webpackConfig = poi.createWebpackConfig()
 
-      let frameworks = inferValue('frameworks', ['mocha'])
-      frameworks = ensureArray(frameworks)
-      frameworks = frameworks.concat(isTypeScript ? ['karma-typescript'] : [])
+        let files = inferValue('files', ['test/unit/**/*.test.js'])
+        files = ensureArray(files)
+        files.push({
+          pattern: 'static/**/*',
+          watched: false,
+          included: false,
+          served: true,
+          nocache: false
+        })
 
-      const watch = !isCI && inferValue('watch', false)
-      const coverage = inferValue('coverage')
+        const port = inferValue('port', 5001)
 
-      let reporters = inferValue('reporters', ['mocha'])
-      reporters = ensureArray(reporters)
-      reporters = reporters.concat(isTypeScript ? ['karma-typescript'] : [])
-      reporters = reporters.concat(coverage ? ['coverage'] : [])
+        let frameworks = inferValue('frameworks', ['mocha'])
+        frameworks = ensureArray(frameworks)
+        frameworks = frameworks.concat(isTypeScript ? ['karma-typescript'] : [])
 
-      const defaultBrowser = inferValue('headless')
-        ? 'ChromeHeadless'
-        : 'Chrome'
-      let browsers = inferValue('browsers') || defaultBrowser
-      browsers = ensureArray(browsers)
+        const watch = !isCI && inferValue('watch', false)
+        const coverage = inferValue('coverage')
 
-      const defaultConfig = {
-        port,
-        frameworks,
-        basePath: process.cwd(),
-        files,
-        proxies: { '/': '/base/static/' },
-        reporters,
-        coverageReporter: {
-          dir: 'coverage',
-          reporters: [
-            { type: 'text' },
-            { type: 'html', subdir: 'report-html' },
-            { type: 'lcov', subdir: 'report-lcov' }
-          ]
-        },
-        preprocessors: files.reduce((current, next) => {
-          if (typeof next === 'object' && next.included === false) {
+        let reporters = inferValue('reporters', ['mocha'])
+        reporters = ensureArray(reporters)
+        reporters = reporters.concat(isTypeScript ? ['karma-typescript'] : [])
+        reporters = reporters.concat(coverage ? ['coverage'] : [])
+
+        const defaultBrowser = inferValue('headless')
+          ? 'ChromeHeadless'
+          : 'Chrome'
+        let browsers = inferValue('browsers') || defaultBrowser
+        browsers = ensureArray(browsers)
+
+        const defaultConfig = {
+          port,
+          frameworks,
+          basePath: process.cwd(),
+          files,
+          proxies: { '/': '/base/static/' },
+          reporters,
+          coverageReporter: {
+            dir: 'coverage',
+            reporters: [
+              { type: 'text' },
+              { type: 'html', subdir: 'report-html' },
+              { type: 'lcov', subdir: 'report-lcov' }
+            ]
+          },
+          preprocessors: files.reduce((current, next) => {
+            if (typeof next === 'object' && next.included === false) {
+              return current
+            }
+            const key = next.pattern || next
+            current[key] = [
+              'webpack',
+              ...(isTypeScript ? ['typescript'] : []),
+              'sourcemap'
+            ]
             return current
-          }
-          const key = next.pattern || next
-          current[key] = [
-            'webpack',
-            ...(isTypeScript ? ['typescript'] : []),
-            'sourcemap'
-          ]
-          return current
-        }, {}),
-        webpackMiddleware: {
-          stats: 'errors-only',
-          noInfo: true
-        },
-        browsers,
-        singleRun: !watch
-      }
+          }, {}),
+          webpackMiddleware: {
+            stats: 'errors-only',
+            noInfo: true
+          },
+          browsers,
+          singleRun: !watch
+        }
 
-      if (isTypeScript) {
-        defaultConfig.karmaTypescriptConfig = {
-          tsconfig: './tsconfig.json',
-          compilerOptions: {
-            module: 'commonjs'
+        if (isTypeScript) {
+          defaultConfig.karmaTypescriptConfig = {
+            tsconfig: './tsconfig.json',
+            compilerOptions: {
+              module: 'commonjs'
+            }
           }
         }
-      }
 
-      delete webpackConfig.entry
+        delete webpackConfig.entry
 
-      const karmaConfig =
-        typeof options.karma === 'function'
-          ? options.karma(defaultConfig)
-          : Object.assign({}, defaultConfig, options.karma)
-      karmaConfig.webpack = webpackConfig
+        const karmaConfig =
+          typeof options.karma === 'function'
+            ? options.karma(defaultConfig)
+            : Object.assign({}, defaultConfig, options.karma)
+        karmaConfig.webpack = webpackConfig
 
-      const server = new Server(karmaConfig)
-      server.start()
-    })
+        const server = new Server(karmaConfig)
+        server.start()
+      })
+    }
   }
 }

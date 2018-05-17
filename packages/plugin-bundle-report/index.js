@@ -4,17 +4,19 @@
  * {@link https://github.com/th0r/webpack-bundle-analyzer webpack-bundle-analyzer} plugin
  */
 module.exports = pluginOptions => {
-  return poi => {
-    if (!poi.cli.isCurrentCommand('build')) return
+  return {
+    name: 'bundle-report',
+    command: 'build',
+    apply(poi) {
+      poi.chainWebpack(config => {
+        if (poi.options.bundleReport) {
+          const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
-    poi.chainWebpack(config => {
-      if (poi.options.bundleReport) {
-        const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
-
-        config
-          .plugin('bundle-report')
-          .use(BundleAnalyzerPlugin, [pluginOptions])
-      }
-    })
+          config
+            .plugin('bundle-report')
+            .use(BundleAnalyzerPlugin, [pluginOptions])
+        }
+      })
+    }
   }
 }

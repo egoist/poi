@@ -7,56 +7,59 @@
  * If this option is set, it will be assigned to default buble options.
  */
 module.exports = ({ asyncAwait = true, bubleOptions } = {}) => {
-  return poi => {
-    poi.chainWebpack(config => {
-      bubleOptions = Object.assign(
-        {
-          transforms: {
-            dangerousForOf: true,
-            generator: false,
-            modules: false
-          },
-          objectAssign: 'Object.assign'
-        },
-        bubleOptions
-      )
-
-      const jsRule = config.module.rule('js')
-
-      // Add buble-loader
-      jsRule
-        .use('buble-loader')
-        .loader(require.resolve('./buble-loader'))
-        .options(bubleOptions)
-        .after('babel-loader')
-
-      // Remove babel-loader
-      jsRule.uses.delete('babel-loader')
-
-      // Maybe add nodent-loader
-      if (asyncAwait) {
-        jsRule
-          .use('nodent-loader')
-          .loader(require.resolve('./nodent-loader'))
-          .before('buble-loader')
-      }
-
-      const vueRule = config.module.rule('vue')
-      vueRule.use('vue-loader').tap(options => {
-        options.loaders.js = {
-          loader: require.resolve('./buble-loader'),
-          options: bubleOptions
-        }
-        if (asyncAwait) {
-          options.loaders.js = [
-            {
-              loader: require.resolve('./nodent-loader')
+  return {
+    name: 'buble',
+    apply(poi) {
+      poi.chainWebpack(config => {
+        bubleOptions = Object.assign(
+          {
+            transforms: {
+              dangerousForOf: true,
+              generator: false,
+              modules: false
             },
-            options.loaders.js
-          ]
+            objectAssign: 'Object.assign'
+          },
+          bubleOptions
+        )
+
+        const jsRule = config.module.rule('js')
+
+        // Add buble-loader
+        jsRule
+          .use('buble-loader')
+          .loader(require.resolve('./buble-loader'))
+          .options(bubleOptions)
+          .after('babel-loader')
+
+        // Remove babel-loader
+        jsRule.uses.delete('babel-loader')
+
+        // Maybe add nodent-loader
+        if (asyncAwait) {
+          jsRule
+            .use('nodent-loader')
+            .loader(require.resolve('./nodent-loader'))
+            .before('buble-loader')
         }
-        return options
+
+        const vueRule = config.module.rule('vue')
+        vueRule.use('vue-loader').tap(options => {
+          options.loaders.js = {
+            loader: require.resolve('./buble-loader'),
+            options: bubleOptions
+          }
+          if (asyncAwait) {
+            options.loaders.js = [
+              {
+                loader: require.resolve('./nodent-loader')
+              },
+              options.loaders.js
+            ]
+          }
+          return options
+        })
       })
-    })
+    }
   }
 }

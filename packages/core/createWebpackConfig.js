@@ -6,7 +6,9 @@ const getFullEnvString = require('./utils/getFullEnvString')
 const stringifyObject = require('./utils/stringifyObject')
 const ownDir = require('./utils/ownDir')
 
-module.exports = poi => {
+exports.name = 'builtin:createWebpackConfig'
+
+exports.apply = poi => {
   const { command } = poi
 
   const inWorkspace = __dirname.includes(path.normalize('/poi/packages/'))
