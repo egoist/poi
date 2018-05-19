@@ -44,7 +44,7 @@
     "lodash": "^4.17.4",
     "loud-rejection": "^1.6.0",
     "opn": "^5.0.0",
-    "parse-json-config": "^0.2.0",
+    "parse-json-config": "^0.2.2",
     "update-notifier": "^2.1.0",
     "use-config": "^2.0.4",
     "webpack-chain": "^4.5.0",
