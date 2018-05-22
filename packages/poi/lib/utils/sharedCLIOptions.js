@@ -25,6 +25,9 @@ module.exports = command => {
       alias: 'm'
     })
     .option('progress', {
-      desc: 'Toggle progress bar'
+      desc: 'Toggle progress bar. (default: true)'
+    })
+    .option('clear-console', {
+      desc: `Whether to clear console. (default: true)`
     })
 }
