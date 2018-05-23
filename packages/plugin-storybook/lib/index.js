@@ -47,8 +47,8 @@ module.exports = ({
             getManager([
               'storybook-vue/lib/manager',
               'storybook-react/lib/manager',
-              '@storybook/vue/dist/client/manager',
-              '@storybook/react/dist/client/manager'
+              '@storybook/vue/dist/client',
+              '@storybook/react/dist/client'
             ])
           )
 
