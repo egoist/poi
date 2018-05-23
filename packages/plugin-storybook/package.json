@@ -23,9 +23,9 @@
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.2.13",
+    "@storybook/react": "^3.4.5",
+    "@storybook/vue": "^3.4.5",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "storybook-react": "^3.2.15",
-    "storybook-vue": "^3.2.13"
+    "react-dom": "^16.2.0"
   }
 }

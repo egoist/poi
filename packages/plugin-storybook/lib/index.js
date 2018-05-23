@@ -45,8 +45,6 @@ module.exports = ({
           .entry('manager')
           .add(
             getManager([
-              'storybook-vue/lib/manager',
-              'storybook-react/lib/manager',
               '@storybook/vue/dist/client',
               '@storybook/react/dist/client'
             ])
@@ -72,7 +70,7 @@ function getManager(names) {
       }
       throw new Error(
         `You have to install one of ${names.map(
-          name => /^@?storybook[-/]\w+/.exec(name)[0]
+          name => /^@storybook\/\w+/.exec(name)[0]
         )}!`
       )
     } else {

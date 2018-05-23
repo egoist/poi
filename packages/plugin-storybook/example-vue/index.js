@@ -1,4 +1,4 @@
-import { configure } from 'storybook-vue'
+import { configure } from '@storybook/vue'
 
 function loadStories() {
   require('./stories')
