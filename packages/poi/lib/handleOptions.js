@@ -137,19 +137,12 @@ module.exports = async ({ options, command, env }) => {
           path: postcssConfig.file
         }
       }
-    } else {
-      // No PostCSS config file was found
-      // Set `plugins` to an empty array so `postcss-loader` won't try to find config file again
-      options.postcss = {
-        plugins: []
-      }
     }
   }
 
-  options.postcss = options.postcss || {}
-
   options.css = {
     minimize: options.minimize,
+    isProd: command === 'build',
     extract:
       typeof options.css.extract === 'boolean'
         ? options.css.extract

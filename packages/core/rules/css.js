@@ -6,7 +6,10 @@ module.exports = (
     cssModules: _cssModules,
     minimize,
     styleLoader,
-    postcss
+    postcss,
+    filename,
+    chunkFilename,
+    isProd
   }
 ) => {
   function createCSSRule(
@@ -31,7 +34,9 @@ module.exports = (
 
     function applyLoaders(rule, modules) {
       if (extract) {
-        rule.use('extract-loader').loader('mini-css-extract-plugin/loader')
+        rule
+          .use('extract-loader')
+          .loader(require('mini-css-extract-plugin').loader)
       } else {
         rule.use('style-loader').loader(styleLoader)
       }
@@ -43,21 +48,23 @@ module.exports = (
           modules,
           sourceMap,
           localIdentName: `[local]_[hash:base64:8]`,
-          importLoaders: 1,
+          importLoaders: 1 + Boolean(postcss) + Boolean(loader),
           minimize
         })
 
-      rule
-        .use('postcss-loader')
-        .loader('postcss-loader')
-        .options(
-          Object.assign(
-            {
-              sourceMap
-            },
-            postcss
+      if (postcss) {
+        rule
+          .use('postcss-loader')
+          .loader('postcss-loader')
+          .options(
+            Object.assign(
+              {
+                sourceMap
+              },
+              postcss
+            )
           )
-        )
+      }
 
       if (loader) {
         rule
@@ -111,6 +118,34 @@ module.exports = (
         preferPathResolver: 'webpack'
       }
     })
+  }
+
+  if (extract) {
+    config.plugin('extract-css').use(require('mini-css-extract-plugin'), [
+      {
+        filename,
+        chunkFilename
+      }
+    ])
+  }
+
+  if (isProd) {
+    const cssProcessorOptions = {
+      safe: true,
+      autoprefixer: { disable: true },
+      mergeLonghand: false
+    }
+    if (sourceMap) {
+      cssProcessorOptions.map = { inline: false }
+    }
+    config
+      .plugin('optimize-css')
+      .use(require('optimize-css-assets-webpack-plugin'), [
+        {
+          canPrint: false,
+          cssProcessorOptions
+        }
+      ])
   }
 
   // for .css and <style module> rules

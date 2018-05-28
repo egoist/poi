@@ -5,6 +5,10 @@
     "access": "public"
   },
   "main": "lib/index.js",
+  "scripts": {
+    "example": "poi --config example/poi.config.js",
+    "example:build": "poi build --config example/poi.config.js"
+  },
   "files": [
     "lib",
     "app"
