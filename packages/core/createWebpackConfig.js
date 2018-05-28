@@ -89,7 +89,7 @@ exports.apply = poi => {
   }
 
   function setCSSRules(config) {
-    require('./rules/css').standalone(config, poi.options.css)
+    require('./rules/css')(config, poi.options.css)
   }
 
   function setJSRules(config) {

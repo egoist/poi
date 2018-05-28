@@ -40,18 +40,6 @@ module.exports = ({ loaderOptions, tsChecker } = {}) => {
         config.resolve
           .plugin('tsconfig-paths')
           .use(require('tsconfig-paths-webpack-plugin'))
-
-        const vueRule = config.module.rule('vue')
-        vueRule.use('vue-loader').tap(vueOptions => {
-          vueOptions.esModule = true
-          vueOptions.loaders.ts = [
-            {
-              loader: 'ts-loader',
-              options: tsLoaderOptions
-            }
-          ]
-          return vueOptions
-        })
       })
     }
   }

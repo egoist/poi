@@ -42,23 +42,6 @@ module.exports = ({ asyncAwait = true, bubleOptions } = {}) => {
             .loader(require.resolve('./nodent-loader'))
             .before('buble-loader')
         }
-
-        const vueRule = config.module.rule('vue')
-        vueRule.use('vue-loader').tap(options => {
-          options.loaders.js = {
-            loader: require.resolve('./buble-loader'),
-            options: bubleOptions
-          }
-          if (asyncAwait) {
-            options.loaders.js = [
-              {
-                loader: require.resolve('./nodent-loader')
-              },
-              options.loaders.js
-            ]
-          }
-          return options
-        })
       })
     }
   }

@@ -154,7 +154,6 @@ module.exports = async ({ options, command, env }) => {
       typeof options.css.extract === 'boolean'
         ? options.css.extract
         : command === 'build',
-    extractLoader: options.css.extractLoader,
     sourceMap:
       typeof options.css.sourceMap === 'boolean'
         ? options.css.sourceMap

@@ -33,7 +33,7 @@
     "trash": "^4.3.0",
     "url-loader": "^1.0.1",
     "vue": "^2.5.13",
-    "vue-loader": "^14.1.1",
+    "vue-loader": "^15.2.1",
     "vue-template-compiler": "^2.5.13",
     "webpack": "^4.2.0",
     "webpack-dev-server": "^3.1.3",

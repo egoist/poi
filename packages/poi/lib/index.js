@@ -285,6 +285,9 @@ module.exports = class Poi extends EventEmitter {
     if (chainWebpack) {
       chainWebpack(config, context)
     }
+    if (this.options.inspectWebpack) {
+      console.log('inspect webpack config', config.toString())
+    }
     let webpackConfig = config.toConfig()
     this.hooks.invoke('configureWebpack', userConfig => {
       if (typeof userConfig === 'object') {
