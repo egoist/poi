@@ -3,7 +3,7 @@ module.exports = (
   {
     extract,
     sourceMap,
-    cssModules: _cssModules,
+    cssModules,
     minimize,
     styleLoader,
     postcss,
@@ -12,24 +12,17 @@ module.exports = (
     isProd
   }
 ) => {
-  function createCSSRule(
-    lang,
-    { test, loader, options, cssModules, cssModulesVue }
-  ) {
+  function createCSSRule(lang, { test, loader, options }) {
     const baseRule = config.module.rule(lang).test(test)
 
-    if (cssModulesVue) {
-      // Add moduleQueryRule so `<style module>` works
-      const moduleQueryRule = baseRule
-        .oneOf('module-query')
-        .resourceQuery(/module/)
-      const normalRule = baseRule.oneOf('normal')
-      applyLoaders(moduleQueryRule, true)
-      applyLoaders(normalRule, false)
-    } else {
-      const normalRule = baseRule.oneOf('normal')
-      applyLoaders(normalRule, cssModules)
-    }
+    const moduleQueryRule = baseRule
+      .oneOf('module-query')
+      .resourceQuery(/module/)
+    const moduleExtRule = baseRule.oneOf('module-ext').test(/\.module\.\w+$/)
+    const normalRule = baseRule.oneOf('normal')
+    applyLoaders(moduleQueryRule, true)
+    applyLoaders(moduleExtRule, true)
+    applyLoaders(normalRule, cssModules)
 
     function applyLoaders(rule, modules) {
       if (extract) {
@@ -81,38 +74,26 @@ module.exports = (
     }
   }
 
-  function createCSSRules({ cssModules, cssModulesVue, moduleExt }) {
-    const test = ext => new RegExp(`${moduleExt ? '.module' : ''}${ext}$`)
-    const name = name => `${name}${moduleExt ? '-module' : ''}`
-    createCSSRule(name('css'), {
-      test: test('.css'),
-      cssModules,
-      cssModulesVue
+  function createCSSRules() {
+    createCSSRule('css', {
+      test: /\.css$/
     })
-    createCSSRule(name('scss'), {
-      test: test('.scss'),
-      cssModules,
-      cssModulesVue,
+    createCSSRule('scss', {
+      test: /\.scss$/,
       loader: 'sass-loader'
     })
-    createCSSRule(name('sass'), {
-      test: test('.sass'),
+    createCSSRule('sass', {
+      test: /\.sass$/,
       loader: 'sass-loader',
-      cssModules,
-      cssModulesVue,
       options: { indentedSyntax: true }
     })
-    createCSSRule(name('less'), {
-      test: test('.less'),
-      cssModules,
-      cssModulesVue,
+    createCSSRule('less', {
+      test: /\.less$/,
       loader: 'less-loader'
     })
-    createCSSRule(name('stylus'), {
-      test: test('.styl(us)?'),
+    createCSSRule('stylus', {
+      test: /\.styl(us)?/,
       loader: 'stylus-loader',
-      cssModules,
-      cssModulesVue,
       options: {
         preferPathResolver: 'webpack'
       }
@@ -147,8 +128,5 @@ module.exports = (
       ])
   }
 
-  // for .css and <style module> rules
-  createCSSRules({ cssModulesVue: true, cssModules: _cssModules })
-  // for .module.css rules
-  createCSSRules({ cssModulesVue: false, cssModules: true, moduleExt: true })
+  createCSSRules()
 }
