@@ -3,7 +3,7 @@ module.exports = config => {
     .rule('vue')
     .test(/\.vue$/)
     .use('vue-loader')
-    .loader('vue-loader')
+    .loader(require.resolve('vue-loader'))
 
   config.plugin('vue').use(require('vue-loader').VueLoaderPlugin)
 }

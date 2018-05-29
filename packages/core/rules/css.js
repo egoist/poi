@@ -18,8 +18,6 @@ module.exports = (
   ) {
     const baseRule = config.module.rule(lang).test(test)
 
-    const normalRule = baseRule.oneOf('normal')
-
     if (cssModulesVue) {
       // Add moduleQueryRule so `<style module>` works
       const moduleQueryRule = baseRule
@@ -29,6 +27,7 @@ module.exports = (
       applyLoaders(moduleQueryRule, true)
       applyLoaders(normalRule, false)
     } else {
+      const normalRule = baseRule.oneOf('normal')
       applyLoaders(normalRule, cssModules)
     }
 
@@ -48,7 +47,7 @@ module.exports = (
           modules,
           sourceMap,
           localIdentName: `[local]_[hash:base64:8]`,
-          importLoaders: 1 + Boolean(postcss) + Boolean(loader),
+          importLoaders: Boolean(postcss) + Boolean(loader),
           minimize
         })
 
@@ -110,7 +109,7 @@ module.exports = (
       loader: 'less-loader'
     })
     createCSSRule(name('stylus'), {
-      test: test('.styl(us)'),
+      test: test('.styl(us)?'),
       loader: 'stylus-loader',
       cssModules,
       cssModulesVue,
