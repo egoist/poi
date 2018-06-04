@@ -75,7 +75,7 @@ function getCurrentScriptSource() {
 
 var scriptHost = getCurrentScriptSource();
 scriptHost = scriptHost.replace(/\/[^\/]+$/, '');
-urlParts = url.parse(scriptHost || '/', false, true);
+var urlParts = url.parse(scriptHost || '/', false, true);
 
 // Connect to WebpackDevServer via a socket.
 var connection = new SockJS(
