@@ -291,10 +291,9 @@ module.exports = class Poi extends EventEmitter {
     let webpackConfig = config.toConfig()
     this.hooks.invoke('configureWebpack', userConfig => {
       if (typeof userConfig === 'object') {
-        return webpackMerge(webpackConfig, userConfig)
-      }
-      if (typeof userConfig === 'function') {
-        return userConfig(webpackConfig, context) || webpackConfig
+        webpackConfig = webpackMerge(webpackConfig, userConfig)
+      } else if (typeof userConfig === 'function') {
+        webpackConfig = userConfig(webpackConfig, context) || webpackConfig
       }
     })
     if (this.options.debugWebpack) {
