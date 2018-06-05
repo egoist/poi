@@ -64,6 +64,7 @@ module.exports = {
         }
 
         const server = createDevServer(compiler, devServerOptions)
+        const protocol = devServerOptions.https ? 'https' : 'http'
         server.listen(port, host)
         let lanIP
         poi.on('show-develop-logs', () => {
@@ -71,14 +72,14 @@ module.exports = {
           const isUnspecifiedAddress = unspecifiedAddress(host)
 
           const localURL = url.format({
-            protocol: 'http',
+            protocol,
             hostname: isUnspecifiedAddress ? 'localhost' : host,
             port
           })
           msg += `\n${chalk.bold(`  - Local:           ${localURL}`)}`
           if (isUnspecifiedAddress) {
             const lanURL = url.format({
-              protocol: 'http',
+              protocol,
               hostname: lanIP || (lanIP = address.ip()),
               port
             })
@@ -90,7 +91,7 @@ module.exports = {
           if (poi.options.open) {
             opn(
               url.format({
-                protocol: 'http',
+                protocol,
                 hostname: unspecifiedAddress(host) ? 'localhost' : host,
                 port
               })
