@@ -3,5 +3,9 @@ const dotenv = require('dotenv')
 
 module.exports = nodeEnv => {
   const res = dotenv.config({ path: path.resolve(`.env.${nodeEnv}`) })
-  return res.parsed || {}
+  const resLocal = dotenv.config({
+    path: path.resolve(`.env.${nodeEnv}.local`)
+  })
+
+  return Object.assign({}, res.parsed, resLocal.parsed)
 }
