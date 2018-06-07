@@ -2,10 +2,28 @@ const path = require('path')
 const dotenv = require('dotenv')
 
 module.exports = nodeEnv => {
-  const res = dotenv.config({ path: path.resolve(`.env.${nodeEnv}`) })
-  const resLocal = dotenv.config({
-    path: path.resolve(`.env.${nodeEnv}.local`)
+  const environmentSpecificEnv = dotenv.config({
+    path: path.resolve(`.env.${nodeEnv}`)
   })
+  const localEnv =
+    nodeEnv === 'test'
+      ? {}
+      : dotenv.config({
+          path: path.resolve(`.env.local`)
+        })
+  const environmentSpecificLocalEnv =
+    nodeEnv === 'test'
+      ? {}
+      : dotenv.config({
+          path: path.resolve(`.env.${nodeEnv}.local`)
+        })
+  const defaultEnv = dotenv.config({ path: path.resolve('.env') })
 
-  return Object.assign({}, res.parsed, resLocal.parsed)
+  return Object.assign(
+    {},
+    defaultEnv.parsed,
+    localEnv.parsed,
+    environmentSpecificEnv.parsed,
+    environmentSpecificLocalEnv.parsed
+  )
 }
