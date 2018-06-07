@@ -11,12 +11,9 @@ module.exports = nodeEnv => {
       : dotenv.config({
           path: path.resolve(`.env.local`)
         })
-  const environmentSpecificLocalEnv =
-    nodeEnv === 'test'
-      ? {}
-      : dotenv.config({
-          path: path.resolve(`.env.${nodeEnv}.local`)
-        })
+  const environmentSpecificLocalEnv = dotenv.config({
+    path: path.resolve(`.env.${nodeEnv}.local`)
+  })
   const defaultEnv = dotenv.config({ path: path.resolve('.env') })
 
   return Object.assign(
