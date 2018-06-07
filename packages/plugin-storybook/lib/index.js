@@ -41,14 +41,7 @@ module.exports = ({
           config.entry('manager').merge([path.resolve(entry[addonsIndex])])
         }
 
-        config
-          .entry('manager')
-          .add(
-            getManager([
-              '@storybook/vue/dist/client',
-              '@storybook/react/dist/client'
-            ])
-          )
+        config.entry('manager').add('@storybook/core/dist/client/manager')
 
         if (useMarkdown !== false) {
           const markdownRule = config.module.rule('markdown').test(/\.md$/)
@@ -56,25 +49,6 @@ module.exports = ({
           markdownRule.use('markdown-loader').loader('markdown-loader')
         }
       })
-    }
-  }
-}
-
-function getManager(names) {
-  try {
-    return require.resolve(names.shift())
-  } catch (err) {
-    if (err.code === 'MODULE_NOT_FOUND') {
-      if (names.length > 0) {
-        return getManager(names)
-      }
-      throw new Error(
-        `You have to install one of ${names.map(
-          name => /^@storybook\/\w+/.exec(name)[0]
-        )}!`
-      )
-    } else {
-      throw err
     }
   }
 }
