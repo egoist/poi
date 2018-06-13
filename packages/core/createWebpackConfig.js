@@ -250,6 +250,10 @@ exports.apply = poi => {
       require('./rules/reason')(config)
     }
 
+    function setPug(config) {
+      require('./rules/pug')(config)
+    }
+
     setOutput(config)
     setPerformance(config)
     setExternals(config)
@@ -269,6 +273,7 @@ exports.apply = poi => {
     setHTML(config)
     setGraphql(config)
     setReason(config)
+    setPug(config)
 
     // installed by `yarn global add`
     if (yarnGlobal.inDirectory(__dirname)) {
