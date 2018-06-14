@@ -67,6 +67,7 @@ module.exports = {
         const protocol = devServerOptions.https ? 'https' : 'http'
         server.listen(port, host)
         let lanIP
+        let opened
         poi.on('show-develop-logs', () => {
           let msg = `\n  ${chalk.green('App running at:')}`
           const isUnspecifiedAddress = unspecifiedAddress(host)
@@ -88,7 +89,8 @@ module.exports = {
 
           logger.log(msg + '\n')
 
-          if (poi.options.open) {
+          if (poi.options.open && !opened) {
+            opened = true
             opn(
               url.format({
                 protocol,
