@@ -1,7 +1,7 @@
 const path = require('path')
 const ClientPlugin = require('vue-server-renderer/client-plugin')
 const ServerPlugin = require('vue-server-renderer/server-plugin')
-const chalk = require('chalk')
+const tc = require('turbocolor')
 
 const clientEntry = path.join(__dirname, '../app', 'client-entry.js')
 
@@ -126,7 +126,7 @@ module.exports = ({ routes = ['/'] } = {}) => {
               const end = Date.now()
 
               poi.logger.success(
-                `Successfully generated into ${chalk.green(
+                `Successfully generated into ${tc.green(
                   path.relative(process.cwd(), poi.options.outDir)
                 )} folder in ${end - start}ms.`
               )

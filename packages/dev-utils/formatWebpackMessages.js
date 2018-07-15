@@ -16,7 +16,7 @@
 // This is quite hacky and hopefully won't be needed when Webpack fixes this.
 // https://github.com/webpack/webpack/issues/2878
 
-var chalk = require('chalk');
+var tc = require('turbocolor');
 
 var friendlySyntaxErrorLabel = 'Syntax error:';
 
@@ -77,7 +77,7 @@ function formatMessage(message, isError) {
     lines[1] = lines[1].replace(exportError, '$1 \'$4\' does not contain an export named \'$3\'.');
   }
 
-  lines[0] = chalk.inverse(lines[0]);
+  lines[0] = tc.inverse(lines[0]);
 
   // Reassemble the message.
   message = lines.join('\n');

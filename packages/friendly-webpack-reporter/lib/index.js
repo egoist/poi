@@ -1,7 +1,7 @@
 const path = require('path')
 const textTable = require('text-table')
 const bytes = require('bytes')
-const chalk = require('chalk')
+const tc = require('turbocolor')
 const transformer = require('./transformer')
 const formater = require('./formater')
 
@@ -39,12 +39,10 @@ module.exports = class FriendlyWebpackReporter {
 
     if (type === 'error') {
       this.logger.error(
-        chalk.red(`Failed to compile with ${source.length} errors\n`)
+        tc.red(`Failed to compile with ${source.length} errors\n`)
       )
     } else if (type === 'warning') {
-      this.logger.warn(
-        chalk.yellow(`Compiled with ${source.length} warnings\n`)
-      )
+      this.logger.warn(tc.yellow(`Compiled with ${source.length} warnings\n`))
     }
 
     await Promise.all(
@@ -60,7 +58,7 @@ module.exports = class FriendlyWebpackReporter {
     this.clearConsole()
     if (this.showCompiledIn) {
       this.logger.success(
-        chalk.green(
+        tc.green(
           `Compiled successfully in ${stats.endTime - stats.startTime} ms!`
         )
       )
@@ -71,13 +69,13 @@ module.exports = class FriendlyWebpackReporter {
           textTable(
             stats.toJson().assets.map(asset => {
               return [
-                `${chalk.dim(
+                `${tc.dim(
                   `${path.relative(
                     process.cwd(),
                     stats.compilation.compiler.options.output.path
                   )}/`
-                )}${chalk.green(asset.name)}`,
-                chalk[asset.isOverSizeLimit ? 'red' : 'cyan'](
+                )}${tc.green(asset.name)}`,
+                tc[asset.isOverSizeLimit ? 'red' : 'cyan'](
                   bytes(asset.size, { unitSeparator: ' ' })
                 )
               ]

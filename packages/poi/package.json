@@ -34,7 +34,7 @@
     "address": "^1.0.1",
     "babel-preset-poi": "^10.0.1",
     "cac": "^4.4.1",
-    "chalk": "^2.0.1",
+    "turbocolor": "^2.2.0",
     "chokidar": "^2.0.3",
     "dotenv": "^5.0.1",
     "find-babel-config": "^1.1.0",

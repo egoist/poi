@@ -13,7 +13,7 @@
   "repository": "https://github.com/egoist/poi/tree/master/packages/friendly-webpack-reporter",
   "dependencies": {
     "bytes": "^3.0.0",
-    "chalk": "^2.3.2",
+    "turbocolor": "^2.2.0",
     "detect-package-manager": "^1.1.0",
     "text-table": "^0.2.0"
   }

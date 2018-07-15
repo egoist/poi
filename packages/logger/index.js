@@ -1,6 +1,6 @@
 const util = require('util')
 const LogHorizon = require('log-horizon')
-const chalk = require('chalk')
+const tc = require('turbocolor')
 
 class Logger extends LogHorizon {
   inspect(title, obj) {
@@ -16,7 +16,7 @@ class Logger extends LogHorizon {
   }
 
   debug(title, message = '') {
-    return super.debug(`${chalk.inverse.bold.yellow(` ${title} `)} ${message}`)
+    return super.debug(`${tc.inverse.bold.yellow(` ${title} `)} ${message}`)
   }
 }
 

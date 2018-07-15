@@ -3,7 +3,7 @@ const EventEmitter = require('events')
 const Config = require('webpack-chain')
 const webpackMerge = require('webpack-merge')
 const UseConfig = require('use-config')
-const chalk = require('chalk')
+const tc = require('turbocolor')
 const get = require('lodash/get')
 const merge = require('lodash/merge')
 const parseJsonConfig = require('parse-json-config')
@@ -57,7 +57,7 @@ module.exports = class Poi extends EventEmitter {
       if (err.name === 'PoiError') {
         logger.error(err.message)
       } else {
-        logger.error(chalk.dim(err.stack))
+        logger.error(tc.dim(err.stack))
       }
     })
 
@@ -298,7 +298,7 @@ module.exports = class Poi extends EventEmitter {
     })
     if (this.options.debugWebpack) {
       logger.log(
-        chalk.bold(
+        tc.bold(
           `webpack config${
             context && context.type ? ` for ${context.type}` : ''
           }: `

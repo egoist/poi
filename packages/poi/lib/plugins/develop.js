@@ -1,6 +1,6 @@
 const url = require('url')
 const opn = require('opn')
-const chalk = require('chalk')
+const tc = require('turbocolor')
 const launchEditorMiddlewarre = require('launch-editor-middleware')
 const getPort = require('get-port')
 const address = require('address')
@@ -69,7 +69,7 @@ module.exports = {
         let lanIP
         let opened
         poi.on('show-develop-logs', () => {
-          let msg = `\n  ${chalk.green('App running at:')}`
+          let msg = `\n  ${tc.green('App running at:')}`
           const isUnspecifiedAddress = unspecifiedAddress(host)
 
           const localURL = url.format({
@@ -77,14 +77,14 @@ module.exports = {
             hostname: isUnspecifiedAddress ? 'localhost' : host,
             port
           })
-          msg += `\n${chalk.bold(`  - Local:           ${localURL}`)}`
+          msg += `\n${tc.bold(`  - Local:           ${localURL}`)}`
           if (isUnspecifiedAddress) {
             const lanURL = url.format({
               protocol,
               hostname: lanIP || (lanIP = address.ip()),
               port
             })
-            msg += `\n${chalk.dim(`  - On Your Network: ${lanURL}`)}`
+            msg += `\n${tc.dim(`  - On Your Network: ${lanURL}`)}`
           }
 
           logger.log(msg + '\n')
