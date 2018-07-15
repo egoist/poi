@@ -1,7 +1,7 @@
 module.exports = (config, { filename, inlineImageMaxSize = 10000 }) => {
   config.module
     .rule('image')
-    .test([/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/])
+    .test([/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.webp$/])
     .use('url-loader')
     .loader('url-loader')
     .options({
