@@ -1,5 +1,5 @@
 function getPublicPath(command, publicPath) {
-  if (command === 'build' && typeof publicPath === 'string') {
+  if (['build', 'watch'].includes(command) && typeof publicPath === 'string') {
     return /\/$/.test(publicPath) || publicPath === ''
       ? publicPath
       : publicPath + '/'
