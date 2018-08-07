@@ -16,7 +16,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@babel/core": "^7.0.0-beta.40",
+    "@babel/core": "^7.0.0-beta.56",
     "@poi/bs-loader": "^1.0.0",
     "babel-loader": "^8.0.0-beta.2",
     "chalk": "^2.3.2",
