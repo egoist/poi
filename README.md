@@ -38,6 +38,15 @@ __You can dive into the [documentation](https://poi.js.org) for detailed usage._
 
 ## Contributing
 
+[![0](https://sourcerer.io/fame/sergey48k/egoist/poi/images/0)](https://sourcerer.io/fame/sergey48k/egoist/poi/links/0)
+[![1](https://sourcerer.io/fame/sergey48k/egoist/poi/images/1)](https://sourcerer.io/fame/sergey48k/egoist/poi/links/1)
+[![2](https://sourcerer.io/fame/sergey48k/egoist/poi/images/2)](https://sourcerer.io/fame/sergey48k/egoist/poi/links/2)
+[![3](https://sourcerer.io/fame/sergey48k/egoist/poi/images/3)](https://sourcerer.io/fame/sergey48k/egoist/poi/links/3)
+[![4](https://sourcerer.io/fame/sergey48k/egoist/poi/images/4)](https://sourcerer.io/fame/sergey48k/egoist/poi/links/4)
+[![5](https://sourcerer.io/fame/sergey48k/egoist/poi/images/5)](https://sourcerer.io/fame/sergey48k/egoist/poi/links/5)
+[![6](https://sourcerer.io/fame/sergey48k/egoist/poi/images/6)](https://sourcerer.io/fame/sergey48k/egoist/poi/links/6)
+[![7](https://sourcerer.io/fame/sergey48k/egoist/poi/images/7)](https://sourcerer.io/fame/sergey48k/egoist/poi/links/7)
+
 This project exists thanks to all the people who contribute.
 
 Please make sure to read the [Contributing Guide](./CONTRIBUTING.md) before making a pull request.
