@@ -1,0 +1,17 @@
+{
+  "name": "@poi/plugin-offline",
+  "version": "11.0.0-alpha.13",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "index.js",
+    "runtime.js"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "offline-plugin": "^5.0.5",
+    "skip-service-worker": "^11.0.0-alpha.13"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "skip-service-worker",
+  "version": "11.0.0-alpha.13",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "noop-service-worker.js"
+  ],
+  "author": {
+    "name": "EGOIST",
+    "email": "0x142857@gmail.com"
+  },
+  "license": "MIT"
+}

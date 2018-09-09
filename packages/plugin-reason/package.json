@@ -1,0 +1,16 @@
+{
+  "name": "@poi/plugin-reason",
+  "version": "11.0.0-alpha.13",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "files": [
+    "lib",
+    "generators"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@poi/bs-loader": "^11.0.0-alpha.13"
+  }
+}

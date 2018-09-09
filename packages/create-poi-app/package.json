@@ -1,0 +1,24 @@
+{
+  "name": "create-poi-app",
+  "version": "11.0.0-alpha.13",
+  "main": "lib/index.js",
+  "bin": {
+    "create-poi-app": "bin/cli.js",
+    "cpa": "bin/cli.js"
+  },
+  "files": [
+    "lib",
+    "bin",
+    "templates"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@poi/cli-utils": "^11.0.0-alpha.13",
+    "cac": "^5.0.11",
+    "chalk": "^2.4.1",
+    "inquirer": "^6.2.0",
+    "lodash.template": "^4.4.0",
+    "majo": "^0.6.2"
+  },
+  "xo": false
+}

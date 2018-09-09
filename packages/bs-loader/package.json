@@ -1,0 +1,15 @@
+{
+  "name": "@poi/bs-loader",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "11.0.0-alpha.13",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "loader-utils": "^1.1.0"
+  }
+}

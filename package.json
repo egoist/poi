@@ -1,0 +1,44 @@
+{
+  "private": true,
+  "scripts": {
+    "lint": "xo --fix"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-config-rem": "^4.0.0",
+    "eslint-plugin-prettier": "^2.6.2",
+    "husky": "^1.0.0-rc.13",
+    "lerna": "^3.1.4",
+    "lint-staged": "^7.2.2",
+    "prettier": "^1.14.2",
+    "require-so-slow": "^1.0.1",
+    "xo": "^0.22.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "xo": {
+    "extends": [
+      "rem",
+      "plugin:prettier/recommended"
+    ],
+    "rules": {
+      "unicorn/no-abusive-eslint-disable": "off",
+      "unicorn/filename-case": "off"
+    },
+    "ignores": [
+      "**/packages/**/templates/**"
+    ]
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint --fix",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}

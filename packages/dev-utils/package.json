@@ -1,0 +1,18 @@
+{
+  "name": "@poi/dev-utils",
+  "version": "11.0.0-alpha.13",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "*.js"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "react-error-overlay": "^4.0.1",
+    "sockjs-client": "^1.1.5",
+    "strip-ansi": "^4.0.0"
+  },
+  "xo": false
+}

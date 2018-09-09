@@ -1,0 +1,15 @@
+{
+  "name": "@poi/cli-utils",
+  "version": "11.0.0-alpha.13",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "*.js",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "command-exists": "^1.2.7",
+    "croatia": "^1.0.3",
+    "joycon": "^2.1.2"
+  }
+}
