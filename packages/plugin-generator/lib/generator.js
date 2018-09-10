@@ -103,6 +103,28 @@ module.exports = class Generator {
     const pkgPath =
       this.api.projectPkg.path || this.api.resolveBaseDir('package.json')
     const pkg = JSON.parse(await fs.readFile(pkgPath, 'utf8'))
+
+    const executeWhenWritable = async (filepath, fn) => {
+      const exists = await fs.pathExists(filepath)
+      if (exists) {
+        const { overwrite } = await prompt({
+          name: 'overwrite',
+          type: 'confirm',
+          message: `${path.relative(
+            process.cwd(),
+            filepath
+          )} already exists, do you want to overwrite it`,
+          default: false
+        })
+        if (!overwrite && !flags.overwrite) {
+          this.api.logger.debug(chalk.yellow(`Skipped generating ${filepath}`))
+          return false
+        }
+      }
+      await fn()
+      return true
+    }
+
     const context = {
       answers,
       fs,
@@ -117,56 +139,23 @@ module.exports = class Generator {
         if (content && content.includes(extra)) return true
         await fs.writeFile(filepath, content + extra, 'utf8')
       },
-      writeFile: async (filename, content) => {
+      writeFile: (filename, content) => {
         const outPath = this.api.resolveBaseDir(filename)
-
-        const exists = await fs.pathExists(outPath)
-        if (exists) {
-          const { overwrite } = await prompt({
-            name: 'overwrite',
-            type: 'confirm',
-            message: `${path.relative(
-              process.cwd(),
-              outPath
-            )} already exists, do you want to overwrite it`,
-            default: false
-          })
-          if (!overwrite && !flags.overwrite) {
-            logger.debug(chalk.yellow(`Skipped generating ${outPath}`))
-            return false
-          }
-        }
-
-        await fs.writeFile(outPath, content, 'utf8')
-        return true
+        return executeWhenWritable(outPath, () => fs.writeFile(outPath, content, 'utf8'))
       },
       renderTemplate: async (templatePath, outName, data) => {
         const outPath = this.api.resolveBaseDir(outName)
-
-        const exists = await fs.pathExists(outPath)
-        if (exists) {
-          const { overwrite } = await prompt({
-            name: 'overwrite',
-            type: 'confirm',
-            message: `${path.relative(
-              process.cwd(),
-              outPath
-            )} already exists, do you want to overwrite it`,
-            default: false
-          })
-          if (!overwrite && !flags.overwrite) {
-            this.api.logger.debug(chalk.yellow(`Skipped generating ${outPath}`))
-            return false
-          }
-        }
-
-        const content = await fs.readFile(templatePath, 'utf8')
-        const template = compileTemplate(content)
-        const output = template(Object.assign({ $pkg: pkg }, answers, data))
-        this.api.logger.debug(chalk.green(`Generated ${outPath}`))
-        await fs.ensureDir(path.dirname(outPath))
-        await fs.writeFile(outPath, output, 'utf8')
-        return true
+        return executeWhenWritable(outPath, async () => {
+          const content = await fs.readFile(templatePath, 'utf8')
+          const template = compileTemplate(content)
+          const output = template(Object.assign({ $pkg: pkg }, answers, data))
+          this.api.logger.debug(chalk.green(`Generated ${outPath}`))
+          await fs.ensureDir(path.dirname(outPath))
+          await fs.writeFile(outPath, output, 'utf8')
+        })
+      },
+      copy: (fromPath, targetPath) => {
+        return executeWhenWritable(targetPath, () => fs.copy(fromPath, targetPath))
       },
       updatePkg: fn => {
         // eslint-disable-next-line no-multi-assign
