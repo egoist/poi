@@ -16,7 +16,8 @@ module.exports = {
         collapsable: false,
         children: [
           '/guide/transforms',
-          '/guide/serve-public-files'
+          '/guide/serve-public-files',
+          '/guide/plugins-and-presets'
         ]
       }
     ],
@@ -32,13 +33,16 @@ module.exports = {
           {
             text: 'Command Line',
             link: '/cli'
+          },
+          {
+            text: 'Plugin Dev Guide',
+            link: '/plugin-dev'
           }
         ]
       }
     ],
     editLinks: true,
-    repo: 'egoist/poi',
-    docsDir: 'docs',
-    docsRepo: 'poi-bundler/website'
+    repo: 'upash/poi',
+    docsDir: 'website/docs'
   }
 }
