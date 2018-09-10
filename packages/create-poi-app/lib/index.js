@@ -4,6 +4,8 @@ const majo = require('majo')
 const chalk = require('chalk')
 const install = require('@poi/cli-utils/install-deps')
 
+const appVersion = `^${require('../package').version}`
+
 module.exports = async ({ outDir }) => {
   outDir = path.resolve(outDir)
 
@@ -31,7 +33,7 @@ module.exports = async ({ outDir }) => {
 
   // Write pkg
   const pkgPath = path.join(outDir, 'package.json')
-  const useLinter = features.includes('linter')
+
   const pkgData = {
     private: true,
     scripts: {
@@ -43,7 +45,8 @@ module.exports = async ({ outDir }) => {
       'react-dom': framework === 'react' ? '^16.0.0' : undefined,
       vue: framework === 'vue' ? '^2.0.0' : undefined,
       'vue-template-compiler': framework === 'vue' ? '^2.0.0' : undefined,
-      '@poi/plugin-eslint': useLinter ? 'next' : undefined
+      '@poi/plugin-eslint': features.includes('linter') ? appVersion : undefined,
+      '@poi/plugin-pwa': features.includes('pwa') ? appVersion : undefined
     },
     devDependencies: {
       poi: 'next'
@@ -56,12 +59,21 @@ module.exports = async ({ outDir }) => {
   // Invoke generators for selected features
   const pm = await require('@poi/cli-utils/get-npm-client')(outDir)
   const poi = require(path.join(outDir, 'node_modules/poi'))
-  if (useLinter) {
+
+  if (features.includes('linter')) {
     await poi({
       command: 'invoke',
       baseDir: outDir,
       cliOptions: { args: ['eslint', '--no-success-message'] }
     }).run()
+  }
+
+  if (features.includes('pwa')) {
+    await poi({
+      command: 'invoke',
+      baseDir: outDir,
+      cliOptions: { args: ['pwa', '--no-success-message'] }
+    })
   }
 
   console.log(`

@@ -12,6 +12,7 @@ module.exports = () => [
     choices({ framework }) {
       return [
         { name: 'Linter', value: 'linter' },
+        { name: 'PWA (Progressive Web APP) support', value: 'pwa' },
         { name: 'Router (TODO)', value: 'router' },
         framework === 'vue' && { name: 'Vuex (TODO)', value: 'vuex' }
       ].filter(Boolean)
