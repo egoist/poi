@@ -30,22 +30,40 @@ exports.extend = api => {
     const HtmlPlugin = require('html-webpack-plugin')
     HtmlPlugin.__expression = `require('html-webpack-plugin')`
 
-    for (const entryName of Object.keys(api.config.pages)) {
+    const DEFAULT_TEMPLATE = path.join(__dirname, '../default-template.html')
+
+    if (api.config.pages) {
+      for (const entryName of Object.keys(api.config.pages)) {
+        const page = Object.assign(
+          {
+            template: 'public/index.html',
+            title: api.projectPkg.data.name || 'Poi App',
+            filename: `${entryName}.html`,
+            chunks: ['chunk-vendors', 'chunk-common', entryName]
+          },
+          api.config.pages[entryName]
+        )
+
+        page.template = api.resolveBaseDir(page.template)
+        if (!fs.existsSync(page.template)) {
+          page.template = DEFAULT_TEMPLATE
+        }
+        config.plugin(`html-page-${entryName}`).use(HtmlPlugin, [page])
+      }
+    } else {
       const page = Object.assign(
         {
           template: 'public/index.html',
           title: api.projectPkg.data.name || 'Poi App',
-          filename: `${entryName}.html`
+          filename: 'index.html'
         },
-        api.config.pages[entryName]
+        api.config.html
       )
-
-      // Generate html file for this entry
       page.template = api.resolveBaseDir(page.template)
       if (!fs.existsSync(page.template)) {
-        page.template = path.join(__dirname, '../default-template.html')
+        page.template = DEFAULT_TEMPLATE
       }
-      config.plugin(`html-${entryName}`).use(HtmlPlugin, [page])
+      config.plugin('html').use(HtmlPlugin, [page])
     }
   })
 }

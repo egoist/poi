@@ -20,15 +20,15 @@ module.exports = {
 
 ## entry
 
-- Type: `string` `string[]`
-- Default: `index.js`
+- Type: `string` `string[]` `object`
+- Default: `./index.js`
 
 The entry files of your app. If a relative path is given, it's resolved from [base directory](cli.md#base-directory).
 
 ## outDir
 
 - Type: `string`
-- Default: `dist`.
+- Default: `./dist`.
 
 The directory to write generated files. If a relative path is given, it's resolved from [base directory](cli.md#base-directory).
 
@@ -44,20 +44,22 @@ The value of the option is prefixed to every URL created by the runtime or loade
 ## pages
 
 - Type: `Object`
+- Default: `undefined`
 
-Customize the pages, for example you can configure this to build your app in multi-page mode. The value should be an object where the key is the name of the page, the value is an object used to customize the page.
+Build app in multi-page mode. The value should be an object where the key is the name of the page, the value is an object used to customize the page.
 
-By default we only have an `index` page which generates `index.html`. The default value is as follows:
+When this option is used the [`entry`](#entry) option will be ignore.
+
+For instance you can generate `index.html` and `sub-page.html` like this:
 
 ```js
 module.exports = {
   pages: {
     index: {
-      entry: config.entry,
-      title: pkg.name || 'Poi App',
-      filename: 'index.html',
-      template: 'public/index.html',
-      chunks: ['chunk-vendors', 'chunk-common', 'index']
+      entry: './src/index/main.js',
+    },
+    'sub-page': {
+      entry: './src/sub-page/main.js'
     }
   }
 }
@@ -65,11 +67,11 @@ module.exports = {
 
 Properties:
 
-- `entry`: **required**. The entry files of this page, like [config.entry](#entry) option it should be either `string` or an array of `string`. For `index` page, it will use [config.entry](#entry) as the default value.
-- `title`: The title that is used in `<title></title>` in the generated HTML file. For `index` page it defaults to `pkg.title || 'Poi App'` where the `pkg` the data of your project's `package.json`.
-- `filename`: The filename of generated HTML file, it default to `$page_name + '.html'` where `$page_name` is the name of the page.
+- `entry`: **required**. The entry files of this page, pretty much the same as [config.entry](#entry) option but for this page.
+- `title`: The title that is used in `<title></title>` in the generated HTML file. It defaults to `pkg.title || 'Poi App'` where the `pkg` the data of your project's `package.json`.
+- `filename`: The filename of generated HTML file, it default to `$page_name + '.html'`.
 - `template`: The template HTML file that is used to render the generated HTML file. If not given, a default template file will be used.
-- `chunks`: Include specific chunks in this page. Pages by default will always generate a `$page_name` chunk, optionally with `chunk-vendors` chunk and `chunk-common` chunk in production build.
+- `chunks`: Include specific chunks in this page. Pages by default will always generate a `$page_name` chunk, optionally with `chunk-vendors` chunk and `chunk-common` chunk in production build, these chunks are included by default. You can use this option to customize it.
 
 ## constants
 

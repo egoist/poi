@@ -3,16 +3,30 @@ const fs = require('fs')
 
 exports.extend = api => {
   api.chainWebpack(config => {
-    const { pages } = api.config
+    const { pages, entry } = api.config
 
-    for (const entryName of Object.keys(pages)) {
-      const { entry } = pages[entryName]
-      if (typeof entry === 'string') {
-        config.entry(entryName).add(api.resolveBaseDir(entry))
-      } else if (Array.isArray(entry)) {
-        config.entry(entryName).merge(entry.map(v => api.resolveBaseDir(v)))
-      } else {
-        throw new TypeError('Entry value must be either string or array!')
+    if (pages) {
+      // Multi-page mode, set entries using `pages`
+      for (const entryName of Object.keys(pages)) {
+        const { entry } = pages[entryName]
+        if (typeof entry === 'string') {
+          config.entry(entryName).add(api.resolveBaseDir(entry))
+        } else if (Array.isArray(entry)) {
+          config.entry(entryName).merge(entry.map(v => api.resolveBaseDir(v)))
+        } else {
+          throw new TypeError('Entry value must be either string or array!')
+        }
+      }
+    } else if (Array.isArray(entry)) {
+      // Single-pages mode, add `entry` to `main` entry
+      config
+        .entry('index')
+        .merge([].concat(entry).map(v => api.resolveBaseDir(v)))
+    } else if (entry && typeof entry === 'object') {
+      for (const entryName of Object.keys(entry)) {
+        config
+          .entry(entryName)
+          .merge([].concat(entry[entryName]).map(v => api.resolveBaseDir(v)))
       }
     }
 

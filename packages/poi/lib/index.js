@@ -69,14 +69,10 @@ class Poi {
       }
     }
 
-    let defaultIndexEntry = this.config.entry
-    if (
-      (Array.isArray(defaultIndexEntry) && defaultIndexEntry.length === 0) ||
-      !defaultIndexEntry
-    ) {
-      defaultIndexEntry = ['index.js']
+    let defaultEntry = this.config.entry || './index.js'
+    if (Array.isArray(defaultEntry) && defaultEntry.length === 0) {
+      defaultEntry = './index.js'
     }
-
     this.config = Object.assign(
       {
         // Default values
@@ -85,22 +81,12 @@ class Poi {
         publicPath: '/',
         pluginOptions: {},
         sourceMap: true,
-        minimize: this.options.command === 'build'
+        minimize: this.options.command === 'build',
+        entry: defaultEntry
       },
       this.config,
       {
         // Proper overrides
-        pages: Object.assign({}, this.config.pages, {
-          index: Object.assign(
-            {
-              entry: defaultIndexEntry,
-              // Will fallback to `lib/default-template.html` when not found
-              template: 'public/index.html',
-              chunks: ['chunk-vendors', 'chunk-common', 'index']
-            },
-            this.config.pages && this.config.pages.index
-          )
-        }),
         css: Object.assign(
           {
             extract: this.options.command === 'build',
