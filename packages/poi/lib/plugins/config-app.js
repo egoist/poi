@@ -37,14 +37,14 @@ exports.extend = api => {
         const page = Object.assign(
           {
             template: 'public/index.html',
-            title: api.projectPkg.data.name || 'Poi App',
+            title: api.pkg.data.name || 'Poi App',
             filename: `${entryName}.html`,
             chunks: ['chunk-vendors', 'chunk-common', entryName]
           },
           api.config.pages[entryName]
         )
 
-        page.template = api.resolveBaseDir(page.template)
+        page.template = api.resolve(page.template)
         if (!fs.existsSync(page.template)) {
           page.template = DEFAULT_TEMPLATE
         }
@@ -54,12 +54,12 @@ exports.extend = api => {
       const page = Object.assign(
         {
           template: 'public/index.html',
-          title: api.projectPkg.data.name || 'Poi App',
+          title: api.pkg.data.name || 'Poi App',
           filename: 'index.html'
         },
         api.config.html
       )
-      page.template = api.resolveBaseDir(page.template)
+      page.template = api.resolve(page.template)
       if (!fs.existsSync(page.template)) {
         page.template = DEFAULT_TEMPLATE
       }

@@ -1,11 +1,11 @@
 const path = require('path')
-const fs = require('fs-extra')
 const merge = require('lodash.merge')
 const resolveFrom = require('resolve-from')
 const logger = require('@poi/cli-utils/logger')
+const getPlugins = require('./utils/get-plugins')
+const Plugin = require('./plugin')
 const loadConfig = require('./utils/load-config')
 const Hooks = require('./hooks')
-const getPlugins = require('./utils/get-plugins')
 
 class Poi {
   constructor(options = {}, config) {
@@ -19,17 +19,14 @@ class Poi {
     this.cliOptions = Object.assign({}, cliOptions, {
       args: cliOptions.args || process.argv.slice(3)
     })
-
-    this.config = Object.assign({}, config)
     this.hooks = new Hooks()
-    this.logger = logger
-    this.loadConfig = loadConfig
+    this.config = Object.assign({}, config)
 
     logger.setOptions({
       debug: this.cliOptions.debug
     })
 
-    this.projectPkg = Object.assign(
+    this.pkg = Object.assign(
       { data: {} },
       loadConfig.loadSync({
         files: ['package.json'],
@@ -110,64 +107,17 @@ class Poi {
     )
 
     this.cli = require('cac')({ bin: 'poi' })
-    this.commands = new Map()
-  }
-
-  isCommand(command) {
-    if (Array.isArray(command)) {
-      return command.includes(this.options.command)
-    }
-    return command === this.options.command
-  }
-
-  createWebpackConfig() {
-    const WebpackChain = require('webpack-chain')
-    const config = new WebpackChain()
-
-    this.hooks.invoke('chainWebpack', config)
-
-    if (this.cliOptions.inspectWebpack) {
-      console.log(config.toString())
-      process.exit() // eslint-disable-line unicorn/no-process-exit
-    }
-
-    return config.toConfig()
-  }
-
-  resolveBaseDir(...args) {
-    return path.resolve(this.options.baseDir, ...args)
-  }
-
-  chainWebpack(fn) {
-    this.hooks.add('chainWebpack', fn)
-    return this
-  }
-
-  configureDevServer(fn) {
-    this.hooks.add('configureDevServer', fn)
-    return this
-  }
-
-  async bundle() {
-    const compiler = require('webpack')(this.createWebpackConfig())
-    if (this.options.cleanOutDir) {
-      await fs.remove(compiler.options.output.path)
-    }
-    return new Promise((resolve, reject) => {
-      compiler.run((err, stats) => {
-        if (err) return reject(err)
-        resolve(stats)
-      })
-    })
   }
 
   applyPlugins() {
     const pluginsFromPackage = [
-      ...Object.keys(this.projectPkg.data.dependencies || {}),
-      ...Object.keys(this.projectPkg.data.devDependencies || {})
-    ].filter(name => {
-      return name.startsWith('poi-plugin-') || name.startsWith('@poi/plugin-')
-    })
+      ...Object.keys(this.pkg.data.dependencies || {}),
+      ...Object.keys(this.pkg.data.devDependencies || {})
+    ]
+      .filter(name => {
+        return name.startsWith('poi-plugin-') || name.startsWith('@poi/plugin-')
+      })
+      .sort((a, b) => a < b)
 
     let plugins = [
       require('./plugins/build'),
@@ -178,13 +128,13 @@ class Poi {
       require('./plugins/config-app'),
       require('@poi/plugin-generator'),
       ...pluginsFromPackage.map(plugin => {
-        return require(resolveFrom(this.resolveBaseDir(), plugin))
+        return require(resolveFrom(this.options.baseDir, plugin))
       })
     ]
 
     if (this.config.plugins) {
       plugins = plugins.concat(
-        getPlugins(this.config.plugins, this.resolveBaseDir())
+        getPlugins(this.config.plugins, this.options.baseDir)
       )
     }
 
@@ -192,18 +142,10 @@ class Poi {
 
     for (const plugin of plugins) {
       if (plugin.extend) {
-        plugin.extend(this, this.config.pluginOptions[plugin.name] || {})
+        const pluginApi = new Plugin(this, plugin.name)
+        plugin.extend(pluginApi, this.config.pluginOptions[plugin.name] || {})
       }
     }
-  }
-
-  hasPlugin(name) {
-    return this.plugins && this.plugins.find(plugin => plugin.name === name)
-  }
-
-  removePlugin(name) {
-    this.plugins = this.plugins.filter(plugin => plugin.name !== name)
-    return this
   }
 
   run() {

@@ -8,7 +8,7 @@ exports.extend = api => {
       .use('bs-loader')
       .loader('@poi/bs-loader')
       .options({
-        cwd: api.resolveBaseDir()
+        cwd: api.resolve()
       })
   })
 }

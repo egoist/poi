@@ -10,30 +10,27 @@ exports.extend = api => {
       for (const entryName of Object.keys(pages)) {
         const { entry } = pages[entryName]
         if (typeof entry === 'string') {
-          config.entry(entryName).add(api.resolveBaseDir(entry))
+          config.entry(entryName).add(api.resolve(entry))
         } else if (Array.isArray(entry)) {
-          config.entry(entryName).merge(entry.map(v => api.resolveBaseDir(v)))
+          config.entry(entryName).merge(entry.map(v => api.resolve(v)))
         } else {
           throw new TypeError('Entry value must be either string or array!')
         }
       }
     } else if (Array.isArray(entry)) {
       // Single-pages mode, add `entry` to `main` entry
-      config
-        .entry('index')
-        .merge([].concat(entry).map(v => api.resolveBaseDir(v)))
+      config.entry('index').merge([].concat(entry).map(v => api.resolve(v)))
     } else if (entry && typeof entry === 'object') {
       for (const entryName of Object.keys(entry)) {
         config
           .entry(entryName)
-          .merge([].concat(entry[entryName]).map(v => api.resolveBaseDir(v)))
+          .merge([].concat(entry[entryName]).map(v => api.resolve(v)))
       }
     }
 
-    const defaultDevtool =
-      api.options.command === 'build'
-        ? 'source-map'
-        : 'cheap-module-eval-source-map'
+    const defaultDevtool = api.isCommand('build')
+      ? 'source-map'
+      : 'cheap-module-eval-source-map'
     const devtool =
       typeof api.config.sourceMap === 'string'
         ? api.config.sourceMap
@@ -50,15 +47,15 @@ exports.extend = api => {
     })
 
     config.output
-      .path(api.resolveBaseDir(api.config.outDir))
+      .path(api.resolve(api.config.outDir))
       // Default values, will later be change by dev and build plugins
       .filename(api.config.filenames.js)
       .publicPath(api.config.publicPath)
       .chunkFilename(api.config.filenames.chunk)
 
-    config.resolve.alias.set('@', api.resolveBaseDir('src'))
+    config.resolve.alias.set('@', api.resolve('src'))
 
-    const baseDir = api.resolveBaseDir()
+    const baseDir = api.resolve()
     require('../webpack/rules/css')(config, api)
     require('../webpack/rules/vue')(config, { baseDir })
     require('../webpack/rules/babel')(config, { baseDir })
@@ -103,10 +100,7 @@ exports.extend = api => {
 
     // Copy ./public/* to out dir
     // In non-dev commands since it uses devServerOptions.contentBase instead
-    if (
-      api.options.command !== 'dev' &&
-      fs.existsSync(api.resolveBaseDir('public'))
-    ) {
+    if (api.options.command !== 'dev' && fs.existsSync(api.resolve('public'))) {
       const CopyPlugin = require('copy-webpack-plugin')
       CopyPlugin.__expression = `require('copy-webpack-plugin')`
 
@@ -114,7 +108,7 @@ exports.extend = api => {
         config.plugin('copy-public').use(CopyPlugin, [
           [
             {
-              from: api.resolveBaseDir('public'),
+              from: api.resolve('public'),
               to: '.',
               ignore: ['.DS_Store']
             }

@@ -17,7 +17,7 @@ exports.extend = (api, options) => {
   )
 
   api.chainWebpack(config => {
-    if (api.options.command !== 'build') return
+    if (!api.isCommand('build')) return
 
     config.plugin('offline').use(OfflinePlugin, [pluginOptions])
   })

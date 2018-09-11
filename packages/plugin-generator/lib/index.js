@@ -5,8 +5,8 @@ const chalk = require('chalk')
 const Generator = require('./generator')
 
 exports.extend = api => {
-  api.cli
-    .command('invoke', 'Invoke a generator', (input, flags) => {
+  api
+    .registerCommand('invoke', 'Invoke a generator', (input, flags) => {
       return new Generator(api)
         .invokeFromPlugins(input[0], flags)
         .catch(err => {
@@ -18,13 +18,13 @@ exports.extend = api => {
       type: 'boolean'
     })
 
-  api.cli.command('add', 'Add a plugin', (input, flags) => {
+  api.registerCommand('add', 'Add a plugin', (input, flags) => {
     return new Generator(api).add(input[0], flags).catch(err => {
       console.log(chalk.red(err.stack))
     })
   })
 
-  api.cli.command(
+  api.registerCommand(
     'ls-generators',
     'List all available generators in a project',
     () => {

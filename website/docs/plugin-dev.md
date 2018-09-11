@@ -68,12 +68,12 @@ api.configureDevServer(server => {
 })
 ```
 
-### api.resolveBaseDir
+### api.resolve
 
 Resolve path from base directory.
 
 ```js
-api.resolveBaseDir('foo.js')
+api.resolve('foo.js')
 ```
 
 ## Generators

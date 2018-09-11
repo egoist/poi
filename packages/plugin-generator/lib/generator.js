@@ -66,12 +66,9 @@ module.exports = class Generator {
     await install({
       deps: [`${parsed.name}${parsed.version ? `@${parsed.version}` : ''}`],
       saveDev: true,
-      cwd: this.api.resolveBaseDir()
+      cwd: this.api.resolve()
     })
-    const { generators } = require(resolveFrom(
-      this.api.resolveBaseDir(),
-      parsed.name
-    ))
+    const { generators } = require(resolveFrom(this.api.resolve(), parsed.name))
     if (generators) {
       for (const name of Object.keys(generators)) {
         const generator = generators[name]
@@ -100,8 +97,7 @@ module.exports = class Generator {
   async invoke(generator, flags) {
     const questions = generator.prompts
     const answers = Object.assign({}, questions && (await prompt(questions)))
-    const pkgPath =
-      this.api.projectPkg.path || this.api.resolveBaseDir('package.json')
+    const pkgPath = this.api.pkg.path || this.api.resolve('package.json')
     const pkg = JSON.parse(await fs.readFile(pkgPath, 'utf8'))
 
     const executeWhenWritable = async (filepath, fn) => {
@@ -130,9 +126,9 @@ module.exports = class Generator {
       fs,
       pkg,
       projectName: pkg.name || path.basename(process.cwd()),
-      resolveBaseDir: this.api.resolveBaseDir.bind(this.api),
+      resolve: this.api.resolve.bind(this.api),
       appendFile: async (filename, extra) => {
-        const filepath = this.api.resolveBaseDir(filename)
+        const filepath = this.api.resolve(filename)
         const content = await fs
           .pathExists(filepath)
           .then(exists => exists && fs.readFile(filepath, 'utf8'))
@@ -140,11 +136,13 @@ module.exports = class Generator {
         await fs.writeFile(filepath, content + extra, 'utf8')
       },
       writeFile: (filename, content) => {
-        const outPath = this.api.resolveBaseDir(filename)
-        return executeWhenWritable(outPath, () => fs.writeFile(outPath, content, 'utf8'))
+        const outPath = this.api.resolve(filename)
+        return executeWhenWritable(outPath, () =>
+          fs.writeFile(outPath, content, 'utf8')
+        )
       },
       renderTemplate: async (templatePath, outName, data) => {
-        const outPath = this.api.resolveBaseDir(outName)
+        const outPath = this.api.resolve(outName)
         return executeWhenWritable(outPath, async () => {
           const content = await fs.readFile(templatePath, 'utf8')
           const template = compileTemplate(content)
@@ -155,7 +153,9 @@ module.exports = class Generator {
         })
       },
       copy: (fromPath, targetPath) => {
-        return executeWhenWritable(targetPath, () => fs.copy(fromPath, targetPath))
+        return executeWhenWritable(targetPath, () =>
+          fs.copy(fromPath, targetPath)
+        )
       },
       updatePkg: fn => {
         // eslint-disable-next-line no-multi-assign
@@ -164,14 +164,14 @@ module.exports = class Generator {
       },
       // installDeps: async (deps, saveDev) => {
       //   return install({
-      //     cwd: this.api.resolveBaseDir(),
+      //     cwd: this.api.resolve(),
       //     deps,
       //     saveDev
       //   })
       // },
       npmInstall: () =>
         install({
-          cwd: this.api.resolveBaseDir()
+          cwd: this.api.resolve()
         })
     }
     await generator.generate(context)

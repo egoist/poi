@@ -3,7 +3,7 @@ const eslint = require('eslint')
 const defaultFilesToLint = [`.`]
 
 module.exports = async (files, flags, api) => {
-  const cwd = api.resolveBaseDir()
+  const cwd = api.resolve()
   const config = Object.assign(
     {
       fix: false,
