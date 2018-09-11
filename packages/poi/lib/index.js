@@ -85,7 +85,8 @@ class Poi {
         publicPath: '/',
         pluginOptions: {},
         sourceMap: true,
-        minimize: this.options.command === 'build'
+        minimize: this.options.command === 'build',
+        defaultTemplate: path.join(__dirname, 'default-template.html')
       },
       this.config,
       {
@@ -134,11 +135,11 @@ class Poi {
     return command === this.options.command
   }
 
-  createWebpackConfig() {
+  createWebpackConfig(...args) {
     const WebpackChain = require('webpack-chain')
     const config = new WebpackChain()
 
-    this.hooks.invoke('chainWebpack', config)
+    this.hooks.invoke('chainWebpack', config, ...args)
 
     if (this.cliOptions.inspectWebpack) {
       console.log(config.toString())
@@ -162,11 +163,16 @@ class Poi {
     return this
   }
 
-  async bundle() {
-    const compiler = require('webpack')(this.createWebpackConfig())
+  createCompiler(webpackConfig) {
+    return require('webpack')(webpackConfig)
+  }
+
+  async bundle(webpackConfig = this.createWebpackConfig()) {
     if (this.options.cleanOutDir) {
-      await fs.remove(compiler.options.output.path)
+      await fs.remove(webpackConfig.output.path)
     }
+
+    const compiler = this.createCompiler(webpackConfig)
     return new Promise((resolve, reject) => {
       compiler.run((err, stats) => {
         if (err) return reject(err)
@@ -218,6 +224,10 @@ class Poi {
   removePlugin(name) {
     this.plugins = this.plugins.filter(plugin => plugin.name !== name)
     return this
+  }
+
+  registerCommand(...args) {
+    return this.cli.command(...args)
   }
 
   run() {

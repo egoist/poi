@@ -1,0 +1,19 @@
+{
+  "name": "@plugin/vue-static",
+  "version": "1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "files": [
+    "lib",
+    "app"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "fs-extra": "^7.0.0",
+    "vue-server-renderer": "^2.5.17",
+    "webpack-merge": "^4.1.4",
+    "webpack-node-externals": "^1.7.2"
+  }
+}

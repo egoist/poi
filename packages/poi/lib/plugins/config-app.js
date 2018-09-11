@@ -33,7 +33,7 @@ exports.extend = api => {
     for (const entryName of Object.keys(api.config.pages)) {
       const page = Object.assign(
         {
-          template: 'public/index.html',
+          template: api.config.defaultTemplate,
           title: api.projectPkg.data.name || 'Poi App',
           filename: `${entryName}.html`
         },

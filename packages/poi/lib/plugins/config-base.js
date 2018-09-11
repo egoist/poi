@@ -114,8 +114,8 @@ exports.extend = api => {
     const ownModules = inWorkspaces
       ? path.join(__dirname, '../../../../node_modules')
       : path.join(__dirname, '../../node_modules')
-    config.resolve.modules.add(ownModules).add('node_modules')
-    config.resolveLoader.modules.add(ownModules).add('node_modules')
+    config.resolve.modules.add(ownModules).add(api.resolveBaseDir('node_modules')).add('node_modules')
+    config.resolveLoader.modules.add(ownModules).add(api.resolveBaseDir('node_modules')).add('node_modules')
   })
 }
 
