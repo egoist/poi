@@ -88,7 +88,9 @@ exports.generators = {
     generate(api: GenerateAPI): Promise<void>,
     // Whether to invoke this generator
     // When the plugin is added via `poi add` command
-    invokeOnAdd: boolean
+    invokeAfterAdd: boolean,
+    // Whether to run npm install when generated
+    npmInstall: boolean
   }
 }
 ```

@@ -9,7 +9,12 @@ exports.reason = {
       default: './src'
     }
   ],
-  async generate({ renderTemplate, appendFile, projectName }) {
+  npmInstall: true,
+  invokeAfterAdd: true,
+  async generate({ renderTemplate, appendFile, projectName, pkg }) {
+    pkg.devDependencies = Object.assign({}, pkg.devDependencies, {
+      'bs-platform': '^4.0.5'
+    })
     await renderTemplate(
       path.join(__dirname, 'templates/bsconfig.json'),
       'bsconfig.json',

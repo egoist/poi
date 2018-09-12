@@ -63,4 +63,7 @@ const options = {
 const poi = require('../lib')
 
 const app = poi(options, config)
-app.run()
+app.run().catch(err => {
+  console.error(err.stack)
+  process.exit(1)
+})

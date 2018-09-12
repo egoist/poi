@@ -2,17 +2,19 @@
   This plugin should be added before 3rd-party plugins
  */
 const chalk = require('chalk')
-const Generator = require('./generator')
+const GeneratorManager = require('./GeneratorManager')
 
 exports.extend = api => {
   // eslint-disable-next-line no-multi-assign
-  const generator = (api.root.generator = new Generator(api))
+  const generatorManager = (api.root.generatorManager = new GeneratorManager(
+    api
+  ))
 
   api
     .registerCommand('invoke', 'Invoke a generator', (input, flags) => {
       const name = input[0]
       if (!name) return api.root.cli.showHelp()
-      return generator.invokeFromPlugins(name, flags).catch(err => {
+      return generatorManager.invokeFromPlugins(name, flags).catch(err => {
         console.log(chalk.red(err.stack))
       })
     })
@@ -24,7 +26,7 @@ exports.extend = api => {
   api.registerCommand('add', 'Add a plugin', (input, flags) => {
     const name = input[0]
     if (!name) return api.root.cli.showHelp()
-    return generator.add(name, flags).catch(err => {
+    return generatorManager.add(name, flags).catch(err => {
       console.log(chalk.red(err.stack))
     })
   })
@@ -33,7 +35,7 @@ exports.extend = api => {
     'ls-generators',
     'List all available generators in a project',
     () => {
-      return generator.listGeneratorsFromPlugins()
+      return generatorManager.listGeneratorsFromPlugins()
     }
   )
 }

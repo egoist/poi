@@ -1,8 +1,13 @@
 const path = require('path')
 
 exports.eslint = {
+  // Show the generator effect in generator description
   effects: ['Add .eslintrc', 'Install relevant dependencies'],
-  invokeOnAdd: true,
+  // Invoke this generator after running `vue add`
+  invokeAfterAdd: true,
+  // Run `npm install` when finished
+  npmInstall: true,
+  // Prompt users
   prompts: [
     {
       name: 'config',
@@ -21,10 +26,18 @@ exports.eslint = {
       default: 'minimal'
     }
   ],
-  async generate({ answers, writeFile, pkg, updatePkg, npmInstall }) {
+  async generate({ answers, writeFile, pkg }) {
+    pkg.scripts = pkg.scripts || {}
+    pkg.dependencies = pkg.dependencies || {}
+    pkg.devDependencies = pkg.devDependencies || {}
+
+    Object.assign(pkg.scripts, {
+      lint: 'poi lint'
+    })
+
     const projectDeps = [
-      ...Object.keys(pkg.dependencies || {}),
-      ...Object.keys(pkg.devDependencies || {})
+      ...Object.keys(pkg.dependencies),
+      ...Object.keys(pkg.devDependencies)
     ]
 
     const framework = projectDeps.includes('vue')
@@ -39,16 +52,7 @@ exports.eslint = {
       `${framework}-${answers.config}.js`
     ))
 
-    const wrote = await writeFile('.eslintrc', JSON.stringify(eslint, null, 2))
-
-    if (wrote) {
-      await updatePkg(pkg => {
-        pkg.scripts = Object.assign({}, pkg.scripts, {
-          lint: 'poi lint'
-        })
-        pkg.devDependencies = Object.assign({}, pkg.devDependencies, deps)
-      })
-      await npmInstall()
-    }
+    await writeFile('.eslintrc', JSON.stringify(eslint, null, 2))
+    Object.assign(pkg.devDependencies, deps)
   }
 }

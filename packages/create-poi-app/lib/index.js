@@ -45,7 +45,9 @@ module.exports = async ({ outDir }) => {
       'react-dom': framework === 'react' ? '^16.0.0' : undefined,
       vue: framework === 'vue' ? '^2.0.0' : undefined,
       'vue-template-compiler': framework === 'vue' ? '^2.0.0' : undefined,
-      '@poi/plugin-eslint': features.includes('linter') ? appVersion : undefined,
+      '@poi/plugin-eslint': features.includes('linter')
+        ? appVersion
+        : undefined,
       '@poi/plugin-pwa': features.includes('pwa') ? appVersion : undefined
     },
     devDependencies: {
@@ -64,7 +66,7 @@ module.exports = async ({ outDir }) => {
     await poi({
       command: 'invoke',
       baseDir: outDir,
-      cliOptions: { args: ['eslint', '--no-success-message'] }
+      cliOptions: { args: ['eslint', '--create-poi-app'] }
     }).run()
   }
 
@@ -72,7 +74,7 @@ module.exports = async ({ outDir }) => {
     await poi({
       command: 'invoke',
       baseDir: outDir,
-      cliOptions: { args: ['pwa', '--no-success-message'] }
+      cliOptions: { args: ['pwa', '--create-poi-app'] }
     })
   }
 

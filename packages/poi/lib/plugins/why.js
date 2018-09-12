@@ -26,8 +26,8 @@ exports.extend = api => {
       if (!name) {
         return api.root.cli.showHelp()
       }
-      const { generator } = api.root
-      const generators = generator.setGeneratorsFromPlugins()
+      const { generatorManager } = api.root
+      const generators = generatorManager.setGeneratorsFromPlugins()
       if (!generators.has(name)) {
         return api.logger.error(`Generator '${name}' does not exist!`)
       }

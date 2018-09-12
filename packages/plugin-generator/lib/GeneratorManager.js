@@ -2,14 +2,15 @@ const path = require('path')
 const fs = require('fs-extra')
 const chalk = require('chalk')
 const { prompt } = require('inquirer')
-const compileTemplate = require('lodash.template')
 const resolveFrom = require('resolve-from')
+const deepEqual = require('fast-deep-equal')
 const parsePackageName = require('parse-package-name')
 const install = require('@poi/cli-utils/install-deps')
 const logger = require('@poi/cli-utils/logger')
 const icon = require('@poi/cli-utils/icon')
+const GeneratorApi = require('./GeneratorAPI')
 
-module.exports = class Generator {
+module.exports = class GeneratorManager {
   constructor(api) {
     this.api = api
     this.generators = new Map()
@@ -99,7 +100,7 @@ module.exports = class Generator {
     if (generators) {
       for (const name of Object.keys(generators)) {
         const generator = generators[name]
-        if (generator.invokeOnAdd) {
+        if (generator.invokeAfterAdd) {
           logger.log(
             icon.invoking,
             `Invoking generator '${name}' from plugin '${pluginName}'`
@@ -113,98 +114,46 @@ module.exports = class Generator {
 
   async invokeFromPlugins(name, flags) {
     const generators = this.setGeneratorsFromPlugins()
+    await this.invoke(generators, name, flags)
+  }
 
+  async invoke(generators, name, flags) {
     if (!generators.has(name)) {
       return logger.error(`Generator "${name}" does not exist!`)
     }
-
-    await this.invoke(generators.get(name), flags)
-    if (flags.successMessage !== false) {
+    const generator = generators.get(name)
+    const questions = generator.prompts
+    const answers = Object.assign({}, questions && (await prompt(questions)))
+    const oldPkgData = JSON.parse(JSON.stringify(this.api.pkg.data))
+    const generatorApi = new GeneratorApi({ answers, api: this.api, flags })
+    await generator.generate(generatorApi)
+    // Update package.json
+    if (!deepEqual(this.api.pkg.data, oldPkgData)) {
+      generatorApi.changedFiles.add(this.api.pkg.path)
+      await fs.writeFile(
+        this.api.pkg.path,
+        JSON.stringify(this.api.pkg.data, null, 2),
+        'utf8'
+      )
+    }
+    // Maybe npm install
+    if (!flags.createPoiApp && generator.npmInstall) {
+      await install({ cwd: this.api.resolve() })
+    }
+    if (!flags.createPoiApp) {
       console.log()
       logger.success(`Successfully invoked generator "${chalk.bold(name)}"!`)
     }
-  }
-
-  async invoke(generator, flags) {
-    const questions = generator.prompts
-    const answers = Object.assign({}, questions && (await prompt(questions)))
-    const pkgPath = this.api.pkg.path || this.api.resolve('package.json')
-    const pkg = JSON.parse(await fs.readFile(pkgPath, 'utf8'))
-
-    const executeWhenWritable = async (filepath, fn) => {
-      const exists = await fs.pathExists(filepath)
-      if (exists) {
-        const { overwrite } = await prompt({
-          name: 'overwrite',
-          type: 'confirm',
-          message: `${path.relative(
-            process.cwd(),
-            filepath
-          )} already exists, do you want to overwrite it`,
-          default: false
-        })
-        if (!overwrite && !flags.overwrite) {
-          this.api.logger.debug(chalk.yellow(`Skipped generating ${filepath}`))
-          return false
-        }
+    if (!flags.createPoiApp && generatorApi.changedFiles.size > 0) {
+      console.log(`\n  Following files are modified by this generator:\n`)
+      for (const file of generatorApi.changedFiles) {
+        console.log('  ' + chalk.yellow(path.relative(process.cwd(), file)))
       }
-      await fn()
-      return true
+      console.log(
+        `\n  You should run ${chalk.cyan(
+          'git diff'
+        )} to review changes and commit them.`
+      )
     }
-
-    const context = {
-      answers,
-      fs,
-      pkg,
-      projectName: pkg.name || path.basename(process.cwd()),
-      resolve: this.api.resolve.bind(this.api),
-      appendFile: async (filename, extra) => {
-        const filepath = this.api.resolve(filename)
-        const content = await fs
-          .pathExists(filepath)
-          .then(exists => exists && fs.readFile(filepath, 'utf8'))
-        if (content && content.includes(extra)) return true
-        await fs.writeFile(filepath, content + extra, 'utf8')
-      },
-      writeFile: (filename, content) => {
-        const outPath = this.api.resolve(filename)
-        return executeWhenWritable(outPath, () =>
-          fs.writeFile(outPath, content, 'utf8')
-        )
-      },
-      renderTemplate: async (templatePath, outName, data) => {
-        const outPath = this.api.resolve(outName)
-        return executeWhenWritable(outPath, async () => {
-          const content = await fs.readFile(templatePath, 'utf8')
-          const template = compileTemplate(content)
-          const output = template(Object.assign({ $pkg: pkg }, answers, data))
-          this.api.logger.debug(chalk.green(`Generated ${outPath}`))
-          await fs.ensureDir(path.dirname(outPath))
-          await fs.writeFile(outPath, output, 'utf8')
-        })
-      },
-      copy: (fromPath, targetPath) => {
-        return executeWhenWritable(targetPath, () =>
-          fs.copy(fromPath, targetPath)
-        )
-      },
-      updatePkg: fn => {
-        // eslint-disable-next-line no-multi-assign
-        const data = fn(pkg) || pkg
-        return fs.writeFile(pkgPath, JSON.stringify(data, null, 2), 'utf8')
-      },
-      // installDeps: async (deps, saveDev) => {
-      //   return install({
-      //     cwd: this.api.resolve(),
-      //     deps,
-      //     saveDev
-      //   })
-      // },
-      npmInstall: () =>
-        install({
-          cwd: this.api.resolve()
-        })
-    }
-    await generator.generate(context)
   }
 }
