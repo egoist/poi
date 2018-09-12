@@ -3,5 +3,6 @@ const supportsEmoji =
 
 module.exports = {
   gear: supportsEmoji ? '⚙ ' : '►',
-  success: supportsEmoji ? '🎉 ' : '√'
+  success: supportsEmoji ? '🎉 ' : '√',
+  invoking: supportsEmoji ? '🏗 ' : '►'
 }

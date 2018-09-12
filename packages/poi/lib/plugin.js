@@ -11,12 +11,12 @@ module.exports = class Plugin {
    */
   constructor(poi, name) {
     this._name = name
-    this._poi = poi
+    this.root = poi
 
     poi._commands = poi._commands || new Map()
-    this._commands = poi._commands
 
     // Exposed
+    this.commands = poi._commands
     this.hooks = poi.hooks
     this.pkg = poi.pkg
     this.config = poi.config
@@ -26,29 +26,33 @@ module.exports = class Plugin {
     this.logger = logger
   }
 
+  get plugins() {
+    return this.root.plugins
+  }
+
   registerCommand(command, desc, handler) {
-    if (this._commands.has(command)) {
+    if (this.commands.has(command)) {
       logger.debug(
         `Plugin "${
           this._name
-        }" overrided the command "${command}" that was previously added by plugin "${this._commands.get(
+        }" overrided the command "${command}" that was previously added by plugin "${this.commands.get(
           command
         )}"`
       )
     }
-    this._commands.set(command, this._name)
-    return this._poi.cli.command(command, desc, handler)
+    this.commands.set(command, this._name)
+    return this.root.cli.command(command, desc, handler)
   }
 
   hasPlugin(name) {
     return (
-      this._poi.plugins &&
-      this._poi.plugins.find(plugin => plugin.name === name)
+      this.root.plugins &&
+      this.root.plugins.find(plugin => plugin.name === name)
     )
   }
 
   removePlugin(name) {
-    this._poi.plugins = this._poi.plugins.filter(plugin => plugin.name !== name)
+    this.root.plugins = this.root.plugins.filter(plugin => plugin.name !== name)
     return this
   }
 

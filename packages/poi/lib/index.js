@@ -126,6 +126,7 @@ class Poi {
       require('./plugins/config-dev'),
       require('./plugins/config-build'),
       require('./plugins/config-app'),
+      require('./plugins/why'),
       require('@poi/plugin-generator'),
       ...pluginsFromPackage.map(plugin => {
         return require(resolveFrom(this.options.baseDir, plugin))
@@ -141,6 +142,7 @@ class Poi {
     this.plugins = plugins
 
     for (const plugin of plugins) {
+      logger.debug(`Using plugin '${plugin.name}'`)
       if (plugin.extend) {
         const pluginApi = new Plugin(this, plugin.name)
         plugin.extend(pluginApi, this.config.pluginOptions[plugin.name] || {})

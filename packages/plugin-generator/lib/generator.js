@@ -7,25 +7,49 @@ const resolveFrom = require('resolve-from')
 const parsePackageName = require('parse-package-name')
 const install = require('@poi/cli-utils/install-deps')
 const logger = require('@poi/cli-utils/logger')
+const icon = require('@poi/cli-utils/icon')
 
 module.exports = class Generator {
   constructor(api) {
     this.api = api
+    this.generators = new Map()
   }
 
-  getGeneratorsFromPlugins() {
-    const generators = {}
+  registerGenerator(generatorName, generator, pluginName) {
+    this.generators.set(
+      generatorName,
+      Object.assign({}, generator, {
+        __plugin: pluginName
+      })
+    )
+    return this
+  }
+
+  setGeneratorsFromPlugins() {
     for (const plugin of this.api.plugins) {
       if (plugin.generators) {
-        Object.assign(generators, plugin.generators)
+        for (const generatorName of Object.keys(plugin.generators)) {
+          if (this.generators.has(generatorName)) {
+            logger.debug(
+              `Generator '${generatorName}' added by plugin '${
+                this.generators.get(generatorName).__plugin
+              }' has been overrided by plugin '${plugin.name}'`
+            )
+          }
+          this.registerGenerator(
+            generatorName,
+            plugin.generators[generatorName],
+            plugin.name
+          )
+        }
       }
     }
-    return generators
+    return this.generators
   }
 
   listGeneratorsFromPlugins() {
-    const generators = this.getGeneratorsFromPlugins()
-    const generatorNames = Object.keys(generators)
+    const generators = this.setGeneratorsFromPlugins()
+    const generatorNames = [...generators.keys()]
     if (generatorNames.length === 0) {
       return console.log(chalk.yellow(`No generators are available.`))
     }
@@ -37,7 +61,7 @@ module.exports = class Generator {
     console.log(
       generatorNames
         .map(name => {
-          const { effects } = generators[name]
+          const { effects } = generators.get(name)
           let res = `${chalk.bold('-')} ${chalk.bold.green(name)}`
           if (effects) {
             res += chalk.dim(
@@ -68,11 +92,18 @@ module.exports = class Generator {
       saveDev: true,
       cwd: this.api.resolve()
     })
-    const { generators } = require(resolveFrom(this.api.resolve(), parsed.name))
+    const { name: pluginName, generators } = require(resolveFrom(
+      this.api.resolve(),
+      parsed.name
+    ))
     if (generators) {
       for (const name of Object.keys(generators)) {
         const generator = generators[name]
         if (generator.invokeOnAdd) {
+          logger.log(
+            icon.invoking,
+            `Invoking generator '${name}' from plugin '${pluginName}'`
+          )
           // eslint-disable-next-line no-await-in-loop
           await this.invoke(generator, flags)
         }
@@ -81,13 +112,13 @@ module.exports = class Generator {
   }
 
   async invokeFromPlugins(name, flags) {
-    const generators = this.getGeneratorsFromPlugins()
+    const generators = this.setGeneratorsFromPlugins()
 
-    if (!generators[name]) {
+    if (!generators.has(name)) {
       return logger.error(`Generator "${name}" does not exist!`)
     }
 
-    await this.invoke(generators[name], flags)
+    await this.invoke(generators.get(name), flags)
     if (flags.successMessage !== false) {
       console.log()
       logger.success(`Successfully invoked generator "${chalk.bold(name)}"!`)

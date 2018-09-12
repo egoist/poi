@@ -5,13 +5,16 @@ const chalk = require('chalk')
 const Generator = require('./generator')
 
 exports.extend = api => {
+  // eslint-disable-next-line no-multi-assign
+  const generator = (api.root.generator = new Generator(api))
+
   api
     .registerCommand('invoke', 'Invoke a generator', (input, flags) => {
-      return new Generator(api)
-        .invokeFromPlugins(input[0], flags)
-        .catch(err => {
-          console.log(chalk.red(err.stack))
-        })
+      const name = input[0]
+      if (!name) return api.root.cli.showHelp()
+      return generator.invokeFromPlugins(name, flags).catch(err => {
+        console.log(chalk.red(err.stack))
+      })
     })
     .option('overwrite', {
       desc: 'Overwrite existing files',
@@ -19,7 +22,9 @@ exports.extend = api => {
     })
 
   api.registerCommand('add', 'Add a plugin', (input, flags) => {
-    return new Generator(api).add(input[0], flags).catch(err => {
+    const name = input[0]
+    if (!name) return api.root.cli.showHelp()
+    return generator.add(name, flags).catch(err => {
       console.log(chalk.red(err.stack))
     })
   })
@@ -28,7 +33,7 @@ exports.extend = api => {
     'ls-generators',
     'List all available generators in a project',
     () => {
-      return new Generator(api).listGeneratorsFromPlugins()
+      return generator.listGeneratorsFromPlugins()
     }
   )
 }
