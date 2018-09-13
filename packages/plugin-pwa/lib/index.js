@@ -2,7 +2,7 @@ exports.name = 'pwa'
 
 exports.extend = api => {
   api.chainWebpack(config => {
-    if (!api.isCommand('build') || api.config.target !== 'app') return
+    if (api.mode !== 'production' || api.config.target !== 'app') return
 
     if (config.entryPoints.has('index')) {
       config.entry('index').add('@/register-service-worker')

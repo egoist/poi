@@ -1,4 +1,4 @@
-exports.name = 'builtin:why'
+exports.name = 'builtin:command-why'
 
 exports.extend = api => {
   api.registerCommand(

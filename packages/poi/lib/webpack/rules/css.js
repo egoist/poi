@@ -1,9 +1,12 @@
 const logger = require('@poi/cli-utils/logger')
 const loadConfig = require('../../utils/load-config')
 
-module.exports = (config, api) => {
+module.exports = (config, api, filenames) => {
   const { loaderOptions, extract } = api.config.css
-  const shouldExtract = extract
+  const shouldExtract =
+    extract === 'auto' || extract === undefined
+      ? api.mode === 'production'
+      : extract
   const sourceMap = Boolean(api.config.sourceMap)
 
   const hasPostCSSConfig = loadConfig.resolveSync({
@@ -38,8 +41,8 @@ module.exports = (config, api) => {
   }
 
   const extractOptions = {
-    filename: api.config.filenames.css,
-    chunkFilename: api.config.filenames.chunk.replace(/\.js$/, '.css')
+    filename: filenames.css,
+    chunkFilename: filenames.chunk.replace(/\.js$/, '.css')
   }
 
   const createCSSRule = (lang, test, loader, options) => {

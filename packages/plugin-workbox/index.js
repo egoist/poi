@@ -18,13 +18,13 @@ exports.extend = (api, options) => {
     options
   )
 
-  if (api.isCommand('build')) {
+  if (api.mode === 'production') {
     api.chainWebpack(config => {
       config.plugin('workbox').use(GenerateSW, [pluginOptions])
     })
   }
 
-  if (api.isCommand('dev')) {
+  if (api.mode === 'development') {
     api.configureDevSever(server => {
       server.use(require('skip-service-worker')(pluginOptions.swDest))
     })

@@ -56,13 +56,6 @@ module.exports = class Plugin {
     return this
   }
 
-  isCommand(command) {
-    if (Array.isArray(command)) {
-      return command.includes(this.options.command)
-    }
-    return command === this.options.command
-  }
-
   resolveWebpackConfig(opts) {
     const WebpackChain = require('webpack-chain')
     const config = new WebpackChain()

@@ -21,6 +21,7 @@ class Poi {
     })
     this.hooks = new Hooks()
     this.config = Object.assign({}, config)
+    this.commandModes = {}
 
     logger.setOptions({
       debug: this.cliOptions.debug
@@ -33,20 +34,6 @@ class Poi {
         cwd: this.options.baseDir
       })
     )
-
-    // Expose poi command in env variable
-    // In case you wanna use it in config file or somewhere
-    process.env.POI_COMMAND = this.options.command
-    // TODO: Should we set the default value of `process.env.NODE_ENV` here
-    // based on the value of `command` too?
-    /* e.g.
-    process.env.NODE_ENV =
-      process.env.NODE_ENV || this.options.command === 'build'
-        ? 'production'
-        : this.options.command === 'test'
-          ? 'test'
-          : 'development'
-    */
 
     if (this.options.configFile !== false) {
       const res = loadConfig.loadSync({
@@ -78,7 +65,7 @@ class Poi {
         publicPath: '/',
         pluginOptions: {},
         sourceMap: true,
-        minimize: this.options.command === 'build',
+        minimize: 'auto',
         entry: defaultEntry
       },
       this.config,
@@ -86,7 +73,7 @@ class Poi {
         // Proper overrides
         css: Object.assign(
           {
-            extract: this.options.command === 'build',
+            extract: 'auto',
             loaderOptions: {}
           },
           this.config.css
@@ -97,12 +84,7 @@ class Poi {
             port: this.config.port || process.env.PORT || 4000
           },
           this.config.devServer
-        ),
-        filenames: require('./utils/get-filenames')({
-          filenames: this.config.filenames,
-          filenameHash: this.config.filenameHash,
-          command: this.options.command
-        })
+        )
       }
     )
 
@@ -120,13 +102,12 @@ class Poi {
       .sort((a, b) => a < b)
 
     let plugins = [
-      require('./plugins/build'),
-      require('./plugins/dev'),
+      require('./plugins/command-build'),
+      require('./plugins/command-dev'),
       require('./plugins/config-base'),
       require('./plugins/config-dev'),
-      require('./plugins/config-build'),
       require('./plugins/config-app'),
-      require('./plugins/why'),
+      require('./plugins/command-why'),
       require('@poi/plugin-generator'),
       ...pluginsFromPackage.map(plugin => {
         return require(resolveFrom(this.options.baseDir, plugin))
@@ -147,7 +128,22 @@ class Poi {
         const pluginApi = new Plugin(this, plugin.name)
         plugin.extend(pluginApi, this.config.pluginOptions[plugin.name] || {})
       }
+      if (plugin.commandModes) {
+        for (const command of Object.keys(plugin.commandModes)) {
+          const mode = plugin.commandModes[command]
+          this.commandModes[command] = mode
+          logger.debug(
+            `Plugin '${
+              plugin.name
+            }' sets the mode of command '${command}' to '${mode}'`
+          )
+        }
+      }
     }
+  }
+
+  get mode() {
+    return this.commandModes[this.options.command]
   }
 
   run() {

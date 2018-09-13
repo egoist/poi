@@ -6,7 +6,7 @@ exports.extend = api => {
 
   api.chainWebpack(config => {
     // Split vendors and common chunks
-    if (api.isCommand('build')) {
+    if (api.mode === 'production') {
       config.optimization.splitChunks({
         cacheGroups: {
           vendors: {

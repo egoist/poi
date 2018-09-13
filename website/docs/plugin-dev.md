@@ -40,13 +40,11 @@ See the [Generators](#generators-2) section.
 
 ## Plugin API
 
-### api.isCommand
+### api.mode
 
-Check if the app is running under specific command:
+- Type: `string`
 
-```js
-api.isCommand('build') // => boolean
-```
+Get the mode that the bundler is running under.
 
 ### api.chainWebpack
 

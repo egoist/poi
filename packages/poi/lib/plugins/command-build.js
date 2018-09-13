@@ -12,4 +12,8 @@ exports.extend = api => {
   )
 }
 
-exports.name = 'builtin:build'
+exports.name = 'builtin:command-build'
+
+exports.commandModes = {
+  build: 'production'
+}

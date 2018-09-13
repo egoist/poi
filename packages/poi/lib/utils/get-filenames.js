@@ -1,6 +1,6 @@
-module.exports = ({ filenames, filenameHash, command }) => {
+module.exports = ({ filenames, filenameHash, mode }) => {
   const useHash =
-    typeof filenameHash === 'boolean' ? filenameHash : command === 'build'
+    typeof filenameHash === 'boolean' ? filenameHash : mode === 'production'
   return Object.assign(
     {
       js: useHash ? 'assets/js/[name].[chunkhash:8].js' : 'assets/js/[name].js',

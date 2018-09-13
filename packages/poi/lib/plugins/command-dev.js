@@ -1,6 +1,6 @@
 const setSharedCLIOptions = require('./utils/shared-cli-options')
 
-exports.name = 'builtin:dev'
+exports.name = 'builtin:command-dev'
 
 exports.extend = api => {
   const command = api.registerCommand(
@@ -59,4 +59,8 @@ exports.extend = api => {
   setSharedCLIOptions(command)
   command.option('host', 'Server host (default: 0.0.0.0)')
   command.option('port', 'Server port (default: 4000)')
+}
+
+exports.commandModes = {
+  build: 'development'
 }

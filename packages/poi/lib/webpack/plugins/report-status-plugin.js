@@ -39,7 +39,7 @@ class ReportStatusPlugin {
         )
       )
 
-      if (this.options.command === 'dev') {
+      if (this.options.mode === 'development') {
         const { host, port, actualPort, https } = this.options.devServer
         const protocol = https ? 'https://' : 'http://'
         const isAnyHost = host === '0.0.0.0'
@@ -64,7 +64,7 @@ class ReportStatusPlugin {
       }
 
       const outDir = path.relative(process.cwd(), compiler.options.output.path)
-      if (this.options.command === 'build') {
+      if (this.options.mode === 'production') {
         console.log()
       }
 
@@ -97,7 +97,7 @@ class ReportStatusPlugin {
         console.log(fileStats)
       }
 
-      if (this.options.command === 'build') {
+      if (this.options.mode === 'production') {
         console.log()
         console.log(
           chalk.dim(

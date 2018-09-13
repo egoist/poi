@@ -1,7 +1,8 @@
 exports.name = 'builtin:config-dev'
 
 exports.extend = api => {
-  if (!api.isCommand('dev')) return
+  if (api.mode !== 'development') return
+
   api.chainWebpack(config => {
     if (config.entryPoints.has('index')) {
       config

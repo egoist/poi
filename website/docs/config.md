@@ -9,10 +9,6 @@ Poi will search `poi.config.js` or `poi` property in `package.json` from your [b
 The config is essentially a pure object containing following properties.
 
 ```js
-// Access the current Poi command
-process.env.POI_COMMAND
-// "build" "dev" etc..
-
 module.exports = {
   // ...config
 }
@@ -90,15 +86,15 @@ Generating sourcemaps in production build is useful for error reporting, analysi
 
 ## minimize
 
-- Type: `boolean`
-- Default: `true` in production build, `false` otherwise
+- Type: `boolean` `'auto'`
+- Default: `'auto'` which means `true` in production build, `false` otherwise
 
 Minimize bundled JS and CSS files.
 
 ## css.extract
 
-- Type: `boolean`
-- Default: `true` in production mode, `false` otherwise
+- Type: `boolean` `'auto'`
+- Default: `'auto'` which means `true` in production mode, `false` otherwise
 
 Whether to extract CSS into standalone `.css` files.
 

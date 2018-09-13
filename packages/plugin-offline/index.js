@@ -16,13 +16,13 @@ exports.extend = (api, options) => {
     options
   )
 
-  api.chainWebpack(config => {
-    if (!api.isCommand('build')) return
+  if (api.mode === 'production') {
+    api.chainWebpack(config => {
+      config.plugin('offline').use(OfflinePlugin, [pluginOptions])
+    })
+  }
 
-    config.plugin('offline').use(OfflinePlugin, [pluginOptions])
-  })
-
-  if (api.isCommand('dev')) {
+  if (api.mode === 'development') {
     api.configureDevSever(server => {
       server.use(
         require('skip-service-worker')(pluginOptions.ServiceWorker.output)

@@ -2,6 +2,8 @@ const path = require('path')
 const fs = require('fs')
 
 exports.extend = api => {
+  // TODO: refactor this
+  // eslint-disable-next-line complexity
   api.chainWebpack(config => {
     const { pages, entry } = api.config
 
@@ -28,9 +30,8 @@ exports.extend = api => {
       }
     }
 
-    const defaultDevtool = api.isCommand('build')
-      ? 'source-map'
-      : 'cheap-module-eval-source-map'
+    const defaultDevtool =
+      api.mode === 'production' ? 'source-map' : 'cheap-module-eval-source-map'
     const devtool =
       typeof api.config.sourceMap === 'string'
         ? api.config.sourceMap
@@ -43,29 +44,32 @@ exports.extend = api => {
       performance: {
         hints: false
       },
-      mode: api.options.command === 'build' ? 'production' : 'development'
+      mode: api.mode === 'production' ? api.mode : 'development'
     })
 
+    const filenames = require('../utils/get-filenames')({
+      filenameHash: api.config.filenameHash,
+      filenames: api.config.filenames,
+      mode: api.mode
+    })
     config.output
       .path(api.resolve(api.config.outDir))
       // Default values, will later be change by dev and build plugins
-      .filename(api.config.filenames.js)
+      .filename(filenames.js)
       .publicPath(api.config.publicPath)
-      .chunkFilename(api.config.filenames.chunk)
+      .chunkFilename(filenames.chunk)
 
     config.resolve.alias.set('@', api.resolve('src'))
 
     const baseDir = api.resolve()
-    require('../webpack/rules/css')(config, api)
+    require('../webpack/rules/css')(config, api, filenames)
     require('../webpack/rules/vue')(config, { baseDir })
     require('../webpack/rules/babel')(config, { baseDir })
     require('../webpack/rules/graphql')(config)
     require('../webpack/rules/yaml')(config)
     require('../webpack/rules/toml')(config)
-    require('../webpack/rules/fonts')(config, api.config.filenames.font)
-    require('../webpack/rules/images')(config, api.config.filenames.image)
-
-    // Images
+    require('../webpack/rules/fonts')(config, filenames.font)
+    require('../webpack/rules/images')(config, filenames.image)
 
     if (
       api.cliOptions.progress !== false &&
@@ -81,8 +85,8 @@ exports.extend = api => {
       .plugin('report-status')
       .use(require('../webpack/plugins/report-status-plugin'), [
         {
-          showFileStats: api.options.command === 'build',
-          command: api.options.command,
+          showFileStats: api.mode === 'production',
+          mode: api.mode,
           devServer: api.config.devServer
         }
       ])
@@ -91,8 +95,9 @@ exports.extend = api => {
       Object.assign(
         {
           POI_PUBLIC_PATH: JSON.stringify(api.config.publicPath),
-          POI_COMMAND: JSON.stringify(api.command),
-          __DEV__: JSON.stringify(api.command !== 'build')
+          POI_COMMAND: JSON.stringify(api.options.command),
+          POI_MODE: JSON.stringify(api.mode),
+          __DEV__: JSON.stringify(api.mode !== 'production')
         },
         api.config.constants
       )
@@ -100,7 +105,7 @@ exports.extend = api => {
 
     // Copy ./public/* to out dir
     // In non-dev commands since it uses devServerOptions.contentBase instead
-    if (api.options.command !== 'dev' && fs.existsSync(api.resolve('public'))) {
+    if (api.mode !== 'development' && fs.existsSync(api.resolve('public'))) {
       const CopyPlugin = require('copy-webpack-plugin')
       CopyPlugin.__expression = `require('copy-webpack-plugin')`
 
@@ -116,6 +121,34 @@ exports.extend = api => {
         ])
       })
     }
+
+    config.merge({
+      optimization: {
+        minimize:
+          api.config.minimize === 'auto' || api.config.minimize === undefined
+            ? api.mode === 'production'
+            : Boolean(api.config.minimize),
+        minimizer: [
+          {
+            apply(compiler) {
+              // eslint-disable-next-line import/no-extraneous-dependencies
+              const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+              new UglifyJsPlugin({
+                cache: true,
+                parallel: true,
+                sourceMap: Boolean(api.config.sourceMap),
+                uglifyOptions: {
+                  output: {
+                    comments: false
+                  },
+                  mangle: true
+                }
+              }).apply(compiler)
+            }
+          }
+        ]
+      }
+    })
 
     // Resolve loaders and modules in poi's node_modules folder
     const inWorkspaces = __dirname.includes('/poi/packages/poi/')
