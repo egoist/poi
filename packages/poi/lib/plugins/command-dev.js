@@ -62,5 +62,5 @@ exports.extend = api => {
 }
 
 exports.commandModes = {
-  build: 'development'
+  dev: 'development'
 }

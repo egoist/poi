@@ -53,24 +53,25 @@ class Poi {
       }
     }
 
-    let defaultEntry = this.config.entry || './index.js'
-    if (Array.isArray(defaultEntry) && defaultEntry.length === 0) {
-      defaultEntry = './index.js'
+    let { entry } = this.config
+    if (!entry || (Array.isArray(entry) && entry.length === 0)) {
+      entry = './index.js'
     }
+
     this.config = Object.assign(
       {
-        // Default values
+        // Default values2
         outDir: 'dist',
         target: 'app',
         publicPath: '/',
         pluginOptions: {},
         sourceMap: true,
-        minimize: 'auto',
-        entry: defaultEntry
+        minimize: 'auto'
       },
       this.config,
       {
         // Proper overrides
+        entry,
         css: Object.assign(
           {
             extract: 'auto',

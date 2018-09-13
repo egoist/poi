@@ -30,6 +30,10 @@ module.exports = class Plugin {
     return this.root.plugins
   }
 
+  get mode() {
+    return this.root.mode
+  }
+
   registerCommand(command, desc, handler) {
     if (this.commands.has(command)) {
       logger.debug(

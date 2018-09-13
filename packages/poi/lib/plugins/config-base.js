@@ -19,7 +19,7 @@ exports.extend = api => {
           throw new TypeError('Entry value must be either string or array!')
         }
       }
-    } else if (Array.isArray(entry)) {
+    } else if (Array.isArray(entry) || typeof entry === 'string') {
       // Single-pages mode, add `entry` to `main` entry
       config.entry('index').merge([].concat(entry).map(v => api.resolve(v)))
     } else if (entry && typeof entry === 'object') {
