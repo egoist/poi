@@ -9,22 +9,18 @@ const Hooks = require('./hooks')
 
 class Poi {
   constructor(options = {}, config) {
-    const cliOptions = options.cliOptions || {}
-    delete options.cliOptions
     this.options = Object.assign({}, options, {
+      cliArgs: options.cliArgs || process.argv.slice(3),
       baseDir: path.resolve(options.baseDir || '.'),
       cleanOutDir:
         options.cleanOutDir === undefined ? true : options.cleanOutDir
-    })
-    this.cliOptions = Object.assign({}, cliOptions, {
-      args: cliOptions.args || process.argv.slice(3)
     })
     this.hooks = new Hooks()
     this.config = Object.assign({}, config)
     this.commandModes = {}
 
     logger.setOptions({
-      debug: this.cliOptions.debug
+      debug: this.options.debug
     })
 
     this.pkg = Object.assign(
@@ -152,7 +148,7 @@ class Poi {
       this.applyPlugins()
       const { input, flags } = this.cli.parse([
         this.options.command,
-        ...this.cliOptions.args
+        ...this.cliArgs
       ])
       if (!this.cli.matchedCommand && !flags.help) {
         if (input[0]) {

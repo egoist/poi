@@ -72,8 +72,8 @@ exports.extend = api => {
     require('../webpack/rules/images')(config, filenames.image)
 
     if (
-      api.cliOptions.progress !== false &&
-      !api.cliOptions.debug &&
+      api.options.progress !== false &&
+      !api.options.debug &&
       process.stdout.isTTY
     ) {
       const { ProgressPlugin } = require('webpack')

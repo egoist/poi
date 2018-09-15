@@ -66,7 +66,7 @@ module.exports = async ({ outDir }) => {
     await poi({
       command: 'invoke',
       baseDir: outDir,
-      cliOptions: { args: ['eslint', '--create-poi-app'] }
+      cliArgs: ['eslint', '--create-poi-app']
     }).run()
   }
 
@@ -74,7 +74,7 @@ module.exports = async ({ outDir }) => {
     await poi({
       command: 'invoke',
       baseDir: outDir,
-      cliOptions: { args: ['pwa', '--create-poi-app'] }
+      cliArgs: ['pwa', '--create-poi-app']
     })
   }
 

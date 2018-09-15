@@ -21,7 +21,6 @@ module.exports = class Plugin {
     this.pkg = poi.pkg
     this.config = poi.config
     this.options = poi.options
-    this.cliOptions = poi.cliOptions
     this.loadConfig = loadConfig
     this.logger = logger
   }
@@ -70,7 +69,7 @@ module.exports = class Plugin {
       Object.assign({ type: 'client' }, opts)
     )
 
-    if (this.cliOptions.inspectWebpack) {
+    if (this.options.inspectWebpack) {
       console.log(config.toString())
       process.exit() // eslint-disable-line unicorn/no-process-exit
     }

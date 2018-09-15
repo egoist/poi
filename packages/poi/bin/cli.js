@@ -45,19 +45,15 @@ const config = Object.assign(
   flags
 )
 
-const cliOptions = {
-  inspectWebpack,
-  progress,
-  debug
-}
-
 // App options, assigned to poi.options
 const options = {
   configFile,
   baseDir,
   command,
-  cliOptions,
-  cleanOutDir
+  cleanOutDir,
+  inspectWebpack,
+  progress,
+  debug
 }
 
 const poi = require('../lib')

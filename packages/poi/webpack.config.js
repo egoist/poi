@@ -1,8 +1,6 @@
 const api = require('.')({
-  command: 'build',
-  cliOptions: {
-    args: ['build']
-  }
+  command: 'lint',
+  cliArgs: []
 })
 
 api.applyPlugins()
