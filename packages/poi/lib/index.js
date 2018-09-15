@@ -96,7 +96,7 @@ class Poi {
       .filter(name => {
         return name.startsWith('poi-plugin-') || name.startsWith('@poi/plugin-')
       })
-      .sort((a, b) => a < b)
+      .sort()
 
     let plugins = [
       require('./plugins/command-build'),
