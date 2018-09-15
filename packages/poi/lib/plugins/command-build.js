@@ -10,6 +10,16 @@ exports.extend = api => {
     'clean-out-dir',
     'Clean output directory before bundling (default: true)'
   )
+
+  if (api.options.command === 'build') {
+    api.chainWebpack(config => {
+      config.plugin('report-status').tap(([options]) => [
+        Object.assign({}, options, {
+          showFileStats: true
+        })
+      ])
+    })
+  }
 }
 
 exports.name = 'builtin:command-build'

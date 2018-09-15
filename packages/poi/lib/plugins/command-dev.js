@@ -3,6 +3,23 @@ const setSharedCLIOptions = require('./utils/shared-cli-options')
 exports.name = 'builtin:command-dev'
 
 exports.extend = api => {
+  if (api.options.command === 'dev') {
+    api.chainWebpack(config => {
+      if (config.entryPoints.has('index')) {
+        config
+          .entry('index')
+          .prepend(require.resolve('@poi/dev-utils/hotDevClient'))
+      }
+
+      if (api.config.devServer.hot !== false) {
+        const { HotModuleReplacementPlugin } = require('webpack')
+        HotModuleReplacementPlugin.__expression = `require('webpack').HotModuleReplacementPlugin`
+
+        config.plugin('hmr').use(HotModuleReplacementPlugin)
+      }
+    })
+  }
+
   const command = api.registerCommand(
     'dev',
     'Run app in dev mode',

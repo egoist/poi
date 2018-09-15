@@ -99,11 +99,11 @@ class Poi {
       .sort()
 
     let plugins = [
+      require('./plugins/config-base'),
+      require('./plugins/config-app'),
       require('./plugins/command-build'),
       require('./plugins/command-dev'),
-      require('./plugins/config-base'),
-      require('./plugins/config-dev'),
-      require('./plugins/config-app'),
+      require('./plugins/command-watch'),
       require('./plugins/command-why'),
       require('@poi/plugin-generator'),
       ...pluginsFromPackage.map(plugin => {
@@ -148,7 +148,7 @@ class Poi {
       this.applyPlugins()
       const { input, flags } = this.cli.parse([
         this.options.command,
-        ...this.cliArgs
+        ...this.options.cliArgs
       ])
       if (!this.cli.matchedCommand && !flags.help) {
         if (input[0]) {

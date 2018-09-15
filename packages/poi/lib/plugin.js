@@ -77,6 +77,10 @@ module.exports = class Plugin {
     return config.toConfig()
   }
 
+  resolveWebpackCompiler(opts) {
+    return require('webpack')(this.resolveWebpackConfig(opts))
+  }
+
   resolve(...args) {
     return path.resolve(this.options.baseDir, ...args)
   }

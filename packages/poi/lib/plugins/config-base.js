@@ -85,7 +85,7 @@ exports.extend = api => {
       .plugin('report-status')
       .use(require('../webpack/plugins/report-status-plugin'), [
         {
-          showFileStats: api.mode === 'production',
+          showFileStats: false,
           mode: api.mode,
           devServer: api.config.devServer
         }
