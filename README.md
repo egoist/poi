@@ -25,7 +25,7 @@ __The current stable version is Poi 10, please check out the [old website](https
   _Build with your favorite framework or vanilla JavaScript._
 
 - __Fully Extensible__<br>
-  _A rich collection of official plugins intergrating the best tools in the web ecosystem._<br>
+  _A rich collection of official plugins integrating the best tools in the web ecosystem._<br>
   _A powerful plugin API for making your own plugins._
 
 ## Quick Start
