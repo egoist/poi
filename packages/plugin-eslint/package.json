@@ -1,6 +1,6 @@
 {
   "name": "@poi/plugin-eslint",
-  "version": "11.0.0-alpha.14",
+  "version": "11.0.0-alpha.15",
   "publishConfig": {
     "access": "public"
   },

@@ -1,6 +1,6 @@
 {
   "name": "@poi/plugin-pwa",
-  "version": "11.0.0-alpha.14",
+  "version": "11.0.0-alpha.15",
   "main": "lib/index.js",
   "files": [
     "lib",
