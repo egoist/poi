@@ -4,14 +4,6 @@ module.exports = {
   themeConfig: {
     sidebar: [
       {
-        title: 'Getting Started',
-        collapsable: false,
-        children: [
-          '/guide/introduction',
-          '/guide/creating-a-project',
-        ]
-      },
-      {
         title: 'Basics',
         collapsable: false,
         children: [
@@ -23,22 +15,16 @@ module.exports = {
     ],
     nav: [
       {
-        text: 'Learn',
-        items: [
-          { text: 'Guide', link: '/guide/introduction' },
-          {
-            text: 'Config File',
-            link: '/config'
-          },
-          {
-            text: 'Command Line',
-            link: '/cli'
-          },
-          {
-            text: 'Plugin Dev Guide',
-            link: '/plugin-dev'
-          }
-        ]
+        text: 'Guide',
+        link: '/'
+      },
+      {
+        text: 'Config File',
+        link: '/config'
+      },
+      {
+        text: 'Plugin Dev Guide',
+        link: '/plugin-dev'
       }
     ],
     editLinks: true,
