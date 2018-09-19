@@ -15,6 +15,7 @@
   ],
   "xo": false,
   "license": "MIT",
+  "homepage": "https://poi.leptosia.org",
   "dependencies": {
     "@babel/core": "^7.0.0-rc.3",
     "@babel/plugin-proposal-class-properties": "^7.0.0-rc.3",

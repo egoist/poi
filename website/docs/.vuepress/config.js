@@ -42,7 +42,7 @@ module.exports = {
       }
     ],
     editLinks: true,
-    repo: 'upash/poi',
+    repo: 'leptosia/poi',
     docsDir: 'website/docs'
   }
 }

@@ -7,6 +7,7 @@ const getIp = require('internal-ip')
 const prettyMs = require('pretty-ms')
 const formatWebpackMessages = require('@poi/dev-utils/formatWebpackMessages')
 const clearConsole = require('@poi/dev-utils/clearConsole')
+const pkg = require('../../../package')
 
 class ReportStatusPlugin {
   constructor(options) {
@@ -102,7 +103,7 @@ class ReportStatusPlugin {
         console.log()
         console.log(
           chalk.dim(
-            `Check out https://poi.upa.sh/guide/deployments for deployment guide.`
+            `Check out ${pkg.homepage}/guide/deployments for deployment guide.`
           )
         )
       }

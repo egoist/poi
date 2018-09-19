@@ -3,7 +3,7 @@
   </p>
 <br>
 
-Poi is a modular web application bundler which requires no config until needed. For more information on using Poi, see the [Poi 11 documentation website](https://poi.upa.sh) (WIP).
+Poi is a modular web application bundler which requires no config until needed. For more information on using Poi, see the [Poi 11 documentation website](https://poi.leptosia.org) (WIP).
 
 __The Poi project is supported by our [Backers](./BACKERS.md) and funded through [Patreon](https://patreon.com/egoist).__
 
@@ -37,4 +37,4 @@ create-poi-app my-app
 
 ## License
 
-MIT &copy; [UPA](https://github.com/upash)
+MIT &copy; [LEPTOSIA](https://github.com/leptosia)
