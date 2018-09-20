@@ -38,6 +38,18 @@ The plugin name, it's mainly used to retrieve plugin options from config file. F
 
 See the [Generators](#generators-2) section.
 
+### commandModes
+
+- __Type__: `{ [command: string]: string }`
+
+Set the mode for the commands added via the plugin. For example we set the mode to `production` in the plugin that adds the `build` command:
+
+```js
+exports.commandModes = {
+  build: 'production'
+}
+```
+
 ## Plugin API
 
 ### api.mode

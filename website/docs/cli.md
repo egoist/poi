@@ -4,6 +4,10 @@ sidebar: auto
 
 # CLI Reference
 
+Run `poi` to get auto-generated help.
+
+Run `poi <command> --help` to get auto-generated help for specified command.
+
 ## Base Directory
 
 Set the base directory to load files via CLI flag `--baseDir`:

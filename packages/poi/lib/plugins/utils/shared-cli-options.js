@@ -6,7 +6,7 @@ module.exports = command => {
     .option('inspect-webpack', {
       desc: 'Print webpack config and quit (default: false)'
     })
-    .option('progress', {
+    .option('no-progress', {
       desc: 'Show build progress (default: true)'
     })
     .option('jsx', {

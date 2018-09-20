@@ -37,6 +37,14 @@ Specify public URL of the output directory when referenced in a browser. A relat
 
 The value of the option is prefixed to every URL created by the runtime or loaders. Because of this the value of this option ends with `/` in most cases.
 
+## html
+
+- Type: `Object`
+
+Customize the HTML template for your app [entry](#entry).
+
+It accepts all options in [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin#options).
+
 ## pages
 
 - Type: `Object`
@@ -44,7 +52,7 @@ The value of the option is prefixed to every URL created by the runtime or loade
 
 Build app in multi-page mode. The value should be an object where the key is the name of the page, the value is an object used to customize the page.
 
-When this option is used the [`entry`](#entry) option will be ignore.
+When this option is used the [`entry`](#entry) option and [`html`](#html) option will be ignore.
 
 For instance you can generate `index.html` and `sub-page.html` like this:
 
@@ -68,6 +76,7 @@ Properties:
 - `filename`: The filename of generated HTML file, it default to `$page_name + '.html'`.
 - `template`: The template HTML file that is used to render the generated HTML file. If not given, a default template file will be used.
 - `chunks`: Include specific chunks in this page. Pages by default will always generate a `$page_name` chunk, optionally with `chunk-vendors` chunk and `chunk-common` chunk in production build, these chunks are included by default. You can use this option to customize it.
+- ...basically all options in [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin#options).
 
 ## constants
 
@@ -104,7 +113,7 @@ By default Babel would only transpile modules outside `node_modules` directory, 
 Specify the options of the default Babel preset we use:
 
 - `jsx`: `default: 'react'` You can also set it to `'vue'` or any JSX pragma like `'h'` for Preact. This can be overridden via CLI flag `--jsx`.
-- `jsxPragma`: `default: 'React.createFragment'`
+- `jsxPragmaFrag`: `default: 'React.createFragment'`
 - `loose`: `default: false` Enable loose transformation.
 
 Note that the default Babel preset will not be used if you're using a custom Babel config file, however you can still add the preset to your Babel config file if you want:
