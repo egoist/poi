@@ -31,12 +31,25 @@ exports.extend = api => {
     HtmlPlugin.__expression = `require('html-webpack-plugin')`
 
     const DEFAULT_TEMPLATE = path.join(__dirname, '../default-template.html')
+    const templateParametersGenerator = (compilation, assets, options) => {
+      const constants = api.config.plugin('constants').store.get('args')[0]
+      return Object.assign({}, constants, {
+        compilation,
+        webpack: compilation.getStats().toJson(),
+        webpackConfig: compilation.options,
+        htmlWebpackPlugin: {
+          files: assets,
+          options
+        }
+      })
+    }
 
     if (api.config.pages) {
       for (const entryName of Object.keys(api.config.pages)) {
         const page = Object.assign(
           {
             template: 'public/index.html',
+            templateParametersGenerator,
             title: api.pkg.data.name || 'Poi App',
             filename: `${entryName}.html`,
             chunks: ['chunk-vendors', 'chunk-common', entryName]
@@ -54,6 +67,7 @@ exports.extend = api => {
       const page = Object.assign(
         {
           template: 'public/index.html',
+          templateParametersGenerator,
           title: api.pkg.data.name || 'Poi App',
           filename: 'index.html'
         },

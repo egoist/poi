@@ -1,5 +1,7 @@
 const { GenerateSW } = require('workbox-webpack-plugin')
 
+exports.name = 'workbox'
+
 exports.extend = (api, options) => {
   const pluginOptions = Object.assign(
     {
@@ -25,7 +27,7 @@ exports.extend = (api, options) => {
   }
 
   if (api.mode === 'development') {
-    api.configureDevSever(server => {
+    api.configureDevServer(server => {
       server.use(require('skip-service-worker')(pluginOptions.swDest))
     })
   }

@@ -106,7 +106,7 @@ module.exports = class GeneratorManager {
             `Invoking generator '${name}' from plugin '${pluginName}'`
           )
           // eslint-disable-next-line no-await-in-loop
-          await this.invoke(generator, flags)
+          await this.invoke(generator, name, flags)
         }
       }
     }
@@ -114,16 +114,18 @@ module.exports = class GeneratorManager {
 
   async invokeFromPlugins(name, flags) {
     const generators = this.setGeneratorsFromPlugins()
-    await this.invoke(generators, name, flags)
-  }
-
-  async invoke(generators, name, flags) {
     if (!generators.has(name)) {
       return logger.error(`Generator "${name}" does not exist!`)
     }
-    const generator = generators.get(name)
+    await this.invoke(generators.get(name), name, flags)
+  }
+
+  async invoke(generator, name, flags) {
     const questions = generator.prompts
     const answers = Object.assign({}, questions && (await prompt(questions)))
+    if (this.api.pkg.path) {
+      this.api.pkg.data = JSON.parse(await fs.readFile(this.api.pkg.path))
+    }
     const oldPkgData = JSON.parse(JSON.stringify(this.api.pkg.data))
     const generatorApi = new GeneratorApi({ answers, api: this.api, flags })
     await generator.generate(generatorApi)
