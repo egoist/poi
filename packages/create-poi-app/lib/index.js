@@ -27,6 +27,7 @@ module.exports = async ({ outDir }) => {
   const answers = await inq.prompt(require('./questions')())
   const { framework, features } = answers
   const fromDir = path.join(__dirname, '../templates', framework)
+  await majo.fs.copy(path.join(__dirname, '../templates/shared'), outDir)
   const stream = majo()
   stream.source('**/*', { baseDir: fromDir, dotFiles: true })
   await stream.dest(outDir)
@@ -75,7 +76,7 @@ module.exports = async ({ outDir }) => {
       command: 'invoke',
       baseDir: outDir,
       cliArgs: ['pwa', '--create-poi-app']
-    })
+    }).run()
   }
 
   // Install deps that are added via features

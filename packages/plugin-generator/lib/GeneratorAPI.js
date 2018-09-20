@@ -77,6 +77,7 @@ module.exports = class GeneratorAPI {
   }
 
   async copy(fromPath, targetPath) {
+    targetPath = this.api.resolve(targetPath)
     const res = await this.executeWhenWritable(targetPath, () =>
       fs.copy(fromPath, targetPath)
     )
