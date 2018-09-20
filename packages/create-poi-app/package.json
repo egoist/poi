@@ -1,6 +1,6 @@
 {
   "name": "create-poi-app",
-  "version": "11.0.0-alpha.17",
+  "version": "11.0.0-alpha.18",
   "main": "lib/index.js",
   "bin": {
     "create-poi-app": "bin/cli.js",
@@ -13,7 +13,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@poi/cli-utils": "^11.0.0-alpha.17",
+    "@poi/cli-utils": "^11.0.0-alpha.18",
     "cac": "^5.0.11",
     "chalk": "^2.4.1",
     "inquirer": "^6.2.0",
