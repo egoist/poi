@@ -11,7 +11,7 @@ __The current stable version is Poi 10, please check out the [old website](https
 
 ## Status
 
-[![npm version](https://badgen.net/npm/v/poi)](https://npm.im/poi) [![npm next version](https://badgen.net/npm/v/poi/next)](https://npm.im/poi) [![build status](https://badgen.net/circleci/github/egoist/poi/master)](https://circleci.com/gh/egoist/poi/tree/master) [![npm downloads](https://badgen.net/npm/dm/poi)](https://npm.im/poi)
+[![npm version](https://badgen.net/npm/v/poi)](https://npm.im/poi) [![npm next version](https://badgen.net/npm/v/poi/next)](https://npm.im/poi) [![build status](https://badgen.net/circleci/github/leptosia/poi/master)](https://circleci.com/gh/egoist/poi/tree/master) [![npm downloads](https://badgen.net/npm/dm/poi)](https://npm.im/poi) [![poi twitter](https://badgen.net/badge//@poi__js/1da1f2?icon=twitter)](https://twitter.com/poi__js)
 
 ## Features
 
