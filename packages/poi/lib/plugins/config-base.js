@@ -64,7 +64,16 @@ exports.extend = api => {
     const baseDir = api.resolve()
     require('../webpack/rules/css')(config, api, filenames)
     require('../webpack/rules/vue')(config, { baseDir })
-    require('../webpack/rules/babel')(config, { baseDir })
+    require('../webpack/rules/babel')(config, {
+      baseDir,
+      defaultPresetOptions: Object.assign(
+        {
+          jsx: api.config.jsx
+        },
+        api.config.babel.defaultPresetOptions
+      ),
+      transpileModules: api.config.babel.transpileModules
+    })
     require('../webpack/rules/graphql')(config)
     require('../webpack/rules/yaml')(config)
     require('../webpack/rules/toml')(config)

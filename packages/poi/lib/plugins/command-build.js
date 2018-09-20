@@ -7,8 +7,8 @@ exports.extend = api => {
 
   setSharedCLIOptions(command)
   command.option(
-    'clean-out-dir',
-    'Clean output directory before bundling (default: true)'
+    'no-clean-out-dir',
+    `Don't clean output directory before bundling (default: true)`
   )
 
   if (api.options.command === 'build') {

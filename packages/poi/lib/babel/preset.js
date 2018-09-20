@@ -1,9 +1,10 @@
 const env = process.env.BABEL_ENV || process.env.NODE_ENV
 
-module.exports = (
-  context,
-  { jsx = 'react', jsxPragmaFrag = 'React.Fragment', loose = false } = {}
-) => {
+module.exports = (context, { jsx, jsxPragmaFrag, loose } = {}) => {
+  jsx = jsx || 'react'
+  jsxPragmaFrag = jsxPragmaFrag || 'React.Fragment'
+  loose = typeof loose === 'boolean' ? loose : false
+
   const presets = [
     [
       require.resolve('@babel/preset-env'),

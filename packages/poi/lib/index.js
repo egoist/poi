@@ -62,7 +62,8 @@ class Poi {
         publicPath: '/',
         pluginOptions: {},
         sourceMap: true,
-        minimize: 'auto'
+        minimize: 'auto',
+        babel: {}
       },
       this.config,
       {

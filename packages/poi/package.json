@@ -32,7 +32,7 @@
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-loader": "^8.0.0-beta.6",
     "babel-plugin-transform-vue-jsx": "^4",
-    "cac": "^5.0.10",
+    "cac": "^5.0.12",
     "chalk": "^2.4.1",
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^1.0.0",

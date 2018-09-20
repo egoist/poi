@@ -91,6 +91,32 @@ Generating sourcemaps in production build is useful for error reporting, analysi
 
 Minimize bundled JS and CSS files.
 
+## babel.transpileModules
+
+- Type: `string[]` `RegExp[]`
+
+By default Babel would only transpile modules outside `node_modules` directory, however you can use this option to include certain modules.
+
+## babel.defaultPresetOptions
+
+- Type: `Object`
+
+Specify the options of the default Babel preset we use:
+
+- `jsx`: `default: 'react'` You can also set it to `'vue'` or any JSX pragma like `'h'` for Preact. This can be overridden via CLI flag `--jsx`.
+- `jsxPragma`: `default: 'React.createFragment'`
+- `loose`: `default: false` Enable loose transformation.
+
+Note that the default Babel preset will not be used if you're using a custom Babel config file, however you can still add the preset to your Babel config file if you want:
+
+```js
+module.exports = {
+  presets: [
+    ['module:poi/babel', defaultPresetOptions]
+  ]
+}
+```
+
 ## css.extract
 
 - Type: `boolean` `'auto'`

@@ -3,12 +3,7 @@ const logger = require('@poi/cli-utils/logger')
 
 module.exports = babelLoader.custom(babel => {
   const configs = new Set()
-  const babelPresetItem = babel.createConfigItem(
-    require.resolve('../../babel/preset'),
-    {
-      type: 'preset'
-    }
-  )
+  let babelPresetItem
 
   return {
     customOptions(opts) {
@@ -35,6 +30,17 @@ module.exports = babelLoader.custom(babel => {
         }
       } else {
         // Add our default preset
+        babelPresetItem =
+          babelPresetItem ||
+          babel.createConfigItem(
+            [
+              require.resolve('../../babel/preset'),
+              customOptions.defaultPresetOptions
+            ],
+            {
+              type: 'preset'
+            }
+          )
         options.presets = [babelPresetItem, ...options.presets]
       }
 

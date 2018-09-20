@@ -1846,20 +1846,20 @@ bytes@3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/bytes/-/bytes-3.0.0.tgz#d32815404d689699f85a4ea4fa8755dd13a96048"
 
-cac@^5.0.10:
-  version "5.0.10"
-  resolved "https://registry.npmjs.org/cac/-/cac-5.0.10.tgz#311de657c839dee4da58582b816e1fe44d20e54f"
+cac@^5.0.11:
+  version "5.0.11"
+  resolved "https://registry.npmjs.org/cac/-/cac-5.0.11.tgz#92ad452c15893313551bc46e09cf9a5acb15484f"
   dependencies:
     chalk "^2.3.2"
+    joycon "^2.1.1"
     minimost "^1.1.0"
-    read-pkg-up "^2.0.0"
     redent "^2.0.0"
     string-width "^2.1.1"
     text-table "^0.2.0"
 
-cac@^5.0.11:
-  version "5.0.11"
-  resolved "https://registry.npmjs.org/cac/-/cac-5.0.11.tgz#92ad452c15893313551bc46e09cf9a5acb15484f"
+cac@^5.0.12:
+  version "5.0.12"
+  resolved "https://registry.yarnpkg.com/cac/-/cac-5.0.12.tgz#037cd0afae0349d1759c20b651e6ec3413998e99"
   dependencies:
     chalk "^2.3.2"
     joycon "^2.1.1"
