@@ -56,7 +56,7 @@ module.exports = async ({ outDir }) => {
   }
   await majo.fs.writeFile(pkgPath, JSON.stringify(pkgData, null, 2), 'utf8')
 
-  await install({ cwd: outDir })
+  await install({ cwd: outDir, title: 'Installing Poi and Plugins' })
 
   // Invoke generators for selected features
   const pm = await require('@poi/cli-utils/get-npm-client')(outDir)
@@ -77,6 +77,9 @@ module.exports = async ({ outDir }) => {
       cliArgs: ['pwa', '--create-poi-app']
     })
   }
+
+  // Install deps that are added via features
+  await install({ cwd: outDir, title: 'Installing addtional dependencies' })
 
   console.log(`
 ${chalk.green.bold('POI')} Created a new ${chalk.cyan(

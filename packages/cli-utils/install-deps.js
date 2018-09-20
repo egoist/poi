@@ -3,15 +3,16 @@ const spawn = require('./spawn')
 const getNpmClient = require('./get-npm-client')
 const icon = require('./icon')
 
-module.exports = async ({ cwd, deps, saveDev }) => {
+module.exports = async ({ cwd, deps, saveDev, title }) => {
   const pm = await getNpmClient(cwd)
 
+  title = title || 'Installing dependencies'
   const args = deps ? ['add'].concat(deps) : ['install']
   const devFlags = saveDev ? (pm === 'yarn' ? ['--dev'] : ['-D']) : []
   const cp = await spawn(pm, args.concat(devFlags), {
     cwd,
     banner: chalk.bold(
-      `${icon.gear} Installing dependencies ${
+      `${icon.gear} ${title} ${
         deps ? deps.map(v => chalk.cyan(v)).join(', ') + ' ' : ''
       }with ${pm}, this might take a while...`
     )
