@@ -63,11 +63,13 @@ module.exports = class Plugin {
     const WebpackChain = require('webpack-chain')
     const config = new WebpackChain()
 
-    this.hooks.invoke(
-      'chainWebpack',
-      config,
-      Object.assign({ type: 'client' }, opts)
-    )
+    opts = Object.assign({ type: 'client' }, opts)
+
+    this.hooks.invoke('chainWebpack', config, opts)
+
+    if (this.config.chainWebpack) {
+      this.config.this.chainWebpack(config, opts)
+    }
 
     if (this.options.inspectWebpack) {
       console.log(config.toString())
