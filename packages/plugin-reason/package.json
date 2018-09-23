@@ -1,6 +1,6 @@
 {
   "name": "@poi/plugin-reason",
-  "version": "11.0.0-alpha.18",
+  "version": "11.0.0-alpha.19",
   "publishConfig": {
     "access": "public"
   },
@@ -11,6 +11,6 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@poi/bs-loader": "^11.0.0-alpha.18"
+    "@poi/bs-loader": "^11.0.0-alpha.19"
   }
 }
