@@ -68,7 +68,7 @@ module.exports = class Plugin {
     this.hooks.invoke('chainWebpack', config, opts)
 
     if (this.config.chainWebpack) {
-      this.config.this.chainWebpack(config, opts)
+      this.config.chainWebpack(config, opts)
     }
 
     if (this.options.inspectWebpack) {
