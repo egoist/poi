@@ -86,7 +86,7 @@ Resolve path from base directory.
 api.resolve('foo.js')
 ```
 
-## Generators
+## Generators <Badge text="experimental" type="warn"/>
 
 You can use `generators` property to add multiple generators:
 

@@ -4,9 +4,10 @@ module.exports = {
   themeConfig: {
     sidebar: [
       {
-        title: 'Basics',
+        title: 'Guide',
         collapsable: false,
         children: [
+          '/guide/getting-started',
           '/guide/transforms',
           '/guide/serve-public-files',
           '/guide/plugins-and-presets'
@@ -16,7 +17,7 @@ module.exports = {
     nav: [
       {
         text: 'Guide',
-        link: '/'
+        link: '/guide/getting-started'
       },
       {
         text: 'Config File',
