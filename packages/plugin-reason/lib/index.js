@@ -12,5 +12,3 @@ exports.extend = api => {
       })
   })
 }
-
-exports.generators = require('../generators')

@@ -32,5 +32,3 @@ exports.extend = (api, { lintOnSave }) => {
     })
   }
 }
-
-exports.generators = require('../generators')

@@ -6,17 +6,13 @@ sidebar: auto
 
 ## Overview
 
-A plugin is essential an object with some properties or methods like `name`, `extend`, `generators` etc.
+A plugin is essential an object with some properties or methods like `name`, `extend` etc.
 
 ```js
 exports.name = 'foo'
 
 exports.extend = (api, options) => {
   // ...
-}
-
-exports.generators = {
-  foo: {}
 }
 ```
 
@@ -33,10 +29,6 @@ The plugin name, it's mainly used to retrieve plugin options from config file. F
 
 - __Type__: `(api: PluginAPI, options: any) => void`
 - __Required__: `false`
-
-### generators
-
-See the [Generators](#generators-2) section.
 
 ### commandModes
 
@@ -85,24 +77,3 @@ Resolve path from base directory.
 ```js
 api.resolve('foo.js')
 ```
-
-## Generators <Badge text="experimental" type="warn"/>
-
-You can use `generators` property to add multiple generators:
-
-```ts
-exports.generators = {
-  foo: {
-    // inqurer.js prompts object
-    prompts: Prompt[],
-    generate(api: GenerateAPI): Promise<void>,
-    // Whether to invoke this generator
-    // When the plugin is added via `poi add` command
-    invokeAfterAdd: boolean,
-    // Whether to run npm install when generated
-    npmInstall: boolean
-  }
-}
-```
-
-Then a user who installed this plugin can run `poi invoke foo` to invoke this generator.

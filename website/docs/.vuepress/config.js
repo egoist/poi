@@ -9,8 +9,7 @@ module.exports = {
         children: [
           '/guide/getting-started',
           '/guide/transforms',
-          '/guide/serve-public-files',
-          '/guide/plugins-and-presets'
+          '/guide/serve-public-files'
         ]
       }
     ],

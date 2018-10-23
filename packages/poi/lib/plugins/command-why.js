@@ -17,25 +17,4 @@ exports.extend = api => {
       )
     }
   )
-
-  api.registerCommand(
-    'why-generator',
-    'Identifies why a generator exists',
-    input => {
-      const name = input[0]
-      if (!name) {
-        return api.root.cli.showHelp()
-      }
-      const { generatorManager } = api.root
-      const generators = generatorManager.setGeneratorsFromPlugins()
-      if (!generators.has(name)) {
-        return api.logger.error(`Generator '${name}' does not exist!`)
-      }
-      console.log(
-        `Generator '${name}' is added by plugin '${
-          generators.get(name).__plugin
-        }'`
-      )
-    }
-  )
 }

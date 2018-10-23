@@ -106,7 +106,6 @@ class Poi {
       require('./plugins/command-dev'),
       require('./plugins/command-watch'),
       require('./plugins/command-why'),
-      require('@poi/plugin-generator'),
       ...pluginsFromPackage.map(plugin => {
         return require(resolveFrom(this.options.baseDir, plugin))
       })

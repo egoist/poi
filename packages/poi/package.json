@@ -28,7 +28,6 @@
     "@intervolga/optimize-cssnano-plugin": "^1.0.6",
     "@poi/cli-utils": "^11.0.0-alpha.20",
     "@poi/dev-utils": "^11.0.0-alpha.20",
-    "@poi/plugin-generator": "^11.0.0-alpha.20",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-loader": "^8.0.0-beta.6",
     "babel-plugin-transform-vue-jsx": "^4",

@@ -11,5 +11,3 @@ exports.extend = api => {
     config.plugin('poi-pwa-plugin').use(require('./poi-pwa-plugin'))
   })
 }
-
-exports.generators = require('../generators')
