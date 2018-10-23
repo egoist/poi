@@ -1,7 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 
-exports.extend = api => {
+exports.apply = api => {
   if (api.config.target !== 'app') return
 
   api.chainWebpack(config => {

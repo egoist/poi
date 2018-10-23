@@ -1,6 +1,6 @@
 const setSharedCLIOptions = require('./utils/shared-cli-options')
 
-exports.extend = api => {
+exports.apply = api => {
   const command = api.registerCommand('build', 'Build your app', async () => {
     await api.bundle()
   })

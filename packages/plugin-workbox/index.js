@@ -2,7 +2,7 @@ const { GenerateSW } = require('workbox-webpack-plugin')
 
 exports.name = 'workbox'
 
-exports.extend = (api, options) => {
+exports.apply = (api, options) => {
   const pluginOptions = Object.assign(
     {
       swDest: 'service-worker.js',

@@ -121,9 +121,9 @@ class Poi {
 
     for (const plugin of plugins) {
       logger.debug(`Using plugin '${plugin.name}'`)
-      if (plugin.extend) {
+      if (plugin.apply) {
         const pluginApi = new Plugin(this, plugin.name)
-        plugin.extend(pluginApi, this.config.pluginOptions[plugin.name] || {})
+        plugin.apply(pluginApi, this.config.pluginOptions[plugin.name] || {})
       }
       if (plugin.commandModes) {
         for (const command of Object.keys(plugin.commandModes)) {

@@ -1,6 +1,6 @@
 exports.name = 'eslint'
 
-exports.extend = (api, { lintOnSave }) => {
+exports.apply = (api, { lintOnSave }) => {
   const command = api.registerCommand(
     'lint',
     'Lint source files',

@@ -2,7 +2,7 @@ const setSharedCLIOptions = require('./utils/shared-cli-options')
 
 exports.name = 'builtin:command-dev'
 
-exports.extend = api => {
+exports.apply = api => {
   if (api.options.command === 'dev') {
     api.chainWebpack(config => {
       if (config.entryPoints.has('index')) {

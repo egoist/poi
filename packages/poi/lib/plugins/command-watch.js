@@ -1,6 +1,6 @@
 exports.name = 'builtin:command-watch'
 
-exports.extend = api => {
+exports.apply = api => {
   api.registerCommand(
     'watch',
     'Run app in watch mode (Like dev command but without a server)',

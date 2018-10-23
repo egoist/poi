@@ -6,12 +6,12 @@ sidebar: auto
 
 ## Overview
 
-A plugin is essential an object with some properties or methods like `name`, `extend` etc.
+A plugin is essential an object with some properties or methods like `name`, `apply` etc.
 
 ```js
 exports.name = 'foo'
 
-exports.extend = (api, options) => {
+exports.apply = (api, options) => {
   // ...
 }
 ```
@@ -23,9 +23,9 @@ exports.extend = (api, options) => {
 - __Type__: `string`
 - __Required__: `true`
 
-The plugin name, it's mainly used to retrieve plugin options from config file. For example if the name is `foo`, then we will use `pluginOptions.foo` from config file as the second argument of the [`extend`](#extend) method.
+The plugin name, it's mainly used to retrieve plugin options from config file. For example if the name is `foo`, then we will use `pluginOptions.foo` from config file as the second argument of the [`apply`](#apply) method.
 
-### extend
+### apply
 
 - __Type__: `(api: PluginAPI, options: any) => void`
 - __Required__: `false`

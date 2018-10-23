@@ -1,6 +1,6 @@
 exports.name = 'reason'
 
-exports.extend = api => {
+exports.apply = api => {
   api.chainWebpack(config => {
     config.module
       .rule('bs')

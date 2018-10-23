@@ -1,6 +1,6 @@
 exports.name = 'builtin:command-why'
 
-exports.extend = api => {
+exports.apply = api => {
   api.registerCommand(
     'why-command',
     'Identifies why a command exists',

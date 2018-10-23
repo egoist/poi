@@ -1,7 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 
-exports.extend = api => {
+exports.apply = api => {
   // TODO: refactor this
   // eslint-disable-next-line complexity
   api.chainWebpack(config => {

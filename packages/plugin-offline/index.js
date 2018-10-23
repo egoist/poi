@@ -2,7 +2,7 @@ const OfflinePlugin = require('offline-plugin')
 
 OfflinePlugin.__expression = `require('offline-plugin')`
 
-exports.extend = (api, options) => {
+exports.apply = (api, options) => {
   const pluginOptions = Object.assign(
     {
       externals: [],

@@ -1,6 +1,6 @@
 exports.name = 'pwa'
 
-exports.extend = api => {
+exports.apply = api => {
   api.chainWebpack(config => {
     if (api.mode !== 'production' || api.config.target !== 'app') return
 
