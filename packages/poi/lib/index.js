@@ -17,7 +17,8 @@ class Poi {
     })
     this.hooks = new Hooks()
     this.config = Object.assign({}, config)
-    this.commandModes = {}
+
+    process.env.POI_COMMAND = this.options.command
 
     logger.setOptions({
       debug: this.options.debug
@@ -127,20 +128,17 @@ class Poi {
       }
       if (plugin.commandModes) {
         for (const command of Object.keys(plugin.commandModes)) {
-          const mode = plugin.commandModes[command]
-          this.commandModes[command] = mode
-          logger.debug(
-            `Plugin '${
-              plugin.name
-            }' sets the mode of command '${command}' to '${mode}'`
-          )
+          if (command === this.options.command) {
+            this.mode = plugin.commandModes[command]
+            logger.debug(
+              `Plugin '${
+                plugin.name
+              }' sets the mode of command '${command}' to '${this.mode}'`
+            )
+          }
         }
       }
     }
-  }
-
-  get mode() {
-    return this.commandModes[this.options.command]
   }
 
   run() {

@@ -103,10 +103,13 @@ exports.apply = api => {
     config.plugin('constants').use(require('webpack').DefinePlugin, [
       Object.assign(
         {
-          POI_PUBLIC_PATH: JSON.stringify(api.config.publicPath),
-          POI_COMMAND: JSON.stringify(api.options.command),
-          POI_MODE: JSON.stringify(api.mode),
-          __DEV__: JSON.stringify(api.mode !== 'production')
+          __DEV__: JSON.stringify(api.mode !== 'production'),
+          __PUBLIC_PATH__: JSON.stringify(api.config.publicPath),
+          'process.env.POI_COMMAND': JSON.stringify(api.options.command),
+          'process.env.POI_MODE': JSON.stringify(api.mode),
+          'process.env.NODE_ENV': JSON.stringify(
+            api.mode === 'production' ? api.mode : 'development'
+          )
         },
         api.config.constants
       )
