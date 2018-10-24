@@ -1,8 +1,7 @@
 const path = require('path')
 const merge = require('lodash.merge')
-const resolveFrom = require('resolve-from')
 const logger = require('@poi/cli-utils/logger')
-const getPlugins = require('./utils/get-plugins')
+const loadPlugins = require('./utils/load-plugins')
 const Plugin = require('./plugin')
 const loadConfig = require('./utils/load-config')
 const Hooks = require('./hooks')
@@ -91,48 +90,31 @@ class Poi {
   }
 
   applyPlugins() {
-    const pluginsFromPackage = [
-      ...Object.keys(this.pkg.data.dependencies || {}),
-      ...Object.keys(this.pkg.data.devDependencies || {})
-    ]
-      .filter(name => {
-        return name.startsWith('poi-plugin-') || name.startsWith('@poi/plugin-')
-      })
-      .sort()
-
-    let plugins = [
-      require('./plugins/config-base'),
-      require('./plugins/config-app'),
-      require('./plugins/command-build'),
-      require('./plugins/command-dev'),
-      require('./plugins/command-watch'),
-      require('./plugins/command-why'),
-      ...pluginsFromPackage.map(plugin => {
-        return require(resolveFrom(this.options.baseDir, plugin))
-      })
+    const plugins = [
+      require.resolve('./plugins/config-base'),
+      require.resolve('./plugins/config-app'),
+      require.resolve('./plugins/command-build'),
+      require.resolve('./plugins/command-dev'),
+      require.resolve('./plugins/command-watch'),
+      require.resolve('./plugins/command-why'),
+      ...(this.config.plugins || [])
     ]
 
-    if (this.config.plugins) {
-      plugins = plugins.concat(
-        getPlugins(this.config.plugins, this.options.baseDir)
-      )
-    }
-
-    this.plugins = plugins
-
-    for (const plugin of plugins) {
-      logger.debug(`Using plugin '${plugin.name}'`)
-      if (plugin.apply) {
-        const pluginApi = new Plugin(this, plugin.name)
-        plugin.apply(pluginApi, this.config.pluginOptions[plugin.name] || {})
+    this.plugins = loadPlugins(plugins, this.options.baseDir)
+    for (const plugin of this.plugins) {
+      const { resolve, options } = plugin
+      logger.debug(`Using plugin '${resolve.name}'`)
+      if (resolve.apply) {
+        const pluginApi = new Plugin(this, resolve.name)
+        resolve.apply(pluginApi, options)
       }
-      if (plugin.commandModes) {
-        for (const command of Object.keys(plugin.commandModes)) {
+      if (resolve.commandModes) {
+        for (const command of Object.keys(resolve.commandModes)) {
           if (command === this.options.command) {
-            this.mode = plugin.commandModes[command]
+            this.mode = resolve.commandModes[command]
             logger.debug(
               `Plugin '${
-                plugin.name
+                resolve.name
               }' sets the mode of command '${command}' to '${this.mode}'`
             )
           }

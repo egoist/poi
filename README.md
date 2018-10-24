@@ -3,15 +3,13 @@
   </p>
 <br>
 
-Poi is a modular web application bundler which requires no config until needed. For more information on using Poi, see the [Poi 11 documentation website](https://poi.leptosia.org) (WIP).
+Poi is a modular web application bundler which requires no config until needed.
 
 __The Poi project is supported by our [Backers](./BACKERS.md) and funded through [Patreon](https://patreon.com/egoist).__
 
-__The current stable version is Poi 10, please check out the [old website](https://poi.js.org), it's still maintained.__
-
 ## Status
 
-[![npm version](https://badgen.net/npm/v/poi)](https://npm.im/poi) [![npm next version](https://badgen.net/npm/v/poi/next)](https://npm.im/poi) [![build status](https://badgen.net/circleci/github/leptosia/poi/master)](https://circleci.com/gh/egoist/poi/tree/master) [![npm downloads](https://badgen.net/npm/dm/poi)](https://npm.im/poi) [![poi twitter](https://badgen.net/badge//@poi__js/1da1f2?icon=twitter)](https://twitter.com/poi__js)
+[![npm version](https://badgen.net/npm/v/poi)](https://npm.im/poi) [![npm next version](https://badgen.net/npm/v/poi/next)](https://npm.im/poi) [![build status](https://badgen.net/circleci/github/egoist/poi/master)](https://circleci.com/gh/egoist/poi/tree/master) [![npm downloads](https://badgen.net/npm/dm/poi)](https://npm.im/poi) [![poi twitter](https://badgen.net/badge//@poi__js/1da1f2?icon=twitter)](https://twitter.com/poi__js)
 
 ## Features
 
@@ -28,13 +26,14 @@ __The current stable version is Poi 10, please check out the [old website](https
   _A rich collection of official plugins intergrating the best tools in the web ecosystem._<br>
   _A powerful plugin API for making your own plugins._
 
-## Quick Start
+## Documentation
 
-```bash
-npm i -g create-poi-app
-create-poi-app my-app
-```
+You can find the Poi documentation [on the website](https://poi.js.org).
+
+Check out the [Getting Started](https://poi.js.org/guide/getting-started.html) page for a quick overview.
+
+You can improve it by sending pull requests to [this repository](https://github.com/poi-bundler/website).
 
 ## License
 
-MIT &copy; [LEPTOSIA](https://github.com/leptosia)
+MIT &copy; [EGOIST](https://github.com/egoist)

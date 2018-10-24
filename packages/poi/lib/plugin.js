@@ -50,12 +50,14 @@ module.exports = class Plugin {
   hasPlugin(name) {
     return (
       this.root.plugins &&
-      this.root.plugins.find(plugin => plugin.name === name)
+      this.root.plugins.find(plugin => plugin.resolve.name === name)
     )
   }
 
   removePlugin(name) {
-    this.root.plugins = this.root.plugins.filter(plugin => plugin.name !== name)
+    this.root.plugins = this.root.plugins.filter(
+      plugin => plugin.resolve.name !== name
+    )
     return this
   }
 

@@ -15,7 +15,12 @@
   ],
   "xo": false,
   "license": "MIT",
-  "homepage": "https://poi.leptosia.org",
+  "homepage": "https://poi.js.org",
+  "author": {
+    "name": "EGOIST",
+    "email": "0x142857@gmail.com",
+    "url": "https://egoist.sh"
+  },
   "dependencies": {
     "@babel/core": "^7.0.0-rc.3",
     "@babel/plugin-proposal-class-properties": "^7.0.0-rc.3",
