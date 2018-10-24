@@ -137,7 +137,7 @@ exports.apply = api => {
     config.merge({
       optimization: {
         minimize:
-          api.config.minimize === 'auto' || api.config.minimize === undefined
+          api.config.minimize === undefined
             ? api.mode === 'production'
             : Boolean(api.config.minimize),
         minimizer: [

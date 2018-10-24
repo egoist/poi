@@ -4,9 +4,7 @@ const loadConfig = require('../../utils/load-config')
 module.exports = (config, api, filenames) => {
   const { loaderOptions, extract } = api.config.css
   const shouldExtract =
-    extract === 'auto' || extract === undefined
-      ? api.mode === 'production'
-      : extract
+    extract === undefined ? api.mode === 'production' : extract
   const sourceMap = Boolean(api.config.sourceMap)
 
   const hasPostCSSConfig = loadConfig.resolveSync({

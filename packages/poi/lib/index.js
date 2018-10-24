@@ -62,7 +62,6 @@ class Poi {
         publicPath: '/',
         pluginOptions: {},
         sourceMap: true,
-        minimize: 'auto',
         babel: {}
       },
       this.config,
@@ -71,7 +70,6 @@ class Poi {
         entry,
         css: Object.assign(
           {
-            extract: 'auto',
             loaderOptions: {}
           },
           this.config.css
