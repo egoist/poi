@@ -24,7 +24,7 @@ module.exports = (
 
   // POI_JSX is set by `--jsx` via Poi CLI
   // POI_JSX_DEFAULT is inferred from project's dependencies
-  jsx = process.env.POI_JSX || jsx || process.env.POI_JSX_DEFAULT || 'react'
+  jsx = process.env.POI_JSX || jsx || process.env.POI_JSX_INFER || 'react'
   const isVueJSX = jsx === 'vue'
   const isReactJSX = jsx === 'react'
 

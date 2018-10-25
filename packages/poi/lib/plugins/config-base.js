@@ -93,7 +93,8 @@ exports.apply = api => {
         {
           showFileStats: false,
           mode: api.mode,
-          devServer: api.config.devServer
+          devServer: api.config.devServer,
+          clearConsole: api.options.clearConsole !== false && !api.options.debug
         }
       ])
 

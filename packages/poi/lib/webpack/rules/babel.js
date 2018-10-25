@@ -23,6 +23,17 @@ module.exports = (config, { baseDir, transpileModules }) => {
     .loader(require.resolve('../loaders/babel-loader'))
     .options({
       root: baseDir,
-      cacheDirectory: true
+      cacheDirectory: true,
+      cacheIdentifier: composeCacheIdentifiers(
+        require('babel-loader/package').version,
+        require('@babel/core/package').version,
+        process.env.POI_JSX,
+        process.env.POI_JSX_INFER,
+        process.env.POI_COMMAND
+      )
     })
+}
+
+function composeCacheIdentifiers(...items) {
+  return items.join('::')
 }

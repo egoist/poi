@@ -16,7 +16,9 @@ class ReportStatusPlugin {
 
   apply(compiler) {
     compiler.hooks.done.tap('report-status', async stats => {
-      clearConsole()
+      if (this.options.clearConsole) {
+        clearConsole()
+      }
 
       if (stats.hasErrors()) {
         console.log(chalk.red.bold('Failed to compile:\n'))

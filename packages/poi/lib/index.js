@@ -46,11 +46,11 @@ class Poi {
       this.pkg.data.devDependencies
     )
     if (deps.vue) {
-      process.env.POI_JSX_DEFAULT = 'vue'
+      process.env.POI_JSX_INFER = 'vue'
     } else if (deps.preact) {
-      process.env.POI_JSX_DEFAULT = 'h'
+      process.env.POI_JSX_INFER = 'h'
     } else if (deps.mithril) {
-      process.env.POI_JSX_DEFAULT = 'm'
+      process.env.POI_JSX_INFER = 'm'
     }
 
     // Load .env file before loading config file

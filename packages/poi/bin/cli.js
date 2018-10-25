@@ -18,6 +18,7 @@ const {
   debugTrace,
   cleanOutDir,
   jsx,
+  clearConsole,
   ...configData
 } = flags
 
@@ -55,7 +56,8 @@ const options = {
   cleanOutDir,
   inspectWebpack,
   progress,
-  debug
+  debug,
+  clearConsole
 }
 
 const poi = require('../lib')

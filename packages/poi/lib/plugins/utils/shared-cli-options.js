@@ -7,9 +7,12 @@ module.exports = command => {
       desc: 'Print webpack config and quit (default: false)'
     })
     .option('no-progress', {
-      desc: 'Show build progress (default: true)'
+      desc: 'Hide build progress (default: true)'
     })
     .option('jsx', {
       desc: `Choose JSX parser (default: 'react')`
+    })
+    .option('no-clear-console', {
+      desc: `Don't clear console (default: true)`
     })
 }
