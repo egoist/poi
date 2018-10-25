@@ -1,10 +1,11 @@
 const path = require('path')
-const eslint = require('eslint')
+const resolveEslint = require('./resolve-eslint')
 
 const defaultFilesToLint = [`.`]
 
 module.exports = async (files, flags, api) => {
   const cwd = api.resolve()
+  const eslint = require(resolveEslint(cwd))
   const config = Object.assign(
     {
       fix: false,

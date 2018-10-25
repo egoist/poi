@@ -1,3 +1,5 @@
+const resolveEslint = require('./resolve-eslint')
+
 exports.name = 'eslint'
 
 exports.apply = (api, { lintOnSave } = {}) => {
@@ -27,7 +29,9 @@ exports.apply = (api, { lintOnSave } = {}) => {
         .use('eslint-loader')
         .loader('eslint-loader')
         .options({
-          cache: true
+          cache: true,
+          formatter: require('eslint-formatter-pretty'),
+          eslintPath: resolveEslint(api.resolve())
         })
     })
   }
