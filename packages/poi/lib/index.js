@@ -41,6 +41,9 @@ class Poi {
       })
     )
 
+    // Load .env file before loading config file
+    const envs = this.loadEnvs()
+
     if (this.options.configFile !== false) {
       const res = loadConfig.loadSync({
         files:
@@ -94,6 +97,10 @@ class Poi {
       }
     )
 
+    // Merge envs with this.config.envs
+    // Allow to embed these env variables in app code
+    this.setEnvs(envs)
+
     this.cli = require('cac')({ bin: 'poi' })
   }
 
@@ -102,7 +109,6 @@ class Poi {
   }
 
   prepare() {
-    this.loadEnvs()
     this.applyPlugins()
     logger.debug('App envs', JSON.stringify(this.getEnvs(), null, 2))
   }
@@ -120,6 +126,8 @@ class Poi {
       dotenvPath
     ].filter(Boolean)
 
+    const envs = {}
+
     dotenvFiles.forEach(dotenvFile => {
       if (fs.existsSync(dotenvFile)) {
         logger.debug('Using env file:', dotenvFile)
@@ -128,19 +136,19 @@ class Poi {
             path: dotenvFile
           })
         )
-        this.setEnvs(config.parsed)
+        // Collect all variables from .env file
+        Object.assign(envs, config.parsed)
       }
     })
 
-    // Collect those envs starting with POI_ too
-    this.setEnvs(
-      Object.keys(process.env).reduce((res, name) => {
-        if (name.startsWith('POI_')) {
-          res[name] = process.env[name]
-        }
-        return res
-      }, {})
-    )
+    // Collect those temp envs starting with POI_ too
+    for (const name of Object.keys(process.env)) {
+      if (name.startsWith('POI_')) {
+        envs[name] = process.env[name]
+      }
+    }
+
+    return envs
   }
 
   getEnvs() {
