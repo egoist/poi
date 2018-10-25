@@ -39,6 +39,7 @@
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-loader": "^8.0.0",
     "babel-plugin-macros": "^2.4.2",
+    "babel-plugin-named-asset-import": "^0.2.2",
     "babel-plugin-transform-vue-jsx": "^4",
     "cac": "^5.0.14",
     "chalk": "^2.4.1",

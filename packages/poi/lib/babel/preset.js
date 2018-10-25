@@ -16,7 +16,10 @@ const validateBoolOption = (name, value, defaultValue) => {
   return value
 }
 
-module.exports = (context, { jsx, jsxPragmaFrag, flow, typescript } = {}) => {
+module.exports = (
+  context,
+  { jsx, jsxPragmaFrag, flow, typescript, namedAssetImport } = {}
+) => {
   jsxPragmaFrag = jsxPragmaFrag || 'React.Fragment'
 
   // POI_JSX is set by `--jsx` via Poi CLI
@@ -84,6 +87,19 @@ module.exports = (context, { jsx, jsxPragmaFrag, flow, typescript } = {}) => {
         absoluteRuntime: path.dirname(
           require.resolve('@babel/runtime/package.json')
         )
+      }
+    ],
+    [
+      require('babel-plugin-named-asset-import'),
+      {
+        loaderMap: Object.assign({}, namedAssetImport, {
+          svg: Object.assign(
+            {
+              ReactComponent: '@svgr/webpack?-prettier,-svgo![path]'
+            },
+            namedAssetImport && namedAssetImport.svg
+          )
+        })
       }
     ]
   ].filter(Boolean)
