@@ -1,6 +1,6 @@
 {
   "name": "skip-service-worker",
-  "version": "11.0.0-alpha.21",
+  "version": "11.0.0-alpha.22",
   "main": "index.js",
   "files": [
     "index.js",

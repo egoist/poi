@@ -1,6 +1,6 @@
 {
   "name": "@poi/plugin-workbox",
-  "version": "11.0.0-alpha.21",
+  "version": "11.0.0-alpha.22",
   "main": "index.js",
   "publishConfig": {
     "access": "public"
@@ -10,7 +10,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "skip-service-worker": "^11.0.0-alpha.21",
+    "skip-service-worker": "^11.0.0-alpha.22",
     "workbox-webpack-plugin": "^3.4.1"
   }
 }
