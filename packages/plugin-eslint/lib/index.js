@@ -3,7 +3,13 @@ exports.name = 'eslint'
 exports.apply = (api, { lintOnSave } = {}) => {
   const command = api.registerCommand(
     'lint',
-    'Lint source files',
+    {
+      desc: 'Lint source files',
+      examples: [
+        'poi lint - Lint all files',
+        'poi lint src/*.js pages/*.vue - Lint specific files'
+      ]
+    },
     (input, flags) => {
       return require('./lint')(input, flags, api)
     }
