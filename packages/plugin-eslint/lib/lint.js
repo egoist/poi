@@ -1,3 +1,4 @@
+const path = require('path')
 const eslint = require('eslint')
 
 const defaultFilesToLint = [`.`]
@@ -9,6 +10,12 @@ module.exports = async (files, flags, api) => {
       fix: false,
       extensions: ['.js', '.vue', '.jsx'],
       cwd,
+      ignorePattern: [
+        // Ignore Poi out dir
+        path.relative(cwd, api.resolve(api.config.outDir))
+      ],
+      globals: ['__DEV__'],
+      envs: ['node'],
       baseConfig: {
         parserOptions: {
           ecmaVersion: 2018,
