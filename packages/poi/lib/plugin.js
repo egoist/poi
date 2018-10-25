@@ -92,19 +92,4 @@ module.exports = class Plugin {
   getEnvs() {
     return this.root.getEnvs()
   }
-
-  setCommandMode(command, mode) {
-    if (this.options.command === command) {
-      this.root.mode = mode
-      this.setEnvs({
-        POI_MODE: mode
-      })
-      logger.debug(
-        `Plugin '${
-          this._name
-        }' sets the mode of command '${command}' to '${mode}'`
-      )
-    }
-    return this
-  }
 }

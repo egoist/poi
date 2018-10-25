@@ -1,8 +1,6 @@
 const setSharedCLIOptions = require('./utils/shared-cli-options')
 
 exports.apply = api => {
-  api.setCommandMode('build', 'production')
-
   const command = api.registerCommand('build', 'Build your app', async () => {
     await api.bundle()
   })
@@ -25,3 +23,7 @@ exports.apply = api => {
 }
 
 exports.name = 'builtin:command-build'
+
+exports.commandModes = {
+  build: 'production'
+}

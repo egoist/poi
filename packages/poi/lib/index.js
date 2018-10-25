@@ -171,13 +171,31 @@ class Poi {
 
     this.plugins = loadPlugins(plugins, this.options.baseDir)
     for (const plugin of this.plugins) {
-      const { resolve, options } = plugin
-      logger.debug(`Using plugin '${resolve.name}'`)
-      if (resolve.apply) {
-        const pluginApi = new Plugin(this, resolve.name)
-        resolve.apply(pluginApi, options)
+      if (plugin.resolve.commandModes) {
+        this.setCommandMode(plugin.resolve)
       }
     }
+    for (const plugin of this.plugins) {
+      const { resolve, options } = plugin
+      const api = new Plugin(this, resolve.name)
+      resolve.apply(api, options)
+    }
+  }
+
+  setCommandMode({ commandModes, name }) {
+    for (const command of Object.keys(commandModes)) {
+      if (this.options.command === command) {
+        const mode = commandModes[command]
+        this.mode = mode
+        this.setEnvs({
+          POI_MODE: mode
+        })
+        logger.debug(
+          `Plugin '${name}' sets the mode of command '${command}' to '${mode}'`
+        )
+      }
+    }
+    return this
   }
 
   run() {

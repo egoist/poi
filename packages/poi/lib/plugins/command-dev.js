@@ -3,8 +3,6 @@ const setSharedCLIOptions = require('./utils/shared-cli-options')
 exports.name = 'builtin:command-dev'
 
 exports.apply = api => {
-  api.setCommandMode('dev', 'development')
-
   if (api.options.command === 'dev') {
     api.chainWebpack(config => {
       if (config.entryPoints.has('index')) {
@@ -78,4 +76,8 @@ exports.apply = api => {
   setSharedCLIOptions(command)
   command.option('host', 'Server host (default: 0.0.0.0)')
   command.option('port', 'Server port (default: 4000)')
+}
+
+exports.commandModes = {
+  dev: 'development'
 }
