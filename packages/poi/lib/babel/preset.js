@@ -1,59 +1,87 @@
 const env = process.env.BABEL_ENV || process.env.NODE_ENV
+const isTest = env === 'test'
+const transformModules = isTest
 
-module.exports = (context, { jsx, jsxPragmaFrag, loose } = {}) => {
-  jsx = jsx || 'react'
+const validateBoolOption = (name, value, defaultValue) => {
+  if (typeof value === 'undefined') {
+    value = defaultValue
+  }
+
+  if (typeof value !== 'boolean') {
+    throw new TypeError(`Poi babel preset: '${name}' option must be a boolean.`)
+  }
+
+  return value
+}
+
+module.exports = (context, { jsx, jsxPragmaFrag, flow, typescript } = {}) => {
   jsxPragmaFrag = jsxPragmaFrag || 'React.Fragment'
-  loose = typeof loose === 'boolean' ? loose : false
+
+  // POI_JSX is set by `--jsx` via Poi CLI
+  jsx = process.env.POI_JSX || 'react'
+  const isVueJSX = jsx === 'vue'
+  const isReactJSX = jsx === 'react'
+
+  // Enable flow and typescript by default at the same time
+  // typescript transforms will only be applied to .ts .tsx files
+  const isFlowEnabled = validateBoolOption('flow', flow, true)
+  const isTypeScriptEnabled = validateBoolOption('typescript', typescript, true)
 
   const presets = [
     [
-      require.resolve('@babel/preset-env'),
+      require('@babel/preset-env'),
       {
-        modules: env === 'test',
-        targets:
-          env === 'test'
-            ? {
-                node: 'current'
-              }
-            : {
-                ie: 9
-              }
+        modules: transformModules,
+        targets: isTest
+          ? {
+              node: 'current'
+            }
+          : {
+              ie: 9
+            }
       }
-    ]
-  ]
-
-  const plugins = []
-
-  if (jsx === 'vue') {
-    plugins.push(
-      require.resolve('@babel/plugin-syntax-jsx'),
-      require.resolve('babel-plugin-transform-vue-jsx')
-    )
-  } else if (typeof jsx === 'string') {
-    presets.push([
-      require.resolve('@babel/preset-react'),
+    ],
+    !isVueJSX && [
+      require('@babel/preset-react'),
       {
-        pragma: jsx === 'react' ? 'React.createElement' : jsx,
+        pragma: isReactJSX ? 'React.createElement' : jsx,
         pragmaFrag: jsxPragmaFrag
       }
-    ])
-  }
+    ],
+    isTypeScriptEnabled && require('@babel/preset-typescript')
+  ].filter(Boolean)
 
-  // stage-3 features
-  plugins.push(require.resolve('@babel/plugin-syntax-dynamic-import'), [
-    require.resolve('@babel/plugin-proposal-class-properties'),
-    {
-      loose
-    }
-  ])
-
-  plugins.push([
-    require('@babel/plugin-transform-runtime'),
-    {
-      helpers: false,
-      regenerator: true
-    }
-  ])
+  const plugins = [
+    // Strip flow types before any other transform, emulating the behavior
+    // order as-if the browser supported all of the succeeding features
+    isFlowEnabled && require('@babel/plugin-transform-flow-strip-types'),
+    // JSX config
+    isVueJSX && require('@babel/plugin-syntax-jsx'),
+    isVueJSX && require('babel-plugin-transform-vue-jsx'),
+    // stage-3 features
+    require('@babel/plugin-syntax-dynamic-import'),
+    [
+      require('@babel/plugin-proposal-class-properties'),
+      {
+        // Enable loose mode to use assignment instead of defineProperty
+        loose: true
+      }
+    ],
+    [
+      require('@babel/plugin-proposal-object-rest-spread'),
+      {
+        useBuiltIns: true
+      }
+    ],
+    require('babel-plugin-macros'),
+    [
+      require('@babel/plugin-transform-runtime'),
+      {
+        helpers: false,
+        regenerator: true
+      }
+    ]
+  ].filter(Boolean)
 
   return {
     presets,

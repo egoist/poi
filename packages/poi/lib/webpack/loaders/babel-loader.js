@@ -2,8 +2,10 @@ const babelLoader = require('babel-loader')
 const logger = require('@poi/cli-utils/logger')
 
 module.exports = babelLoader.custom(babel => {
+  const presetItem = babel.createConfigItem(require('../../babel/preset'), {
+    type: 'preset'
+  })
   const configs = new Set()
-  let babelPresetItem
 
   return {
     customOptions(opts) {
@@ -12,13 +14,7 @@ module.exports = babelLoader.custom(babel => {
 
       return { loader: opts, custom }
     },
-    config(
-      cfg,
-      {
-        // customOptions is not used for now
-        customOptions // eslint-disable-line no-unused-vars
-      }
-    ) {
+    config(cfg) {
       const options = Object.assign({}, cfg.options)
 
       if (cfg.hasFilesystemConfig()) {
@@ -29,19 +25,8 @@ module.exports = babelLoader.custom(babel => {
           }
         }
       } else {
-        // Add our default preset
-        babelPresetItem =
-          babelPresetItem ||
-          babel.createConfigItem(
-            [
-              require.resolve('../../babel/preset'),
-              customOptions.defaultPresetOptions
-            ],
-            {
-              type: 'preset'
-            }
-          )
-        options.presets = [babelPresetItem, ...options.presets]
+        // Add our default preset if the no "babelrc" found.
+        options.presets = [...options.presets, presetItem]
       }
 
       return options

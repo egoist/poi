@@ -9,9 +9,24 @@ if (flags.version || flags.v) {
   process.exit()
 }
 
+const {
+  config: configFile,
+  baseDir,
+  inspectWebpack,
+  progress,
+  debug,
+  debugTrace,
+  cleanOutDir,
+  jsx,
+  ...configData
+} = flags
+
+delete flags.help
+delete flags.version
+
 // Only for development purpose
 // `require-so-slow` is installed in root directory
-if (flags.debugTrace) {
+if (debugTrace) {
   // eslint-disable-next-line import/no-extraneous-dependencies
   const requireSlow = require('require-so-slow')
   process.on('exit', () => {
@@ -20,29 +35,16 @@ if (flags.debugTrace) {
   })
 }
 
-const {
-  config: configFile,
-  baseDir,
-  inspectWebpack,
-  progress,
-  debug,
-  cleanOutDir
-} = flags
-delete flags.config
-delete flags.baseDir
-delete flags.inspectWebpack
-delete flags.progress
-delete flags.debug
-delete flags.help
-delete flags.debugTrace
-delete flags.cleanOutDir
+if (jsx) {
+  process.env.POI_JSX = jsx
+}
 
 const command = input.shift()
 // Poi config, that can override data in your config file
 // Assigned to poi
 const config = Object.assign(
   { entry: input.length > 0 ? input : undefined },
-  flags
+  configData
 )
 
 // App options, assigned to poi.options

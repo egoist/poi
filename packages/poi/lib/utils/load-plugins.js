@@ -7,9 +7,12 @@ module.exports = (plugins, cwd) => {
         resolve: plugin
       }
     }
-    if (plugin && typeof plugin === 'object') {
+    if (plugin && plugin.resolve) {
       return Object.assign({}, plugin, {
-        resolve: require(resolveFrom(cwd, plugin.resolve))
+        resolve:
+          typeof plugin.resolve === 'string'
+            ? require(resolveFrom(cwd, plugin.resolve))
+            : plugin.resolve
       })
     }
     throw new TypeError(`Invalid plugin: ${plugin}`)
