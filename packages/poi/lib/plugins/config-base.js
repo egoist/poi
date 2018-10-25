@@ -59,7 +59,10 @@ exports.apply = api => {
       .publicPath(api.config.publicPath)
       .chunkFilename(filenames.chunk)
 
-    config.resolve.alias.set('@', api.resolve('src'))
+    config.resolve.extensions
+      .add('.js', '.ts', '.jsx', '.tsx', '.json')
+      .end()
+      .alias.set('@', api.resolve('src'))
 
     const baseDir = api.resolve()
     require('../webpack/rules/css')(config, api, filenames)

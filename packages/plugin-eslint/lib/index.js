@@ -1,5 +1,3 @@
-const resolveEslint = require('./resolve-eslint')
-
 exports.name = 'eslint'
 
 exports.apply = (api, { lintOnSave } = {}) => {
@@ -31,7 +29,7 @@ exports.apply = (api, { lintOnSave } = {}) => {
         .options({
           cache: true,
           formatter: require('eslint-formatter-pretty'),
-          eslintPath: resolveEslint(api.resolve())
+          eslintPath: api.localResolve('eslint', __dirname)
         })
     })
   }

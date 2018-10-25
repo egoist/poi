@@ -1,3 +1,4 @@
+const resolveFrom = require('resolve-from')
 const logger = require('@poi/cli-utils/logger')
 const loadConfig = require('./utils/load-config')
 
@@ -91,5 +92,17 @@ module.exports = class Plugin {
 
   getEnvs() {
     return this.root.getEnvs()
+  }
+
+  localResolve(id, globalDir) {
+    try {
+      return resolveFrom(this.resolve(), id)
+    } catch (err) {
+      return resolveFrom(globalDir || __dirname, id)
+    }
+  }
+
+  localRequire(...args) {
+    return require(this.localResolve(...args))
   }
 }

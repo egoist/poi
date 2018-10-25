@@ -1,0 +1,21 @@
+{
+  "name": "@poi/plugin-ts-check",
+  "version": "11.0.0-alpha.22",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "fork-ts-checker-webpack-plugin": "^0.4.12"
+  },
+  "peerDependencies": {
+    "typescript": "^3.1.3"
+  },
+  "devDependencies": {
+    "typescript": "^3.1.3"
+  }
+}
