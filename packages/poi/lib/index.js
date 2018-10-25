@@ -1,4 +1,5 @@
 const path = require('path')
+const fs = require('fs-extra')
 const merge = require('lodash.merge')
 const logger = require('@poi/cli-utils/logger')
 const loadPlugins = require('./utils/load-plugins')
@@ -139,6 +140,43 @@ class Poi {
         return resolve()
       }
       this.cli.on('executed', resolve)
+    })
+  }
+
+  resolveWebpackConfig(opts) {
+    const WebpackChain = require('webpack-chain')
+    const config = new WebpackChain()
+
+    opts = Object.assign({ type: 'client' }, opts)
+
+    this.hooks.invoke('chainWebpack', config, opts)
+
+    if (this.config.chainWebpack) {
+      this.config.chainWebpack(config, opts)
+    }
+
+    if (this.options.inspectWebpack) {
+      console.log(config.toString())
+      process.exit() // eslint-disable-line unicorn/no-process-exit
+    }
+
+    return config.toConfig()
+  }
+
+  resolveWebpackCompiler(opts) {
+    return require('webpack')(this.resolveWebpackConfig(opts))
+  }
+
+  async bundle() {
+    const compiler = require('webpack')(this.resolveWebpackConfig())
+    if (this.options.cleanOutDir) {
+      await fs.remove(compiler.options.output.path)
+    }
+    return new Promise((resolve, reject) => {
+      compiler.run((err, stats) => {
+        if (err) return reject(err)
+        resolve(stats)
+      })
     })
   }
 }

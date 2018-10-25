@@ -5,4 +5,4 @@ const api = require('.')({
 
 api.applyPlugins()
 
-module.exports = api.createWepackConfig()
+module.exports = api.resolveWebpackConfig()

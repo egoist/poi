@@ -1,5 +1,4 @@
 const path = require('path')
-const fs = require('fs-extra')
 const logger = require('@poi/cli-utils/logger')
 const loadConfig = require('./utils/load-config')
 
@@ -62,27 +61,11 @@ module.exports = class Plugin {
   }
 
   resolveWebpackConfig(opts) {
-    const WebpackChain = require('webpack-chain')
-    const config = new WebpackChain()
-
-    opts = Object.assign({ type: 'client' }, opts)
-
-    this.hooks.invoke('chainWebpack', config, opts)
-
-    if (this.config.chainWebpack) {
-      this.config.chainWebpack(config, opts)
-    }
-
-    if (this.options.inspectWebpack) {
-      console.log(config.toString())
-      process.exit() // eslint-disable-line unicorn/no-process-exit
-    }
-
-    return config.toConfig()
+    return this.root.resolveWebpackConfig(opts)
   }
 
   resolveWebpackCompiler(opts) {
-    return require('webpack')(this.resolveWebpackConfig(opts))
+    return this.root.resolveWebpackCompiler(opts)
   }
 
   resolve(...args) {
@@ -99,16 +82,7 @@ module.exports = class Plugin {
     return this
   }
 
-  async bundle() {
-    const compiler = require('webpack')(this.resolveWebpackConfig())
-    if (this.options.cleanOutDir) {
-      await fs.remove(compiler.options.output.path)
-    }
-    return new Promise((resolve, reject) => {
-      compiler.run((err, stats) => {
-        if (err) return reject(err)
-        resolve(stats)
-      })
-    })
+  bundle() {
+    return this.root.bundle()
   }
 }
