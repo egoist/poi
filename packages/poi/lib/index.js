@@ -152,8 +152,8 @@ class Poi {
 
   setEnvs(envs) {
     this.config.envs = Object.assign({}, this.config.envs, envs)
-    for (const name of Object.keys(envs)) {
-      process.env[name] = envs[name]
+    for (const name of Object.keys(this.config.envs)) {
+      process.env[name] = this.config.envs[name]
     }
     return this
   }
