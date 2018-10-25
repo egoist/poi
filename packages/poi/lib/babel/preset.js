@@ -1,3 +1,5 @@
+const path = require('path')
+
 const env = process.env.BABEL_ENV || process.env.NODE_ENV
 const isTest = env === 'test'
 const transformModules = isTest
@@ -78,7 +80,10 @@ module.exports = (context, { jsx, jsxPragmaFrag, flow, typescript } = {}) => {
       require('@babel/plugin-transform-runtime'),
       {
         helpers: false,
-        regenerator: true
+        regenerator: true,
+        absoluteRuntime: path.dirname(
+          require.resolve('@babel/runtime/package.json')
+        )
       }
     ]
   ].filter(Boolean)
