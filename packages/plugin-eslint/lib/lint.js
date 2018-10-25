@@ -14,12 +14,16 @@ module.exports = async (files, flags, api) => {
         // Ignore Poi out dir
         path.relative(cwd, api.resolve(api.config.outDir))
       ],
-      globals: ['__DEV__'],
-      envs: ['node'],
       baseConfig: {
         parserOptions: {
           ecmaVersion: 2018,
           sourceType: 'module'
+        },
+        env: {
+          node: true
+        },
+        globals: {
+          __DEV__: true
         }
       }
     },
