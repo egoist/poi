@@ -18,7 +18,7 @@ const validateBoolOption = (name, value, defaultValue) => {
 
 module.exports = (
   context,
-  { jsx, jsxPragmaFrag, flow, typescript, namedAssetImport } = {}
+  { jsx, jsxPragmaFrag, flow, typescript, namedAssetImport, env } = {}
 ) => {
   jsxPragmaFrag = jsxPragmaFrag || 'React.Fragment'
 
@@ -35,16 +35,19 @@ module.exports = (
   const presets = [
     [
       require('@babel/preset-env'),
-      {
-        modules: transformModules,
-        targets: isTest
-          ? {
-              node: 'current'
-            }
-          : {
-              ie: 9
-            }
-      }
+      Object.assign(
+        {
+          modules: transformModules,
+          targets: isTest
+            ? {
+                node: 'current'
+              }
+            : {
+                ie: 9
+              }
+        },
+        env
+      )
     ],
     !isVueJSX && [
       require('@babel/preset-react'),
