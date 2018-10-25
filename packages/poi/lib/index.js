@@ -40,6 +40,18 @@ class Poi {
         cwd: this.options.baseDir
       })
     )
+    const deps = Object.assign(
+      {},
+      this.pkg.data.dependencies,
+      this.pkg.data.devDependencies
+    )
+    if (deps.vue) {
+      process.env.POI_JSX_DEFAULT = 'vue'
+    } else if (deps.preact) {
+      process.env.POI_JSX_DEFAULT = 'h'
+    } else if (deps.mithril) {
+      process.env.POI_JSX_DEFAULT = 'm'
+    }
 
     // Load .env file before loading config file
     const envs = this.loadEnvs()

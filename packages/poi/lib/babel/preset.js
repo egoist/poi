@@ -23,7 +23,8 @@ module.exports = (
   jsxPragmaFrag = jsxPragmaFrag || 'React.Fragment'
 
   // POI_JSX is set by `--jsx` via Poi CLI
-  jsx = process.env.POI_JSX || 'react'
+  // POI_JSX_DEFAULT is inferred from project's dependencies
+  jsx = process.env.POI_JSX || jsx || process.env.POI_JSX_DEFAULT || 'react'
   const isVueJSX = jsx === 'vue'
   const isReactJSX = jsx === 'react'
 
