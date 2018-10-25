@@ -44,6 +44,8 @@
     "chalk": "^2.4.1",
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^1.0.0",
+    "dotenv": "^6.1.0",
+    "dotenv-expand": "^4.2.0",
     "file-loader": "^2.0.0",
     "fs-extra": "^7.0.0",
     "get-port": "^4.0.0",

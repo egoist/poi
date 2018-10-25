@@ -97,17 +97,18 @@ exports.apply = api => {
     config.plugin('constants').use(require('webpack').DefinePlugin, [
       Object.assign(
         {
-          __DEV__: JSON.stringify(api.mode !== 'production'),
-          __PUBLIC_PATH__: JSON.stringify(api.config.publicPath),
-          'process.env.POI_COMMAND': JSON.stringify(api.options.command),
-          'process.env.POI_MODE': JSON.stringify(api.mode),
-          'process.env.NODE_ENV': JSON.stringify(
-            api.mode === 'production' ? api.mode : 'development'
-          )
+          __DEV__: JSON.stringify(api.mode !== 'production')
         },
         api.config.constants
       )
     ])
+
+    const appEnvs = api.getEnvs()
+    const envs = Object.keys(appEnvs).reduce((res, name) => {
+      res[`process.env.${name}`] = JSON.stringify(appEnvs[name])
+      return res
+    }, {})
+    config.plugin('envs').use(require('webpack').DefinePlugin, [envs])
 
     // Copy ./public/* to out dir
     // In non-dev commands since it uses devServerOptions.contentBase instead

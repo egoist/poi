@@ -3,6 +3,6 @@ const api = require('.')({
   cliArgs: []
 })
 
-api.applyPlugins()
+api.prepare()
 
 module.exports = api.resolveWebpackConfig()

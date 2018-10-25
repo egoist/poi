@@ -1,4 +1,3 @@
-const path = require('path')
 const logger = require('@poi/cli-utils/logger')
 const loadConfig = require('./utils/load-config')
 
@@ -69,7 +68,7 @@ module.exports = class Plugin {
   }
 
   resolve(...args) {
-    return path.resolve(this.options.baseDir, ...args)
+    return this.root.resolve(...args)
   }
 
   chainWebpack(fn) {
@@ -84,5 +83,28 @@ module.exports = class Plugin {
 
   bundle() {
     return this.root.bundle()
+  }
+
+  setEnvs(envs) {
+    return this.root.setEnvs(envs)
+  }
+
+  getEnvs() {
+    return this.root.getEnvs()
+  }
+
+  setCommandMode(command, mode) {
+    if (this.options.command === command) {
+      this.root.mode = mode
+      this.setEnvs({
+        POI_MODE: mode
+      })
+      logger.debug(
+        `Plugin '${
+          this._name
+        }' sets the mode of command '${command}' to '${mode}'`
+      )
+    }
+    return this
   }
 }

@@ -32,16 +32,17 @@ exports.apply = api => {
 
     const DEFAULT_TEMPLATE = path.join(__dirname, '../default-template.html')
     const templateParametersGenerator = (compilation, assets, options) => {
-      const constants = api.config.plugin('constants').store.get('args')[0]
-      return Object.assign({}, constants, {
+      return {
         compilation,
         webpack: compilation.getStats().toJson(),
         webpackConfig: compilation.options,
         htmlWebpackPlugin: {
           files: assets,
           options
-        }
-      })
+        },
+        envs: api.getEnvs(),
+        constants: api.config.contants
+      }
     }
 
     if (api.config.pages) {

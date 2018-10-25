@@ -18,7 +18,16 @@ class Poi {
     this.hooks = new Hooks()
     this.config = Object.assign({}, config)
 
-    process.env.POI_COMMAND = this.options.command
+    const { command } = this.options
+    process.env.POI_COMMAND = command
+    if (!process.env.NODE_ENV) {
+      process.env.NODE_ENV =
+        command === 'build'
+          ? 'production'
+          : /^test(:|-|$)/.test(command)
+            ? 'test'
+            : 'development'
+    }
 
     logger.setOptions({
       debug: this.options.debug
@@ -88,6 +97,67 @@ class Poi {
     this.cli = require('cac')({ bin: 'poi' })
   }
 
+  resolve(...args) {
+    return path.resolve(this.options.baseDir, ...args)
+  }
+
+  prepare() {
+    this.loadEnvs()
+    this.applyPlugins()
+    logger.debug('App envs', JSON.stringify(this.getEnvs(), null, 2))
+  }
+
+  loadEnvs() {
+    const { NODE_ENV } = process.env
+    const dotenvPath = this.resolve('.env')
+    const dotenvFiles = [
+      `${dotenvPath}.${NODE_ENV}.local`,
+      `${dotenvPath}.${NODE_ENV}`,
+      // Don't include `.env.local` for `test` environment
+      // since normally you expect tests to produce the same
+      // results for everyone
+      NODE_ENV !== 'test' && `${dotenvPath}.local`,
+      dotenvPath
+    ].filter(Boolean)
+
+    dotenvFiles.forEach(dotenvFile => {
+      if (fs.existsSync(dotenvFile)) {
+        logger.debug('Using env file:', dotenvFile)
+        const config = require('dotenv-expand')(
+          require('dotenv').config({
+            path: dotenvFile
+          })
+        )
+        this.setEnvs(config.parsed)
+      }
+    })
+
+    // Collect those envs starting with POI_ too
+    this.setEnvs(
+      Object.keys(process.env).reduce((res, name) => {
+        if (name.startsWith('POI_')) {
+          res[name] = process.env[name]
+        }
+        return res
+      }, {})
+    )
+  }
+
+  getEnvs() {
+    return Object.assign({}, this.config.envs, {
+      NODE_ENV: process.env.NODE_ENV,
+      PUBLIC_PATH: this.config.publicPath
+    })
+  }
+
+  setEnvs(envs) {
+    this.config.envs = Object.assign({}, this.config.envs, envs)
+    for (const name of Object.keys(envs)) {
+      process.env[name] = envs[name]
+    }
+    return this
+  }
+
   applyPlugins() {
     const plugins = [
       require.resolve('./plugins/config-base'),
@@ -107,24 +177,12 @@ class Poi {
         const pluginApi = new Plugin(this, resolve.name)
         resolve.apply(pluginApi, options)
       }
-      if (resolve.commandModes) {
-        for (const command of Object.keys(resolve.commandModes)) {
-          if (command === this.options.command) {
-            this.mode = resolve.commandModes[command]
-            logger.debug(
-              `Plugin '${
-                resolve.name
-              }' sets the mode of command '${command}' to '${this.mode}'`
-            )
-          }
-        }
-      }
     }
   }
 
   run() {
     return new Promise(resolve => {
-      this.applyPlugins()
+      this.prepare()
       const { input, flags } = this.cli.parse([
         this.options.command,
         ...this.options.cliArgs
