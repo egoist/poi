@@ -1,38 +1,34 @@
+const path = require('path')
 const eslint = require('eslint')
-const glob = require('fast-glob')
+
+const defaultFilesToLint = [`.`]
 
 module.exports = async (files, flags, api) => {
   const cwd = api.resolve()
   const config = Object.assign(
     {
       fix: false,
+      extensions: ['.js', '.vue', '.jsx'],
       cwd,
+      ignorePattern: [
+        // Ignore Poi out dir
+        path.relative(cwd, api.resolve(api.config.outDir))
+      ],
+      globals: ['__DEV__'],
+      envs: ['node'],
       baseConfig: {
         parserOptions: {
           ecmaVersion: 2018,
           sourceType: 'module'
-        },
-        env: {
-          node: true
-        },
-        globals: {
-          __DEV__: true
         }
-      },
-      globInputPaths: false
+      }
     },
     flags
   )
   const engine = new eslint.CLIEngine(config)
-  files = await glob(
-    ['!**/node_modules/**', `!${api.config.outDir}`].concat(
-      files.length > 0 ? files : ['**/*.{js,jsx,vue,mjs}']
-    ),
-    {
-      cwd
-    }
+  const report = engine.executeOnFiles(
+    files.length > 0 ? files : defaultFilesToLint
   )
-  const report = engine.executeOnFiles(files)
   if (config.fix) {
     eslint.CLIEngine.outputFixes(report)
   }
