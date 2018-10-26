@@ -32,6 +32,13 @@ exports.apply = (api, { staticRoutes: userStaticRoutes = [] } = {}) => {
       .set('#vue-static-cache', cacheDir)
     config.module.rule('js').include.add(path.join(__dirname, '../app'))
 
+    config.plugin('constants').tap(([options]) => [
+      Object.assign({}, options, {
+        'process.server': JSON.stringify(type === 'server'),
+        'process.client': JSON.stringify(type === 'client')
+      })
+    ])
+
     if (api.options.command === 'generate') {
       config.output.path(path.join(config.output.get('path'), type))
       config.plugins.delete('report-status')

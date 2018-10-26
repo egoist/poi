@@ -1,5 +1,7 @@
 import createApp from './create-app'
 
-const { app } = createApp()
+const { app, router } = createApp()
 
-app.$mount('#app')
+router.onReady(() => {
+  app.$mount('#app')
+}, console.error)
