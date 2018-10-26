@@ -5,7 +5,7 @@ exports.apply = api => {
     'watch',
     'Run app in watch mode (Like dev command but without a server)',
     () => {
-      const compiler = api.resolveWebpackCompiler()
+      const compiler = api.createWebpackCompiler(api.resolveWebpackConfig())
       compiler.watch({}, () => {
         // Do nothing...
       })

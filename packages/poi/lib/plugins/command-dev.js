@@ -3,27 +3,30 @@ const setSharedCLIOptions = require('./utils/shared-cli-options')
 exports.name = 'builtin:command-dev'
 
 exports.apply = api => {
-  if (api.options.command === 'dev') {
-    api.chainWebpack(config => {
-      if (config.entryPoints.has('index')) {
-        config
-          .entry('index')
-          .prepend(require.resolve('@poi/dev-utils/hotDevClient'))
-      }
-
-      if (api.config.devServer.hot !== false) {
-        const { HotModuleReplacementPlugin } = require('webpack')
-        HotModuleReplacementPlugin.__expression = `require('webpack').HotModuleReplacementPlugin`
-
-        config.plugin('hmr').use(HotModuleReplacementPlugin)
-      }
-    })
-  }
-
   const command = api.registerCommand(
     'dev',
     'Run app in dev mode',
     async () => {
+      api.chainWebpack(config => {
+        const hotEntries = api.config.devServer.hotEntries || ['index']
+        const hot = api.config.devServer.hot !== false
+
+        if (hot) {
+          for (const entry of hotEntries) {
+            if (config.entryPoints.has(entry)) {
+              config
+                .entry(entry)
+                .prepend(require.resolve('@poi/dev-utils/hotDevClient'))
+            }
+          }
+
+          const { HotModuleReplacementPlugin } = require('webpack')
+          HotModuleReplacementPlugin.__expression = `require('webpack').HotModuleReplacementPlugin`
+
+          config.plugin('hmr').use(HotModuleReplacementPlugin)
+        }
+      })
+
       const webpackConfig = api.resolveWebpackConfig()
       const compiler = require('webpack')(webpackConfig)
 

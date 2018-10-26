@@ -1,7 +1,7 @@
 const logger = require('@poi/cli-utils/logger')
 const loadConfig = require('../../utils/load-config')
 
-module.exports = (config, api, filenames) => {
+module.exports = (config, api, filenames, isServer) => {
   const { loaderOptions, extract } = api.config.css
   const shouldExtract =
     extract === undefined ? api.mode === 'production' : extract
@@ -45,24 +45,29 @@ module.exports = (config, api, filenames) => {
 
   const createCSSRule = (lang, test, loader, options) => {
     const applyLoaders = (rule, modules) => {
-      if (shouldExtract) {
-        rule
-          .use('extract-css-loader')
-          .loader(require('mini-css-extract-plugin').loader)
-      } else {
-        rule
-          .use('vue-style-loader')
-          .loader('vue-style-loader')
-          .options({
-            sourceMap
-          })
+      if (!isServer) {
+        if (shouldExtract) {
+          rule
+            .use('extract-css-loader')
+            .loader(require('mini-css-extract-plugin').loader)
+        } else {
+          rule
+            .use('vue-style-loader')
+            .loader('vue-style-loader')
+            .options({
+              sourceMap
+            })
+        }
       }
 
       const cssLoaderOptions = Object.assign(
         {
           sourceMap,
           modules,
-          localIdentName: '[path][name]__[local]--[hash:base64:5]',
+          localIdentName:
+            api.mode === 'production'
+              ? '[local]_[hash:base64:5]'
+              : '[path][name]__[local]--[hash:base64:5]',
           importLoaders:
             1 + // stylePostLoader injected by vue-loader
             (hasPostCSSConfig ? 1 : 0) +
@@ -73,7 +78,7 @@ module.exports = (config, api, filenames) => {
 
       rule
         .use('css-loader')
-        .loader('css-loader')
+        .loader(isServer ? 'css-loader/locals' : 'css-loader')
         .options(cssLoaderOptions)
 
       if (needInlineMinification) {

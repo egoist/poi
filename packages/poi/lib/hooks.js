@@ -20,4 +20,14 @@ module.exports = class Hooks {
     }
     return this
   }
+
+  async invokePromise(name, ...args) {
+    if (this.hooks.has(name)) {
+      for (const fn of this.hooks.get(name)) {
+        // eslint-disable-next-line no-await-in-loop
+        await fn(...args)
+      }
+    }
+    return this
+  }
 }

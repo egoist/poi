@@ -45,11 +45,19 @@ exports.apply = api => {
       }
     }
 
+    const getDefaultTemplate = () => {
+      return (
+        api.config.defaultHtmlTemplate ||
+        (fs.existsSync(api.resolve('public/index.html'))
+          ? api.resolve('public/index.html')
+          : DEFAULT_TEMPLATE)
+      )
+    }
     if (api.config.pages) {
       for (const entryName of Object.keys(api.config.pages)) {
         const page = Object.assign(
           {
-            template: 'public/index.html',
+            template: getDefaultTemplate(),
             templateParametersGenerator,
             title: api.pkg.data.name || 'Poi App',
             filename: `${entryName}.html`,
@@ -57,17 +65,13 @@ exports.apply = api => {
           },
           api.config.pages[entryName]
         )
-
         page.template = api.resolve(page.template)
-        if (!fs.existsSync(page.template)) {
-          page.template = DEFAULT_TEMPLATE
-        }
         config.plugin(`html-page-${entryName}`).use(HtmlPlugin, [page])
       }
     } else {
       const page = Object.assign(
         {
-          template: 'public/index.html',
+          template: getDefaultTemplate(),
           templateParametersGenerator,
           title: api.pkg.data.name || 'Poi App',
           filename: 'index.html'
@@ -75,9 +79,6 @@ exports.apply = api => {
         api.config.html
       )
       page.template = api.resolve(page.template)
-      if (!fs.existsSync(page.template)) {
-        page.template = DEFAULT_TEMPLATE
-      }
       config.plugin('html').use(HtmlPlugin, [page])
     }
   })

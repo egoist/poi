@@ -20,14 +20,6 @@ class Poi {
 
     const { command } = this.options
     process.env.POI_COMMAND = command
-    if (!process.env.NODE_ENV) {
-      process.env.NODE_ENV =
-        command === 'build'
-          ? 'production'
-          : /^test(:|-|$)/.test(command)
-            ? 'test'
-            : 'development'
-    }
 
     logger.setOptions({
       debug: this.options.debug
@@ -114,6 +106,10 @@ class Poi {
     this.setEnvs(envs)
 
     this.cli = require('cac')({ bin: 'poi' })
+  }
+
+  hook(name, fn) {
+    return this.hooks.add(name, fn)
   }
 
   resolve(...args) {
@@ -208,7 +204,8 @@ class Poi {
         const mode = commandModes[command]
         this.mode = mode
         this.setEnvs({
-          POI_MODE: mode
+          POI_MODE: mode,
+          NODE_ENV: mode
         })
         logger.debug(
           `Plugin '${name}' sets the mode of command '${command}' to '${mode}'`
@@ -218,9 +215,10 @@ class Poi {
     return this
   }
 
-  run() {
+  async run() {
+    this.prepare()
+    await this.hooks.invokePromise('beforeRun')
     return new Promise(resolve => {
-      this.prepare()
       const { input, flags } = this.cli.parse([
         this.options.command,
         ...this.options.cliArgs
@@ -252,15 +250,15 @@ class Poi {
     }
 
     if (this.options.inspectWebpack) {
-      console.log(config.toString())
+      console.log(`Webpack config (${opts.type})`, config.toString())
       process.exit() // eslint-disable-line unicorn/no-process-exit
     }
 
     return config.toConfig()
   }
 
-  resolveWebpackCompiler(opts) {
-    return require('webpack')(this.resolveWebpackConfig(opts))
+  createWebpackCompiler(webpackConfig) {
+    return require('webpack')(webpackConfig)
   }
 
   async bundle() {

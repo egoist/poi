@@ -4,7 +4,7 @@ const fs = require('fs')
 exports.apply = api => {
   // TODO: refactor this
   // eslint-disable-next-line complexity
-  api.chainWebpack(config => {
+  api.chainWebpack((config, { type }) => {
     const { pages, entry } = api.config
 
     if (pages) {
@@ -65,7 +65,7 @@ exports.apply = api => {
       .alias.set('@', api.resolve('src'))
 
     const baseDir = api.resolve()
-    require('../webpack/rules/css')(config, api, filenames)
+    require('../webpack/rules/css')(config, api, filenames, type === 'server')
     require('../webpack/rules/vue')(config, { baseDir })
     require('../webpack/rules/babel')(config, {
       baseDir,
@@ -76,6 +76,10 @@ exports.apply = api => {
     require('../webpack/rules/toml')(config)
     require('../webpack/rules/fonts')(config, filenames.font)
     require('../webpack/rules/images')(config, filenames.image)
+
+    if (api.options.command === 'dev' || api.options.command === 'watch') {
+      config.plugin('timefix').use(require('time-fix-plugin'))
+    }
 
     if (
       api.options.progress !== false &&
@@ -166,8 +170,14 @@ exports.apply = api => {
     const ownModules = inWorkspaces
       ? path.join(__dirname, '../../../../node_modules')
       : path.join(__dirname, '../../node_modules')
-    config.resolve.modules.add(ownModules).add('node_modules')
-    config.resolveLoader.modules.add(ownModules).add('node_modules')
+    config.resolve.modules
+      .add(ownModules)
+      .add(api.resolve('node_modules'))
+      .add('node_modules')
+    config.resolveLoader.modules
+      .add(ownModules)
+      .add(api.resolve('node_modules'))
+      .add('node_modules')
   })
 }
 

@@ -32,6 +32,10 @@ module.exports = class Plugin {
     return this.root.mode
   }
 
+  hook(...args) {
+    return this.root.hook(...args)
+  }
+
   registerCommand(command, desc, handler) {
     if (this.commands.has(command)) {
       logger.debug(
@@ -64,8 +68,8 @@ module.exports = class Plugin {
     return this.root.resolveWebpackConfig(opts)
   }
 
-  resolveWebpackCompiler(opts) {
-    return this.root.resolveWebpackCompiler(opts)
+  createWebpackCompiler(config) {
+    return this.root.createWebpackCompiler(config)
   }
 
   resolve(...args) {

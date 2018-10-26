@@ -1,0 +1,28 @@
+{
+  "name": "@poi/plugin-vue-static",
+  "version": "11.0.0-beta.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "files": [
+    "lib",
+    "app"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@poi/dev-utils": "^10.0.3",
+    "@ream/collect-fs-routes": "^1.0.2",
+    "chalk": "^2.4.1",
+    "chokidar": "^2.0.4",
+    "fs-extra": "^7.0.0",
+    "vue-meta": "^1.5.5",
+    "vue-router": "^3.0.1",
+    "vue-server-renderer": "^2.5.17",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "peerDependencies": {
+    "vue": "^2.5.17",
+    "vue-template-compiler": "^2.5.17"
+  }
+}
