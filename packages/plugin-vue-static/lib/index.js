@@ -90,6 +90,7 @@ exports.apply = (api, { staticRoutes: userStaticRoutes = [] } = {}) => {
     ])
     reportStatus(stats)
     const staticRoutes = new Set([
+      '/app-shell.html',
       ...flattenRoutes(routes),
       ...userStaticRoutes
     ])

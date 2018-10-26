@@ -44,7 +44,12 @@ module.exports = async ({ api, staticRoutes }) => {
         meta
       } = context.meta.inject()
       const html = template
-        .replace('{app}', app)
+        .replace('{app}', () => {
+          if (route === '/app-shell.html') {
+            return `<div id="app"></div>`
+          }
+          return app
+        })
         .replace('{title}', title.text())
         .replace('{htmlAttrs}', htmlAttrs.text())
         .replace('{bodyAttrs}', bodyAttrs.text())
