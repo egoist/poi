@@ -139,33 +139,36 @@ exports.apply = api => {
       })
     }
 
+    // Disable webpack's default minimizer
     config.merge({
       optimization: {
-        minimize:
-          api.config.minimize === undefined
-            ? api.mode === 'production'
-            : Boolean(api.config.minimize),
-        minimizer: [
-          {
-            apply(compiler) {
-              // eslint-disable-next-line import/no-extraneous-dependencies
-              const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-              new UglifyJsPlugin({
-                cache: true,
-                parallel: true,
-                sourceMap: Boolean(api.config.sourceMap),
-                uglifyOptions: {
-                  output: {
-                    comments: false
-                  },
-                  mangle: true
-                }
-              }).apply(compiler)
-            }
-          }
-        ]
+        minimize: false
       }
     })
+
+    // Add uglifyJS as a plugin
+    const shouldMinimize =
+      api.config.minimize === undefined
+        ? api.mode === 'production'
+        : Boolean(api.config.minimize)
+    if (shouldMinimize) {
+      config
+        .plugin('uglifyjs')
+        // eslint-disable-next-line import/no-extraneous-dependencies
+        .use(require('uglifyjs-webpack-plugin'), [
+          {
+            cache: true,
+            parallel: true,
+            sourceMap: Boolean(api.config.sourceMap),
+            uglifyOptions: {
+              output: {
+                comments: false
+              },
+              mangle: true
+            }
+          }
+        ])
+    }
 
     // Resolve loaders and modules in poi's node_modules folder
     const inWorkspaces = __dirname.includes('/poi/packages/poi/')
