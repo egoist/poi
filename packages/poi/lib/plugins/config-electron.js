@@ -3,6 +3,12 @@ exports.name = 'builtin:electron'
 exports.apply = (api, { bundleDependencies } = {}) => {
   if (api.config.target !== 'electron') return
 
+  if (api.mode === 'production') {
+    // Directly modify config because it's used in both output.publicPath
+    // and the `envs` plugin
+    api.config.publicPath = './'
+  }
+
   api.chainWebpack(config => {
     config.target('electron-renderer')
 
@@ -19,9 +25,5 @@ exports.apply = (api, { bundleDependencies } = {}) => {
         callback()
       }
     })
-
-    if (api.mode === 'production') {
-      config.output.publicPath('./')
-    }
   })
 }
