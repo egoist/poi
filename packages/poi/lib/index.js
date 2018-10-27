@@ -110,11 +110,11 @@ class Poi {
   }
 
   loadEnvs() {
-    const NODE_ENV = process.env.NODE_ENV || 'development'
+    const { NODE_ENV } = process.env
     const dotenvPath = this.resolve('.env')
     const dotenvFiles = [
-      `${dotenvPath}.${NODE_ENV}.local`,
-      `${dotenvPath}.${NODE_ENV}`,
+      NODE_ENV && `${dotenvPath}.${NODE_ENV}.local`,
+      NODE_ENV && `${dotenvPath}.${NODE_ENV}`,
       // Don't include `.env.local` for `test` environment
       // since normally you expect tests to produce the same
       // results for everyone
