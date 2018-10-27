@@ -9,7 +9,7 @@ exports.apply = api => {
     }
   )
 
-  setSharedCLIOptions(command)
+  setSharedCLIOptions(command, api.command)
   command.option(
     'no-clean-out-dir',
     `Don't clean output directory before bundling (default: true)`

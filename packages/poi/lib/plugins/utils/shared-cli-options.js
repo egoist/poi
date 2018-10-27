@@ -1,4 +1,4 @@
-module.exports = command => {
+module.exports = (command, name) => {
   command
     .option('debug', {
       desc: 'Show debug output (default: false)'
@@ -15,4 +15,10 @@ module.exports = command => {
     .option('no-clear-console', {
       desc: `Don't clear console (default: true)`
     })
+
+  if (['dev', 'build', 'watch'].includes(name)) {
+    command.option('target', {
+      desc: 'Set build target (default: app)'
+    })
+  }
 }

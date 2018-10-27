@@ -5,17 +5,20 @@ exports.apply = (api, { bundleDependencies } = {}) => {
 
   api.chainWebpack(config => {
     config.target('electron-renderer')
-    const deps = Object.keys(api.pkg.data.dependencies || {})
-    const depsToExclude = bundleDependencies ? [] : deps
-    if (depsToExclude.length > 0) {
-      const externals = config.get('externals') || []
-      externals.push(
-        depsToExclude.reduce((res, name) => {
-          res[name] = 'commonjs ' + name
-          return res
-        }, {})
-      )
-    }
+
+    const externals = config.get('externals') || []
+    externals.push((context, request, callback) => {
+      const deps = Object.keys(api.pkg.data.dependencies || {})
+      const depsToExclude = bundleDependencies ? [] : deps
+      const shouldExclude = depsToExclude.some(dep => {
+        return request.includes(`/node_modules/${dep}/`)
+      })
+      if (shouldExclude) {
+        callback(null, `commonjs ${request}`)
+      } else {
+        callback()
+      }
+    })
 
     if (api.mode === 'production') {
       config.output.publicPath('./')

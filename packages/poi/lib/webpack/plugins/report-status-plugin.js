@@ -51,7 +51,11 @@ class ReportStatusPlugin {
         const isAnyHost = host === '0.0.0.0'
 
         console.log(
-          chalk.dim(`You can now preview the app via following URLs:\n`)
+          chalk.dim(
+            this.options.electron
+              ? `You can now load following URLs in your Electron app:\n`
+              : `You can now preview the app via following URLs:\n`
+          )
         )
         console.log(
           `- Local Server:       ${protocol}${

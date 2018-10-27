@@ -76,7 +76,7 @@ exports.apply = api => {
     }
   )
 
-  setSharedCLIOptions(command)
+  setSharedCLIOptions(command, api.command)
   command.option('host', 'Server host (default: 0.0.0.0)')
   command.option('port', 'Server port (default: 4000)')
 }

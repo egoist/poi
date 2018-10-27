@@ -18,6 +18,7 @@ class Poi {
     })
     this.hooks = new Hooks()
     this.config = Object.assign({}, config)
+    this.internals = {}
 
     const { command } = this.options
     process.env.POI_COMMAND = command
@@ -165,7 +166,10 @@ class Poi {
     const plugins = [
       require.resolve('./plugins/config-base'),
       require.resolve('./plugins/config-html'),
-      require.resolve('./plugins/config-electron'),
+      {
+        resolve: require.resolve('./plugins/config-electron'),
+        options: this.config.electron
+      },
       require.resolve('./plugins/command-build'),
       require.resolve('./plugins/command-dev'),
       require.resolve('./plugins/command-watch'),
