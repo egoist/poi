@@ -6,6 +6,7 @@ const loadPlugins = require('./utils/load-plugins')
 const Plugin = require('./plugin')
 const loadConfig = require('./utils/load-config')
 const Hooks = require('./hooks')
+const loadPkg = require('./utils/load-pkg')
 
 class Poi {
   constructor(options = {}, config) {
@@ -25,25 +26,7 @@ class Poi {
       debug: this.options.debug
     })
 
-    this.pkg = Object.assign(
-      { data: {} },
-      loadConfig.loadSync({
-        files: ['package.json'],
-        cwd: this.options.baseDir
-      })
-    )
-    const deps = Object.assign(
-      {},
-      this.pkg.data.dependencies,
-      this.pkg.data.devDependencies
-    )
-    if (deps.vue) {
-      process.env.POI_JSX_INFER = 'vue'
-    } else if (deps.preact) {
-      process.env.POI_JSX_INFER = 'h'
-    } else if (deps.mithril) {
-      process.env.POI_JSX_INFER = 'm'
-    }
+    this.pkg = loadPkg({ cwd: this.options.baseDir })
 
     // Load .env file before loading config file
     const envs = this.loadEnvs()
@@ -119,6 +102,10 @@ class Poi {
   prepare() {
     this.applyPlugins()
     logger.debug('App envs', JSON.stringify(this.getEnvs(), null, 2))
+
+    if (this.internals.watchPkg) {
+      this.pkg.watch()
+    }
   }
 
   loadEnvs() {
@@ -177,7 +164,8 @@ class Poi {
   applyPlugins() {
     const plugins = [
       require.resolve('./plugins/config-base'),
-      require.resolve('./plugins/config-app'),
+      require.resolve('./plugins/config-html'),
+      require.resolve('./plugins/config-electron'),
       require.resolve('./plugins/command-build'),
       require.resolve('./plugins/command-dev'),
       require.resolve('./plugins/command-watch'),
@@ -187,8 +175,8 @@ class Poi {
 
     this.plugins = loadPlugins(plugins, this.options.baseDir)
     for (const plugin of this.plugins) {
-      if (plugin.resolve.commandModes) {
-        this.setCommandMode(plugin.resolve)
+      if (plugin.resolve.commandInternals) {
+        this.setCommandInternals(plugin.resolve)
       }
     }
     for (const plugin of this.plugins) {
@@ -198,18 +186,24 @@ class Poi {
     }
   }
 
-  setCommandMode({ commandModes, name }) {
-    for (const command of Object.keys(commandModes)) {
+  setCommandInternals({ commandInternals, name }) {
+    for (const command of Object.keys(commandInternals)) {
       if (this.options.command === command) {
-        const mode = commandModes[command]
-        this.mode = mode
-        this.setEnvs({
-          POI_MODE: mode,
-          NODE_ENV: mode
-        })
-        logger.debug(
-          `Plugin '${name}' sets the mode of command '${command}' to '${mode}'`
-        )
+        const internals = commandInternals[command]
+        this.internals = Object.assign({}, this.internals, internals)
+        if (internals.mode) {
+          this.setEnvs({
+            POI_MODE: internals.mode,
+            NODE_ENV: internals.mode
+          })
+          logger.debug(
+            `Plugin '${name}' sets the current command internals to '${JSON.stringify(
+              this.internals,
+              null,
+              2
+            )}'`
+          )
+        }
       }
     }
     return this

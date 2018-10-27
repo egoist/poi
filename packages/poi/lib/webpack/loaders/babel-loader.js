@@ -1,6 +1,8 @@
 const babelLoader = require('babel-loader')
 const logger = require('@poi/cli-utils/logger')
 
+const macroCheck = new RegExp('[./]macro')
+
 module.exports = babelLoader.custom(babel => {
   const presetItem = babel.createConfigItem(require('../../babel/preset'), {
     type: 'preset'
@@ -14,8 +16,18 @@ module.exports = babelLoader.custom(babel => {
 
       return { loader: opts, custom }
     },
-    config(cfg) {
-      const options = Object.assign({}, cfg.options)
+    config(cfg, { source }) {
+      const options = Object.assign({}, cfg.options, {
+        caller: Object.assign({}, cfg.options.caller, {
+          // for babel-plugin-macros it should never be cached
+          poiInvalidationToken: macroCheck.test(source)
+            ? require('crypto')
+                .randomBytes(32)
+                .toString('hex')
+            : // update cache when inferred jsx syntax changed
+              `jsx:${process.env.POI_JSX_INFER}`
+        })
+      })
 
       if (cfg.hasFilesystemConfig()) {
         for (const file of [cfg.babelrc, cfg.config]) {

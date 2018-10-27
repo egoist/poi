@@ -28,8 +28,16 @@ module.exports = class Plugin {
     return this.root.plugins
   }
 
+  get internals() {
+    return this.root.internals
+  }
+
   get mode() {
-    return this.root.mode
+    return this.root.internals.mode
+  }
+
+  get command() {
+    return this.root.options.command
   }
 
   hook(...args) {

@@ -15,7 +15,7 @@ exports.apply = api => {
     `Don't clean output directory before bundling (default: true)`
   )
 
-  if (api.options.command === 'build') {
+  if (api.command === 'build') {
     api.chainWebpack(config => {
       config.plugin('report-status').tap(([options]) => [
         Object.assign({}, options, {
@@ -28,6 +28,8 @@ exports.apply = api => {
 
 exports.name = 'builtin:command-build'
 
-exports.commandModes = {
-  build: 'production'
+exports.commandInternals = {
+  build: {
+    mode: 'production'
+  }
 }

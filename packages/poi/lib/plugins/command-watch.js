@@ -12,7 +12,7 @@ exports.apply = api => {
     }
   )
 
-  if (api.options.command === 'watch') {
+  if (api.command === 'watch') {
     api.chainWebpack(config => {
       config.plugin('report-status').tap(([options]) => [
         Object.assign({}, options, {
@@ -23,6 +23,9 @@ exports.apply = api => {
   }
 }
 
-exports.commandModes = {
-  watch: 'development'
+exports.commandInternals = {
+  watch: {
+    mode: 'development',
+    watchPkg: true
+  }
 }

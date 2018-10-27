@@ -8,7 +8,7 @@ exports.name = 'vue-static'
 exports.apply = (api, { staticRoutes: userStaticRoutes = [] } = {}) => {
   const cacheDir = api.resolve('node_modules/.cache/vue-static')
 
-  if (api.options.command === 'generate') {
+  if (api.command === 'generate') {
     api.config.ssr = true
     // Use a different default template file for generating index.html
     api.config.defaultHtmlTemplate = fs.existsSync(
@@ -39,7 +39,7 @@ exports.apply = (api, { staticRoutes: userStaticRoutes = [] } = {}) => {
       })
     ])
 
-    if (api.options.command === 'generate') {
+    if (api.command === 'generate') {
       config.output.path(path.join(config.output.get('path'), type))
       config.plugins.delete('report-status')
     }
@@ -59,7 +59,7 @@ exports.apply = (api, { staticRoutes: userStaticRoutes = [] } = {}) => {
       config.optimization.splitChunks(false)
     } else if (type === 'client') {
       config.entry('index').add(path.join(__dirname, '../app/client-entry'))
-      if (api.options.command === 'generate') {
+      if (api.command === 'generate') {
         config
           .plugin('vue-ssr')
           .use(require('vue-server-renderer/client-plugin'))
@@ -101,8 +101,10 @@ exports.apply = (api, { staticRoutes: userStaticRoutes = [] } = {}) => {
   })
 }
 
-exports.commandModes = {
-  generate: 'production'
+exports.commandInternals = {
+  generate: {
+    mode: 'production'
+  }
 }
 
 async function writeFiles(api, opts) {

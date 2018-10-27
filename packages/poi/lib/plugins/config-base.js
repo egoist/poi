@@ -64,6 +64,10 @@ exports.apply = api => {
       .end()
       .alias.set('@', api.resolve('src'))
 
+    if (api.command === 'dev' || api.command === 'watch') {
+      config.plugin('timefix').use(require('time-fix-plugin'))
+    }
+
     const baseDir = api.resolve()
     require('../webpack/rules/css')(config, api, filenames, type === 'server')
     require('../webpack/rules/vue')(config, { baseDir })
@@ -76,10 +80,6 @@ exports.apply = api => {
     require('../webpack/rules/toml')(config)
     require('../webpack/rules/fonts')(config, filenames.font)
     require('../webpack/rules/images')(config, filenames.image)
-
-    if (api.options.command === 'dev' || api.options.command === 'watch') {
-      config.plugin('timefix').use(require('time-fix-plugin'))
-    }
 
     if (
       api.options.progress !== false &&

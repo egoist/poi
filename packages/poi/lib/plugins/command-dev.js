@@ -81,6 +81,9 @@ exports.apply = api => {
   command.option('port', 'Server port (default: 4000)')
 }
 
-exports.commandModes = {
-  dev: 'development'
+exports.commandInternals = {
+  dev: {
+    mode: 'development',
+    watchPkg: true
+  }
 }

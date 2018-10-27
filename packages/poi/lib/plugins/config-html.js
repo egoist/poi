@@ -2,7 +2,7 @@ const path = require('path')
 const fs = require('fs')
 
 exports.apply = api => {
-  if (api.config.target !== 'app') return
+  if (api.config.target !== 'app' && api.config.target !== 'electron') return
 
   api.chainWebpack(config => {
     // Split vendors and common chunks
@@ -84,4 +84,4 @@ exports.apply = api => {
   })
 }
 
-exports.name = 'builtin:config-app'
+exports.name = 'builtin:config-html'
