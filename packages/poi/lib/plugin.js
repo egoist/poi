@@ -76,8 +76,12 @@ module.exports = class Plugin {
     return this.root.resolveWebpackConfig(opts)
   }
 
-  createWebpackCompiler(config) {
-    return this.root.createWebpackCompiler(config)
+  createWebpackCompiler(webpackConfig) {
+    return this.root.createWebpackCompiler(webpackConfig)
+  }
+
+  runWebpack(webpackConfig) {
+    return this.root.runWebpack(webpackConfig)
   }
 
   resolve(...args) {

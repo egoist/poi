@@ -257,17 +257,17 @@ class Poi {
     return require('webpack')(webpackConfig)
   }
 
+  runWebpack(webpackConfig) {
+    const compiler = this.createWebpackCompiler(webpackConfig)
+    return require('@poi/dev-utils/runCompiler')(compiler)
+  }
+
   async bundle() {
-    const compiler = require('webpack')(this.resolveWebpackConfig())
+    const webpackConfig = this.resolveWebpackConfig()
     if (this.options.cleanOutDir) {
-      await fs.remove(compiler.options.output.path)
+      await fs.remove(webpackConfig.output.path)
     }
-    return new Promise((resolve, reject) => {
-      compiler.run((err, stats) => {
-        if (err) return reject(err)
-        resolve(stats)
-      })
-    })
+    return this.runWebpack(webpackConfig)
   }
 }
 
