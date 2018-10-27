@@ -67,9 +67,11 @@ class ReportStatusPlugin {
           }`
         )
         const ip = await getIp.v4()
-        console.log(
-          chalk.dim(`- On Your Network:    ${protocol}${ip}:${actualPort}`)
-        )
+        if (ip) {
+          console.log(
+            chalk.dim(`- On Your Network:    ${protocol}${ip}:${actualPort}`)
+          )
+        }
         console.log()
       }
 
