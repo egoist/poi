@@ -98,8 +98,8 @@ module.exports = class Plugin {
     return this.root.bundle()
   }
 
-  setEnvs(envs) {
-    return this.root.setEnvs(envs)
+  setAppEnvs(envs) {
+    return this.root.setAppEnvs(envs)
   }
 
   getEnvs() {

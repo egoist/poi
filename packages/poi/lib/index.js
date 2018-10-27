@@ -87,7 +87,7 @@ class Poi {
 
     // Merge envs with this.config.envs
     // Allow to embed these env variables in app code
-    this.setEnvs(envs)
+    this.setAppEnvs(envs)
 
     this.cli = require('cac')({ bin: 'poi' })
   }
@@ -110,7 +110,7 @@ class Poi {
   }
 
   loadEnvs() {
-    const { NODE_ENV } = process.env
+    const NODE_ENV = process.env.NODE_ENV || 'development'
     const dotenvPath = this.resolve('.env')
     const dotenvFiles = [
       `${dotenvPath}.${NODE_ENV}.local`,
@@ -147,18 +147,17 @@ class Poi {
     return envs
   }
 
+  // Get envs that will be embed in app code
   getEnvs() {
     return Object.assign({}, this.config.envs, {
-      NODE_ENV: process.env.NODE_ENV,
+      NODE_ENV:
+        this.internals.mode === 'production' ? 'production' : 'development',
       PUBLIC_PATH: this.config.publicPath
     })
   }
 
-  setEnvs(envs) {
+  setAppEnvs(envs) {
     this.config.envs = Object.assign({}, this.config.envs, envs)
-    for (const name of Object.keys(this.config.envs)) {
-      process.env[name] = this.config.envs[name]
-    }
     return this
   }
 
@@ -196,9 +195,8 @@ class Poi {
         const internals = commandInternals[command]
         this.internals = Object.assign({}, this.internals, internals)
         if (internals.mode) {
-          this.setEnvs({
-            POI_MODE: internals.mode,
-            NODE_ENV: internals.mode
+          this.setAppEnvs({
+            POI_MODE: internals.mode
           })
           logger.debug(
             `Plugin '${name}' sets the current command internals to '${JSON.stringify(
