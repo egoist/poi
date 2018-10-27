@@ -1,7 +1,7 @@
 {
   "name": "poi",
   "description": "Next-generation tooling for web development.",
-  "version": "11.0.0-beta.2",
+  "version": "11.0.0-beta.3",
   "main": "lib/index.js",
   "bin": "bin/cli.js",
   "publishConfig": {
@@ -34,8 +34,8 @@
     "@babel/preset-typescript": "^7.1.0",
     "@babel/runtime": "^7.0.0",
     "@intervolga/optimize-cssnano-plugin": "^1.0.6",
-    "@poi/cli-utils": "^11.0.0-beta.2",
-    "@poi/dev-utils": "^11.0.0-beta.2",
+    "@poi/cli-utils": "^11.0.0-beta.3",
+    "@poi/dev-utils": "^11.0.0-beta.3",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-loader": "^8.0.0",
     "babel-plugin-macros": "^2.4.2",
