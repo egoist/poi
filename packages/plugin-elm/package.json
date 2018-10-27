@@ -1,0 +1,16 @@
+{
+  "name": "@poi/plugin-elm",
+  "version": "11.0.0-beta.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "license": "MIT",
+  "xo": false,
+  "dependencies": {
+    "elm-webpack-loader": "^5.0.0"
+  }
+}
