@@ -3,7 +3,7 @@ module.exports = (config, { baseDir, transpileModules }) => {
     .rule('js')
     // .js files has flow support by default
     // .ts files has typescript support via babel too
-    .test(/\.(js|mjs|jsx|ts|tsx)$/)
+    .test(/\.(js|mjs|jsx|ts|tsx|coffee)$/)
     .include.add(filepath => {
       if (Array.isArray(transpileModules)) {
         const shouldTranspile = transpileModules.some(condition => {
@@ -32,6 +32,13 @@ module.exports = (config, { baseDir, transpileModules }) => {
         process.env.POI_COMMAND
       )
     })
+
+  config.module
+    .rule('coffee')
+    .test(/\.coffee$/)
+    .pre()
+    .use('coffee-loader')
+    .loader('coffee-loader')
 }
 
 function composeCacheIdentifiers(...items) {

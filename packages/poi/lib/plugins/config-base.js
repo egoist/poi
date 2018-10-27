@@ -67,7 +67,7 @@ exports.apply = api => {
     const baseDir = api.resolve()
     require('../webpack/rules/css')(config, api, filenames, type === 'server')
     require('../webpack/rules/vue')(config, { baseDir })
-    require('../webpack/rules/babel')(config, {
+    require('../webpack/rules/js')(config, {
       baseDir,
       transpileModules: api.config.babel.transpileModules
     })
