@@ -100,7 +100,8 @@ exports.apply = api => {
           devServer: api.config.devServer,
           clearConsole:
             api.options.clearConsole !== false && !api.options.debug,
-          electron: api.config.target === 'electron'
+          electron: api.config.target === 'electron',
+          open: api.options.open
         }
       ])
 

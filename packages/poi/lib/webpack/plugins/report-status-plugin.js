@@ -57,15 +57,20 @@ class ReportStatusPlugin {
               : `You can now preview the app via following URLs:\n`
           )
         )
+        const getLocalAddress = color =>
+          `${protocol}${isAnyHost ? 'localhost' : host}:${
+            color ? chalk.bold(actualPort) : actualPort
+          }`
         console.log(
-          `- Local Server:       ${protocol}${
-            isAnyHost ? 'localhost' : host
-          }:${chalk.bold(actualPort)}${
+          `- Local Server:       ${getLocalAddress(true)}${
             actualPort === port
               ? ''
               : chalk.yellow.italic(` (Port ${port} is in use)`)
           }`
         )
+        if (this.options.open) {
+          require('@poi/dev-utils/openBrowser')(getLocalAddress(false))
+        }
         const ip = await getIp.v4()
         if (ip) {
           console.log(

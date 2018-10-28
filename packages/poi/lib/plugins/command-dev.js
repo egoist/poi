@@ -79,6 +79,7 @@ exports.apply = api => {
   setSharedCLIOptions(command, api.command)
   command.option('host', 'Server host (default: 0.0.0.0)')
   command.option('port', 'Server port (default: 4000)')
+  command.option('open', 'Open browser when server is ready')
 }
 
 exports.commandInternals = {
