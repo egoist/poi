@@ -269,6 +269,21 @@ class Poi {
     }
     return this.runWebpack(webpackConfig)
   }
+
+  hasDependency(name, type = 'all') {
+    const prodDeps = Object.keys(this.pkg.data.dependencies || {})
+    const devDeps = Object.keys(this.pkg.data.devDependencies || {})
+    if (type === 'all') {
+      return prodDeps.concat(devDeps).includes(name)
+    }
+    if (type === 'prod') {
+      return prodDeps.includes(name)
+    }
+    if (type === 'dev') {
+      return devDeps.includes(name)
+    }
+    throw new Error(`Unknow dep type: ${type}`)
+  }
 }
 
 module.exports = (...args) => new Poi(...args)

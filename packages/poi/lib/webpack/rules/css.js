@@ -145,18 +145,34 @@ module.exports = (config, api, filenames, isServer) => {
 
   createCSSRule('css', /\.css$/)
   createCSSRule('postcss', /\.p(ost)?css$/)
-  createCSSRule('scss', /\.scss$/, 'sass-loader', loaderOptions.sass)
+
+  const sassImplementation = api.hasDependency('sass')
+    ? api.localRequire('sass')
+    : undefined
+  createCSSRule(
+    'scss',
+    /\.scss$/,
+    'sass-loader',
+    Object.assign(
+      {
+        implementation: sassImplementation
+      },
+      loaderOptions.sass
+    )
+  )
   createCSSRule(
     'sass',
     /\.sass$/,
     'sass-loader',
     Object.assign(
       {
-        indentedSyntax: true
+        indentedSyntax: true,
+        implementation: sassImplementation
       },
       loaderOptions.sass
     )
   )
+
   createCSSRule('less', /\.less$/, 'less-loader', loaderOptions.less)
   createCSSRule(
     'stylus',

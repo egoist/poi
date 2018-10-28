@@ -110,15 +110,20 @@ module.exports = class Plugin {
     return this.root.getEnvs()
   }
 
-  localResolve(id, globalDir) {
-    try {
-      return resolveFrom(this.resolve(), id)
-    } catch (err) {
-      return resolveFrom(globalDir || __dirname, id)
+  localResolve(id, fallbackDir) {
+    let resolved = resolveFrom.silent(this.resolve(), id)
+    if (!resolved && fallbackDir) {
+      resolved = resolveFrom.silent(fallbackDir, id)
     }
+    return resolved
   }
 
   localRequire(...args) {
-    return require(this.localResolve(...args))
+    const resolved = this.localResolve(...args)
+    return resolved && require(resolved)
+  }
+
+  hasDependency(...args) {
+    return this.root.hasDependency(...args)
   }
 }
