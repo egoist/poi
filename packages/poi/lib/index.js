@@ -19,6 +19,9 @@ class Poi {
     this.hooks = new Hooks()
     this.config = Object.assign({}, config)
     this.internals = {}
+    this.buildId = Math.random()
+      .toString(36)
+      .substring(7)
 
     const { command } = this.options
     process.env.POI_COMMAND = command
@@ -229,7 +232,12 @@ class Poi {
         }
         return resolve()
       }
-      this.cli.on('executed', resolve)
+      this.cli.on('executed', () => {
+        if (this._inspectWebpackConfigPath) {
+          require('@poi/dev-utils/open')(this._inspectWebpackConfigPath)
+        }
+        resolve()
+      })
     })
   }
 
@@ -246,8 +254,14 @@ class Poi {
     }
 
     if (this.options.inspectWebpack) {
-      console.log(`Webpack config (${opts.type})`, config.toString())
-      process.exit() // eslint-disable-line unicorn/no-process-exit
+      this._inspectWebpackConfigPath = path.join(
+        require('os').tmpdir(),
+        `poi-inspect-webpack-config-${this.buildId}.js`
+      )
+      fs.appendFileSync(
+        this._inspectWebpackConfigPath,
+        `//${JSON.stringify(opts)}\nconst ${opts.type} = ${config.toString()}\n`
+      )
     }
 
     return config.toConfig()

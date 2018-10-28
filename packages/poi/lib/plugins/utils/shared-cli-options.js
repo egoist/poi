@@ -4,7 +4,7 @@ module.exports = (command, name) => {
       desc: 'Show debug output (default: false)'
     })
     .option('inspect-webpack', {
-      desc: 'Print webpack config and quit (default: false)'
+      desc: 'Inspect webpack config with default editor (default: false)'
     })
     .option('no-progress', {
       desc: 'Hide build progress (default: true)'
