@@ -26,7 +26,7 @@ module.exports = async function(source, map) {
 
   const defaultPathFile = path.join(cacheDir, hash + '__[default].json')
 
-  let moduleFn = req(source)
+  let moduleFn = req(source, filename)
   moduleFn = moduleFn.default || moduleFn
   const data = await moduleFn()
   const pagesData = data.$pages || {}
