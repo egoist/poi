@@ -1,0 +1,19 @@
+{
+  "name": "@poi/plugin-mdx",
+  "version": "11.0.0-beta.3",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "index.js"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@mdx-js/loader": "^0.15.5"
+  },
+  "peerDependencies": {
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0"
+  }
+}
