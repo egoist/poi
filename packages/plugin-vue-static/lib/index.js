@@ -39,6 +39,16 @@ exports.apply = (api, { staticRoutes: userStaticRoutes = [] } = {}) => {
       })
     ])
 
+    config.module
+      .rule('page-data')
+      .resourceQuery(/blockType=page-data/)
+      .use('page-data-loader')
+      .loader(require.resolve('page-data-loader'))
+      .options({
+        cacheDir
+      })
+      .end()
+
     if (api.command === 'generate') {
       config.output.path(path.join(config.output.get('path'), type))
       config.plugins.delete('report-status')

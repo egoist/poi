@@ -16,6 +16,7 @@
     "chalk": "^2.4.1",
     "chokidar": "^2.0.4",
     "fs-extra": "^7.0.0",
+    "page-data-loader": "^1.0.0",
     "vue-meta": "^1.5.5",
     "vue-router": "^3.0.1",
     "vue-server-renderer": "^2.5.17",

@@ -1,13 +1,16 @@
 {
   "private": true,
   "scripts": {
-    "lint": "xo --fix"
+    "lint": "xo --fix",
+    "test": "npm run lint && npm run test:unit",
+    "test:unit": "jest --env node"
   },
   "devDependencies": {
     "eslint-config-prettier": "^3.0.1",
     "eslint-config-rem": "^4.0.0",
     "eslint-plugin-prettier": "^2.6.2",
     "husky": "^1.0.0-rc.13",
+    "jest-cli": "^23.6.0",
     "lerna": "^3.4.0",
     "lint-staged": "^7.2.2",
     "prettier": "^1.14.2",
@@ -28,7 +31,8 @@
     },
     "ignores": [
       "**/packages/**/templates/**"
-    ]
+    ],
+    "envs": ["jest"]
   },
   "lint-staged": {
     "*.js": [
