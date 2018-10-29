@@ -1,6 +1,6 @@
 {
   "name": "page-data-loader",
-  "version": "1.0.0",
+  "version": "11.0.0-beta.4",
   "main": "lib/index.js",
   "files": [
     "lib",
