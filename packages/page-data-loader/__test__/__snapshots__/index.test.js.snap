@@ -197,19 +197,16 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ \\"./packages/page-data-loader/__test__/.cache sync recursive ^\\\\\\\\.\\\\\\\\/packages\\\\\\\\-page\\\\\\\\-data\\\\\\\\-loader\\\\\\\\-__test__\\\\\\\\-fixtures\\\\\\\\-\\\\\\\\[user\\\\\\\\]\\\\\\\\-vue__.*$\\":
-/*!**********************************************************************************************************************************!*\\\\
-  !*** ./packages/page-data-loader/__test__/.cache sync ^\\\\.\\\\/packages\\\\-page\\\\-data\\\\-loader\\\\-__test__\\\\-fixtures\\\\-\\\\[user\\\\]\\\\-vue__.*$ ***!
-  \\\\**********************************************************************************************************************************/
+/***/ \\"./packages/page-data-loader/__test__/.cache sync recursive ^\\\\\\\\.\\\\\\\\/packages\\\\\\\\-page\\\\\\\\-data\\\\\\\\-loader\\\\\\\\-__test__\\\\\\\\-fixtures\\\\\\\\-\\\\\\\\[user\\\\\\\\]\\\\\\\\-vue__.*\\\\\\\\.json$\\":
+/*!****************************************************************************************************************************************!*\\\\
+  !*** ./packages/page-data-loader/__test__/.cache sync ^\\\\.\\\\/packages\\\\-page\\\\-data\\\\-loader\\\\-__test__\\\\-fixtures\\\\-\\\\[user\\\\]\\\\-vue__.*\\\\.json$ ***!
+  \\\\****************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	\\"./packages-page-data-loader-__test__-fixtures-[user]-vue__[default]\\": \\"./packages/page-data-loader/__test__/.cache/packages-page-data-loader-__test__-fixtures-[user]-vue__[default].json\\",
 	\\"./packages-page-data-loader-__test__-fixtures-[user]-vue__[default].json\\": \\"./packages/page-data-loader/__test__/.cache/packages-page-data-loader-__test__-fixtures-[user]-vue__[default].json\\",
-	\\"./packages-page-data-loader-__test__-fixtures-[user]-vue__cristiano\\": \\"./packages/page-data-loader/__test__/.cache/packages-page-data-loader-__test__-fixtures-[user]-vue__cristiano.json\\",
 	\\"./packages-page-data-loader-__test__-fixtures-[user]-vue__cristiano.json\\": \\"./packages/page-data-loader/__test__/.cache/packages-page-data-loader-__test__-fixtures-[user]-vue__cristiano.json\\",
-	\\"./packages-page-data-loader-__test__-fixtures-[user]-vue__egoist\\": \\"./packages/page-data-loader/__test__/.cache/packages-page-data-loader-__test__-fixtures-[user]-vue__egoist.json\\",
 	\\"./packages-page-data-loader-__test__-fixtures-[user]-vue__egoist.json\\": \\"./packages/page-data-loader/__test__/.cache/packages-page-data-loader-__test__-fixtures-[user]-vue__egoist.json\\"
 };
 
@@ -232,7 +229,7 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = \\"./packages/page-data-loader/__test__/.cache sync recursive ^\\\\\\\\.\\\\\\\\/packages\\\\\\\\-page\\\\\\\\-data\\\\\\\\-loader\\\\\\\\-__test__\\\\\\\\-fixtures\\\\\\\\-\\\\\\\\[user\\\\\\\\]\\\\\\\\-vue__.*$\\";
+webpackContext.id = \\"./packages/page-data-loader/__test__/.cache sync recursive ^\\\\\\\\.\\\\\\\\/packages\\\\\\\\-page\\\\\\\\-data\\\\\\\\-loader\\\\\\\\-__test__\\\\\\\\-fixtures\\\\\\\\-\\\\\\\\[user\\\\\\\\]\\\\\\\\-vue__.*\\\\\\\\.json$\\";
 
 /***/ }),
 
@@ -459,7 +456,7 @@ __webpack_require__.r(__webpack_exports__);
 
   /* harmony default export */ __webpack_exports__[\\"default\\"] = (function (Component) {
     Component.options.__pageData = function (params) {
-      return __webpack_require__(\\"./packages/page-data-loader/__test__/.cache sync recursive ^\\\\\\\\.\\\\\\\\/packages\\\\\\\\-page\\\\\\\\-data\\\\\\\\-loader\\\\\\\\-__test__\\\\\\\\-fixtures\\\\\\\\-\\\\\\\\[user\\\\\\\\]\\\\\\\\-vue__.*$\\")(\\"./packages-page-data-loader-__test__-fixtures-[user]-vue__\\"+params['user']+'')
+      return __webpack_require__(\\"./packages/page-data-loader/__test__/.cache sync recursive ^\\\\\\\\.\\\\\\\\/packages\\\\\\\\-page\\\\\\\\-data\\\\\\\\-loader\\\\\\\\-__test__\\\\\\\\-fixtures\\\\\\\\-\\\\\\\\[user\\\\\\\\]\\\\\\\\-vue__.*\\\\\\\\.json$\\")(\\"./packages-page-data-loader-__test__-fixtures-[user]-vue__\\"+params['user']+'.json')
     }
     var oldData = Component.options.data || (function () {})
     Component.options.data = function () {
@@ -482,7 +479,7 @@ __webpack_require__.r(__webpack_exports__);
 
   /* harmony default export */ __webpack_exports__[\\"default\\"] = (function (Component) {
     Component.options.__pageData = function (params) {
-      return __webpack_require__(/*! ./packages/page-data-loader/__test__/.cache/packages-page-data-loader-__test__-fixtures-foo-vue__[default] */ \\"./packages/page-data-loader/__test__/.cache/packages-page-data-loader-__test__-fixtures-foo-vue__[default].json\\")
+      return __webpack_require__(/*! ./packages/page-data-loader/__test__/.cache/packages-page-data-loader-__test__-fixtures-foo-vue__[default].json */ \\"./packages/page-data-loader/__test__/.cache/packages-page-data-loader-__test__-fixtures-foo-vue__[default].json\\")
     }
     var oldData = Component.options.data || (function () {})
     Component.options.data = function () {
