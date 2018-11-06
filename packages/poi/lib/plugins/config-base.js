@@ -60,7 +60,7 @@ exports.apply = api => {
       .chunkFilename(filenames.chunk)
 
     config.resolve.extensions
-      .add('.js', '.ts', '.jsx', '.tsx', '.json')
+      .merge(['.js', '.ts', '.jsx', '.tsx', '.json'])
       .end()
       .alias.set('@', api.resolve('src'))
 
