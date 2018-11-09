@@ -105,7 +105,7 @@ class Poi {
 
   prepare() {
     this.applyPlugins()
-    logger.debug('App envs', JSON.stringify(this.getEnvs(), null, 2))
+    logger.debug('Embeded App Envs', JSON.stringify(this.getEnvs(), null, 2))
 
     if (this.internals.watchPkg) {
       this.pkg.watch()
@@ -130,19 +130,17 @@ class Poi {
     dotenvFiles.forEach(dotenvFile => {
       if (fs.existsSync(dotenvFile)) {
         logger.debug('Using env file:', dotenvFile)
-        const config = require('dotenv-expand')(
+        require('dotenv-expand')(
           require('dotenv').config({
             path: dotenvFile
           })
         )
-        // Collect all variables from .env file
-        Object.assign(envs, config.parsed)
       }
     })
 
-    // Collect those temp envs starting with POI_ too
+    // Collect variables starting with `POI_APP_` from `process.env`
     for (const name of Object.keys(process.env)) {
-      if (name.startsWith('POI_')) {
+      if (name.startsWith('POI_APP_')) {
         envs[name] = process.env[name]
       }
     }
@@ -153,6 +151,7 @@ class Poi {
   // Get envs that will be embed in app code
   getEnvs() {
     return Object.assign({}, this.config.envs, {
+      POI_COMMAND: process.env.POI_COMMAND,
       NODE_ENV:
         this.internals.mode === 'production' ? 'production' : 'development',
       PUBLIC_PATH: this.config.publicPath
@@ -202,11 +201,11 @@ class Poi {
             POI_MODE: internals.mode
           })
           logger.debug(
-            `Plugin '${name}' sets the current command internals to '${JSON.stringify(
+            `Plugin '${name}' sets the current command internals to ${JSON.stringify(
               this.internals,
               null,
               2
-            )}'`
+            )}`
           )
         }
       }
