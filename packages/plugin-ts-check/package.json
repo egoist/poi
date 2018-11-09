@@ -1,6 +1,6 @@
 {
   "name": "@poi/plugin-ts-check",
-  "version": "11.0.0-beta.5",
+  "version": "11.0.0-beta.6",
   "publishConfig": {
     "access": "public"
   },
