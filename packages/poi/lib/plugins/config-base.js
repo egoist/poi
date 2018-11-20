@@ -147,28 +147,25 @@ exports.apply = api => {
       }
     })
 
-    // Add uglifyJS as a plugin
+    // Add Terser as a plugin
     const shouldMinimize =
       api.config.minimize === undefined
         ? api.mode === 'production'
         : Boolean(api.config.minimize)
     if (shouldMinimize) {
-      config
-        .plugin('uglifyjs')
-        // eslint-disable-next-line import/no-extraneous-dependencies
-        .use(require('uglifyjs-webpack-plugin'), [
-          {
-            cache: true,
-            parallel: true,
-            sourceMap: Boolean(api.config.sourceMap),
-            uglifyOptions: {
-              output: {
-                comments: false
-              },
-              mangle: true
-            }
+      config.plugin('js-minimizer').use(require('terser-webpack-plugin'), [
+        {
+          cache: true,
+          parallel: true,
+          sourceMap: Boolean(api.config.sourceMap),
+          terserOptions: {
+            output: {
+              comments: false
+            },
+            mangle: true
           }
-        ])
+        }
+      ])
     }
 
     // Resolve loaders and modules in poi's node_modules folder
