@@ -31,6 +31,7 @@
     "postcss-loader": "^2.1.1",
     "time-fix-plugin": "^2.0.0",
     "trash": "^4.3.0",
+    "uglifyjs-webpack-plugin": "^2.0.1",
     "url-loader": "^1.0.1",
     "vue": "^2.5.13",
     "vue-loader": "^15.2.1",

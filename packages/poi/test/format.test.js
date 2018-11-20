@@ -10,7 +10,7 @@ test('cjs', async () => {
   expect(Object.keys(stats.compilation.assets)).toEqual(['main.js'])
   expect(
     stats.compilation.assets['main.js']._value.startsWith(
-      'module.exports=function(e)'
+      'module.exports=function'
     )
   ).toBe(true)
 })
