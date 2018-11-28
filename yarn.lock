@@ -1317,17 +1317,6 @@
   resolved "https://registry.npmjs.org/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@poi/dev-utils@^10.0.3":
-  version "10.0.3"
-  resolved "https://registry.npmjs.org/@poi/dev-utils/-/dev-utils-10.0.3.tgz#1161815a7c2c6eda24d560c4ab49743619ce56aa"
-  integrity sha1-EWGBWnwsbtok1WDEq0l0NhnOVqo=
-  dependencies:
-    chalk "^2.3.0"
-    react-error-overlay "^4.0.0"
-    shell-quote "^1.6.1"
-    sockjs-client "^1.1.4"
-    strip-ansi "^4.0.0"
-
 "@poi/plugin-typescript@^10.0.0-beta.2":
   version "10.2.0"
   resolved "https://registry.npmjs.org/@poi/plugin-typescript/-/plugin-typescript-10.2.0.tgz#19909c4e8cf282db0e76eff5447695b0ec2aa086"
@@ -8457,7 +8446,7 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-error-overlay@^4.0.0, react-error-overlay@^4.0.1:
+react-error-overlay@^4.0.1:
   version "4.0.1"
   resolved "https://registry.npmjs.org/react-error-overlay/-/react-error-overlay-4.0.1.tgz#417addb0814a90f3a7082eacba7cee588d00da89"
   integrity sha512-xXUbDAZkU08aAkjtUvldqbvI04ogv+a1XdHxvYuHPYKIVk/42BIOD0zSKTHAWV4+gDy3yGm283z2072rA2gdtw==
@@ -9271,7 +9260,7 @@ socket.io@2.1.1:
     socket.io-client "2.1.1"
     socket.io-parser "~3.2.0"
 
-sockjs-client@1.3.0, sockjs-client@^1.1.4, sockjs-client@^1.1.5:
+sockjs-client@1.3.0, sockjs-client@^1.1.5:
   version "1.3.0"
   resolved "https://registry.npmjs.org/sockjs-client/-/sockjs-client-1.3.0.tgz#12fc9d6cb663da5739d3dc5fb6e8687da95cb177"
   integrity sha512-R9jxEzhnnrdxLCNln0xg5uGHqMnkhPSTzUZH2eXcR03S/On9Yvoq2wyUZILRUhZCNVu2PmwWVoyuiPz8th8zbg==

@@ -21,7 +21,7 @@
     "@babel/preset-typescript": "^7.1.0",
     "@babel/runtime": "^7.1.5",
     "@intervolga/optimize-cssnano-plugin": "^1.0.6",
-    "@poi/dev-utils": "^10.0.3",
+    "@poi/dev-utils": "^12.0.0-alpha.3",
     "@poi/logger": "^12.0.0-alpha.3",
     "address": "^1.0.3",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
