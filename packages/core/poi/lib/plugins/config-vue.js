@@ -14,8 +14,11 @@ exports.apply = api => {
             /* eslint-disable-next-line import/no-extraneous-dependencies */
             '@vue/component-compiler-utils': require('@vue/component-compiler-utils/package')
               .version,
-            'vue-template-compiler': require('vue-template-compiler/package')
-              .version
+            'vue-template-compiler': api.localResolve(
+              'vue-template-compiler/package'
+            )
+              ? api.localRequire('vue-template-compiler/package').version
+              : null
           })
         )
     }
