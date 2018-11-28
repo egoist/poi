@@ -12,7 +12,7 @@
     "eslint-config-rem": "^4.0.0",
     "eslint-plugin-prettier": "^3.0.0",
     "husky": "^1.2.0",
-    "lerna": "^3.4.0",
+    "lerna": "^3.4.3",
     "lint-staged": "^8.1.0",
     "xo": "^0.23.0"
   },
