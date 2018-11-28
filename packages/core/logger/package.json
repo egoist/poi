@@ -1,0 +1,15 @@
+{
+  "name": "@poi/logger",
+  "version": "12.0.0-alpha.3",
+  "files": [
+    "index.js"
+  ],
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1"
+  },
+  "xo": false
+}

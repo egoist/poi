@@ -1,0 +1,21 @@
+{
+  "name": "@poi/plugin-typescript",
+  "version": "12.0.0-alpha.3",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "fork-ts-checker-webpack-plugin": "^0.5.0",
+    "ts-loader": "^5.3.0"
+  },
+  "peerDependencies": {
+    "typescript": "^3.1.6"
+  },
+  "devDependencies": {
+    "typescript": "^3.1.6"
+  }
+}

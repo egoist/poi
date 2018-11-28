@@ -1,0 +1,21 @@
+{
+  "name": "@poi/dev-utils",
+  "version": "12.0.0-alpha.3",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "*.js",
+    "openChrome.applescript"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "cross-spawn": "^6.0.5",
+    "opn": "^5.4.0",
+    "react-error-overlay": "^4.0.1",
+    "sockjs-client": "^1.1.5",
+    "strip-ansi": "^4.0.0"
+  },
+  "xo": false
+}

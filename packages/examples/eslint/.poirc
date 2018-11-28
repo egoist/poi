@@ -1,0 +1,7 @@
+{
+  "plugins": [
+    {
+      "resolve": "@poi/plugin-eslint"
+    }
+  ]
+}
