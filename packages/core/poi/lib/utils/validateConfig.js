@@ -104,7 +104,9 @@ module.exports = (api, config) => {
       cache: 'boolean',
       babel,
       css,
-      devServer
+      devServer,
+      envs: struct.optional('object'),
+      constants: struct.optional('object')
     },
     {
       cache: true,

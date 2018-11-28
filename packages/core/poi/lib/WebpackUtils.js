@@ -18,4 +18,10 @@ module.exports = class WebpackUtils {
 
     return envs
   }
+
+  get constants() {
+    return Object.assign({}, this.api.config.constants, {
+      __PUBLIC_URL__: JSON.stringify(this.api.config.output.publicUrl)
+    })
+  }
 }

@@ -50,7 +50,7 @@ exports.apply = api => {
           options
         },
         envs: api.webpackUtils.envs,
-        constants: api.config.contants
+        constants: api.webpackUtils.constants
       }
     }
 

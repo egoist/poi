@@ -143,16 +143,18 @@ module.exports = (config, api) => {
   }
 
   /** Add constants plugin */
-  config.plugin('constants').use(require('webpack').DefinePlugin, [
-    Object.assign({}, api.config.constants, {
-      __PUBLIC_URL__: JSON.stringify(api.config.output.publicUrl)
-    })
-  ])
+  config
+    .plugin('constants')
+    .use(require('webpack').DefinePlugin, [api.webpackUtils.constants])
 
   /** Inject envs */
-  config
-    .plugin('envs')
-    .use(require('webpack').DefinePlugin, [api.webpackUtils.envs])
+  const { envs } = api.webpackUtils
+  config.plugin('envs').use(require('webpack').DefinePlugin, [
+    Object.keys(envs).reduce((res, name) => {
+      res[`process.env.${name}`] = JSON.stringify(envs[name])
+      return res
+    }, {})
+  ])
 
   /** Miniize JS files */
   if (api.config.output.minimize) {
