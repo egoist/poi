@@ -33,13 +33,20 @@ exports.apply = api => {
 
             const ip = require('address').ip()
 
+            const isUnspecifiedHost = host === '0.0.0.0' || host === '::'
+            const prettyHost = isUnspecifiedHost ? 'localhost' : host
+
             logger.log()
-            logger.log(`Local:             http://${host}:${chalk.bold(port)}`)
+            logger.log(
+              `Local:             http://${prettyHost}:${chalk.bold(port)}`
+            )
             logger.log(`On Your Network:   http://${ip}:${chalk.bold(port)}`)
             logger.log()
 
             if (open) {
-              require('@poi/dev-utils/openBrowser')(`http://${host}:${port}`)
+              require('@poi/dev-utils/openBrowser')(
+                `http://${prettyHost}:${port}`
+              )
             }
           })
         }
