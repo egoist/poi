@@ -2,7 +2,9 @@
   "private": true,
   "name": "poi",
   "scripts": {
-    "lint": "xo"
+    "lint": "xo",
+    "test": "cd examples/test-karma && yarn test",
+    "test:local": "cd examples/test-karma && yarn test --no-headless"
   },
   "workspaces": [
     "core/*",
