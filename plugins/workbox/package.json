@@ -1,0 +1,14 @@
+{
+  "name": "@poi/plugin-workbox",
+  "version": "12.0.0-alpha.5",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "workbox-webpack-plugin": "^3.6.3"
+  }
+}
