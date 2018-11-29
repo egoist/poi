@@ -10,7 +10,7 @@
     "core/*",
     "examples/*",
     "plugins/*",
-    "webpack/*"
+    "other-packages/*"
   ],
   "devDependencies": {
     "eslint-config-prettier": "^3.3.0",

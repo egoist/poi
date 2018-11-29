@@ -81,6 +81,7 @@ exports.apply = api => {
             )
           )
         )
+        server.use(require('@poi/dev-utils/skipServiceWorker')())
         existingBefore && existingBefore(server)
       }
 
