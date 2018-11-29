@@ -2,6 +2,17 @@
   "npmClient": "yarn",
   "useWorkspaces": true,
   "independent": true,
-  "packages": ["core/*", "examples/*", "plugins/*", "webpack/*"],
+  "changelog": {
+    "repo": "facebook/create-react-app",
+    "labels": {
+      "tag: new feature": ":rocket: New Feature",
+      "tag: breaking change": ":boom: Breaking Change",
+      "tag: bug fix": ":bug: Bug Fix",
+      "tag: enhancement": ":nail_care: Enhancement",
+      "tag: documentation": ":memo: Documentation",
+      "tag: internal": ":house: Internal"
+    },
+    "cacheDir": ".changelog"
+  },
   "version": "independent"
 }
