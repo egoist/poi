@@ -117,14 +117,18 @@ exports.apply = api => {
       HotModuleReplacementPlugin.__expression = `require('webpack').HotModuleReplacementPlugin`
 
       config.plugin('hot').use(HotModuleReplacementPlugin)
-
-      if (config.plugins.has('print-status')) {
-        config.plugin('print-status').tap(([options]) => [
-          Object.assign(options, {
-            printFileStats: false
-          })
-        ])
-      }
     }
+
+    // Don't show bundled files in --serve
+    if (config.plugins.has('print-status')) {
+      config.plugin('print-status').tap(([options]) => [
+        Object.assign(options, {
+          printFileStats: false
+        })
+      ])
+    }
+
+    // Don't copy public folder, since we serve it instead
+    config.plugins.delete('copy-public-folder')
   })
 }
