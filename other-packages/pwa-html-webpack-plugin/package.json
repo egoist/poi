@@ -1,5 +1,5 @@
 {
-  "name": "pwa-manifest-plugin",
+  "name": "pwa-html-webpack-plugin",
   "publishConfig": {
     "access": "public"
   },

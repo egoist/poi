@@ -24,4 +24,8 @@ module.exports = class WebpackUtils {
       __PUBLIC_URL__: JSON.stringify(this.api.config.output.publicUrl)
     })
   }
+
+  get CopyPlugin() {
+    return require('copy-webpack-plugin')
+  }
 }

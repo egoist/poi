@@ -1,6 +1,5 @@
 const path = require('path')
 const os = require('os')
-const fs = require('fs')
 const chalk = require('chalk')
 
 const isLocalPath = v => /^[./]|(^[a-zA-Z]:)/.test(v)
@@ -216,15 +215,16 @@ module.exports = (config, api) => {
       ])
   }
 
-  const publicFolder = api.resolveCwd('public')
-  if (fs.existsSync(publicFolder)) {
-    config.plugin('copy-public-folder').use(require('copy-webpack-plugin'), [
-      [
-        {
-          from: publicFolder,
-          to: '.'
-        }
-      ]
-    ])
-  }
+  config.plugin('copy-public-folder').use(require('copy-webpack-plugin'), [
+    [
+      {
+        from: {
+          glob: '**/*',
+          dot: true
+        },
+        context: api.resolveCwd('public'),
+        to: '.'
+      }
+    ]
+  ])
 }

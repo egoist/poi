@@ -1,5 +1,3 @@
-const fs = require('fs')
-
 const ID = 'pwa-manifest-plugin'
 
 const defaults = {
@@ -8,26 +6,26 @@ const defaults = {
   msTileColor: '#000000',
   appleMobileWebAppCapable: 'no',
   appleMobileWebAppStatusBarStyle: 'default',
-  assetsVersion: ''
-  // manifestPath: 'public/manifest.json'
+  assetsVersion: '',
+  iconPaths: {
+    favicon16: 'img/icons/favicon-16x16.png',
+    favicon32: 'img/icons/favicon-32x32.png',
+    appleTouchIcon: 'img/icons/apple-touch-icon-152x152.png',
+    safariMaskIcon: 'img/icons/safari-mask-icon.svg',
+    msTileImage: 'img/icons/msapplication-icon-144x144.png'
+  }
 }
 
-const defaultIconPaths = {
-  appleTouchIcon: 'img/icons/apple-touch-icon-152x152.png',
-  maskIcon: 'img/icons/safari-pinned-tab.svg',
-  msTileImage: 'img/icons/msapplication-icon-144x144.png'
-}
-
-module.exports = class HtmlPwaPlugin {
-  constructor(options = {}, HtmlPwaPlugin) {
-    const iconPaths = Object.assign({}, defaultIconPaths, options.iconPaths)
-    delete options.iconPaths
-    this.options = Object.assign({ iconPaths }, defaults, options)
-    this.HtmlPwaPlugin = HtmlPwaPlugin || require('html-webpack-plugin')
+module.exports = class PwaManifestWebpackPlugin {
+  constructor(options = {}, HtmlWebpackPlugin) {
+    this.options = Object.assign({}, defaults, options, {
+      iconPaths: Object.assign({}, defaults.iconPaths, options.iconPaths)
+    })
+    this.HtmlWebpackPlugin = HtmlWebpackPlugin || require('html-webpack-plugin')
   }
 
   apply(compiler) {
-    const { HtmlPwaPlugin } = this
+    const { HtmlWebpackPlugin } = this
 
     const {
       name,
@@ -36,43 +34,54 @@ module.exports = class HtmlPwaPlugin {
       appleMobileWebAppCapable,
       appleMobileWebAppStatusBarStyle,
       assetsVersion,
-      manifestPath,
       iconPaths
     } = this.options
 
-    if (manifestPath) {
-      compiler.hooks.done.tapAsync(ID, (_, cb) => {
-        if (fs.existsSync(manifestPath)) return cb()
+    compiler.hooks.emit.tap(ID, compilation => {
+      let existing = compilation.assets['manifest.json']
+      if (existing) {
+        existing = existing.source()
+      }
 
-        fs.writeFile(
-          manifestPath,
-          JSON.stringify(
-            {
-              short_name: name,
-              name,
-              icons: [
-                {
-                  src: 'favicon.ico',
-                  sizes: '64x64 32x32 24x24 16x16',
-                  type: 'image/x-icon'
-                }
-              ],
-              start_url: '.',
-              display: 'standalone',
-              theme_color: themeColor,
-              background_color: '#ffffff'
-            },
-            null,
-            2
-          ),
-          'utf8',
-          cb
-        )
-      })
-    }
+      const manifestContent = JSON.stringify(
+        Object.assign(
+          {
+            short_name: name,
+            name,
+            icons: [
+              iconPaths.favicon16 && {
+                src: iconPaths.favicon16,
+                sizes: '16x16',
+                type: 'image/png'
+              },
+              iconPaths.favicon32 && {
+                src: iconPaths.favicon32,
+                sizes: '32x32',
+                type: 'image/png'
+              }
+            ].filter(Boolean),
+            start_url: '.',
+            display: 'standalone',
+            theme_color: themeColor,
+            background_color: '#ffffff'
+          },
+          existing && JSON.parse(existing)
+        ),
+        null,
+        2
+      )
+      compilation.assets['manifest.json'] = {
+        source() {
+          return manifestContent
+        },
+        size() {
+          return manifestContent.length
+        }
+      }
+    })
 
     compiler.hooks.compilation.tap(ID, compilation => {
-      HtmlPwaPlugin.getHooks(compilation).alterAssetTagGroups.tapAsync(
+      HtmlWebpackPlugin.getHooks(compilation).alterAssetTagGroups.tapAsync(
         ID,
         (data, cb) => {
           const { publicPath } = compiler.options.output
@@ -117,7 +126,9 @@ module.exports = class HtmlPwaPlugin {
               iconPaths.appleTouchIcon &&
                 makeTag('link', {
                   rel: 'mask-icon',
-                  href: `${publicPath}${iconPaths.maskIcon}${assetsVersionStr}`,
+                  href: `${publicPath}${
+                    iconPaths.safariMaskIcon
+                  }${assetsVersionStr}`,
                   color: themeColor
                 }),
 

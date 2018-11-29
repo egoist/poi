@@ -37,7 +37,10 @@ class PrintStatusPlugin {
       } else {
         logger.done(`Build completed in ${stats.endTime - stats.startTime} ms`)
         // Print file stats
-        if (this.opts.printFileStats && !process.env.CI) {
+        if (
+          (this.opts.printFileStats || logger.options.debug) &&
+          !process.env.CI
+        ) {
           logger.log()
           const assets = await Promise.all(
             stats.toJson().assets.map(async asset => {
