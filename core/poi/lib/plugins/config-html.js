@@ -1,5 +1,6 @@
 const path = require('path')
 const fs = require('fs')
+const merge = require('lodash.merge')
 
 exports.name = 'builtin:config-html'
 
@@ -40,19 +41,6 @@ exports.apply = api => {
       __dirname,
       '../webpack/default-template.html'
     )
-    const templateParametersGenerator = (compilation, assets, options) => {
-      return {
-        compilation,
-        webpack: compilation.getStats().toJson(),
-        webpackConfig: compilation.options,
-        htmlWebpackPlugin: {
-          files: assets,
-          options
-        },
-        envs: api.webpackUtils.envs,
-        constants: api.webpackUtils.constants
-      }
-    }
 
     const getDefaultTemplate = () => {
       return (
@@ -65,8 +53,13 @@ exports.apply = api => {
 
     const defaultHtmlOpts = {
       template: getDefaultTemplate(),
-      templateParametersGenerator,
-      title: api.pkg.data.name || 'Poi App',
+      templateParameters: {
+        title: api.pkg.data.name || 'Poi App',
+        pkg: api.pkg.data,
+        envs: api.webpackUtils.envs,
+        constants: api.webpackUtils.constants
+      },
+      pkg: api.pkg.data,
       minify: api.isProd
         ? {
             removeComments: true,
@@ -85,8 +78,7 @@ exports.apply = api => {
 
     if (api.config.pages) {
       for (const entryName of Object.keys(api.config.pages)) {
-        const page = Object.assign(
-          {},
+        const page = merge(
           defaultHtmlOpts,
           {
             filename: `${entryName}.html`,
@@ -98,8 +90,7 @@ exports.apply = api => {
         config.plugin(`html-page-${entryName}`).use(HtmlPlugin, [page])
       }
     } else {
-      const page = Object.assign(
-        {},
+      const page = merge(
         defaultHtmlOpts,
         {
           filename: 'index.html'
@@ -109,7 +100,6 @@ exports.apply = api => {
       page.template = api.resolveCwd(page.template)
       config.plugin('html').use(HtmlPlugin, [page])
     }
-
     config
       .plugin('inline-runtime-chunk')
       .use(require('@poi/dev-utils/InlineChunkHtmlPlugin'), [
