@@ -1,0 +1,13 @@
+{
+  "name": "pwa-manifest-plugin",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "0.0.0",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "license": "MIT",
+  "xo": false
+}

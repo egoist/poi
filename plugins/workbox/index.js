@@ -2,7 +2,7 @@ const { GenerateSW } = require('workbox-webpack-plugin')
 
 exports.name = 'workbox'
 
-exports.apply = (api, { workboxOptions } = {}) => {
+exports.apply = (api, { workboxOptions, manifest = true } = {}) => {
   const pluginOptions = Object.assign(
     {
       navigateFallbackWhitelist: [/^(?!\/__).*/],
@@ -28,6 +28,12 @@ exports.apply = (api, { workboxOptions } = {}) => {
       if (api.config.output.target !== 'browser') return
 
       config.plugin('workbox').use(GenerateSW, [pluginOptions])
+
+      if (manifest) {
+        config
+          .plugin('workbox-manifest')
+          .use(require('pwa-manifest-plugin'), [])
+      }
     })
   }
 }
