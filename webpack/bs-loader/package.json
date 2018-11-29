@@ -11,5 +11,6 @@
   "license": "MIT",
   "dependencies": {
     "loader-utils": "^1.1.0"
-  }
+  },
+  "xo": false
 }

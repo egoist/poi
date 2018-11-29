@@ -53,7 +53,7 @@ module.exports = async function() {
     const outputFile = this.resourcePath.replace(/\.(re|ml)$/, '.bs.js')
     const content = await readFile(outputFile, 'utf8')
     callback(null, content)
-  } catch (err) {
-    callback(typeof err === 'string' ? new Error(err) : err)
+  } catch (error) {
+    callback(typeof error === 'string' ? new Error(error) : error)
   }
 }
