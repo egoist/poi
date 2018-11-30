@@ -87,7 +87,7 @@ If you don't want to support some platform icons, simply pass `false` as the ico
 
 ```js
 {
-  iconsPaths: {
+  iconPaths: {
     msTileImage: false
   }
 }

@@ -1,4 +1,4 @@
-const ID = 'pwa-manifest-plugin'
+const ID = 'pwa-html-webpack'
 
 const defaults = {
   name: 'PWA app',
@@ -16,7 +16,7 @@ const defaults = {
   }
 }
 
-module.exports = class PwaManifestWebpackPlugin {
+module.exports = class PwaHtmlWebpackPlugin {
   constructor(options = {}, HtmlWebpackPlugin) {
     this.options = Object.assign({}, defaults, options, {
       iconPaths: Object.assign({}, defaults.iconPaths, options.iconPaths)
