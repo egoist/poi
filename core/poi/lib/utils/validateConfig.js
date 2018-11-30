@@ -109,7 +109,8 @@ module.exports = (api, config) => {
       css,
       devServer,
       envs: struct.optional('object'),
-      constants: struct.optional('object')
+      constants: struct.optional('object'),
+      chainWebpack: struct.optional('function')
     },
     {
       cache: true,

@@ -274,11 +274,13 @@ module.exports = class PoiCore {
 
     require('./webpack/webpack.config')(config, this)
 
-    this.hooks.invoke(
-      'onCreateWebpackConfig',
-      config,
-      Object.assign({ type: 'client' }, opts)
-    )
+    opts = Object.assign({ type: 'client' }, opts)
+
+    this.hooks.invoke('onCreateWebpackConfig', config, opts)
+
+    if (this.config.chainWebpack) {
+      this.config.chainWebpack(config, opts)
+    }
 
     if (this.cli.options.inspectWebpack) {
       logger.log('webpack config', opts, config.toString())
