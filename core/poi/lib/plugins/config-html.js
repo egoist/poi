@@ -53,13 +53,12 @@ exports.apply = api => {
 
     const defaultHtmlOpts = {
       template: getDefaultTemplate(),
-      templateParameters: {
-        title: api.pkg.data.name || 'Poi App',
+      templateParameters: templateParametersGenerator({
         pkg: api.pkg.data,
         envs: api.webpackUtils.envs,
         constants: api.webpackUtils.constants
-      },
-      pkg: api.pkg.data,
+      }),
+      filename: 'index.html',
       minify: api.isProd
         ? {
             removeComments: true,
@@ -89,14 +88,8 @@ exports.apply = api => {
         page.template = api.resolveCwd(page.template)
         config.plugin(`html-page-${entryName}`).use(HtmlPlugin, [page])
       }
-    } else {
-      const page = merge(
-        defaultHtmlOpts,
-        {
-          filename: 'index.html'
-        },
-        api.config.html
-      )
+    } else if (api.config.html !== false) {
+      const page = merge(defaultHtmlOpts, api.config.html)
       page.template = api.resolveCwd(page.template)
       config.plugin('html').use(HtmlPlugin, [page])
     }
@@ -107,4 +100,35 @@ exports.apply = api => {
         [/runtime~.+[.]js/]
       ])
   })
+}
+
+function templateParametersGenerator(data) {
+  const { htmlTagObjectToString } = require('html-webpack-plugin/lib/html-tags')
+
+  return (compilation, assets, assetTags, options) => {
+    const { xhtml } = options
+    assetTags.headTags.toString = function() {
+      return this.map(assetTagObject =>
+        htmlTagObjectToString(assetTagObject, xhtml)
+      ).join('')
+    }
+    assetTags.bodyTags.toString = function() {
+      return this.map(assetTagObject =>
+        htmlTagObjectToString(assetTagObject, xhtml)
+      ).join('')
+    }
+    return Object.assign(
+      {
+        compilation,
+        webpackConfig: compilation.options,
+        htmlWebpackPlugin: {
+          tags: assetTags,
+          files: assets,
+          options
+        },
+        html: options
+      },
+      data
+    )
+  }
 }

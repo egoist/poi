@@ -28,6 +28,7 @@ exports.apply = api => {
     command.option('--module-name <name>', 'Module name for "umd" format')
     command.option('--file-names <filenames>', 'Customize output filenames')
     command.option('--no-clean', `Don't clean output directory before bundling`)
+    command.option('--html <options>', 'Configure generated HTML file')
 
     if (api.isProd) {
       command.option('--no-minimize', 'Disable minimization')

@@ -234,7 +234,8 @@ module.exports = class PoiCore {
       port,
       open,
       proxy,
-      fileNames
+      fileNames,
+      html
     } = this.cli.options
     return {
       entry: this.cli.args.length > 0 ? this.cli.args : undefined,
@@ -247,7 +248,8 @@ module.exports = class PoiCore {
         publicUrl,
         target,
         clean,
-        fileNames
+        fileNames,
+        html
       },
       parallel,
       cache,

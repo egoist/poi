@@ -28,7 +28,8 @@ module.exports = (api, config) => {
           font: struct.optional('string'),
           image: struct.optional('string')
         })
-      )
+      ),
+      html: struct.optional('object')
     },
     {
       dir: 'dist',
