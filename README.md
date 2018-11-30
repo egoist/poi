@@ -22,9 +22,8 @@ Before we get started, ensure that you have installed Node.js (>=8) and Yarn (or
 ### Get Started Immediately
 
 ```bash
-npx create-poi-app my-app
-# OR
-yarn create poi-app my-app
+yarn global add create-poi-app@next
+create-poi-app my-app
 
 cd my-app
 npm run dev
