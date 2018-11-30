@@ -63,7 +63,7 @@ You will get a URL like `http://localhost:4000` which you can open to preview th
 Next let's start adding some dependencies like a CSS file `style.module.css`:
 
 ```css
-h1 {
+.title {
   color: pink;
 }
 ```
