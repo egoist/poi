@@ -1,6 +1,6 @@
 {
   "name": "@poi/plugin-pwa",
-  "version": "12.0.0-alpha.5",
+  "version": "12.0.0-alpha.6",
   "publishConfig": {
     "access": "public"
   },
@@ -9,7 +9,7 @@
     "index.js"
   ],
   "dependencies": {
-    "pwa-html-webpack-plugin": "^0.0.0",
+    "pwa-html-webpack-plugin": "^12.0.0-alpha.6",
     "workbox-webpack-plugin": "^3.6.3"
   }
 }

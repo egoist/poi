@@ -1,14 +1,14 @@
 {
   "private": true,
   "name": "@poi/examples-eslint",
-  "version": "12.0.0-alpha.5",
+  "version": "12.0.0-alpha.6",
   "scripts": {
     "dev": "poi --serve",
     "build": "poi --prod"
   },
   "devDependencies": {
-    "@poi/plugin-eslint": "^12.0.0-alpha.5",
-    "poi": "^12.0.0-alpha.5"
+    "@poi/plugin-eslint": "^12.0.0-alpha.6",
+    "poi": "^12.0.0-alpha.6"
   },
   "xo": false
 }
