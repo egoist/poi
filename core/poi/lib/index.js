@@ -143,7 +143,8 @@ module.exports = class PoiCore {
       require.resolve('./plugins/config-electron'),
       require.resolve('./plugins/config-misc-loaders'),
       require.resolve('./plugins/watch'),
-      require.resolve('./plugins/serve')
+      require.resolve('./plugins/serve'),
+      require.resolve('./plugins/eject-html')
     ]
       .concat(this.config.plugins || [])
       .map(v => {
