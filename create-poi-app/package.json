@@ -1,0 +1,19 @@
+{
+  "name": "create-poi-app",
+  "version": "0.0.0",
+  "license": "MIT",
+  "files": [
+    "bin",
+    "generator"
+  ],
+  "bin": {
+    "cpa": "bin/cli.js",
+    "create-poi-app": "bin/cli.js"
+  },
+  "dependencies": {
+    "cac": "^6.3.4",
+    "sao": "^1.4.1",
+    "stringify-object": "^3.3.0"
+  },
+  "xo": false
+}

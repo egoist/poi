@@ -17,7 +17,7 @@ exports.apply = api => {
       .exclude.add(filepath => /node_modules/.test(filepath))
       .end()
       .use('eslint-loader')
-      .loader('eslint-loader')
+      .loader(require.resolve('eslint-loader'))
       .options({
         cache: api.config.cache,
         cacheKey: cacheIdentifier,

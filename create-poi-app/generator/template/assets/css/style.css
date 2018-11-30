@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+  background: #333;
+  color: #74d7fd;
+  text-align: center;
+}
+
+.title {
+  margin-top: 300px;
+  font-size: 4rem;
+}
+
+.tip {
+	font-size: 1.4rem;
+}

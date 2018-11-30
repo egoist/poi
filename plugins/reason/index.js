@@ -6,7 +6,7 @@ exports.apply = api => {
       .rule('bs')
       .test(/\.(re|ml)$/)
       .use('bs-loader')
-      .loader('@poi/bs-loader')
+      .loader(require.resolve('@poi/bs-loader'))
       .options({
         cwd: api.resolve()
       })

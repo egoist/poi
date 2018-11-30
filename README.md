@@ -15,11 +15,29 @@ Poi is a bundler built on the top of webpack, trying to make developing and bund
 - 🐙 Fit most web apps, npm libs.
 - 🚨 Great development experience.
 
-## Getting Started
+## Quick Overview
 
 Before we get started, ensure that you have installed Node.js (>=8) and Yarn (or npm) on your machine.
 
-Next inside your project, run `yarn init` or `npm init` to create a `package.json` and install Poi:
+### Get Started Immediately
+
+```bash
+npx create-poi-app my-app
+# OR
+yarn create poi-app my-app
+
+cd my-app
+npm run dev
+```
+
+_([npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) comes with npm 5.2+ and [yarn create]() comes with Yarn 0.25+)_
+
+Then open http://localhost:4000 to see your app.<br>
+When you’re ready to deploy to production, create a minified bundle with `npm run build`.
+
+### Get Started Manually
+
+Inside an empty project, run `yarn init` or `npm init` to create a `package.json` and install Poi:
 
 ```bash
 yarn init

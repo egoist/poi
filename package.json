@@ -10,7 +10,8 @@
     "core/*",
     "examples/*",
     "plugins/*",
-    "other-packages/*"
+    "other-packages/*",
+    "create-poi-app"
   ],
   "devDependencies": {
     "eslint-config-prettier": "^3.3.0",
@@ -51,7 +52,8 @@
       ]
     },
     "ignore": [
-      "examples/**"
+      "examples/**",
+      "create-poi-app/generator/template/**"
     ]
   }
 }
