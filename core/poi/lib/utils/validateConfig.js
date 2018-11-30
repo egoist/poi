@@ -2,6 +2,7 @@ const { superstruct } = require('superstruct')
 const getFileNames = require('./getFileNames')
 
 module.exports = (api, config) => {
+  api.logger.debug('Validating config', config)
   const struct = superstruct()
 
   const entry = struct.optional(
@@ -90,16 +91,18 @@ module.exports = (api, config) => {
     }
   )
 
+  const plugins = struct.optional([
+    struct({
+      resolve: struct.union(['string', 'object']),
+      options: struct.optional('object')
+    })
+  ])
+
   const Struct = struct(
     {
       entry,
       output,
-      plugins: struct.optional([
-        struct.object({
-          resolve: 'string',
-          options: struct.optional('object')
-        })
-      ]),
+      plugins,
       parallel: 'boolean',
       cache: 'boolean',
       babel,

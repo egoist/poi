@@ -14,7 +14,7 @@ exports.apply = api => {
     HtmlPlugin.__expression = `require('html-webpack-plugin')`
 
     // Split vendors and common chunks
-    if (api.mode === 'production') {
+    if (api.mode === 'production' && api.config.output.format === 'iife') {
       config.optimization.splitChunks({
         cacheGroups: {
           vendors: {

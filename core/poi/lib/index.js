@@ -59,6 +59,7 @@ module.exports = class PoiCore {
 
     // Try to load config file
     if (this.parsedArgs.has('no-config')) {
+      logger.debug('Poi config file was disabled')
       this.config = {}
     } else {
       const configFiles = this.parsedArgs.has('config')
@@ -111,6 +112,8 @@ module.exports = class PoiCore {
       .option('--mode <mode>', 'Set mode', 'development')
       .option('--prod, --production', 'Alias for --mode production')
       .option('--test', 'Alias for --mode test')
+      .option('--no-config', 'Disable Poi config file')
+      .option('--config <path>', 'Set the path to Poi config file')
       .option('--debug', 'Show debug logs')
       .option('--inspect-webpack', 'Inspect webpack config')
       .version(require('../package').version)
@@ -208,7 +211,6 @@ module.exports = class PoiCore {
     logger.debug(`Config from CLI options`, cliConfig)
 
     this.config = validateConfig(this, merge(this.config, cliConfig))
-    logger.debug(`Merged config`, this.config)
 
     await this.cli.runMatchedCommand()
   }

@@ -2293,6 +2293,11 @@ cac@^6.1.3, cac@^6.3.4:
   resolved "https://registry.npmjs.org/cac/-/cac-6.3.4.tgz#83317bd23fd4f44da8e63bb0533610dc953d6c2e"
   integrity sha512-7UZiAMxQoZpSdzTdyPmEOnqsOX78c4CKixC6jJgIrk6sTYusl7Ly1A2u8Sfdl+qbjxHW1BDL/OitN1UGESC6BA==
 
+cac@^6.3.6:
+  version "6.3.6"
+  resolved "https://registry.npmjs.org/cac/-/cac-6.3.6.tgz#d846a71efef3af168f9994d2a751f0398fb41718"
+  integrity sha512-5sGrDwMwigDelM7f8GY2lkQov9XWgugnuAQ8e2KjSfsI9nXwtAbgn2n7u+5lloiWOCIPRUEhU2FXi3OJ8GEbqA==
+
 cacache@^10.0.4:
   version "10.0.4"
   resolved "http://registry.npmjs.org/cacache/-/cacache-10.0.4.tgz#6452367999eff9d4188aefd9a14e9d7c6a263460"
