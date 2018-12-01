@@ -1,6 +1,7 @@
 const path = require('path')
 const os = require('os')
 const chalk = require('chalk')
+const fs = require('fs-extra')
 
 const isLocalPath = v => /^[./]|(^[a-zA-Z]:)/.test(v)
 
@@ -226,4 +227,20 @@ module.exports = (config, api) => {
       }
     ]
   ])
+
+  if (api.config.output.clean !== false) {
+    config.plugin('clean-out-dir').use(
+      class CleanOutDir {
+        apply(compiler) {
+          compiler.hooks.beforeRun.tapPromise('clean-out-dir', async () => {
+            if (api.resolveOutDir() === process.cwd()) {
+              api.logger.error(`Refused to clean current working directory`)
+              return
+            }
+            await fs.remove(api.resolveOutDir())
+          })
+        }
+      }
+    )
+  }
 }

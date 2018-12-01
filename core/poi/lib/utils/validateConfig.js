@@ -130,5 +130,7 @@ module.exports = (api, config) => {
     result.output.fileNames
   )
 
+  api.logger.debug('Validated config', result)
+
   return result
 }
