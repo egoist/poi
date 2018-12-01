@@ -12,25 +12,18 @@ exports.apply = api => {
 
     const rule = config.module.rule('ts').test(/\.tsx?$/)
 
-    if (api.config.cache) {
-      rule
-        .use('cache-loader')
-        .loader('cache-loader')
-        .options(
-          api.getCacheConfig(
-            'ts-loader',
-            {
-              typescript: require('typescript/package').version,
-              'ts-loader': require('ts-loader/package').version
-            },
-            'tsconfig.json'
-          )
-        )
-    }
+    api.webpackUtils.addCacheSupport(rule, () =>
+      api.getCacheConfig(
+        'ts-loader',
+        {
+          typescript: api.localRequire('typescript/package').version,
+          'ts-loader': require('ts-loader/package').version
+        },
+        'tsconfig.json'
+      )
+    )
 
-    if (api.config.parallel) {
-      rule.use('thread-loader').loader('thread-loader')
-    }
+    api.webpackUtils.addParallelSupport(rule)
 
     rule
       .use('ts-loader')

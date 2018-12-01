@@ -28,4 +28,23 @@ module.exports = class WebpackUtils {
   get CopyPlugin() {
     return require('copy-webpack-plugin')
   }
+
+  addParallelSupport(rule) {
+    if (this.api.config.parallel) {
+      rule.use('thread-loader').loader('thread-loader')
+    }
+
+    return this
+  }
+
+  addCacheSupport(rule, getCacheConfig) {
+    if (this.api.config.cache) {
+      rule
+        .use('cache-loader')
+        .loader('cache-loader')
+        .options(getCacheConfig())
+    }
+
+    return this
+  }
 }

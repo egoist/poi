@@ -89,15 +89,13 @@ module.exports = (config, api) => {
     config.output.library(moduleName)
   }
 
+  const poiInstalledDir = path.join(__dirname, '../../../')
+
   /** Resolve loaders */
-  config.resolveLoader.modules
-    .add('node_modules')
-    .add(path.dirname(path.dirname(require.resolve('babel-loader/package'))))
+  config.resolveLoader.modules.add('node_modules').add(poiInstalledDir)
 
   /** Resolve modules */
-  config.resolve.modules
-    .add('node_modules')
-    .add(path.dirname(path.dirname(require.resolve('babel-loader/package'))))
+  config.resolve.modules.add('node_modules').add(poiInstalledDir)
 
   // Add progress bar
   if (

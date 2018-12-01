@@ -33,9 +33,7 @@ exports.apply = api => {
       return false
     })
 
-    if (api.config.parallel) {
-      rule.use('thread-loader').loader('thread-loader')
-    }
+    api.webpackUtils.addParallelSupport(rule)
 
     rule
       .use('babel-loader')
