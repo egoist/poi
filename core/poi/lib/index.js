@@ -138,8 +138,8 @@ module.exports = class PoiCore {
 
   hasDependency(name) {
     return [
-      ...Object.keys(this.pkg.dependencies || {}),
-      ...Object.keys(this.pkg.devDependencies || {})
+      ...Object.keys(this.pkg.data.dependencies || {}),
+      ...Object.keys(this.pkg.data.devDependencies || {})
     ].includes(name)
   }
 

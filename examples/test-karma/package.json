@@ -7,6 +7,8 @@
   },
   "devDependencies": {
     "@poi/plugin-karma": "^12.0.0-alpha.7",
-    "poi": "^12.0.0-alpha.7"
+    "poi": "^12.0.0-alpha.7",
+    "sass": "^1.15.1",
+    "sass-loader": "^7.1.0"
   }
 }
