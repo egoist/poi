@@ -42,7 +42,7 @@
     "get-port": "^4.0.0",
     "gzip-size": "^5.0.0",
     "html-webpack-plugin": "^4.0.0-beta.4",
-    "joycon": "^2.1.2",
+    "joycon": "^2.2.0",
     "launch-editor-middleware": "^2.2.1",
     "lodash.merge": "^4.6.1",
     "mini-css-extract-plugin": "^0.4.5",

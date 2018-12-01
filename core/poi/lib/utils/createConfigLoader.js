@@ -3,6 +3,7 @@ const path = require('path')
 const JoyCon = require('joycon').default
 
 const rcLoader = {
+  name: 'rc',
   test: /\.[a-z]+rc$/,
   loadSync(filePath) {
     return JSON.parse(fs.readFileSync(filePath, 'utf8'))

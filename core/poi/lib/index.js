@@ -14,7 +14,18 @@ const spinner = require('./utils/spinner')
 const validateConfig = require('./utils/validateConfig')
 
 module.exports = class PoiCore {
-  constructor(args = process.argv) {
+  constructor(
+    args = process.argv,
+    {
+      defaultConfigFiles = [
+        'poi.config.js',
+        '.poirc',
+        '.poirc.json',
+        '.poirc.js'
+      ],
+      extendConfigLoader
+    } = {}
+  ) {
     this.args = args
     this.logger = logger
     this.spinner = spinner
@@ -48,6 +59,11 @@ module.exports = class PoiCore {
 
     this.configLoader = createConfigLoader(this.cwd)
 
+    // For other tools that use Poi under the hood
+    if (extendConfigLoader) {
+      extendConfigLoader(this.configLoader)
+    }
+
     // Load .env files
     loadEnvs(this.mode, this.resolveCwd('.env'))
 
@@ -64,7 +80,7 @@ module.exports = class PoiCore {
     } else {
       const configFiles = this.parsedArgs.has('config')
         ? [this.parsedArgs.getValue('config')]
-        : ['poi.config.js', '.poirc', '.poirc.json', '.poirc.js']
+        : defaultConfigFiles
       const { path: configPath, data: config } = this.configLoader.load({
         files: configFiles
       })
