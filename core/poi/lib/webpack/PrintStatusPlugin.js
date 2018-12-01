@@ -13,6 +13,9 @@ class PrintStatusPlugin {
 
   apply(compiler) {
     compiler.hooks.done.tapPromise('print-status', async stats => {
+      if (this.opts.clearConsole !== false) {
+        require('@poi/dev-utils/clearConsole')()
+      }
       if (stats.hasErrors() || stats.hasWarnings()) {
         if (stats.hasErrors()) {
           process.exitCode = 1

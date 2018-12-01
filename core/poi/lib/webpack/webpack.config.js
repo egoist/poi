@@ -135,7 +135,8 @@ module.exports = (config, api) => {
   if (api.mode !== 'test') {
     config.plugin('print-status').use(require('./PrintStatusPlugin'), [
       {
-        printFileStats: true
+        printFileStats: true,
+        clearConsole: api.cli.options.clearConsole
       }
     ])
   }
