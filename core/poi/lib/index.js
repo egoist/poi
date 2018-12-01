@@ -23,7 +23,8 @@ module.exports = class PoiCore {
         '.poirc.json',
         '.poirc.js'
       ],
-      extendConfigLoader
+      extendConfigLoader,
+      config: externalConfig
     } = {}
   ) {
     this.args = args
@@ -74,9 +75,9 @@ module.exports = class PoiCore {
     this.webpackUtils = new WebpackUtils(this)
 
     // Try to load config file
-    if (this.parsedArgs.has('no-config')) {
+    if (externalConfig || this.parsedArgs.has('no-config')) {
       logger.debug('Poi config file was disabled')
-      this.config = {}
+      this.config = externalConfig
     } else {
       const configFiles = this.parsedArgs.has('config')
         ? [this.parsedArgs.getValue('config')]
@@ -128,8 +129,8 @@ module.exports = class PoiCore {
       .option('--mode <mode>', 'Set mode', 'development')
       .option('--prod, --production', 'Alias for --mode production')
       .option('--test', 'Alias for --mode test')
-      .option('--no-config', 'Disable Poi config file')
-      .option('--config <path>', 'Set the path to Poi config file')
+      .option('--no-config', 'Disable config file')
+      .option('--config <path>', 'Set the path to config file')
       .option('--debug', 'Show debug logs')
       .option('--inspect-webpack', 'Inspect webpack config')
       .version(require('../package').version)
