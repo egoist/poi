@@ -1,12 +1,12 @@
 {
   "name": "@poi/example-test-karma",
-  "version": "12.0.0-alpha.6",
+  "version": "12.0.0-alpha.7",
   "private": true,
   "scripts": {
     "test": "poi karma --test"
   },
   "devDependencies": {
-    "@poi/plugin-karma": "^12.0.0-alpha.6",
-    "poi": "^12.0.0-alpha.6"
+    "@poi/plugin-karma": "^12.0.0-alpha.7",
+    "poi": "^12.0.0-alpha.7"
   }
 }
