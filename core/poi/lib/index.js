@@ -1,4 +1,5 @@
 const fs = require('fs')
+const os = require('os')
 const path = require('path')
 const resolveFrom = require('resolve-from')
 const cac = require('cac')
@@ -35,6 +36,11 @@ module.exports = class PoiCore {
     this.parsedArgs = parseArgs(args.slice(2))
     this.hooks = new Hooks()
     this.testRunners = new Map()
+
+    // Used for inspecting webpack config only (for now)
+    this._id = Math.random()
+      .toString(36)
+      .substring(7)
 
     if (this.parsedArgs.has('debug')) {
       logger.setOptions({ debug: true })
@@ -132,7 +138,7 @@ module.exports = class PoiCore {
       .option('--no-config', 'Disable config file')
       .option('--config <path>', 'Set the path to config file')
       .option('--debug', 'Show debug logs')
-      .option('--inspect-webpack', 'Inspect webpack config')
+      .option('--inspect-webpack', 'Inspect webpack config in your editor')
       .version(require('../package').version)
       .help()
   }
@@ -231,6 +237,10 @@ module.exports = class PoiCore {
     this.config = validateConfig(this, merge(this.config, cliConfig))
 
     await this.cli.runMatchedCommand()
+
+    if (this._inspectWebpackConfigFile) {
+      require('@poi/dev-utils/open')(this._inspectWebpackConfigFile)
+    }
   }
 
   createConfigFromCLIOptions() {
@@ -303,7 +313,14 @@ module.exports = class PoiCore {
     }
 
     if (this.cli.options.inspectWebpack) {
-      logger.log('webpack config', opts, config.toString())
+      this._inspectWebpackConfigFile = path.join(
+        os.tmpdir(),
+        `poi-inspect-webpack-config-${this._id}.js`
+      )
+      fs.appendFileSync(
+        this._inspectWebpackConfigFile,
+        `// ${JSON.stringify(opts)}\n${config.toString()}\n\n`
+      )
     }
 
     return config
