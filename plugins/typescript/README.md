@@ -18,7 +18,8 @@ yarn add @poi/plugin-typescript@next typescript --dev
 module.exports = {
   plugins: [
     {
-      resolve: '@poi/plugin-typescript'
+      resolve: '@poi/plugin-typescript',
+      options: {}
     }
   ]
 }
@@ -26,13 +27,22 @@ module.exports = {
 
 Then add a `tsconfig.json` in your project:
 
-```json5
+```json
 {
-  compilerOptions: {
-    target: 'es5',
-    strict: true,
-    module: 'es2015',
-    moduleResolution: 'node'
+  "compilerOptions": {
+    "target": "es5,
+    "strict": true,
+    "module": "es2015",
+    "moduleResolution": "node"
   }
 }
 ```
+
+## Options
+
+### lintOnSave
+
+- Type: `boolean`
+- Default: `true`
+
+Lint TS files with `ts-lint` at compile time, you need to create a `tslint.json` in your project.
