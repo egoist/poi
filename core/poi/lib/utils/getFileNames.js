@@ -7,9 +7,6 @@ module.exports = ({ useHash, format }) => {
       css: useHash
         ? 'assets/css/[name].[chunkhash:8].css'
         : 'assets/css/[name].css',
-      chunk: useHash
-        ? 'assets/js/[name].[chunkhash:8].chunk.js'
-        : 'assets/js/[name].chunk.js',
       font: useHash
         ? 'assets/fonts/[path][name].[hash:8].[ext]'
         : 'assets/fonts/[path][name].[ext]',
@@ -21,7 +18,6 @@ module.exports = ({ useHash, format }) => {
     res = {
       js: '[name].js',
       css: '[name].css',
-      chunk: '[name].chunk.js',
       font: '[path][name].[ext]',
       image: '[path][name].[ext]'
     }

@@ -62,6 +62,9 @@ module.exports = (config, api) => {
   /** Set output */
   config.output.path(api.resolveOutDir())
   config.output.filename(api.config.output.fileNames.js)
+  config.output.chunkFilename(
+    api.config.output.fileNames.js.replace(/\.js$/, '.chunk.js')
+  )
   config.output.publicPath(api.config.output.publicUrl)
 
   /** Set format */

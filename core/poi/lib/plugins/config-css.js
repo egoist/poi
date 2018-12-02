@@ -48,7 +48,10 @@ exports.apply = api => {
 
     const extractOptions = {
       filename: api.config.output.fileNames.css,
-      chunkFilename: api.config.output.fileNames.chunk.replace(/\.js$/, '.css')
+      chunkFilename: api.config.output.fileNames.css.replace(
+        /\.css$/,
+        '.chunk.css'
+      )
     }
 
     const createCSSRule = (lang, test, loader, options) => {

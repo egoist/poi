@@ -24,7 +24,6 @@ module.exports = (api, config) => {
         struct.object({
           js: struct.optional('string'),
           css: struct.optional('string'),
-          chunk: struct.optional('string'),
           font: struct.optional('string'),
           image: struct.optional('string')
         })
