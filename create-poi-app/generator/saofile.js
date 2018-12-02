@@ -23,7 +23,8 @@ module.exports = {
           },
           {
             name: 'Linter',
-            value: 'linter'
+            value: 'linter',
+            checked: true
           },
           {
             name: 'Unit Test',
@@ -124,7 +125,12 @@ module.exports = {
             scripts: {
               build: 'poi --prod',
               dev: 'poi --serve',
-              'test:unit': when(unit === 'karma', 'poi karma --test')
+              'test:unit': when(unit === 'karma', 'poi karma --test'),
+              lint: when(
+                useEslint,
+                'eslint .',
+                when(linterConfig === 'tslint', 'tslint --project .')
+              )
             },
             devDependencies: {
               poi: 'next',

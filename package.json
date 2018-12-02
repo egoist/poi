@@ -33,7 +33,10 @@
       "unicorn/no-abusive-eslint-disable": "off",
       "no-multi-assign": "off",
       "camelcase": "off"
-    }
+    },
+    "envs": [
+      "jest"
+    ]
   },
   "husky": {
     "hooks": {

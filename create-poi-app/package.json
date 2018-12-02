@@ -4,8 +4,12 @@
   "license": "MIT",
   "files": [
     "bin",
-    "generator"
+    "generator",
+    "!**/__test__/**"
   ],
+  "scripts": {
+    "test": "jest"
+  },
   "bin": {
     "cpa": "bin/cli.js",
     "create-poi-app": "bin/cli.js"
@@ -15,5 +19,14 @@
     "sao": "^1.6.1",
     "stringify-object": "^3.3.0"
   },
-  "xo": false
+  "xo": false,
+  "devDependencies": {
+    "jest": "^23.6.0"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/templates/"
+    ],
+    "testEnvironment": "node"
+  }
 }
