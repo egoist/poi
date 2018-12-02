@@ -1,6 +1,6 @@
 {
   "name": "poi",
-  "version": "12.0.0-beta.1",
+  "version": "12.0.0-beta.2",
   "main": "lib/index.js",
   "bin": "bin/cli.js",
   "files": [
