@@ -22,8 +22,8 @@ module.exports = {
             value: 'typeChecker'
           },
           {
-            name: 'ESLint',
-            value: 'eslint'
+            name: 'Linter',
+            value: 'linter'
           },
           {
             name: 'Unit Test',
@@ -53,17 +53,22 @@ module.exports = {
         ]
       },
       {
-        name: 'eslint',
-        message: 'Choose an ESLint config',
+        name: 'linterConfig',
+        message: 'Choose a linter config',
         type: 'list',
-        when: ({ features, typeChecker }) =>
-          features.includes('eslint') && typeChecker !== 'ts',
-        choices: [
-          {
-            name: 'XO',
-            value: 'xo'
-          }
-        ]
+        when: ({ features }) => features.includes('linter'),
+        choices({ typeChecker }) {
+          return [
+            typeChecker === 'ts' && {
+              name: 'TSLint',
+              value: 'tslint'
+            },
+            {
+              name: 'XO',
+              value: 'xo'
+            }
+          ].filter(Boolean)
+        }
       },
       {
         name: 'unit',
@@ -80,16 +85,16 @@ module.exports = {
     ]
   },
   actions() {
-    const { features, typeChecker, eslint, unit } = this.answers
+    const { features, typeChecker, linterConfig, unit } = this.answers
     return [
       {
         type: 'add',
         templateDir: 'templates/main',
         files: '**'
       },
-      eslint && {
+      linterConfig && {
         type: 'add',
-        templateDir: 'templates/eslint',
+        templateDir: `templates/linter-${linterConfig}`,
         files: '**'
       },
       {
@@ -109,7 +114,9 @@ module.exports = {
         type: 'modify',
         files: 'package.json',
         handler: () => {
-          const { features, unit, typeChecker, eslint } = this.answers
+          const { features, unit, typeChecker, linterConfig } = this.answers
+
+          const useEslint = linterConfig && linterConfig !== 'tslint'
 
           return {
             name: this.outFolder,
@@ -122,9 +129,9 @@ module.exports = {
             devDependencies: {
               poi: 'next',
               '@poi/plugin-karma': when(unit === 'karma', 'next'),
-              eslint: when(eslint, '^4.0.0'),
-              'eslint-config-xo': when(eslint === 'xo', '^0.23.0'),
-              '@poi/plugin-eslint': when(eslint, 'next'),
+              eslint: when(useEslint, '^4.0.0'),
+              'eslint-config-xo': when(linterConfig === 'xo', '^0.23.0'),
+              '@poi/plugin-eslint': when(useEslint, 'next'),
               typescript: when(typeChecker === 'ts', '^3.2.1'),
               '@poi/plugin-typescript': when(typeChecker === 'ts', 'next'),
               '@poi/plugin-pwa': when(features.includes('pwa'), 'next')
@@ -137,9 +144,9 @@ module.exports = {
         files: 'poi.config.js',
         handler: () => {
           const s = require('stringify-object')
-          const { features, eslint, unit, typeChecker } = this.answers
+          const { features, linterConfig, unit, typeChecker } = this.answers
           const config = { entry: 'src/index', plugins: [] }
-          if (eslint) {
+          if (linterConfig && linterConfig !== 'tslint') {
             config.plugins.push({
               resolve: '@poi/plugin-eslint'
             })
