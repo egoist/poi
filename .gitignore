@@ -4,3 +4,4 @@ dist
 /.changelog
 .vscode
 .idea
+.DS_Store
