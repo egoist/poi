@@ -4,12 +4,17 @@ const cli = require('cac')()
 
 cli
   .command('<target-folder>', 'Generate a new project to target folder')
-  .action(async targetFolder => {
+  .option(
+    '--npm-client <client>',
+    `Choose an npm client for installing packages ('yarn' | 'npm')`
+  )
+  .action(async (targetFolder, { npmClient }) => {
     const sao = require('sao')
 
     const app = sao({
       generator: path.join(__dirname, '../generator'),
-      outDir: targetFolder
+      outDir: targetFolder,
+      npmClient
     })
 
     await app.run().catch(sao.handleError)

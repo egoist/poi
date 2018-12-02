@@ -1,4 +1,4 @@
-import '../assets/css/style.css'
+import './assets/css/style.css'
 
 const title = document.createElement('h1')
 title.textContent = 'Hello Poi!'

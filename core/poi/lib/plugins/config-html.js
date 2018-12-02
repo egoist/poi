@@ -52,7 +52,7 @@ exports.apply = api => {
     }
 
     const defaultHtmlOpts = {
-      title: 'Poi App',
+      title: api.pkg.data.name || 'Poi App',
       template: getDefaultTemplate(),
       templateParameters: templateParametersGenerator({
         pkg: api.pkg.data,

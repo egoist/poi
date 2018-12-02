@@ -28,6 +28,10 @@ module.exports = {
           {
             name: 'Unit Test',
             value: 'unit'
+          },
+          {
+            name: 'Progressive Web App (PWA)',
+            value: 'pwa'
           }
         ]
       },
@@ -76,16 +80,18 @@ module.exports = {
     ]
   },
   actions() {
-    const { features, typeChecker } = this.answers
+    const { features, typeChecker, eslint } = this.answers
     return [
       {
         type: 'add',
         files: '**',
         filters: {
-          '.eslintrc.js': features.includes('eslint'),
+          '.eslintrc.js': eslint,
           'tsconfig.json': typeChecker === 'ts',
           'src-js/**': typeChecker !== 'ts',
-          'src-ts/**': typeChecker === 'ts'
+          'src-ts/**': typeChecker === 'ts',
+          'manifest.json': features.includes('pwa'),
+          'public/img/**': features.includes('pwa')
         }
       },
       {
@@ -95,10 +101,16 @@ module.exports = {
         }
       },
       {
+        type: 'move',
+        patterns: {
+          __assets: 'src/assets'
+        }
+      },
+      {
         type: 'modify',
         files: 'package.json',
         handler: () => {
-          const { unit, typeChecker, eslint } = this.answers
+          const { features, unit, typeChecker, eslint } = this.answers
 
           return {
             name: this.outFolder,
@@ -115,7 +127,8 @@ module.exports = {
               'eslint-config-xo': when(eslint === 'xo', '^0.23.0'),
               '@poi/plugin-eslint': when(eslint, 'next'),
               typescript: when(typeChecker === 'ts', '^3.2.1'),
-              '@poi/plugin-typescript': when(typeChecker === 'ts', 'next')
+              '@poi/plugin-typescript': when(typeChecker === 'ts', 'next'),
+              '@poi/plugin-pwa': when(features.includes('pwa'), 'next')
             }
           }
         }
@@ -125,7 +138,7 @@ module.exports = {
         files: 'poi.config.js',
         handler: () => {
           const s = require('stringify-object')
-          const { eslint, unit, typeChecker } = this.answers
+          const { features, eslint, unit, typeChecker } = this.answers
           const config = { entry: 'src/index', plugins: [] }
           if (eslint) {
             config.plugins.push({
@@ -140,6 +153,11 @@ module.exports = {
           if (typeChecker === 'ts') {
             config.plugins.push({
               resolve: '@poi/plugin-typescript'
+            })
+          }
+          if (features.includes('pwa')) {
+            config.plugins.push({
+              resolve: '@poi/plugin-pwa'
             })
           }
           return `module.exports = ${s(config, {
