@@ -1,6 +1,6 @@
-const fs = require('fs')
 const os = require('os')
 const path = require('path')
+const fs = require('fs-extra')
 const resolveFrom = require('resolve-from')
 const cac = require('cac')
 const merge = require('lodash.merge')
@@ -36,11 +36,6 @@ module.exports = class PoiCore {
     this.parsedArgs = parseArgs(args.slice(2))
     this.hooks = new Hooks()
     this.testRunners = new Map()
-
-    // Used for inspecting webpack config only (for now)
-    this._id = Math.random()
-      .toString(36)
-      .substring(7)
 
     if (this.parsedArgs.has('debug')) {
       logger.setOptions({ debug: true })
@@ -237,10 +232,6 @@ module.exports = class PoiCore {
     this.config = validateConfig(this, merge(this.config, cliConfig))
 
     await this.cli.runMatchedCommand()
-
-    if (this._inspectWebpackConfigFile) {
-      require('@poi/dev-utils/open')(this._inspectWebpackConfigFile)
-    }
   }
 
   createConfigFromCLIOptions() {
@@ -313,13 +304,26 @@ module.exports = class PoiCore {
     }
 
     if (this.cli.options.inspectWebpack) {
-      this._inspectWebpackConfigFile = path.join(
-        os.tmpdir(),
-        `poi-inspect-webpack-config-${this._id}.js`
-      )
-      fs.appendFileSync(
-        this._inspectWebpackConfigFile,
-        `// ${JSON.stringify(opts)}\n${config.toString()}\n\n`
+      const configString = `// ${JSON.stringify(
+        opts
+      )}\n${config.toString()}\n\n`
+
+      config.plugin('inspect-webpack').use(
+        class InspectWebpack {
+          apply(compiler) {
+            compiler.hooks.beforeRun.tapPromise('inspect-webpack', async () => {
+              const id = Math.random()
+                .toString(36)
+                .substring(7)
+              const outFile = path.join(
+                os.tmpdir(),
+                `poi-inspect-webpack-config-${id}.js`
+              )
+              await fs.writeFile(outFile, configString, 'utf8')
+              require('@poi/dev-utils/open')(outFile)
+            })
+          }
+        }
       )
     }
 
