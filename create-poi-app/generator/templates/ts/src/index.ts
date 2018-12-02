@@ -1,16 +1,16 @@
-import './assets/css/style.css'
+import './assets/css/style.css';
 
-const title = document.createElement('h1')
-title.textContent = 'Hello Poi!'
-title.className = 'title'
+const title = document.createElement('h1');
+title.textContent = 'Hello Poi!';
+title.className = 'title';
 
-const tip = document.createElement('div')
-tip.textContent = 'Edit src/index.ts and save to reload.'
-tip.className = 'tip'
+const tip = document.createElement('div');
+tip.textContent = 'Edit src/index.ts and save to reload.';
+tip.className = 'tip';
 
-const app = document.getElementById('app')
+const app = document.getElementById('app');
 
 if (app) {
-  app.appendChild(title)
-  app.appendChild(tip)
+  app.appendChild(title);
+  app.appendChild(tip);
 }
