@@ -135,8 +135,8 @@ module.exports = {
             devDependencies: {
               poi: 'next',
               '@poi/plugin-karma': when(unit === 'karma', 'next'),
-              eslint: when(useEslint, '^4.0.0'),
-              'eslint-config-xo': when(linterConfig === 'xo', '^0.23.0'),
+              eslint: when(useEslint, '^5.9.0'),
+              'eslint-config-xo': when(linterConfig === 'xo', '^0.25.0'),
               '@poi/plugin-eslint': when(useEslint, 'next'),
               typescript: when(typeChecker === 'ts', '^3.2.1'),
               '@poi/plugin-typescript': when(typeChecker === 'ts', 'next'),
