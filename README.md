@@ -29,8 +29,6 @@ cd my-app
 npm run dev
 ```
 
-_([npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) comes with npm 5.2+ and [yarn create]() comes with Yarn 0.25+)_
-
 Then open http://localhost:4000 to see your app.<br>
 When you’re ready to deploy to production, create a minified bundle with `npm run build`.
 
