@@ -53,7 +53,7 @@
     },
     "ignore": [
       "examples/**",
-      "create-poi-app/generator/template/**"
+      "create-poi-app/generator/templates/**"
     ]
   }
 }

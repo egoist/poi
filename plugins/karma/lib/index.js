@@ -15,7 +15,7 @@ exports.apply = api => {
         }
         return require('./run-karma')(
           api,
-          testFiles.length === 0 ? ['**/*.test.js'] : testFiles,
+          testFiles.length === 0 ? ['**/*.test.{js,ts}'] : testFiles,
           options
         )
       })

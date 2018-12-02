@@ -11,3 +11,10 @@ Build app for production to `./dist` folder.
 ### `npm run dev`
 
 Start a dev server to preview your app.
+
+<% if (unit) { %>
+
+### `npm run test:unit`
+
+Run unit tests.
+<% } %>

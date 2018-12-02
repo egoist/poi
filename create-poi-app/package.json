@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "cac": "^6.3.9",
-    "sao": "^1.5.0",
+    "sao": "^1.6.1",
     "stringify-object": "^3.3.0"
   },
   "xo": false

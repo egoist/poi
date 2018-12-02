@@ -80,31 +80,30 @@ module.exports = {
     ]
   },
   actions() {
-    const { features, typeChecker, eslint } = this.answers
+    const { features, typeChecker, eslint, unit } = this.answers
     return [
       {
         type: 'add',
+        templateDir: 'templates/main',
+        files: '**'
+      },
+      eslint && {
+        type: 'add',
+        templateDir: 'templates/eslint',
+        files: '**'
+      },
+      {
+        type: 'add',
+        templateDir: `templates/${typeChecker === 'ts' ? 'ts' : 'js'}`,
         files: '**',
         filters: {
-          '.eslintrc.js': eslint,
-          'tsconfig.json': typeChecker === 'ts',
-          'src-js/**': typeChecker !== 'ts',
-          'src-ts/**': typeChecker === 'ts',
-          'manifest.json': features.includes('pwa'),
-          'public/img/**': features.includes('pwa')
+          '**/*.test.{js,ts}': Boolean(unit)
         }
       },
-      {
-        type: 'move',
-        patterns: {
-          'src-*': 'src'
-        }
-      },
-      {
-        type: 'move',
-        patterns: {
-          __assets: 'src/assets'
-        }
+      features.includes('pwa') && {
+        type: 'add',
+        templateDir: 'templates/pwa',
+        files: '**'
       },
       {
         type: 'modify',
@@ -166,7 +165,7 @@ module.exports = {
           })}`
         }
       }
-    ]
+    ].filter(Boolean)
   },
   async completed() {
     this.gitInit()
