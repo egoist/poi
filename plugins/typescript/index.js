@@ -1,6 +1,6 @@
 exports.name = 'typescript'
 
-exports.apply = (api, { lintOnSave = true }) => {
+exports.apply = (api, { lintOnSave = true } = {}) => {
   api.hook('onCreateWebpackConfig', config => {
     const test = config.module
       .rule('js')
