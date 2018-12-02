@@ -8,7 +8,7 @@ exports.apply = api => {
       .use('bs-loader')
       .loader(require.resolve('@poi/bs-loader'))
       .options({
-        cwd: api.resolve()
+        cwd: api.resolveCwd()
       })
   })
 }
