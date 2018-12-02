@@ -45,3 +45,11 @@ To run it easier, you can configure this in npm scripts:
 ```
 
 Now you can run `npm test` instead.
+
+### Test File Patterns
+
+By default this plugin use `**/*.test.{js,ts}` (excluded node_modules) as test files, you can change this to any minimatch pattern (note the quotes to avoid shell expansion):
+
+```bash
+poi karma "**/*.spec.coffee" --test
+```
