@@ -55,6 +55,7 @@
     "text-table": "^0.2.0",
     "thread-loader": "^1.2.0",
     "url-loader": "^1.1.2",
+    "v8-compile-cache": "^2.0.2",
     "vue-loader": "^15.4.2",
     "vue-style-loader": "^4.1.2",
     "webpack": "^4.26.0",
