@@ -7,6 +7,8 @@
 
 Poi is a bundler built on the top of webpack, trying to make developing and bundling apps with webpack as easy as possible.
 
+**The Poi project is supported by our [Backers](./BACKERS.md) and funded through [Patreon](https://patreon.com/egoist).**
+
 ## Features
 
 - 📦 Out of box support for JS, CSS, File assets and more.
