@@ -98,6 +98,15 @@ module.exports = (api, config) => {
     })
   ])
 
+  const assets = struct(
+    {
+      inlineImageMaxSize: struct.optional('number')
+    },
+    {
+      inlineImageMaxSize: 5000
+    }
+  )
+
   const Struct = struct(
     {
       entry,
@@ -110,7 +119,8 @@ module.exports = (api, config) => {
       devServer,
       envs: struct.optional('object'),
       constants: struct.optional('object'),
-      chainWebpack: struct.optional('function')
+      chainWebpack: struct.optional('function'),
+      assets
     },
     {
       cache: true,

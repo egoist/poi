@@ -2,8 +2,6 @@ exports.name = 'builtin:config-image'
 
 exports.apply = api => {
   api.hook('onCreateWebpackConfig', config => {
-    const inlineImageMaxSize = 5000 // 5 KB
-
     const filename = api.config.output.fileNames.image
 
     config.module
@@ -13,8 +11,8 @@ exports.apply = api => {
       .loader('url-loader')
       .options({
         name: filename,
-        // inline the file if < max size
-        limit: inlineImageMaxSize
+        // inline the file if smaller than this size
+        limit: api.config.assets.inlineImageMaxSize
       })
 
     config.module
