@@ -1,12 +1,12 @@
 {
   "private": true,
-  "version": "12.0.0-beta.3",
+  "version": "12.0.0-beta.4",
   "name": "@poi/examples-default-app",
   "scripts": {
     "dev": "poi --serve index.ts",
     "build": "poi --prod index.ts"
   },
   "devDependencies": {
-    "poi": "^12.0.0-beta.3"
+    "poi": "^12.0.0-beta.4"
   }
 }
