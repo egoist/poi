@@ -5,7 +5,9 @@
   "bin": "bin/cli.js",
   "files": [
     "lib",
-    "bin"
+    "bin",
+    "babel.js",
+    "webpack.config.js"
   ],
   "license": "MIT",
   "dependencies": {
