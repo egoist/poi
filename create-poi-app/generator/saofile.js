@@ -177,6 +177,12 @@ module.exports = {
             indent: '  '
           })}`
         }
+      },
+      {
+        type: 'move',
+        patterns: {
+          _gitignore: '.gitignore'
+        }
       }
     ].filter(Boolean)
   },
