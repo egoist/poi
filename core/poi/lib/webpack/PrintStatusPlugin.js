@@ -42,7 +42,8 @@ class PrintStatusPlugin {
         // Print file stats
         if (
           (this.opts.printFileStats || logger.options.debug) &&
-          !process.env.CI
+          !process.env.CI &&
+          process.stdout.isTTY
         ) {
           logger.log()
           const assets = await Promise.all(
