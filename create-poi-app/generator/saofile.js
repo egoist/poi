@@ -140,7 +140,11 @@ module.exports = {
               '@poi/plugin-eslint': when(useEslint, 'next'),
               typescript: when(typeChecker === 'ts', '^3.2.1'),
               '@poi/plugin-typescript': when(typeChecker === 'ts', 'next'),
-              '@poi/plugin-pwa': when(features.includes('pwa'), 'next')
+              '@poi/plugin-pwa': when(features.includes('pwa'), 'next'),
+              'register-service-worker': when(
+                features.includes('pwa'),
+                '^1.5.2'
+              )
             }
           }
         }
@@ -152,6 +156,9 @@ module.exports = {
           const s = require('stringify-object')
           const { features, linterConfig, unit, typeChecker } = this.answers
           const config = { entry: 'src/index', plugins: [] }
+          if (features.includes('pwa')) {
+            config.entry = ['src/registerServiceWorker'].concat(config.entry)
+          }
           if (linterConfig && linterConfig !== 'tslint') {
             config.plugins.push({
               resolve: '@poi/plugin-eslint'
