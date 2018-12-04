@@ -1,3 +1,4 @@
+/* eslint-env browser */
 import './assets/css/style.css';
 
 const title = document.createElement('h1');

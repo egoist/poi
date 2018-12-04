@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+// eslint-disable-next-line import/no-unassigned-import
+require('v8-compile-cache')
 const Poi = require('..')
 
 const poi = new Poi()
