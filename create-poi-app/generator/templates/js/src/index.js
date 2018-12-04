@@ -5,7 +5,7 @@ title.textContent = 'Hello Poi!';
 title.className = 'title';
 
 const tip = document.createElement('div');
-tip.textContent = 'Edit src/index.ts and save to reload.';
+tip.textContent = 'Edit src/index.js and save to reload.';
 tip.className = 'tip';
 
 const app = document.getElementById('app');
