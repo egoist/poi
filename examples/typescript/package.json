@@ -1,14 +1,14 @@
 {
   "private": true,
   "name": "@poi/examples-typescript",
-  "version": "12.0.0-beta.4",
+  "version": "12.0.0-beta.5",
   "scripts": {
     "dev": "poi --serve",
     "build": "poi --prod"
   },
   "devDependencies": {
     "@poi/plugin-typescript": "^10.0.0-beta.2",
-    "poi": "^12.0.0-beta.4",
+    "poi": "^12.0.0-beta.5",
     "typescript": "^3.0.0"
   }
 }

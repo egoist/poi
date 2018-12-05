@@ -1,13 +1,13 @@
 {
   "name": "@poi/example-test-karma",
-  "version": "12.0.0-beta.4",
+  "version": "12.0.0-beta.5",
   "private": true,
   "scripts": {
     "test": "poi karma --test"
   },
   "devDependencies": {
     "@poi/plugin-karma": "^12.0.0-beta.1",
-    "poi": "^12.0.0-beta.4",
+    "poi": "^12.0.0-beta.5",
     "sass": "^1.15.1",
     "sass-loader": "^7.1.0"
   }
