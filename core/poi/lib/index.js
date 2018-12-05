@@ -304,24 +304,25 @@ module.exports = class PoiCore {
     }
 
     if (this.cli.options.inspectWebpack) {
-      const configString = `// ${JSON.stringify(
-        opts
-      )}\n${config.toString()}\n\n`
+      const inspect = () => {
+        const id = Math.random()
+          .toString(36)
+          .substring(7)
+        const outFile = path.join(
+          os.tmpdir(),
+          `poi-inspect-webpack-config-${id}.js`
+        )
+        const configString = `// ${JSON.stringify(
+          opts
+        )}\nvar config = ${config.toString()}\n\n`
+        fs.writeFileSync(outFile, configString, 'utf8')
+        require('@poi/dev-utils/open')(outFile)
+      }
 
       config.plugin('inspect-webpack').use(
         class InspectWebpack {
           apply(compiler) {
-            compiler.hooks.beforeRun.tapPromise('inspect-webpack', async () => {
-              const id = Math.random()
-                .toString(36)
-                .substring(7)
-              const outFile = path.join(
-                os.tmpdir(),
-                `poi-inspect-webpack-config-${id}.js`
-              )
-              await fs.writeFile(outFile, configString, 'utf8')
-              require('@poi/dev-utils/open')(outFile)
-            })
+            compiler.hooks.afterEnvironment.tap('inspect-webpack', inspect)
           }
         }
       )
