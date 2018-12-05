@@ -42,6 +42,9 @@ module.exports = (config, api) => {
   /** Support react-native-web by default, cuz why not? */
   // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
   config.resolve.alias.set('react-native', 'react-native-web')
+  
+  /** Alias @ to `src` folder since many apps store app code here */
+  config.resolve.alias.set('@', api.resolveCwd('src'))
 
   /** Set mode */
   config.mode(api.mode === 'production' ? 'production' : 'development')
