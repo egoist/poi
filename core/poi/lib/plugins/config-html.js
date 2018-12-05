@@ -76,21 +76,22 @@ exports.apply = api => {
         : undefined
     }
 
-    if (api.config.pages) {
-      for (const entryName of Object.keys(api.config.pages)) {
+    const { pages, html } = api.config.output
+    if (pages) {
+      for (const entryName of Object.keys(pages)) {
         const page = merge(
           defaultHtmlOpts,
           {
             filename: `${entryName}.html`,
             chunks: ['chunk-vendors', 'chunk-common', entryName]
           },
-          api.config.pages[entryName]
+          pages[entryName]
         )
         page.template = api.resolveCwd(page.template)
         config.plugin(`html-page-${entryName}`).use(HtmlPlugin, [page])
       }
-    } else if (api.config.html !== false) {
-      const page = merge(defaultHtmlOpts, api.config.html)
+    } else if (html !== false) {
+      const page = merge(defaultHtmlOpts, html)
       page.template = api.resolveCwd(page.template)
       config.plugin('html').use(HtmlPlugin, [page])
     }

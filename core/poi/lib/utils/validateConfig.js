@@ -28,7 +28,8 @@ module.exports = (api, config) => {
           image: struct.optional('string')
         })
       ),
-      html: struct.optional('object')
+      html: struct.optional('object'),
+      page: struct.optional('object')
     },
     {
       dir: 'dist',
