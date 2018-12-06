@@ -17,24 +17,30 @@ const normalizeEntry = v => {
 
 module.exports = (config, api) => {
   /** Set entry */
-  let { entry } = api.config
-  if (typeof entry === 'string') {
-    entry = {
-      index: [entry]
+
+  const webpackEntry = {}
+  const { entry, pages } = api.config
+  if (pages) {
+    for (const entryName of Object.keys(pages)) {
+      const value = pages[entryName]
+      webpackEntry[entryName] = [].concat(
+        typeof value === 'string' ? value : value.entry
+      )
     }
+    api.logger.debug('Using `pages` option thus `entry` is ignored')
+  } else if (typeof entry === 'string') {
+    webpackEntry.index = [entry]
   } else if (Array.isArray(entry)) {
-    entry = {
-      index: entry
-    }
-  } else {
-    entry = Object.assign({}, entry)
+    webpackEntry.index = entry
+  } else if (typeof entry === 'object') {
+    Object.assign(webpackEntry, entry)
   }
 
-  for (const name of Object.keys(entry)) {
-    entry[name] = entry[name].map(v => normalizeEntry(v))
+  for (const name of Object.keys(webpackEntry)) {
+    webpackEntry[name] = webpackEntry[name].map(v => normalizeEntry(v))
   }
 
-  config.merge({ entry })
+  config.merge({ entry: webpackEntry })
 
   /** Set extensions */
   config.resolve.extensions.merge(['.js', '.json', '.jsx', '.ts', '.tsx'])

@@ -82,31 +82,37 @@ exports.apply = api => {
         : undefined
     }
 
-    const { pages, html } = api.config.output
-    if (pages) {
-      for (const entryName of Object.keys(pages)) {
-        const page = merge(
-          defaultHtmlOpts,
-          {
-            filename: `${entryName}.html`,
-            chunks: ['chunk-vendors', 'chunk-common', entryName]
-          },
-          pages[entryName]
-        )
+    const { pages } = api.config
+    const { html } = api.config.output
+
+    if (html !== false) {
+      if (pages) {
+        for (const entryName of Object.keys(pages)) {
+          const page = merge(
+            {},
+            defaultHtmlOpts,
+            {
+              filename: `${entryName}.html`,
+              chunks: ['chunk-vendors', 'chunk-common', entryName]
+            },
+            typeof pages[entryName] === 'string' ? {} : pages[entryName]
+          )
+          page.template = api.resolveCwd(page.template)
+          config.plugin(`html-page-${entryName}`).use(HtmlPlugin, [page])
+        }
+      } else {
+        const page = merge({}, defaultHtmlOpts, html)
         page.template = api.resolveCwd(page.template)
-        config.plugin(`html-page-${entryName}`).use(HtmlPlugin, [page])
+        config.plugin('html').use(HtmlPlugin, [page])
       }
-    } else if (html !== false) {
-      const page = merge(defaultHtmlOpts, html)
-      page.template = api.resolveCwd(page.template)
-      config.plugin('html').use(HtmlPlugin, [page])
+
+      config
+        .plugin('inline-runtime-chunk')
+        .use(require('@poi/dev-utils/InlineChunkHtmlPlugin'), [
+          require('html-webpack-plugin'),
+          [/runtime~.+[.]js/]
+        ])
     }
-    config
-      .plugin('inline-runtime-chunk')
-      .use(require('@poi/dev-utils/InlineChunkHtmlPlugin'), [
-        require('html-webpack-plugin'),
-        [/runtime~.+[.]js/]
-      ])
   })
 }
 

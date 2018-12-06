@@ -12,7 +12,7 @@ module.exports = class WebpackChain extends Chain {
     if (typeof this.configureWebpack === 'function') {
       config = this.configureWebpack(config) || config
     } else if (typeof this.configureWebpack === 'object') {
-      config = merge(config, this.configureWebpack)
+      config = merge({}, config, this.configureWebpack)
     }
     return config
   }

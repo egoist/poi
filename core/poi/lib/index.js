@@ -229,7 +229,7 @@ module.exports = class PoiCore {
     const cliConfig = this.createConfigFromCLIOptions()
     logger.debug(`Config from CLI options`, cliConfig)
 
-    this.config = validateConfig(this, merge(this.config, cliConfig))
+    this.config = validateConfig(this, merge({}, this.config, cliConfig))
 
     await this.cli.runMatchedCommand()
   }

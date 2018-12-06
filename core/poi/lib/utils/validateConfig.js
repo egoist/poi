@@ -28,8 +28,7 @@ module.exports = (api, config) => {
           image: struct.optional('string')
         })
       ),
-      html: struct.optional('object'),
-      page: struct.optional('object')
+      html: struct.optional(struct.union(['boolean', 'object']))
     },
     {
       dir: 'dist',
@@ -130,7 +129,8 @@ module.exports = (api, config) => {
       chainWebpack: struct.optional('function'),
       configureWebpack: struct.optional(struct.union(['object', 'function'])),
       assets,
-      publicFolder: struct.union(['string', 'boolean'])
+      publicFolder: struct.union(['string', 'boolean']),
+      pages: struct.optional('object')
     },
     {
       cache: true,
