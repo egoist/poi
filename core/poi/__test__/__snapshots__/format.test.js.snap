@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cjs-format-cli 1`] = `
+Array [
+  "dist/index.js",
+  "dist/index.js.map",
+  "index.js",
+]
+`;
+
+exports[`cjs-format-config 1`] = `
+Array [
+  "dist/index.js",
+  "dist/index.js.map",
+  "index.js",
+  "poi.config.js",
+]
+`;
+
+exports[`umd-format-cli 1`] = `
+Array [
+  "dist/index.html",
+  "dist/index.js",
+  "dist/index.js.map",
+  "index.js",
+]
+`;
+
+exports[`umd-format-config 1`] = `
+Array [
+  "dist/index.html",
+  "dist/index.js",
+  "dist/index.js.map",
+  "index.js",
+  "poi.config.js",
+]
+`;

@@ -14,6 +14,5 @@
     },
     "cacheDir": ".changelog"
   },
-  "version": "independent",
-  "packages": ["core/*", "create-poi-app", "plugins/*", "other-packages/*"]
+  "version": "independent"
 }

@@ -1,0 +1,7 @@
+{
+  "plugins": [
+    {
+      "resolve": "../../plugins/karma"
+    }
+  ]
+}

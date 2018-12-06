@@ -1,7 +1,0 @@
-{
-  "plugins": [
-    {
-      "resolve": "@poi/plugin-typescript"
-    }
-  ]
-}

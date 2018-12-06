@@ -1,14 +1,12 @@
 {
   "private": true,
-  "name": "poi",
+  "name": "poi-monorepo",
   "scripts": {
     "lint": "xo",
-    "test": "cd examples/test-karma && yarn test",
-    "test:local": "cd examples/test-karma && yarn test --no-headless"
+    "test": "sh tasks/test.sh"
   },
   "workspaces": [
     "core/*",
-    "examples/*",
     "plugins/*",
     "other-packages/*",
     "create-poi-app"
@@ -36,6 +34,10 @@
     },
     "envs": [
       "jest"
+    ],
+    "ignores": [
+      "create-poi-app/generator/templates/**",
+      "test/kitchensink/**"
     ]
   },
   "husky": {
@@ -55,8 +57,8 @@
       ]
     },
     "ignore": [
-      "examples/**",
-      "create-poi-app/generator/templates/**"
+      "create-poi-app/generator/templates/**",
+      "test/kitchensink/**"
     ]
   }
 }

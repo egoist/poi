@@ -1,0 +1,16 @@
+{
+  "name": "@poi/test-utils",
+  "version": "12.0.0-beta.0",
+  "files": [
+    "*.js"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "xo": false,
+  "dependencies": {
+    "execa": "^1.0.0",
+    "fast-glob": "^2.2.4",
+    "fs-extra": "^7.0.1"
+  }
+}

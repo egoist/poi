@@ -13,7 +13,7 @@ class PrintStatusPlugin {
 
   apply(compiler) {
     compiler.hooks.done.tapPromise('print-status', async stats => {
-      if (this.opts.clearConsole !== false) {
+      if (this.opts.clearConsole !== false && process.env.NODE_ENV !== 'test') {
         require('@poi/dev-utils/clearConsole')()
       }
       if (stats.hasErrors() || stats.hasWarnings()) {
