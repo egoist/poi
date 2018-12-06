@@ -121,6 +121,7 @@ module.exports = (api, config) => {
       envs: struct.optional('object'),
       constants: struct.optional('object'),
       chainWebpack: struct.optional('function'),
+      configureWebpack: struct.optional(struct.union(['object', 'function'])),
       assets
     },
     {

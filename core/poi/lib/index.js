@@ -289,9 +289,11 @@ module.exports = class PoiCore {
   }
 
   createWebpackConfig(opts) {
-    const WebpackChain = require('webpack-chain')
+    const WebpackChain = require('./utils/WebpackChain')
 
-    const config = new WebpackChain()
+    const config = new WebpackChain({
+      configureWebpack: this.config.configureWebpack
+    })
 
     require('./webpack/webpack.config')(config, this)
 
