@@ -295,7 +295,7 @@ module.exports = class PoiCore {
 
     require('./webpack/webpack.config')(config, this)
 
-    opts = Object.assign({ type: 'client' }, opts)
+    opts = Object.assign({ type: 'client', mode: this.mode }, opts)
 
     this.hooks.invoke('onCreateWebpackConfig', config, opts)
 
@@ -316,7 +316,9 @@ module.exports = class PoiCore {
           opts
         )}\nvar config = ${config.toString()}\n\n`
         fs.writeFileSync(outFile, configString, 'utf8')
-        require('@poi/dev-utils/open')(outFile)
+        require('@poi/dev-utils/open')(outFile, {
+          wait: false
+        })
       }
 
       config.plugin('inspect-webpack').use(
