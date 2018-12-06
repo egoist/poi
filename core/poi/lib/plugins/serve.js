@@ -101,6 +101,8 @@ exports.apply = api => {
   api.hook('onCreateWebpackConfig', config => {
     if (!api.cli.options.serve) return
 
+    config.devtool('cheap-module-eval-source-map')
+
     const { hotEntries = ['index'] } = api.config.devServer || {}
     const { hot } = api.config.devServer
 
