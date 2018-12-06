@@ -32,13 +32,16 @@ exports.apply = (api, options = {}) => {
 
     // Copy the public/manifest.json to dist/manifest.json
     // Since in `--serve` public folder are not copied but directly served as static assets
-    if (!config.plugins.has('copy-public-folder')) {
+    if (api.cli.options.serve && api.config.publicFolder) {
       config.plugin('copy-manifest-json').use(api.webpackUtils.CopyPlugin, [
         [
           {
             // Pretend to be a glob pattern
             // TODO: newly added manifest.json won't trigger copy
-            from: api.resolveCwd('public/{manifest,manifest}.json'),
+            from: api.resolveCwd(
+              api.config.publicFolder,
+              '{manifest,manifest}.json'
+            ),
             to: '[name].[ext]',
             toType: 'template'
           }

@@ -34,7 +34,7 @@ yarn add register-service-worker
 ```js
 import { register } from 'register-service-worker'
 
-register(__PUBLIC_URL__ + 'service-worker.js', {
+register(process.env.PUBLIC_URL + 'service-worker.js', {
   ready(registration) {
     console.log('Service worker is active.')
   },

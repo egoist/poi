@@ -6,9 +6,9 @@ exports.apply = api => {
 
     // Force public URL
     config.output.publicPath('./')
-    config.plugin('constants').tap(([options]) => [
+    config.plugin('envs').tap(([options]) => [
       Object.assign(options, {
-        __PUBLIC_URL__: JSON.stringify('./')
+        PUBLIC_URL: JSON.stringify('./')
       })
     ])
 

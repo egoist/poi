@@ -21,6 +21,10 @@ exports.apply = api => {
     command.option('--public-url <url>', 'Set the public URL to serve on', {
       default: '/'
     })
+    command.option('--public-folder <folder>', 'Use a public folder', {
+      default: 'public'
+    })
+    command.option('--no-public-folder', 'Disable public folder')
     command.option('--target <target>', 'Target environment', {
       default: 'browser'
     })

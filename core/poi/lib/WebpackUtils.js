@@ -13,16 +13,15 @@ module.exports = class WebpackUtils {
     }
 
     Object.assign(envs, this.api.config.envs, {
-      NODE_ENV: this.api.mode === 'production' ? 'production' : 'development'
+      NODE_ENV: this.api.mode === 'production' ? 'production' : 'development',
+      PUBLIC_URL: this.api.config.output.publicUrl
     })
 
     return envs
   }
 
   get constants() {
-    return Object.assign({}, this.api.config.constants, {
-      __PUBLIC_URL__: JSON.stringify(this.api.config.output.publicUrl)
-    })
+    return Object.assign({}, this.api.config.constants)
   }
 
   get CopyPlugin() {

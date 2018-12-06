@@ -129,11 +129,13 @@ module.exports = (api, config) => {
       constants: struct.optional('object'),
       chainWebpack: struct.optional('function'),
       configureWebpack: struct.optional(struct.union(['object', 'function'])),
-      assets
+      assets,
+      publicFolder: struct.union(['string', 'boolean'])
     },
     {
       cache: true,
-      parallel: false
+      parallel: false,
+      publicFolder: 'public'
     }
   )
 

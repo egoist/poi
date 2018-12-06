@@ -43,11 +43,17 @@ exports.apply = api => {
     )
 
     const getDefaultTemplate = () => {
+      if (!api.config.publicFolder) {
+        return DEFAULT_TEMPLATE
+      }
+
+      const userTemplatePath = api.resolveCwd(
+        api.config.publicFolder,
+        'index.html'
+      )
       return (
         api.config.defaultHtmlTemplate ||
-        (fs.existsSync(api.resolveCwd('public/index.html'))
-          ? api.resolveCwd('public/index.html')
-          : DEFAULT_TEMPLATE)
+        (fs.existsSync(userTemplatePath) ? userTemplatePath : DEFAULT_TEMPLATE)
       )
     }
 

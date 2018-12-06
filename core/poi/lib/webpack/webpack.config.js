@@ -237,7 +237,7 @@ module.exports = (config, api) => {
           glob: '**/*',
           dot: true
         },
-        context: api.resolveCwd('public'),
+        context: api.resolveCwd(api.config.publicFolder),
         to: '.'
       }
     ]

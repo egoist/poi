@@ -254,7 +254,8 @@ module.exports = class PoiCore {
       open,
       proxy,
       fileNames,
-      html
+      html,
+      publicFolder
     } = this.cli.options
     return {
       entry: this.cli.args.length > 0 ? this.cli.args : undefined,
@@ -272,6 +273,7 @@ module.exports = class PoiCore {
       },
       parallel,
       cache,
+      publicFolder,
       babel: {
         jsx
       },
