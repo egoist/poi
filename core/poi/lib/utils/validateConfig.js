@@ -46,7 +46,7 @@ module.exports = (api, config) => {
   const babel = struct(
     {
       jsx: 'string',
-      transpileModules: struct.optional(struct.tuple(['string']))
+      transpileModules: struct.optional(struct.list(['string']))
     },
     {
       jsx: 'react'
@@ -77,7 +77,14 @@ module.exports = (api, config) => {
       host: 'string',
       port: struct.union(['string', 'number']),
       hotEntries: struct.tuple(['string']),
-      proxy: struct.optional(struct.union(['string', 'object', 'function'])),
+      proxy: struct.optional(
+        struct.union([
+          'string',
+          'object',
+          'function',
+          struct([struct.union(['object', 'function'])])
+        ])
+      ),
       open: 'boolean',
       before: struct.optional('function'),
       after: struct.optional('function'),
