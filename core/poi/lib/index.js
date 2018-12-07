@@ -13,6 +13,7 @@ const parseArgs = require('./utils/parseArgs')
 const PoiError = require('./utils/PoiError')
 const spinner = require('./utils/spinner')
 const validateConfig = require('./utils/validateConfig')
+const { normalizePlugins, mergePlugins } = require('./utils/plugins')
 
 module.exports = class PoiCore {
   constructor(
@@ -33,7 +34,7 @@ module.exports = class PoiCore {
     this.spinner = spinner
     this.PoiError = PoiError
     // For plugins, it's only used in onCreateCLI hook
-    this.parsedArgs = parseArgs(args.slice(2))
+    this.parsedArgs = parseArgs(args)
     this.hooks = new Hooks()
     this.testRunners = new Map()
 
@@ -41,7 +42,7 @@ module.exports = class PoiCore {
       logger.setOptions({ debug: true })
     }
 
-    this.mode = this.parsedArgs.getValue('mode')
+    this.mode = this.parsedArgs.get('mode')
     if (!this.mode) {
       this.mode = 'development'
     }
@@ -54,7 +55,7 @@ module.exports = class PoiCore {
       this.mode = 'test'
     }
 
-    this.cwd = this.parsedArgs.getValue('cwd')
+    this.cwd = this.parsedArgs.get('cwd')
     if (!this.cwd) {
       this.cwd = process.cwd()
     }
@@ -81,7 +82,7 @@ module.exports = class PoiCore {
       this.config = externalConfig
     } else {
       const configFiles = this.parsedArgs.has('config')
-        ? [this.parsedArgs.getValue('config')]
+        ? [this.parsedArgs.get('config')]
         : defaultConfigFiles
       const { path: configPath, data: config } = this.configLoader.load({
         files: configFiles
@@ -132,6 +133,10 @@ module.exports = class PoiCore {
       .option('--test', 'Alias for --mode test')
       .option('--no-config', 'Disable config file')
       .option('--config <path>', 'Set the path to config file')
+      .option(
+        '--plugin, --plugins <plugin>',
+        'Add a plugin (can be used for multiple times)'
+      )
       .option('--debug', 'Show debug logs')
       .option('--inspect-webpack', 'Inspect webpack config in your editor')
       .version(require('../package').version)
@@ -150,33 +155,35 @@ module.exports = class PoiCore {
    * @returns {void}
    */
   applyPlugins() {
+    const cwd = this.resolveCwd()
+    const cliPlugins = normalizePlugins(
+      this.parsedArgs.get('plugin') || this.parsedArgs.get('plugins'),
+      cwd
+    )
+    const configPlugins = normalizePlugins(this.config.plugins, cwd)
+
     this.plugins = [
-      require.resolve('./plugins/command-options'),
-      require.resolve('./plugins/config-babel'),
-      require.resolve('./plugins/config-vue'),
-      require.resolve('./plugins/config-css'),
-      require.resolve('./plugins/config-font'),
-      require.resolve('./plugins/config-image'),
-      require.resolve('./plugins/config-html'),
-      require.resolve('./plugins/config-electron'),
-      require.resolve('./plugins/config-misc-loaders'),
-      require.resolve('./plugins/watch'),
-      require.resolve('./plugins/serve'),
-      require.resolve('./plugins/eject-html')
+      { resolve: require.resolve('./plugins/command-options') },
+      { resolve: require.resolve('./plugins/config-babel') },
+      { resolve: require.resolve('./plugins/config-vue') },
+      { resolve: require.resolve('./plugins/config-css') },
+      { resolve: require.resolve('./plugins/config-font') },
+      { resolve: require.resolve('./plugins/config-image') },
+      { resolve: require.resolve('./plugins/config-html') },
+      { resolve: require.resolve('./plugins/config-electron') },
+      { resolve: require.resolve('./plugins/config-misc-loaders') },
+      { resolve: require.resolve('./plugins/watch') },
+      { resolve: require.resolve('./plugins/serve') },
+      { resolve: require.resolve('./plugins/eject-html') }
     ]
-      .concat(this.config.plugins || [])
-      .map(v => {
-        if (typeof v === 'string') {
-          v = { resolve: v }
+      .concat(mergePlugins(configPlugins, cliPlugins))
+      .map(plugin => {
+        if (typeof plugin.resolve === 'string') {
+          plugin._resolve = plugin.resolve
+          plugin.resolve = require(plugin.resolve)
         }
-        if (typeof v.resolve === 'string') {
-          v = Object.assign({
-            resolve: require(resolveFrom(this.resolveCwd(), v.resolve))
-          })
-        }
-        return v
+        return plugin
       })
-      .filter(Boolean)
 
     // Run plugin's `filterPlugins` method
     for (const plugin of this.plugins) {
@@ -191,7 +198,10 @@ module.exports = class PoiCore {
     // Run plugin's `apply` method
     for (const plugin of this.plugins) {
       if (plugin.resolve.apply) {
-        logger.debug(`Using plugin: "${plugin.resolve.name}"`)
+        logger.debug(`Using plugin: \`${plugin.resolve.name}\``)
+        if (plugin._resolve) {
+          logger.debug(`location: ${plugin._resolve}`)
+        }
         plugin.resolve.apply(this, plugin.resolve.options)
       }
     }
