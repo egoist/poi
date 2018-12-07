@@ -9,7 +9,7 @@ const normalizePluginName = name => {
   // @poi/foo => @poi/plugin-foo
   // @my-org/hehe => @my-org/poi-plugin-hehe
   if (/^@[^/]+\//.test(name)) {
-    return name.replace(/^@([^/]+)\/(plugin-)?/, (_, m1) => {
+    return name.replace(/^@([^/]+)\/(poi-)?(plugin-)?/, (_, m1) => {
       return m1 === 'poi' ? `@poi/plugin-` : `@${m1}/poi-plugin-`
     })
   }
