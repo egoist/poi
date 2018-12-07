@@ -138,7 +138,10 @@ module.exports = (config, api) => {
 
         const msg = `${(per * 100).toFixed(2)}% ${message} ${args
           .map(arg => {
-            return arg.replace(homeRe, '~')
+            const message = arg.replace(homeRe, '~')
+            return message.length > 40
+              ? `...${message.substr(message.length - 39)}`
+              : message
           })
           .join(' ')}`
 
