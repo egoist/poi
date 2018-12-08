@@ -1,6 +1,6 @@
 {
   "name": "poi",
-  "version": "12.0.0-beta.9",
+  "version": "12.0.0",
   "main": "lib/index.js",
   "bin": "bin/cli.js",
   "scripts": {
@@ -27,8 +27,8 @@
     "@babel/preset-typescript": "^7.1.0",
     "@babel/runtime": "^7.1.5",
     "@intervolga/optimize-cssnano-plugin": "^1.0.6",
-    "@poi/dev-utils": "^12.0.0-beta.1",
-    "@poi/logger": "^12.0.0-beta.0",
+    "@poi/dev-utils": "^12.0.0",
+    "@poi/logger": "^12.0.0",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-loader": "^8.0.4",
     "babel-plugin-macros": "^2.4.2",
@@ -70,7 +70,7 @@
   },
   "xo": false,
   "devDependencies": {
-    "@poi/test-utils": "^12.0.0-beta.0",
+    "@poi/test-utils": "^12.0.0",
     "jest": "^23.6.0",
     "vue-template-compiler": "^2.5.17"
   }
