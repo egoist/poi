@@ -1,6 +1,3 @@
-const chalk = require('chalk')
-const logger = require('@poi/logger')
-
 exports.name = 'builtin:serve'
 
 exports.apply = api => {
@@ -31,23 +28,11 @@ exports.apply = api => {
           compiler.hooks.done.tap('print-serve-urls', stats => {
             if (stats.hasErrors() || stats.hasWarnings()) return
 
-            const ip = require('address').ip()
-
-            const isUnspecifiedHost = host === '0.0.0.0' || host === '::'
-            const prettyHost = isUnspecifiedHost ? 'localhost' : host
-
-            logger.log()
-            logger.log(
-              `Local:             http://${prettyHost}:${chalk.bold(port)}`
-            )
-            logger.log(`On Your Network:   http://${ip}:${chalk.bold(port)}`)
-            logger.log()
-
-            if (open) {
-              require('@poi/dev-utils/openBrowser')(
-                `http://${prettyHost}:${port}`
-              )
-            }
+            require('@poi/dev-utils/printServeMessage')({
+              host,
+              port,
+              open
+            })
           })
         }
       })
@@ -68,7 +53,17 @@ exports.apply = api => {
             colors: true
           }
         },
-        devServer
+        devServer,
+        {
+          proxy:
+            typeof devServer.proxy === 'string'
+              ? require('@poi/dev-utils/prepareProxy')(
+                  devServer.proxy,
+                  api.resolveCwd(api.config.publicFolder),
+                  api.cli.options.debug
+                )
+              : devServer.proxy
+        }
       )
 
       const existingBefore = devServerOptions.before

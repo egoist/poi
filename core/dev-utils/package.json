@@ -10,6 +10,7 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "address": "^1.0.3",
     "chalk": "^2.4.1",
     "cross-spawn": "^6.0.5",
     "opn": "^5.4.0",
