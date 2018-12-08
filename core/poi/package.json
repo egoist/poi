@@ -3,6 +3,7 @@
   "version": "12.0.0",
   "main": "lib/index.js",
   "bin": "bin/cli.js",
+  "description": "A zero-config bundler for JavaScript applications.",
   "scripts": {
     "test": "jest"
   },
@@ -73,5 +74,15 @@
     "@poi/test-utils": "^12.0.0",
     "jest": "^23.6.0",
     "vue-template-compiler": "^2.5.17"
-  }
+  },
+  "keywords": [
+    "poi",
+    "webpack",
+    "zero-config",
+    "bundler",
+    "vue-cli",
+    "parcel",
+    "create-react-app",
+    "babel"
+  ]
 }
