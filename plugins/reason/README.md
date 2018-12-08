@@ -5,7 +5,7 @@ Use [Reason](https://reasonml.github.io/) in your JavaScript apps.
 ## Install
 
 ```bash
-yarn add @poi/plugin-reason@next bs-platform --dev
+yarn add @poi/plugin-reason bs-platform --dev
 ```
 
 ## How to use

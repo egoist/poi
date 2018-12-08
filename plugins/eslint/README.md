@@ -5,7 +5,7 @@ Use ESLint to lint JavaScript.
 ## Install
 
 ```bash
-yarn add @poi/plugin-eslint@next --dev
+yarn add @poi/plugin-eslint --dev
 ```
 
 ## How to use

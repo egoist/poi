@@ -9,7 +9,7 @@ This plugin use `ts-loader` to transpile TypeScript files, it also uses `fork-ts
 ## Install
 
 ```bash
-yarn add @poi/plugin-typescript@next typescript --dev
+yarn add @poi/plugin-typescript typescript --dev
 ```
 
 ## How to use

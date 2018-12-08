@@ -3,7 +3,7 @@
   </p>
 <br>
 
-[![npm version](https://badgen.net/npm/v/poi)](https://npm.im/poi) [![npm version](https://badgen.net/npm/v/poi/next)](https://npm.im/poi) [![build status](https://badgen.net/circleci/github/egoist/poi/master)](https://circleci.com/gh/egoist/poi/tree/master) [![npm downloads](https://badgen.net/npm/dm/poi)](https://npm.im/poi) [![poi twitter](https://badgen.net/badge//@poi__js/1da1f2?icon=twitter)](https://twitter.com/poi__js)
+[![npm version](https://badgen.net/npm/v/poi)](https://npm.im/poi) [![build status](https://badgen.net/circleci/github/egoist/poi/master)](https://circleci.com/gh/egoist/poi/tree/master) [![npm downloads](https://badgen.net/npm/dm/poi)](https://npm.im/poi) [![poi twitter](https://badgen.net/badge//@poi__js/1da1f2?icon=twitter)](https://twitter.com/poi__js)
 
 Poi is a bundler built on the top of webpack, trying to make developing and bundling apps with webpack as easy as possible.
 
@@ -24,7 +24,7 @@ Before we get started, ensure that you have installed Node.js (>=8) and Yarn (or
 ### Get Started Immediately
 
 ```bash
-yarn global add create-poi-app@next
+yarn global add create-poi-app
 create-poi-app my-app
 
 cd my-app
@@ -40,7 +40,7 @@ Inside an empty project, run `yarn init` or `npm init` to create a `package.json
 
 ```bash
 yarn init
-yarn add poi@next --dev
+yarn add poi --dev
 ```
 
 Now all you need is to create an entry file, like if you're building a website, just create an `index.js`:

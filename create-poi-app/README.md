@@ -1,7 +1,7 @@
 # Create Poi App
 
 ```bash
-npm i -g create-poi-app@next
+npm i -g create-poi-app
 
 cpa my-app
 ```

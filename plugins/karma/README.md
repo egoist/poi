@@ -9,7 +9,7 @@ This plugin pre-configures [Karma](https://karma-runner.github.io/), [Jasmine](h
 ## Install
 
 ```bash
-yarn add @poi/plugin-karma@next --dev
+yarn add @poi/plugin-karma --dev
 ```
 
 ## How to use
@@ -39,7 +39,7 @@ To run it easier, you can configure this in npm scripts:
     "start": "poi --serve"
   },
   "devDependencies": {
-    "poi": "next"
+    "poi": "^12.0.0"
   }
 }
 ```
