@@ -21,6 +21,7 @@ module.exports = class PoiCore {
     {
       defaultConfigFiles = [
         'poi.config.js',
+        'package.json',
         '.poirc',
         '.poirc.json',
         '.poirc.js'
@@ -85,7 +86,8 @@ module.exports = class PoiCore {
         ? [this.parsedArgs.get('config')]
         : defaultConfigFiles
       const { path: configPath, data: config } = this.configLoader.load({
-        files: configFiles
+        files: configFiles,
+        packageKey: 'poi'
       })
       if (configPath) {
         logger.debug(`Using Poi config file:`, configPath)
