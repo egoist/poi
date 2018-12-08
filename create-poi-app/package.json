@@ -1,6 +1,6 @@
 {
   "name": "create-poi-app",
-  "version": "12.0.0",
+  "version": "12.0.1",
   "license": "MIT",
   "files": [
     "bin",
