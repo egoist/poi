@@ -23,8 +23,7 @@ module.exports = {
           },
           {
             name: 'Linter',
-            value: 'linter',
-            checked: true
+            value: 'linter'
           },
           {
             name: 'Unit Test',
