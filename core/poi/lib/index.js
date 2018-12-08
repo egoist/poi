@@ -303,13 +303,14 @@ module.exports = class PoiCore {
   createWebpackConfig(opts) {
     const WebpackChain = require('./utils/WebpackChain')
 
+    opts = Object.assign({ type: 'client', mode: this.mode }, opts)
+
     const config = new WebpackChain({
-      configureWebpack: this.config.configureWebpack
+      configureWebpack: this.config.configureWebpack,
+      opts
     })
 
     require('./webpack/webpack.config')(config, this)
-
-    opts = Object.assign({ type: 'client', mode: this.mode }, opts)
 
     this.hooks.invoke('onCreateWebpackConfig', config, opts)
 
