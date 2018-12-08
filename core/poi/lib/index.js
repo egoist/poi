@@ -142,7 +142,20 @@ module.exports = class PoiCore {
       .option('--debug', 'Show debug logs')
       .option('--inspect-webpack', 'Inspect webpack config in your editor')
       .version(require('../package').version)
-      .help()
+      .help(sections => {
+        for (const section of sections) {
+          if (section.title && section.title.includes('For more info')) {
+            const body = section.body.split('\n')
+            body.shift()
+            body.unshift(
+              `  $ ${cli.bin} --help`,
+              `  $ ${cli.bin} --serve --help`,
+              `  $ ${cli.bin} --prod --help`
+            )
+            section.body = body.join('\n')
+          }
+        }
+      })
   }
 
   hasDependency(name) {
