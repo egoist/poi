@@ -1,7 +1,7 @@
 exports.name = 'typescript'
 
 exports.apply = (api, { lintOnSave = true } = {}) => {
-  api.hook('onCreateWebpackConfig', config => {
+  api.hook('createWebpackChain', config => {
     const test = config.module
       .rule('js')
       .get('test')

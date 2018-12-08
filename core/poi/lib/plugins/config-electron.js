@@ -1,7 +1,7 @@
 exports.name = 'builtin:config-electron'
 
 exports.apply = api => {
-  api.hook('onCreateWebpackConfig', config => {
+  api.hook('createWebpackChain', config => {
     if (api.config.target !== 'electron') return
 
     // Force public URL

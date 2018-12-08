@@ -3,7 +3,7 @@ const path = require('path')
 exports.name = 'eject-html'
 
 exports.apply = api => {
-  api.hook('onCreateCLI', () => {
+  api.hook('createCLI', () => {
     api.cli
       .command('eject-html [out-file]', 'Eject the default HTML file')
       .option('--overwrite', 'Overwrite exiting file')

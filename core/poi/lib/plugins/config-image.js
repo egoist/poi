@@ -1,7 +1,7 @@
 exports.name = 'builtin:config-image'
 
 exports.apply = api => {
-  api.hook('onCreateWebpackConfig', config => {
+  api.hook('createWebpackChain', config => {
     const filename = api.config.output.fileNames.image
 
     config.module

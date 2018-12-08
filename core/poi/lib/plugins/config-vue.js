@@ -4,7 +4,7 @@ const resolveFrom = require('resolve-from')
 exports.name = 'builtin:config-vue'
 
 exports.apply = api => {
-  api.hook('onCreateWebpackConfig', config => {
+  api.hook('createWebpackChain', config => {
     const rule = config.module.rule('vue').test(/\.vue$/)
 
     api.webpackUtils.addCacheSupport(rule, () => {

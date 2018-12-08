@@ -22,7 +22,7 @@ exports.apply = (api, options = {}) => {
     }
   )
 
-  api.hook('onCreateWebpackConfig', config => {
+  api.hook('createWebpackChain', config => {
     // Only add for browser target
     if (api.config.output.target !== 'browser') return
 

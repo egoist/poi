@@ -1,7 +1,7 @@
 exports.name = 'builtin:config-misc-loaders'
 
 exports.apply = api => {
-  api.hook('onCreateWebpackConfig', config => {
+  api.hook('createWebpackChain', config => {
     // GraphQL
     config.module
       .rule('graphql')

@@ -1,7 +1,7 @@
 exports.name = 'eslint'
 
 exports.apply = api => {
-  api.hook('onCreateWebpackConfig', config => {
+  api.hook('createWebpackChain', config => {
     const { cacheIdentifier } = api.getCacheConfig('eslint-loader', {}, [
       '.eslintrc.js',
       '.eslintrc.yaml',

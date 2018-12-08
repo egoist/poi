@@ -33,7 +33,7 @@ module.exports = class PoiCore {
     this.logger = logger
     this.spinner = spinner
     this.PoiError = PoiError
-    // For plugins, it's only used in onCreateCLI hook
+    // For plugins, it's only used in createCLI hook
     this.parsedArgs = parseArgs(args)
     this.hooks = new Hooks()
     this.testRunners = new Map()
@@ -119,12 +119,12 @@ module.exports = class PoiCore {
       })
       .usage('[...entries] [options]')).action(async () => {
       logger.debug(`Using default handler`)
-      const config = this.createWebpackConfig()
-      const compiler = this.createWebpackCompiler(config.toConfig())
+      const chain = this.createWebpackChain()
+      const compiler = this.createWebpackCompiler(chain.toConfig())
       await this.runCompiler(compiler)
     })
 
-    this.hooks.invoke('onCreateCLI', { command, args: this.parsedArgs })
+    this.hooks.invoke('createCLI', { command, args: this.parsedArgs })
 
     // Global options
     cli
@@ -300,7 +300,7 @@ module.exports = class PoiCore {
     }
   }
 
-  createWebpackConfig(opts) {
+  createWebpackChain(opts) {
     const WebpackChain = require('./utils/WebpackChain')
 
     opts = Object.assign({ type: 'client', mode: this.mode }, opts)
@@ -312,7 +312,7 @@ module.exports = class PoiCore {
 
     require('./webpack/webpack.config')(config, this)
 
-    this.hooks.invoke('onCreateWebpackConfig', config, opts)
+    this.hooks.invoke('createWebpackChain', config, opts)
 
     if (this.config.chainWebpack) {
       this.config.chainWebpack(config, opts)

@@ -1,7 +1,7 @@
 const { Server } = require('karma')
 
 module.exports = (api, testFiles, options) => {
-  const webpackConfig = api.createWebpackConfig()
+  const webpackConfig = api.createWebpackChain()
 
   const config = {
     basePath: api.cwd,

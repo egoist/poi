@@ -3,7 +3,7 @@ const logger = require('@poi/logger')
 exports.name = 'builtin:config-css'
 
 exports.apply = api => {
-  api.hook('onCreateCLI', ({ command }) => {
+  api.hook('createCLI', ({ command }) => {
     if (api.isProd) {
       command.option('--no-extract-css', `Don't extract CSS files`)
     } else {
@@ -11,7 +11,7 @@ exports.apply = api => {
     }
   })
 
-  api.hook('onCreateWebpackConfig', (config, { type }) => {
+  api.hook('createWebpackChain', (config, { type }) => {
     const { loaderOptions = {}, extract: shouldExtract } = api.config.css || {}
     const sourceMap = Boolean(api.config.output.sourceMap)
     const isServer = type === 'server'

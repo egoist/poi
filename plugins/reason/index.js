@@ -1,7 +1,7 @@
 exports.name = 'reason'
 
 exports.apply = api => {
-  api.hook('onCreateWebpackConfig', config => {
+  api.hook('createWebpackChain', config => {
     config.module
       .rule('bs')
       .test(/\.(re|ml)$/)

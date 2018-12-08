@@ -3,13 +3,13 @@ const logger = require('@poi/logger')
 exports.name = 'builtin:config-babel'
 
 exports.apply = api => {
-  api.hook('onCreateCLI', ({ command }) => {
+  api.hook('createCLI', ({ command }) => {
     command.option('--jsx <syntax>', 'Set JSX syntax', {
       default: 'react'
     })
   })
 
-  api.hook('onCreateWebpackConfig', config => {
+  api.hook('createWebpackChain', config => {
     const { transpileModules, jsx } = api.config.babel || {}
 
     process.env.POI_JSX = jsx

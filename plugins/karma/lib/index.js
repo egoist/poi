@@ -1,7 +1,7 @@
 exports.name = 'karma'
 
 exports.apply = api => {
-  api.hook('onCreateCLI', () => {
+  api.hook('createCLI', () => {
     api.cli
       .command('karma [...testFiles]', 'Run tests with Karma')
       .usage('karma --test [...testFiles] [options]')

@@ -2,4 +2,4 @@ const Poi = require('.')
 
 const poi = new Poi()
 
-module.exports = poi.createWebpackConfig().toConfig()
+module.exports = poi.createWebpackChain().toConfig()

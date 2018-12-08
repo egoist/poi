@@ -4,7 +4,7 @@ const logger = require('@poi/logger')
 exports.name = 'builtin:serve'
 
 exports.apply = api => {
-  api.hook('onCreateCLI', ({ command, args }) => {
+  api.hook('createCLI', ({ command, args }) => {
     command.option('-s, --serve', 'Serve assets on a local server')
 
     if (!args.has('s') && !args.has('serve')) return
@@ -23,7 +23,7 @@ exports.apply = api => {
       const { host, port: _port, open } = devServer
       const port = await require('get-port')({ port: _port })
 
-      const webpackConfig = api.createWebpackConfig().toConfig()
+      const webpackConfig = api.createWebpackChain().toConfig()
 
       webpackConfig.plugins.push({
         apply(compiler) {
@@ -99,7 +99,7 @@ exports.apply = api => {
     })
   })
 
-  api.hook('onCreateWebpackConfig', config => {
+  api.hook('createWebpackChain', config => {
     if (!api.cli.options.serve) return
 
     config.devtool('cheap-module-eval-source-map')

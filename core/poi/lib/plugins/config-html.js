@@ -5,7 +5,7 @@ const merge = require('lodash.merge')
 exports.name = 'builtin:config-html'
 
 exports.apply = api => {
-  api.hook('onCreateWebpackConfig', config => {
+  api.hook('createWebpackChain', config => {
     // No need to generate HTML files for CJS format
     // For UMD format it still might be useful since you can use to test if your library works
     if (api.config.output.format === 'cjs') return

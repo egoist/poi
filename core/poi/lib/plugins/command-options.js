@@ -1,7 +1,7 @@
 exports.name = 'builtin:shared-options'
 
 exports.apply = api => {
-  api.hook('onCreateCLI', ({ command }) => {
+  api.hook('createCLI', ({ command }) => {
     command.option('-d, --out-dir <dir>', 'Output directory', {
       default: 'dist'
     })
