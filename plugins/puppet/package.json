@@ -13,6 +13,7 @@
     "tape": "^4.9.1"
   },
   "dependencies": {
+    "address": "^1.0.3",
     "chalk": "^2.4.1",
     "express": "^4.16.4",
     "fast-glob": "^2.2.4",
