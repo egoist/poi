@@ -10,6 +10,8 @@ Easy automatic (headless) browser testing, powered by [Puppeteer](https://github
 yarn add @poi/plugin-puppet --dev
 ```
 
+<sup><small>*Require Poi 12.0.2 and above.*</small></sup>
+
 ## How to use
 
 Add this plugin in `poi.config.js`:
