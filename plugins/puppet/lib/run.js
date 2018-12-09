@@ -36,8 +36,9 @@ module.exports = async ({ outDir, compiler, options, logger, runCompiler }) => {
   const server = express()
   server.use('/', express.static(outDir))
 
+  const HOST = '0.0.0.0'
   const PORT = 58395
-  server.listen(PORT)
+  server.listen(PORT, HOST)
 
   const exit = async (code, force) => {
     if (code === 0) {
@@ -109,5 +110,5 @@ module.exports = async ({ outDir, compiler, options, logger, runCompiler }) => {
   }
   `)
 
-  await page.goto(`http://localhost:${PORT}`)
+  await page.goto(`http://${HOST}:${PORT}`)
 }
