@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:latest-browsers
+      - image: circleci/node:latest
     branches:
       ignore:
         - gh-pages # list of branches to ignore
