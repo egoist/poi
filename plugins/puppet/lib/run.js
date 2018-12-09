@@ -2,7 +2,6 @@ const util = require('util')
 const puppeteer = require('puppeteer')
 const express = require('express')
 const chalk = require('chalk')
-const address = require('address')
 const { consoleMessageToLogArgs, filterLogs } = require('./utils')
 
 module.exports = async ({ outDir, compiler, options, logger, runCompiler }) => {
@@ -111,5 +110,5 @@ module.exports = async ({ outDir, compiler, options, logger, runCompiler }) => {
   }
   `)
 
-  await page.goto(`http://${address.ip()}:${PORT}`)
+  await page.goto(`http://${HOST}:${PORT}`)
 }
