@@ -2,6 +2,8 @@
 
 Easy automatic (headless) browser testing, powered by [Puppeteer](https://github.com/GoogleChrome/puppeteer).
 
+<img src="https://unpkg.com/@egoist/media/projects/poi/puppet.svg" width="500" alt="preview">
+
 ## Install
 
 ```bash
