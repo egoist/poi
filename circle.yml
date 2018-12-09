@@ -12,6 +12,9 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
+          name: Puppeteer requirements
+          command: sh ./tasks/circleci-puppeteer.sh
+      - run:
           name: install dependences
           command: yarn
       - save_cache:
