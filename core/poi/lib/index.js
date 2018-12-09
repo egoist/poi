@@ -222,6 +222,15 @@ module.exports = class PoiCore {
     }
   }
 
+  hasPlugin(name) {
+    return (
+      this.plugins &&
+      this.plugins.find(plugin => {
+        return plugin.resolve.name === name
+      })
+    )
+  }
+
   hook(name, fn) {
     this.hooks.add(name, fn)
     return this
@@ -256,7 +265,11 @@ module.exports = class PoiCore {
 
     this.config = validateConfig(this, merge({}, this.config, cliConfig))
 
+    this.hooks.invoke('createConfig', this.config)
+
     await this.cli.runMatchedCommand()
+
+    await this.hooks.invokePromise('afterRun')
   }
 
   createConfigFromCLIOptions() {
@@ -363,12 +376,19 @@ module.exports = class PoiCore {
     return config
   }
 
-  runCompiler(compiler) {
+  runCompiler(compiler, watch) {
     return new Promise((resolve, reject) => {
-      compiler.run((err, stats) => {
-        if (err) return reject(err)
-        resolve(stats)
-      })
+      if (watch) {
+        compiler.watch({}, err => {
+          if (err) return reject(err)
+          resolve()
+        })
+      } else {
+        compiler.run((err, stats) => {
+          if (err) return reject(err)
+          resolve(stats)
+        })
+      }
     })
   }
 

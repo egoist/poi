@@ -20,6 +20,7 @@ class PrintStatusPlugin {
         if (stats.hasErrors()) {
           process.exitCode = 1
         }
+
         // Print prettified errors and warnings
         const messages = formatWebpackMessages(stats.toJson())
         if (messages) {
@@ -38,7 +39,11 @@ class PrintStatusPlugin {
           })
         )
       } else {
-        logger.done(`Build completed in ${stats.endTime - stats.startTime} ms`)
+        if (this.opts.printSucessMessage) {
+          logger.done(
+            `Build completed in ${stats.endTime - stats.startTime} ms`
+          )
+        }
         // Print file stats
         if (
           (this.opts.printFileStats || logger.options.debug) &&

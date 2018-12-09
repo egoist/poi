@@ -38,8 +38,7 @@ module.exports = (api, testFiles, options) => {
       .toConfig(),
 
     webpackMiddleware: {
-      noInfo: true,
-      stats: 'errors-only'
+      logLevel: 'error'
     },
 
     colors: true,

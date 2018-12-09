@@ -5,6 +5,9 @@
     "access": "public"
   },
   "main": "lib/index.js",
+  "scripts": {
+    "example": "poi karma --test --plugin ."
+  },
   "files": [
     "lib"
   ],

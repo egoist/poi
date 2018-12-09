@@ -3,6 +3,11 @@
 require('v8-compile-cache')
 const Poi = require('..')
 
+process.on('unhandledRejection', error => {
+  console.error(error)
+  process.exit(1)
+})
+
 async function main() {
   try {
     const poi = new Poi()

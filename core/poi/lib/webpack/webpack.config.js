@@ -123,8 +123,7 @@ module.exports = (config, api) => {
   if (
     api.cli.options.progress !== false &&
     process.stdout.isTTY &&
-    !process.env.CI &&
-    api.mode !== 'test'
+    !process.env.CI
   ) {
     const homeRe = new RegExp(os.homedir(), 'g')
     config.plugin('progress').use(require('webpack').ProgressPlugin, [
@@ -157,14 +156,13 @@ module.exports = (config, api) => {
   }
 
   /** Add a default status reporter */
-  if (api.mode !== 'test') {
-    config.plugin('print-status').use(require('./PrintStatusPlugin'), [
-      {
-        printFileStats: true,
-        clearConsole: api.cli.options.clearConsole
-      }
-    ])
-  }
+  config.plugin('print-status').use(require('./PrintStatusPlugin'), [
+    {
+      printFileStats: api.mode !== 'test',
+      printSucessMessage: api.mode !== 'test',
+      clearConsole: api.cli.options.clearConsole
+    }
+  ])
 
   /** Add constants plugin */
   config

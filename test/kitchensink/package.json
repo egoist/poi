@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "test": "../../core/poi/bin/cli.js karma --test"
+    "test": "../../core/poi/bin/cli.js puppet --test --framework mocha"
   },
   "devDependencies": {
     "bootstrap": "^4.1.3",

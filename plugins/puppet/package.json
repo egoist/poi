@@ -1,0 +1,21 @@
+{
+  "name": "@poi/plugin-puppet",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "devDependencies": {
+    "puppeteer": "^1.11.0",
+    "tape": "^4.9.1"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "express": "^4.16.4",
+    "fast-glob": "^2.2.4",
+    "mocha": "^5.2.0"
+  }
+}

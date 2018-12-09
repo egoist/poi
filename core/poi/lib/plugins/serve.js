@@ -22,20 +22,23 @@ exports.apply = api => {
 
       const webpackConfig = api.createWebpackChain().toConfig()
 
-      webpackConfig.plugins.push({
-        apply(compiler) {
-          // TODO: figure out why using .tap() can't catch error
-          compiler.hooks.done.tap('print-serve-urls', stats => {
-            if (stats.hasErrors() || stats.hasWarnings()) return
+      // No need to print URLs in test mode
+      if (api.mode !== 'test') {
+        webpackConfig.plugins.push({
+          apply(compiler) {
+            // TODO: figure out why using .tap() can't catch error
+            compiler.hooks.done.tap('print-serve-urls', stats => {
+              if (stats.hasErrors() || stats.hasWarnings()) return
 
-            require('@poi/dev-utils/printServeMessage')({
-              host,
-              port,
-              open
+              require('@poi/dev-utils/printServeMessage')({
+                host,
+                port,
+                open
+              })
             })
-          })
-        }
-      })
+          }
+        })
+      }
 
       const compiler = api.createWebpackCompiler(webpackConfig)
 

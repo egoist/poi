@@ -64,7 +64,7 @@ exports.apply = api => {
           } else {
             rule
               .use('vue-style-loader')
-              .loader('vue-style-loader')
+              .loader(require.resolve('vue-style-loader'))
               .options({
                 sourceMap
               })

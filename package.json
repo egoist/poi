@@ -37,7 +37,8 @@
     ],
     "ignores": [
       "create-poi-app/generator/templates/**",
-      "test/kitchensink/**"
+      "test/kitchensink/**",
+      "**/example/**"
     ]
   },
   "husky": {
@@ -58,7 +59,8 @@
     },
     "ignore": [
       "create-poi-app/generator/templates/**",
-      "test/kitchensink/**"
+      "test/kitchensink/**",
+      "**/example/**"
     ]
   }
 }

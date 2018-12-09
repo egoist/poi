@@ -1,7 +1,7 @@
 {
   "plugins": [
     {
-      "resolve": "../../plugins/karma"
+      "resolve": "../../plugins/puppet"
     }
   ]
 }
