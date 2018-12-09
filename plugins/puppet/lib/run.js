@@ -1,5 +1,5 @@
 const util = require('util')
-const puppeteer = require('puppeteer')
+const puppeteer = require('puppeteer-core')
 const express = require('express')
 const chalk = require('chalk')
 const { consoleMessageToLogArgs, filterLogs } = require('./utils')
@@ -28,7 +28,8 @@ module.exports = async ({ outDir, compiler, options, logger, runCompiler }) => {
 
   // Launch browser and create a new page
   const browser = await puppeteer.launch({
-    headless: options.headless
+    headless: options.headless,
+    executablePath: require('chrome-location')
   })
   page = await browser.newPage()
 
@@ -36,8 +37,9 @@ module.exports = async ({ outDir, compiler, options, logger, runCompiler }) => {
   const server = express()
   server.use('/', express.static(outDir))
 
+  const HOST = '0.0.0.0'
   const PORT = 58395
-  server.listen(PORT)
+  server.listen(PORT, HOST)
 
   const exit = async (code, force) => {
     if (code === 0) {
@@ -109,5 +111,5 @@ module.exports = async ({ outDir, compiler, options, logger, runCompiler }) => {
   }
   `)
 
-  await page.goto(`http://localhost:${PORT}`)
+  await page.goto(`http://${HOST}:${PORT}`)
 }
