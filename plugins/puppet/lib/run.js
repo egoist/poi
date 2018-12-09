@@ -1,5 +1,5 @@
 const util = require('util')
-const puppeteer = require('puppeteer')
+const puppeteer = require('puppeteer-core')
 const express = require('express')
 const chalk = require('chalk')
 const { consoleMessageToLogArgs, filterLogs } = require('./utils')
@@ -28,7 +28,8 @@ module.exports = async ({ outDir, compiler, options, logger, runCompiler }) => {
 
   // Launch browser and create a new page
   const browser = await puppeteer.launch({
-    headless: options.headless
+    headless: options.headless,
+    executablePath: require('chrome-location')
   })
   page = await browser.newPage()
 

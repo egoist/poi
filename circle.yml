@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:latest
+      - image: circleci/node:latest-browsers
     branches:
       ignore:
         - gh-pages # list of branches to ignore
@@ -11,9 +11,6 @@ jobs:
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
-      - run:
-          name: Puppeteer requirements
-          command: sh ./tasks/circleci-puppeteer.sh
       - run:
           name: install dependences
           command: yarn

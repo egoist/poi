@@ -9,7 +9,8 @@
     "lib"
   ],
   "devDependencies": {
-    "puppeteer": "^1.11.0",
+    "chrome-location": "^1.2.1",
+    "puppeteer-core": "^1.11.0",
     "tape": "^4.9.1"
   },
   "dependencies": {
