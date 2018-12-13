@@ -75,6 +75,20 @@ module.exports = {
 
 Then you will get `index.html` `user/egoist/index.html` and `user/cristiano/index.html`.
 
+## Options
+
+### staticRoutes
+
+- Type: `string[]`
+- Default: `['/']`
+
+### resourceHints
+
+- Type: `boolean`
+- Default: `true`
+
+Add `prefetch` and `preload` resource hints to `<head>`.
+
 ## FAQ
 
 ### How do I modify webpack config for specific build?

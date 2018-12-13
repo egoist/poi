@@ -1,5 +1,8 @@
 <template>
-  <div>homepage</div>
+  <div>
+    <h1>home</h1>
+    <router-link to="/about">about</router-link>
+  </div>
 </template>
 
 <script>

@@ -5,13 +5,14 @@ const { minify } = require('html-minifier')
 
 module.exports = async (
   api,
-  { staticRoutes, serverBundle, clientManifest, htmlSkeletion }
+  { staticRoutes, serverBundle, clientManifest, htmlSkeletion, resourceHints }
 ) => {
   const routes = [...new Set(['/'].concat(staticRoutes || []))]
   const renderer = createBundleRenderer(serverBundle, {
     clientManifest,
     runInNewContext: false,
-    inject: false
+    inject: false,
+    basedir: api.resolveCwd()
   })
 
   const generatePage = async route => {
@@ -40,6 +41,7 @@ module.exports = async (
     ${style.text()}
     ${script.text()}
     ${noscript.text()}
+    ${resourceHints ? context.renderResourceHints() : ''}
     `
       )
       .replace(
@@ -54,9 +56,7 @@ module.exports = async (
       )
       .replace(`<div id="app"></div>`, app)
     const outPath = getFilePath(api.resolveOutDir(), route)
-    api.logger.debug(
-      `Generating ${path.relative(process.cwd(), outPath)} for ${route}`
-    )
+    console.log(`> Rendering ${route}`)
     await fs.outputFile(
       outPath,
       minify(html, {

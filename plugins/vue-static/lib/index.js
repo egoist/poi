@@ -3,7 +3,7 @@ const fs = require('fs-extra')
 
 exports.name = 'vue-static'
 
-exports.apply = (api, { staticRoutes } = {}) => {
+exports.apply = (api, { staticRoutes, resourceHints = true } = {}) => {
   if (
     !api.hasDependency('vue') ||
     !api.hasDependency('vue-template-compiler')
@@ -120,6 +120,7 @@ exports.apply = (api, { staticRoutes } = {}) => {
             '.vue-static/client/vue-ssr-client-manifest.json'
           )),
           staticRoutes,
+          resourceHints,
           htmlSkeletion: await fs.readFile(
             api.resolveCwd('.vue-static/client/index.html'),
             'utf8'
