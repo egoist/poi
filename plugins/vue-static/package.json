@@ -1,0 +1,25 @@
+{
+  "name": "@poi/plugin-vue-static",
+  "version": "12.0.0",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vue": "^2.5.21",
+    "vue-template-compiler": "^2.5.21"
+  },
+  "dependencies": {
+    "fs-extra": "^7.0.1",
+    "html-minifier": "^3.5.21",
+    "vue-meta": "^1.5.6",
+    "vue-router": "^3.0.2",
+    "vue-server-renderer": "^2.5.21",
+    "vuex-router-sync": "^5.0.0",
+    "webpack-node-externals": "^1.7.2"
+  }
+}

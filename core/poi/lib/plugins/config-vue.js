@@ -28,8 +28,8 @@ exports.apply = api => {
       .use('vue-loader')
       .loader('vue-loader')
       .options({
-        // TODO: can't pass compiler when using thread-loader
-        // compiler: compiler && require(compiler)
+        // TODO: error with thread-loader
+        compiler: api.localRequire('vue-template-compiler')
       })
 
     config.plugin('vue').use(require('vue-loader/lib/plugin'))
