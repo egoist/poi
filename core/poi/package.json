@@ -73,7 +73,7 @@
   "devDependencies": {
     "@poi/test-utils": "^12.0.0",
     "jest": "^23.6.0",
-    "vue-template-compiler": "^2.5.17"
+    "vue-template-compiler": "^2.5.21"
   },
   "keywords": [
     "poi",
