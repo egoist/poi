@@ -205,7 +205,7 @@ module.exports = class PoiCore {
       if (plugin.resolve.filterPlugins) {
         this.plugins = plugin.resolve.filterPlugins(
           this.plugins,
-          plugin.resolve.options
+          plugin.options
         )
       }
     }
@@ -217,7 +217,7 @@ module.exports = class PoiCore {
         if (plugin._resolve) {
           logger.debug(`location: ${plugin._resolve}`)
         }
-        plugin.resolve.apply(this, plugin.resolve.options)
+        plugin.resolve.apply(this, plugin.options)
       }
     }
   }
