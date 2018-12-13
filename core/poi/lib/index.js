@@ -184,6 +184,7 @@ module.exports = class PoiCore {
       { resolve: require.resolve('./plugins/config-css') },
       { resolve: require.resolve('./plugins/config-font') },
       { resolve: require.resolve('./plugins/config-image') },
+      { resolve: require.resolve('./plugins/config-eval') },
       { resolve: require.resolve('./plugins/config-html') },
       { resolve: require.resolve('./plugins/config-electron') },
       { resolve: require.resolve('./plugins/config-misc-loaders') },
