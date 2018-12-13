@@ -37,10 +37,6 @@ export default () => {
     console.error(`You must use option \`mode\` to 'history' in vue-router`)
   }
 
-  if (rootOptions.store) {
-    require('vuex-router-sync').sync(rootOptions.store, rootOptions.router)
-  }
-
   const app = new Vue({
     render(h) {
       return h(

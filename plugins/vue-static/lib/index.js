@@ -104,10 +104,13 @@ exports.apply = (api, { staticRoutes } = {}) => {
         const serverConfig = api
           .createWebpackChain({ type: 'server' })
           .toConfig()
-        await Promise.all([
+        const [clientStats, serverStats] = await Promise.all([
           api.runCompiler(api.createWebpackCompiler(clientConfig)),
           api.runCompiler(api.createWebpackCompiler(serverConfig))
         ])
+        if (clientStats.hasErrors() || serverStats.hasErrors()) {
+          return
+        }
         await fs.copy(api.resolveCwd(`.vue-static/client`), api.resolveOutDir())
         await require('./generate')(api, {
           serverBundle: require(api.resolveCwd(

@@ -19,7 +19,6 @@
     "vue-meta": "^1.5.6",
     "vue-router": "^3.0.2",
     "vue-server-renderer": "^2.5.21",
-    "vuex-router-sync": "^5.0.0",
     "webpack-node-externals": "^1.7.2"
   }
 }
