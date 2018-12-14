@@ -1,6 +1,6 @@
 {
   "name": "poi",
-  "version": "12.1.2",
+  "version": "12.1.3",
   "main": "lib/index.js",
   "bin": "bin/cli.js",
   "description": "A zero-config bundler for JavaScript applications.",
@@ -28,7 +28,7 @@
     "@babel/preset-typescript": "^7.1.0",
     "@babel/runtime": "^7.1.5",
     "@intervolga/optimize-cssnano-plugin": "^1.0.6",
-    "@poi/dev-utils": "^12.0.0",
+    "@poi/dev-utils": "^12.0.1",
     "@poi/logger": "^12.0.0",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-loader": "^8.0.4",
