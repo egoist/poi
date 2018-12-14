@@ -34,7 +34,7 @@ function transpileEsModules(code, filename) {
     config: false,
     presets: [
       [
-        require.resolve('babel-preset-env'),
+        require.resolve('@babel/preset-env'),
         {
           targets: {
             node: 'current'
