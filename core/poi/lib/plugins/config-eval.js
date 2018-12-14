@@ -4,11 +4,7 @@ exports.apply = api => {
   api.hook('createWebpackChain', config => {
     config.module
       .rule('eval')
-      .test(config.module.rule('js').get('test'))
-      .include.add(filepath => {
-        return /\.eval\.\w+$/.test(filepath)
-      })
-      .end()
+      .test([/\.eval\.js$/, /\.eval\.ts$/])
       .type('json')
       .post()
       .use('eval-loader')
