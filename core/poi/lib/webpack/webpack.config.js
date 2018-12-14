@@ -47,7 +47,9 @@ module.exports = (config, api) => {
 
   /** Support react-native-web by default, cuz why not? */
   // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-  config.resolve.alias.set('react-native', 'react-native-web')
+  config.resolve.alias
+    .set('react-native', 'react-native-web')
+    .set('#webpack-hot-client$', require.resolve('@poi/dev-utils/hotDevClient'))
 
   // output.sourceMap defaults to false in production mode
   config.devtool(

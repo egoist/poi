@@ -102,15 +102,12 @@ exports.apply = api => {
 
     config.devtool('cheap-module-eval-source-map')
 
-    const { hotEntries = ['index'] } = api.config.devServer || {}
-    const { hot } = api.config.devServer
+    const { hotEntries, hot } = api.config.devServer
 
     if (hot) {
       for (const entry of hotEntries) {
         if (config.entryPoints.has(entry)) {
-          config
-            .entry(entry)
-            .prepend(require.resolve('@poi/dev-utils/hotDevClient'))
+          config.entry(entry).prepend('#webpack-hot-client')
         }
       }
 
