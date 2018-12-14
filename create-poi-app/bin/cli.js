@@ -6,7 +6,7 @@ cli
   .command('<target-folder>', 'Generate a new project to target folder')
   .option(
     '--npm-client <client>',
-    `Choose an npm client for installing packages ('yarn' | 'npm')`
+    `Choose an npm client for installing packages ('yarn' | 'npm' | 'pnpm')`
   )
   .action(async (targetFolder, { npmClient }) => {
     const sao = require('sao')

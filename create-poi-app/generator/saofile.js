@@ -14,7 +14,7 @@ module.exports = {
     return [
       {
         name: 'features',
-        message: 'Select the features you want',
+        message: 'Select the features you want (none is required)',
         type: 'checkbox',
         choices: [
           {
