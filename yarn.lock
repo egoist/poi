@@ -9946,11 +9946,6 @@ quick-lru@^1.0.0:
   resolved "https://registry.npmjs.org/quick-lru/-/quick-lru-1.1.0.tgz#4360b17c61136ad38078397ff11416e186dcfbb8"
   integrity sha1-Q2CxfGETatOAeDl/8RQW4Ybc+7g=
 
-quicklink@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.npmjs.org/quicklink/-/quicklink-0.1.2.tgz#a613fbf4cbebbcf5ebbd08459c94a86a7a16fba2"
-  integrity sha512-b2Tgz0cHeSmOd3AjK2hCbUbeNa/0okq2Hf4U7WXZUwY5Lv5DE07uGRV4xXdqITDb/Fe1bjZ46GwNnMUkNDvE9Q==
-
 randomatic@^3.0.0:
   version "3.1.1"
   resolved "https://registry.npmjs.org/randomatic/-/randomatic-3.1.1.tgz#b776efc59375984e36c537b2f51a1f0aff0da1ed"
