@@ -9,7 +9,7 @@ module.exports = async function(source, map) {
     const module = new NativeModule(filename, this)
     module.paths = NativeModule._nodeModulePaths(this.context)
     module.filename = filename
-    module._compile(code, filename)
+    module._compile(transpileEsModules(code, filename), filename)
     return module.exports.default || module.exports
   }
 
@@ -20,4 +20,27 @@ module.exports = async function(source, map) {
   } catch (error) {
     done(error)
   }
+}
+
+function transpileEsModules(code, filename) {
+  const RE = /\b(import|export)\b/
+  if (!RE.test(code)) {
+    return code
+  }
+  // Use babel-preset-env to transpile potentional `import/export` statements
+  return require('@babel/core').transform(code, {
+    filename,
+    babelrc: false,
+    config: false,
+    presets: [
+      [
+        require.resolve('babel-preset-env'),
+        {
+          targets: {
+            node: 'current'
+          }
+        }
+      ]
+    ]
+  }).code
 }
