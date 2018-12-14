@@ -31,7 +31,7 @@ function transpileEsModules(code, filename) {
   return require('@babel/core').transform(code, {
     filename,
     babelrc: false,
-    config: false,
+    configFile: false,
     presets: [
       [
         require.resolve('@babel/preset-env'),
