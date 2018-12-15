@@ -1,7 +1,3 @@
 {
-  "plugins": [
-    {
-      "resolve": "../../plugins/puppet"
-    }
-  ]
+  "plugins": ["../../plugins/puppet"]
 }

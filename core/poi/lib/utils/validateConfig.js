@@ -99,10 +99,13 @@ module.exports = (api, config) => {
   )
 
   const plugins = struct.optional([
-    struct({
-      resolve: struct.union(['string', 'object']),
-      options: struct.optional('object')
-    })
+    struct.union([
+      'string',
+      struct({
+        resolve: struct.union(['string', 'object']),
+        options: struct.optional('object')
+      })
+    ])
   ])
 
   const assets = struct(
