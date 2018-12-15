@@ -23,5 +23,11 @@ exports.apply = api => {
       })
       .use('yaml-loader')
       .loader('yaml-loader')
+
+    config.module
+      .rule('pug')
+      .test([/\.pug$/, /\.jade$/])
+      .use('pug-loader')
+      .loader('pug-loader')
   })
 }
