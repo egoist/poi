@@ -10,13 +10,13 @@
   ],
   "devDependencies": {
     "chrome-location": "^1.2.1",
-    "puppeteer-core": "^1.11.0",
     "tape": "^4.9.1"
   },
   "dependencies": {
     "chalk": "^2.4.1",
     "express": "^4.16.4",
     "fast-glob": "^2.2.4",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "puppeteer-core": "^1.11.0"
   }
 }
