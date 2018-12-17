@@ -73,6 +73,7 @@ module.exports = (api, config) => {
   const devServer = struct(
     {
       hot: 'boolean',
+      hotOnly: 'boolean?',
       host: 'string',
       port: struct.union(['string', 'number']),
       hotEntries: struct(['string']),
@@ -84,7 +85,8 @@ module.exports = (api, config) => {
           struct([struct.union(['object', 'function'])])
         ])
       ),
-      open: 'boolean',
+      open: struct.union(['boolean', 'string']),
+      historyApiFallback: struct.optional(struct.union(['boolean', 'object'])),
       before: struct.optional('function'),
       after: struct.optional('function'),
       https: struct.optional(struct.union(['boolean', 'object']))
