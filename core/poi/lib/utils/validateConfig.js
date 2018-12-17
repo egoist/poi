@@ -75,7 +75,7 @@ module.exports = (api, config) => {
       hot: 'boolean',
       host: 'string',
       port: struct.union(['string', 'number']),
-      hotEntries: struct.tuple(['string']),
+      hotEntries: struct(['string']),
       proxy: struct.optional(
         struct.union([
           'string',
