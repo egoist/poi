@@ -4,6 +4,8 @@
     "test": "../../core/poi/bin/cli.js puppet --test --framework mocha"
   },
   "devDependencies": {
+    "@mdx-js/loader": "^0.16.6",
+    "@svgr/webpack": "^4.1.0",
     "babel-preset-power-assert": "^3.0.0",
     "bootstrap": "^4.1.3",
     "marked": "^0.5.2",

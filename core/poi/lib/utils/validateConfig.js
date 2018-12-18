@@ -112,7 +112,8 @@ module.exports = (api, config) => {
 
   const assets = struct(
     {
-      inlineImageMaxSize: struct.optional('number')
+      inlineImageMaxSize: struct.optional('number'),
+      namedImports: struct.optional('object')
     },
     {
       inlineImageMaxSize: 5000
@@ -154,6 +155,11 @@ module.exports = (api, config) => {
     getFileNames({ useHash: api.isProd, format: result.output.format }),
     result.output.fileNames
   )
+
+  // Always disable cache in test mode
+  if (process.env.NODE_ENV === 'test') {
+    result.cache = false
+  }
 
   api.logger.debug('Validated config', result)
 
