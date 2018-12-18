@@ -4,18 +4,25 @@ exports.name = 'builtin:config-babel'
 
 exports.apply = api => {
   api.hook('createCLI', ({ command }) => {
-    command.option('--jsx <syntax>', 'Set JSX syntax', {
-      default: 'react'
-    })
+    command
+      .option('--jsx <syntax>', 'Set JSX syntax', {
+        default: 'react'
+      })
+      .option(
+        '--named-imports <loaderMap>',
+        'Conver specific named imports to use custom loaders'
+      )
   })
 
   api.hook('createWebpackChain', config => {
-    const { namedImports } = api.config.assets || {}
-    const { transpileModules, jsx } = api.config.babel || {}
+    const { transpileModules, jsx, namedImports } = api.config.babel || {}
 
     process.env.POI_JSX = jsx
     if (namedImports) {
-      process.env.POI_NAMED_IMPORTS = JSON.stringify(namedImports)
+      process.env.POI_NAMED_IMPORTS =
+        typeof namedImports === 'string'
+          ? namedImports
+          : JSON.stringify(namedImports)
     }
 
     const rule = config.module.rule('js')

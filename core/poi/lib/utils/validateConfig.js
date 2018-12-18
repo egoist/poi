@@ -45,7 +45,8 @@ module.exports = (api, config) => {
   const babel = struct(
     {
       jsx: 'string',
-      transpileModules: struct.optional(struct.list(['string']))
+      transpileModules: struct.optional(struct.list(['string'])),
+      namedImports: struct.optional('object')
     },
     {
       jsx: 'react'
@@ -112,8 +113,7 @@ module.exports = (api, config) => {
 
   const assets = struct(
     {
-      inlineImageMaxSize: struct.optional('number'),
-      namedImports: struct.optional('object')
+      inlineImageMaxSize: struct.optional('number')
     },
     {
       inlineImageMaxSize: 5000
