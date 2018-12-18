@@ -85,7 +85,7 @@ module.exports = (api, config) => {
           struct([struct.union(['object', 'function'])])
         ])
       ),
-      open: struct.union(['boolean', 'string']),
+      open: 'boolean',
       historyApiFallback: struct.optional(struct.union(['boolean', 'object'])),
       before: struct.optional('function'),
       after: struct.optional('function'),
