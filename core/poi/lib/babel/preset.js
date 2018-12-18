@@ -1,4 +1,5 @@
 const path = require('path')
+const merge = require('lodash.merge')
 
 const env = process.env.BABEL_ENV || process.env.NODE_ENV
 const isTest = env === 'test'
@@ -22,10 +23,15 @@ module.exports = (
     jsxPragmaFrag,
     flow,
     typescript,
-    env
+    env,
+    namedImports = process.env.POI_NAMED_IMPORTS
   } = {}
 ) => {
   jsxPragmaFrag = jsxPragmaFrag || 'React.Fragment'
+
+  if (typeof namedImports === 'string') {
+    namedImports = JSON.parse(namedImports)
+  }
 
   const isVueJSX = jsx === 'vue'
   const isReactJSX = jsx === 'react'
@@ -82,6 +88,28 @@ module.exports = (
       require('@babel/plugin-proposal-object-rest-spread'),
       {
         useBuiltIns: true
+      }
+    ],
+    [
+      require('babel-plugin-assets-named-imports'),
+      {
+        loaderMap: merge(
+          {
+            svg: {
+              ReactComponent: '!@svgr/webpack?-prettier![path]',
+              VueComponent: '!vue-loader!svg-to-vue-component/loader![path]'
+            },
+            md: {
+              ReactComponent: `!babel-loader?${JSON.stringify({
+                babelrc: false,
+                configFile: false,
+                presets: [__filename]
+              })}!@mdx-js/loader![path]`,
+              VueComponent: '!vue-loader!vmark-loader![path]'
+            }
+          },
+          namedImports
+        )
       }
     ],
     require('babel-plugin-macros'),

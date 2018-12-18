@@ -10,9 +10,13 @@ exports.apply = api => {
   })
 
   api.hook('createWebpackChain', config => {
+    const { namedImports } = api.config.assets || {}
     const { transpileModules, jsx } = api.config.babel || {}
 
     process.env.POI_JSX = jsx
+    if (namedImports) {
+      process.env.POI_NAMED_IMPORTS = JSON.stringify(namedImports)
+    }
 
     const rule = config.module.rule('js')
 
@@ -41,7 +45,9 @@ exports.apply = api => {
       .options({
         cacheDirectory: api.config.cache,
         cacheCompression: api.isProd,
-        cacheIdentifier: `jsx:${process.env.POI_JSX}`
+        cacheIdentifier: `jsx:${process.env.POI_JSX}::namedImports:${
+          process.env.POI_NAMED_IMPORTS
+        }`
       })
   })
 }
