@@ -29,5 +29,15 @@ exports.apply = api => {
       .test([/\.pug$/, /\.jade$/])
       .use('pug-loader')
       .loader('pug-loader')
+
+    // ReasonML / BuckleScript support
+    config.module
+      .rule('bs')
+      .test(/\.(re|ml)$/)
+      .use('bs-loader')
+      .loader('@poi/bs-loader')
+      .options({
+        cwd: api.resolveCwd()
+      })
   })
 }
