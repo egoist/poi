@@ -86,6 +86,8 @@ Save it and the browser will automatically reload to apply the changes!
 
 You can improve it by sending pull requests to [this repository](https://github.com/poi-bundler/website).
 
+Check out [this repository](https://github.com/poi-bundler/examples) for more examples.
+
 ## Community
 
 All feedback and suggestions are welcome!
