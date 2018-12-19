@@ -36,8 +36,5 @@ exports.apply = api => {
       .test(/\.(re|ml)$/)
       .use('bs-loader')
       .loader('@poi/bs-loader')
-      .options({
-        cwd: api.resolveCwd()
-      })
   })
 }
