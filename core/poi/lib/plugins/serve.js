@@ -71,6 +71,8 @@ exports.apply = api => {
 
       const existingBefore = devServerOptions.before
       devServerOptions.before = server => {
+        api.hooks.invoke('beforeDevMiddlewares', server)
+
         server.use(
           require('@poi/dev-utils/launchEditorEndpoint'),
           require('launch-editor-middleware')(() =>
@@ -87,7 +89,9 @@ exports.apply = api => {
       const exitingAfter = devServerOptions.after
       devServerOptions.after = server => {
         exitingAfter && exitingAfter(server)
-        api.hooks.invoke('onCreateServer', server)
+        api.hooks.invoke('onCreateServer', server) // TODO: remove this in the future
+
+        api.hooks.invoke('afterDevMiddlewares', server)
       }
 
       const WebpackDevServer = require('webpack-dev-server')
