@@ -96,16 +96,14 @@ module.exports = (
         loaderMap: merge(
           {
             svg: {
-              ReactComponent: '!@svgr/webpack?-prettier![path]',
-              VueComponent: '!vue-loader!svg-to-vue-component/loader![path]'
+              ReactComponent: '!@svgr/webpack?-prettier![path]'
             },
             md: {
               ReactComponent: `!babel-loader?${JSON.stringify({
                 babelrc: false,
                 configFile: false,
                 presets: [__filename]
-              })}!@mdx-js/loader![path]`,
-              VueComponent: '!vue-loader!vmark-loader![path]'
+              })}!@mdx-js/loader![path]`
             }
           },
           namedImports
