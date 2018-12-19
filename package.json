@@ -4,7 +4,8 @@
   "scripts": {
     "lint": "xo",
     "test": "sh tasks/test.sh",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "release": "lerna version --conventional-commits"
   },
   "workspaces": [
     "core/*",

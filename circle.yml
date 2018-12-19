@@ -1,6 +1,7 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/repo
     docker:
       - image: circleci/node:latest-browsers
     branches:
@@ -22,8 +23,8 @@ jobs:
           name: test
           command: yarn test
       - run:
-          name: Versioning
-          command: yarn lerna version --conventional-commits --yes
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
       - run:
           name: Publish
           command: yarn lerna publish from-git --yes
