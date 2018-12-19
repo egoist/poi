@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.2.1](https://github.com/egoist/poi/compare/poi@12.2.0...poi@12.2.1) (2018-12-19)
+
+### Bug Fixes
+
+- vue-loader doesn't quite work with inline loaders ([7c04af6](https://github.com/egoist/poi/commit/7c04af6))
+
 # [12.2.0](https://github.com/egoist/poi/compare/poi@12.1.6...poi@12.2.0) (2018-12-18)
 
 ### Bug Fixes

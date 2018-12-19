@@ -1,6 +1,6 @@
 {
   "name": "poi",
-  "version": "12.2.0",
+  "version": "12.2.1",
   "main": "lib/index.js",
   "bin": "bin/cli.js",
   "description": "A zero-config bundler for JavaScript applications.",
