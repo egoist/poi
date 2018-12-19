@@ -6,7 +6,8 @@
   "ignoreChanges": ["**/__fixtures__/**", "**/__tests__/**", "**/*.md"],
   "command": {
     "publish": {
-      "allowBranch": ["master"]
+      "allowBranch": ["master"],
+      "message": "chore(release): publish"
     }
   }
 }

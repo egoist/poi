@@ -21,3 +21,9 @@ jobs:
       - run:
           name: test
           command: yarn test
+      - run:
+          name: Versioning
+          command: yarn lerna version --conventional-commits --yes
+      - run:
+          name: Publish
+          command: yarn lerna publish from-git --yes
