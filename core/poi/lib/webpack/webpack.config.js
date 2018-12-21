@@ -55,9 +55,11 @@ module.exports = (config, api) => {
   config.devtool(
     api.config.output.sourceMap === false
       ? false
+      : api.mode === 'production'
+      ? 'source-map'
       : api.mode === 'test'
       ? 'cheap-module-eval-source-map'
-      : 'source-map'
+      : 'cheap-module-source-map'
   )
 
   /** Alias @ to `src` folder since many apps store app code here */
@@ -86,6 +88,15 @@ module.exports = (config, api) => {
     api.config.output.fileNames.js.replace(/\.js$/, '.chunk.js')
   )
   config.output.publicPath(api.config.output.publicUrl)
+  // Point sourcemap entries to original disk location (format as URL on Windows)
+  config.output.devtoolModuleFilenameTemplate(
+    api.isProd
+      ? info =>
+          path
+            .relative(api.resolveCwd(), info.absoluteResourcePath)
+            .replace(/\\/g, '/')
+      : info => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')
+  )
 
   /** Set format */
   const { format, moduleName } = api.config.output

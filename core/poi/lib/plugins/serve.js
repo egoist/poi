@@ -108,8 +108,6 @@ exports.apply = api => {
   api.hook('createWebpackChain', config => {
     if (!api.cli.options.serve) return
 
-    config.devtool('cheap-module-source-map')
-
     const { hotEntries, hot } = api.config.devServer
 
     if (hot) {
