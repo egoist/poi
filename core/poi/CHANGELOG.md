@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.2.4](https://github.com/egoist/poi/compare/poi@12.2.3...poi@12.2.4) (2018-12-21)
+
+### Bug Fixes
+
+- react-error-overlay doesn't work with eval source map ([ddc8213](https://github.com/egoist/poi/commit/ddc8213))
+- use original file path in sourcemap in dev mode ([a2dfc5f](https://github.com/egoist/poi/commit/a2dfc5f))
+
 ## [12.2.3](https://github.com/egoist/poi/compare/poi@12.2.2...poi@12.2.3) (2018-12-21)
 
 ### Bug Fixes
