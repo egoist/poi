@@ -26,6 +26,7 @@ exports.apply = api => {
       if (api.mode !== 'test') {
         webpackConfig.plugins.push({
           apply(compiler) {
+            let isFirstBuild = true
             // TODO: figure out why using .tap() can't catch error
             compiler.hooks.done.tap('print-serve-urls', stats => {
               if (stats.hasErrors() || stats.hasWarnings()) return
@@ -33,8 +34,11 @@ exports.apply = api => {
               require('@poi/dev-utils/printServeMessage')({
                 host,
                 port,
-                open
+                open,
+                isFirstBuild
               })
+
+              isFirstBuild = false
             })
           }
         })
