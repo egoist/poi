@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.2.3](https://github.com/egoist/poi/compare/poi@12.2.2...poi@12.2.3) (2018-12-21)
+
+### Bug Fixes
+
+- better naming for server hooks ([b9aab0b](https://github.com/egoist/poi/commit/b9aab0b))
+- **cli:** only open browser on the first successful build ([13b1ac8](https://github.com/egoist/poi/commit/13b1ac8))
+
 ## [12.2.2](https://github.com/egoist/poi/compare/poi@12.2.1...poi@12.2.2) (2018-12-19)
 
 ### Bug Fixes
