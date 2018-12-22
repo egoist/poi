@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.2.5](https://github.com/egoist/poi/compare/poi@12.2.4...poi@12.2.5) (2018-12-22)
+
+### Bug Fixes
+
+- only change devtoolModuleFilenameTemplate under --serve flag ([fe5b708](https://github.com/egoist/poi/commit/fe5b708))
+- resolve modules in local development ([369a352](https://github.com/egoist/poi/commit/369a352))
+
+### Features
+
+- add a new plugin option `when` ([17ff228](https://github.com/egoist/poi/commit/17ff228))
+- support all webpack targets ([0d51120](https://github.com/egoist/poi/commit/0d51120))
+
 ## [12.2.4](https://github.com/egoist/poi/compare/poi@12.2.3...poi@12.2.4) (2018-12-21)
 
 ### Bug Fixes
