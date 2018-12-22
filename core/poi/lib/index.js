@@ -200,6 +200,9 @@ module.exports = class PoiCore {
         }
         return plugin
       })
+      .filter(plugin => {
+        return plugin.resolve.when ? plugin.resolve.when(this) : true
+      })
 
     // Run plugin's `filterPlugins` method
     for (const plugin of this.plugins) {
