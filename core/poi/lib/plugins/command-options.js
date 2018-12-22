@@ -16,7 +16,7 @@ exports.apply = api => {
 
     command.option('--parallel', 'Enable multicore compilation (experimental)')
 
-    command.option('--cache', 'Enable compilation caching')
+    command.option('--no-cache', 'Disable compilation caching')
 
     command.option('--public-url <url>', 'Set the public URL to serve on', {
       default: '/'
