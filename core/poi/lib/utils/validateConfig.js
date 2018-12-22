@@ -18,7 +18,16 @@ module.exports = (api, config) => {
       format: struct.enum(['iife', 'cjs', 'umd']),
       moduleName: struct.optional('string'),
       publicUrl: 'string',
-      target: struct.enum(['browser', 'electron', 'node']),
+      target: struct.enum([
+        'web',
+        'node',
+        'electron', // Alias to electron-renderer
+        'electron-renderer',
+        'electron-main',
+        'node-webkit',
+        'webworker',
+        'async-node'
+      ]),
       clean: 'boolean',
       fileNames: struct.optional(
         struct.object({
@@ -36,7 +45,7 @@ module.exports = (api, config) => {
       minimize: api.isProd,
       format: 'iife',
       publicUrl: '/',
-      target: 'browser',
+      target: 'web',
       default: true,
       clean: true
     }

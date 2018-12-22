@@ -26,7 +26,7 @@ exports.apply = api => {
     })
     command.option('--no-public-folder', 'Disable public folder')
     command.option('--target <target>', 'Target environment', {
-      default: 'browser'
+      default: 'web'
     })
     command.option('--format <format>', 'Output format', { default: 'iife' })
     command.option('--module-name <name>', 'Module name for "umd" format')

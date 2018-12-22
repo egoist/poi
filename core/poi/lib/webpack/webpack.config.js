@@ -124,6 +124,10 @@ module.exports = (config, api) => {
     config.output.library(moduleName)
   }
 
+  // Set output target
+  const { target } = api.config.output
+  config.target(target === 'electron' ? 'electron-renderer' : target)
+
   const poiInstalledDir = path.join(__dirname, '../../../')
 
   /** Resolve loaders */
