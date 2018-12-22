@@ -123,6 +123,12 @@ exports.apply = api => {
       config.plugin('hot').use(HotModuleReplacementPlugin)
     }
 
+    // Point sourcemap entries to original disk location (format as URL on Windows)
+    // Useful for react-error-overlay
+    config.output.devtoolModuleFilenameTemplate(info =>
+      info.absoluteResourcePath.replace(/\\/g, '/')
+    )
+
     // Don't show bundled files in --serve
     if (config.plugins.has('print-status')) {
       config.plugin('print-status').tap(([options]) => [
