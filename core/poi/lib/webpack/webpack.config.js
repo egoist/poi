@@ -119,13 +119,16 @@ module.exports = (config, api) => {
   const { target } = api.config.output
   config.target(target === 'electron' ? 'electron-renderer' : target)
 
-  const poiInstalledDir = path.join(__dirname, '../../../')
+  const inYarnWorkspaces = __dirname.includes('/poi/core/poi')
+  const poiDependenciesDir = inYarnWorkspaces
+    ? path.join(__dirname, '../../../../node_modules')
+    : path.join(__dirname, '../../../')
 
   /** Resolve loaders */
-  config.resolveLoader.modules.add('node_modules').add(poiInstalledDir)
+  config.resolveLoader.modules.add('node_modules').add(poiDependenciesDir)
 
   /** Resolve modules */
-  config.resolve.modules.add('node_modules').add(poiInstalledDir)
+  config.resolve.modules.add('node_modules').add(poiDependenciesDir)
 
   // Add progress bar
   if (
