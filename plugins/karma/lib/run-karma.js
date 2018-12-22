@@ -32,13 +32,27 @@ module.exports = (api, testFiles, options) => {
 
     frameworks: ['jasmine'],
 
+    reporters: ['mocha', options.coverage && 'coverage'].filter(Boolean),
+
+    // Only used when --coverage
+    coverageReporter: {
+      dir: 'coverage',
+      reporters: [
+        { type: 'text' },
+        { type: 'html', subdir: 'report-html' },
+        { type: 'lcov', subdir: 'report-lcov' }
+      ]
+    },
+
     webpack: webpackConfig.entryPoints
       .clear()
       .end()
       .toConfig(),
 
     webpackMiddleware: {
-      logLevel: 'error'
+      logLevel: 'error',
+      stats: 'errors-only',
+      noInfo: true
     },
 
     colors: true,
@@ -49,10 +63,10 @@ module.exports = (api, testFiles, options) => {
       jasmine: {
         random: false
       }
-    }
-  }
+    },
 
-  if (!options.watch) config.singleRun = true
+    singleRun: !options.watch
+  }
 
   const server = createServer(config, api.PoiError)
 

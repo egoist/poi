@@ -48,8 +48,20 @@ Now you can run `npm test` instead.
 
 ### Test File Patterns
 
-By default this plugin use `**/*.test.{js,ts}` (excluded node_modules) as test files, you can change this to any minimatch pattern (note the quotes to avoid shell expansion):
+By default this plugin use `**/*.{test,spec}.{js,ts}` (excluded `node_modules`) as test files, you can change this to any minimatch pattern (note the quotes to avoid shell expansion):
 
 ```bash
 poi karma "**/*.spec.coffee" --test
 ```
+
+### Coverage Report
+
+Use `--coverage` flag to show code coverage and generate coverage report to `./coverage` folder.
+
+### Watching Files
+
+Use `--watch` flag to watch test files.
+
+### Running on CI
+
+To run your tests in Continuous Integration Platforms like CircleCI, you will need `Chrome` installed in your test environment.
