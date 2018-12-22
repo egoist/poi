@@ -1,10 +1,23 @@
+const path = require('path')
 const { Server } = require('karma')
+const glob = require('fast-glob')
 
-module.exports = (api, testFiles, options) => {
+module.exports = async (api, testFiles, options) => {
   const webpackConfig = api.createWebpackChain()
 
+  const cwd = api.resolveCwd()
+  const files = await glob(
+    [
+      '!**/node_modules/**',
+      `!${path.join(path.relative(process.cwd(), api.config.output.dir), '**')}`
+    ].concat(testFiles),
+    {
+      cwd
+    }
+  )
+
   const config = {
-    basePath: api.cwd,
+    basePath: cwd,
 
     browsers: [options.headless ? 'PoiChromeHeadless' : 'PoiChrome'],
 
@@ -18,14 +31,12 @@ module.exports = (api, testFiles, options) => {
       }
     },
 
-    files: testFiles.map(pattern => ({
+    files: files.map(pattern => ({
       pattern,
       watched: false
     })),
 
-    exclude: ['!**/node_modules/**', '!**/dist/**', '!**/vendor/**'],
-
-    preprocessors: testFiles.reduce((res, pattern) => {
+    preprocessors: files.reduce((res, pattern) => {
       res[pattern] = ['webpack']
       return res
     }, {}),
@@ -72,7 +83,7 @@ module.exports = (api, testFiles, options) => {
 
   server.start()
 
-  return server.completion
+  await server.completion
 }
 
 function createServer(config, PoiError) {
