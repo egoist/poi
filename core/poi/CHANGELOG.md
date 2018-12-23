@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.2.6](https://github.com/egoist/poi/compare/poi@12.2.5...poi@12.2.6) (2018-12-23)
+
+### Bug Fixes
+
+- **cli:** cache is enabled by default ([b2171d5](https://github.com/egoist/poi/commit/b2171d5))
+- properly handle --no-config flag ([bb94787](https://github.com/egoist/poi/commit/bb94787))
+
 ## [12.2.5](https://github.com/egoist/poi/compare/poi@12.2.4...poi@12.2.5) (2018-12-22)
 
 ### Bug Fixes
