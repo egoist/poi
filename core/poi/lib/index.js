@@ -78,13 +78,14 @@ module.exports = class PoiCore {
     this.webpackUtils = new WebpackUtils(this)
 
     // Try to load config file
-    if (externalConfig || this.parsedArgs.has('no-config')) {
+    if (externalConfig || this.parsedArgs.get('config') === false) {
       logger.debug('Poi config file was disabled')
-      this.config = externalConfig
+      this.config = externalConfig || {}
     } else {
-      const configFiles = this.parsedArgs.has('config')
-        ? [this.parsedArgs.get('config')]
-        : defaultConfigFiles
+      const configFiles =
+        typeof this.parsedArgs.get('config') === 'string'
+          ? [this.parsedArgs.get('config')]
+          : defaultConfigFiles
       const { path: configPath, data: config } = this.configLoader.load({
         files: configFiles,
         packageKey: 'poi'
@@ -134,7 +135,7 @@ module.exports = class PoiCore {
       .option('--prod, --production', 'Alias for --mode production')
       .option('--test', 'Alias for --mode test')
       .option('--no-config', 'Disable config file')
-      .option('--config <path>', 'Set the path to config file')
+      .option('--config [path]', 'Set the path to config file')
       .option(
         '--plugin, --plugins <plugin>',
         'Add a plugin (can be used for multiple times)'
