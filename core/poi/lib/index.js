@@ -149,9 +149,9 @@ module.exports = class PoiCore {
             const body = section.body.split('\n')
             body.shift()
             body.unshift(
-              `  $ ${cli.bin} --help`,
-              `  $ ${cli.bin} --serve --help`,
-              `  $ ${cli.bin} --prod --help`
+              `  $ ${cli.name} --help`,
+              `  $ ${cli.name} --serve --help`,
+              `  $ ${cli.name} --prod --help`
             )
             section.body = body.join('\n')
           }
