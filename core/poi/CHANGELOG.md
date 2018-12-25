@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.2.7](https://github.com/egoist/poi/compare/poi@12.2.6...poi@12.2.7) (2018-12-25)
+
+### Bug Fixes
+
+- **cli:** help message ([648727e](https://github.com/egoist/poi/commit/648727e))
+
+### Features
+
+- add a hook to allow modifing devServer config ([df939e6](https://github.com/egoist/poi/commit/df939e6))
+
 ## [12.2.6](https://github.com/egoist/poi/compare/poi@12.2.5...poi@12.2.6) (2018-12-23)
 
 ### Bug Fixes
