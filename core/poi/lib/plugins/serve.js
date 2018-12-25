@@ -46,7 +46,7 @@ exports.apply = api => {
 
       const compiler = api.createWebpackCompiler(webpackConfig)
 
-      const devServerOptions = Object.assign(
+      const devServerConfig = Object.assign(
         {
           quiet: true,
           historyApiFallback: true,
@@ -73,8 +73,8 @@ exports.apply = api => {
         }
       )
 
-      const existingBefore = devServerOptions.before
-      devServerOptions.before = server => {
+      const existingBefore = devServerConfig.before
+      devServerConfig.before = server => {
         api.hooks.invoke('beforeDevMiddlewares', server)
 
         server.use(
@@ -90,16 +90,18 @@ exports.apply = api => {
         existingBefore && existingBefore(server)
       }
 
-      const exitingAfter = devServerOptions.after
-      devServerOptions.after = server => {
+      const exitingAfter = devServerConfig.after
+      devServerConfig.after = server => {
         exitingAfter && exitingAfter(server)
         api.hooks.invoke('onCreateServer', server) // TODO: remove this in the future
 
         api.hooks.invoke('afterDevMiddlewares', server)
       }
 
+      api.hooks.invoke('createDevServerConfig', devServerConfig)
+
       const WebpackDevServer = require('webpack-dev-server')
-      const server = new WebpackDevServer(compiler, devServerOptions)
+      const server = new WebpackDevServer(compiler, devServerConfig)
 
       server.listen(port, host)
     })

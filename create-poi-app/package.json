@@ -15,7 +15,7 @@
     "create-poi-app": "bin/cli.js"
   },
   "dependencies": {
-    "cac": "^6.3.9",
+    "cac": "^6.3.12",
     "sao": "^1.6.1",
     "stringify-object": "^3.3.0"
   },

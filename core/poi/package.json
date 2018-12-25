@@ -35,7 +35,7 @@
     "babel-plugin-assets-named-imports": "^0.2.0",
     "babel-plugin-macros": "^2.4.2",
     "babel-plugin-transform-vue-jsx": "^4.0.0",
-    "cac": "^6.3.6",
+    "cac": "^6.3.12",
     "cache-loader": "^1.2.5",
     "case-sensitive-paths-webpack-plugin": "^2.1.2",
     "chalk": "^2.4.1",

@@ -2581,12 +2581,12 @@ bytes@3.0.0:
   resolved "https://registry.npmjs.org/bytes/-/bytes-3.0.0.tgz#d32815404d689699f85a4ea4fa8755dd13a96048"
   integrity sha1-0ygVQE1olpn4Wk6k+odV3ROpYEg=
 
-cac@^6.3.6:
-  version "6.3.6"
-  resolved "https://registry.npmjs.org/cac/-/cac-6.3.6.tgz#d846a71efef3af168f9994d2a751f0398fb41718"
-  integrity sha512-5sGrDwMwigDelM7f8GY2lkQov9XWgugnuAQ8e2KjSfsI9nXwtAbgn2n7u+5lloiWOCIPRUEhU2FXi3OJ8GEbqA==
+cac@^6.3.12:
+  version "6.3.12"
+  resolved "https://registry.npmjs.org/cac/-/cac-6.3.12.tgz#eb45205c7d09ac7c141104e8b8d1859bd9a09d39"
+  integrity sha512-0tJOuYFAfQc8s3G6BHSPCvSTCkcVm9etd3nSeLW55Prz3uv3I6cMli9bfkEGbVUZQ39t750rAY6nCFp3dLboxw==
 
-cac@^6.3.8, cac@^6.3.9:
+cac@^6.3.8:
   version "6.3.9"
   resolved "https://registry.npmjs.org/cac/-/cac-6.3.9.tgz#0cdf3f2d3a7d3fb71ab89c476c73e472084859a2"
   integrity sha512-vWuINsAe+HYqdp/adfi03pP/A0wCmbg9WmHKNBywwUTuHoFhctEGbGp/x4ecQemihUEqvWq1FB9sna7gLF3KCw==

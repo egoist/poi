@@ -135,7 +135,7 @@ module.exports = class PoiCore {
       .option('--prod, --production', 'Alias for --mode production')
       .option('--test', 'Alias for --mode test')
       .option('--no-config', 'Disable config file')
-      .option('--config [path]', 'Set the path to config file')
+      .option('--config <path>', 'Set the path to config file')
       .option(
         '--plugin, --plugins <plugin>',
         'Add a plugin (can be used for multiple times)'
