@@ -5,10 +5,7 @@ module.exports = (api, config) => {
   api.logger.debug('Validating config', config)
   const struct = superstruct()
 
-  const entry = struct.optional(
-    struct.union(['string', 'array', 'object']),
-    'index'
-  )
+  const entry = struct.optional(struct.union(['string', 'array', 'object']))
 
   const output = struct(
     {
@@ -164,6 +161,18 @@ module.exports = (api, config) => {
     getFileNames({ useHash: api.isProd, format: result.output.format }),
     result.output.fileNames
   )
+
+  if (!result.entry) {
+    if (api.pkg.data.source) {
+      api.logger.debug(
+        'Using the value of `source` field in `package.json` as app entry'
+      )
+      result.entry = api.pkg.data.source
+    } else {
+      api.logger.debug('Using `index` as app entry')
+      result.entry = 'index'
+    }
+  }
 
   // Always disable cache in test mode
   if (process.env.NODE_ENV === 'test') {
