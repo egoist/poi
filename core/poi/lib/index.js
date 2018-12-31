@@ -86,7 +86,7 @@ module.exports = class PoiCore {
         typeof this.parsedArgs.get('config') === 'string'
           ? [this.parsedArgs.get('config')]
           : defaultConfigFiles
-      const { path: configPath, data: config } = this.configLoader.load({
+      const { path: configPath, data: configFn } = this.configLoader.load({
         files: configFiles,
         packageKey: 'poi'
       })
@@ -96,7 +96,11 @@ module.exports = class PoiCore {
         logger.debug(`Not using any Poi config file`)
       }
       this.configPath = configPath
-      this.config = config || {}
+      this.config =
+        typeof configFn === 'function'
+          ? configFn(this.parsedArgs.options)
+          : configFn
+      this.config = this.config || {}
     }
 
     this.pkg = this.configLoader.load({

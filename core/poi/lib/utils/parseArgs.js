@@ -11,6 +11,8 @@ module.exports = _args => {
 
     has(name) {
       return this.get(name) !== undefined
-    }
+    },
+
+    options
   }
 }
