@@ -12,6 +12,15 @@ class PrintStatusPlugin {
   }
 
   apply(compiler) {
+    compiler.hooks.invalid.tap('show-rebuild-reason', file => {
+      const d = new Date()
+      logger.log(
+        chalk.dim(
+          `[${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}] Rebuilding due to changes in ${file}`
+        )
+      )
+    })
+
     compiler.hooks.done.tapPromise('print-status', async stats => {
       if (this.opts.clearConsole !== false && process.env.NODE_ENV !== 'test') {
         require('@poi/dev-utils/clearConsole')()
