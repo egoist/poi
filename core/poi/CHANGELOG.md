@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.2.11](https://github.com/egoist/poi/compare/poi@12.2.10...poi@12.2.11) (2018-12-31)
+
+### Bug Fixes
+
+- use recommended bucklescript workflow ([2231c5c](https://github.com/egoist/poi/commit/2231c5c))
+
 ## [12.2.10](https://github.com/egoist/poi/compare/poi@12.2.9...poi@12.2.10) (2018-12-31)
 
 ### Bug Fixes
