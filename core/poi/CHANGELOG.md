@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.2.10](https://github.com/egoist/poi/compare/poi@12.2.9...poi@12.2.10) (2018-12-31)
+
+### Bug Fixes
+
+- let webpack watch all reason files ([e5c7a05](https://github.com/egoist/poi/commit/e5c7a05))
+
 ## [12.2.9](https://github.com/egoist/poi/compare/poi@12.2.8...poi@12.2.9) (2018-12-30)
 
 ### Bug Fixes
