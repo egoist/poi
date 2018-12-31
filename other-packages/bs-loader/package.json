@@ -9,8 +9,5 @@
     "index.js"
   ],
   "license": "MIT",
-  "dependencies": {
-    "bsb-js": "^1.1.7"
-  },
   "xo": false
 }

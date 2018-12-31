@@ -398,7 +398,21 @@ module.exports = class PoiCore {
   }
 
   createWebpackCompiler(config) {
-    return require('webpack')(config)
+    const compiler = require('webpack')(config)
+
+    // Override the .watch method so we can handle error here instead of letting WDM handle it
+    // And in fact we disabled WDM logger so errors will never show displayed there
+    const originalWatch = compiler.watch.bind(compiler)
+    compiler.watch = (options, cb) => {
+      return originalWatch(options, (err, stats) => {
+        if (err) {
+          throw err
+        }
+        cb(null, stats)
+      })
+    }
+
+    return compiler
   }
 
   getCacheConfig(dir, keys, files) {

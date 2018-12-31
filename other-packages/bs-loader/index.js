@@ -13,8 +13,6 @@ module.exports = async function() {
   const callback = this.async()
 
   try {
-    const bsb = require('bsb-js')
-    await bsb.runBuild()
     const outputFile = this.resourcePath.replace(/\.(re|ml)$/, '.bs.js')
     const content = await readFile(outputFile, 'utf8')
     callback(null, content)
