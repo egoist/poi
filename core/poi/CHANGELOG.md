@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.2.12](https://github.com/egoist/poi/compare/poi@12.2.11...poi@12.2.12) (2018-12-31)
+
+**Note:** Version bump only for package poi
+
 ## [12.2.11](https://github.com/egoist/poi/compare/poi@12.2.10...poi@12.2.11) (2018-12-31)
 
 ### Bug Fixes
