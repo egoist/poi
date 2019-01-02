@@ -34,7 +34,7 @@ exports.apply = (api, { staticRoutes, resourceHints = true } = {}) => {
     config.entryPoints.clear()
     // And instead add our own entries
     config.entry('index').add(path.join(__dirname, `app/entry-${type}.js`))
-    if (api.config.devServer.hot) {
+    if (api.config.devServer.hot && api.cli.options.serve) {
       config.entry('index').prepend('#webpack-hot-client')
     }
     // Set the user entry as an alias so that we can reference it in app code
