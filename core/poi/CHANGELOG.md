@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.2.13](https://github.com/egoist/poi/compare/poi@12.2.12...poi@12.2.13) (2019-01-02)
+
+### Features
+
+- allow config file to export a function ([8e82f66](https://github.com/egoist/poi/commit/8e82f66))
+
 ## [12.2.12](https://github.com/egoist/poi/compare/poi@12.2.11...poi@12.2.12) (2018-12-31)
 
 **Note:** Version bump only for package poi
