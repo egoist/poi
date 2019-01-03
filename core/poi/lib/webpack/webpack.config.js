@@ -256,7 +256,8 @@ module.exports = (config, api) => {
           dot: true
         },
         context: api.resolveCwd(api.config.publicFolder),
-        to: '.'
+        to: '.',
+        ignore: ['.DS_Store']
       }
     ]
   ])
