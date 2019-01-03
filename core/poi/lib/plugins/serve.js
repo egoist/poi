@@ -26,6 +26,7 @@ exports.apply = api => {
       if (api.mode !== 'test') {
         webpackConfig.plugins.push({
           apply(compiler) {
+            let isFirstBuild = true
             // TODO: figure out why using .tap() can't catch error
             compiler.hooks.done.tap('print-serve-urls', stats => {
               if (stats.hasErrors() || stats.hasWarnings()) return
@@ -33,8 +34,11 @@ exports.apply = api => {
               require('@poi/dev-utils/printServeMessage')({
                 host,
                 port,
-                open
+                open,
+                isFirstBuild
               })
+
+              isFirstBuild = false
             })
           }
         })
@@ -42,7 +46,7 @@ exports.apply = api => {
 
       const compiler = api.createWebpackCompiler(webpackConfig)
 
-      const devServerOptions = Object.assign(
+      const devServerConfig = Object.assign(
         {
           quiet: true,
           historyApiFallback: true,
@@ -69,8 +73,8 @@ exports.apply = api => {
         }
       )
 
-      const existingBefore = devServerOptions.before
-      devServerOptions.before = server => {
+      const existingBefore = devServerConfig.before
+      devServerConfig.before = server => {
         api.hooks.invoke('beforeDevMiddlewares', server)
 
         server.use(
@@ -86,16 +90,18 @@ exports.apply = api => {
         existingBefore && existingBefore(server)
       }
 
-      const exitingAfter = devServerOptions.after
-      devServerOptions.after = server => {
+      const exitingAfter = devServerConfig.after
+      devServerConfig.after = server => {
         exitingAfter && exitingAfter(server)
         api.hooks.invoke('onCreateServer', server) // TODO: remove this in the future
 
         api.hooks.invoke('afterDevMiddlewares', server)
       }
 
+      api.hooks.invoke('createDevServerConfig', devServerConfig)
+
       const WebpackDevServer = require('webpack-dev-server')
-      const server = new WebpackDevServer(compiler, devServerOptions)
+      const server = new WebpackDevServer(compiler, devServerConfig)
 
       server.listen(port, host)
     })
@@ -103,8 +109,6 @@ exports.apply = api => {
 
   api.hook('createWebpackChain', config => {
     if (!api.cli.options.serve) return
-
-    config.devtool('cheap-module-eval-source-map')
 
     const { hotEntries, hot } = api.config.devServer
 
@@ -120,6 +124,12 @@ exports.apply = api => {
 
       config.plugin('hot').use(HotModuleReplacementPlugin)
     }
+
+    // Point sourcemap entries to original disk location (format as URL on Windows)
+    // Useful for react-error-overlay
+    config.output.devtoolModuleFilenameTemplate(info =>
+      info.absoluteResourcePath.replace(/\\/g, '/')
+    )
 
     // Don't show bundled files in --serve
     if (config.plugins.has('print-status')) {

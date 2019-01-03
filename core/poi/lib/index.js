@@ -78,14 +78,15 @@ module.exports = class PoiCore {
     this.webpackUtils = new WebpackUtils(this)
 
     // Try to load config file
-    if (externalConfig || this.parsedArgs.has('no-config')) {
+    if (externalConfig || this.parsedArgs.get('config') === false) {
       logger.debug('Poi config file was disabled')
-      this.config = externalConfig
+      this.config = externalConfig || {}
     } else {
-      const configFiles = this.parsedArgs.has('config')
-        ? [this.parsedArgs.get('config')]
-        : defaultConfigFiles
-      const { path: configPath, data: config } = this.configLoader.load({
+      const configFiles =
+        typeof this.parsedArgs.get('config') === 'string'
+          ? [this.parsedArgs.get('config')]
+          : defaultConfigFiles
+      const { path: configPath, data: configFn } = this.configLoader.load({
         files: configFiles,
         packageKey: 'poi'
       })
@@ -95,7 +96,11 @@ module.exports = class PoiCore {
         logger.debug(`Not using any Poi config file`)
       }
       this.configPath = configPath
-      this.config = config || {}
+      this.config =
+        typeof configFn === 'function'
+          ? configFn(this.parsedArgs.options)
+          : configFn
+      this.config = this.config || {}
     }
 
     this.pkg = this.configLoader.load({
@@ -148,9 +153,9 @@ module.exports = class PoiCore {
             const body = section.body.split('\n')
             body.shift()
             body.unshift(
-              `  $ ${cli.bin} --help`,
-              `  $ ${cli.bin} --serve --help`,
-              `  $ ${cli.bin} --prod --help`
+              `  $ ${cli.name} --help`,
+              `  $ ${cli.name} --serve --help`,
+              `  $ ${cli.name} --prod --help`
             )
             section.body = body.join('\n')
           }
@@ -188,6 +193,7 @@ module.exports = class PoiCore {
       { resolve: require.resolve('./plugins/config-html') },
       { resolve: require.resolve('./plugins/config-electron') },
       { resolve: require.resolve('./plugins/config-misc-loaders') },
+      { resolve: require.resolve('./plugins/config-reason') },
       { resolve: require.resolve('./plugins/watch') },
       { resolve: require.resolve('./plugins/serve') },
       { resolve: require.resolve('./plugins/eject-html') }
@@ -199,6 +205,9 @@ module.exports = class PoiCore {
           plugin.resolve = require(plugin.resolve)
         }
         return plugin
+      })
+      .filter(plugin => {
+        return plugin.resolve.when ? plugin.resolve.when(this) : true
       })
 
     // Run plugin's `filterPlugins` method
@@ -394,7 +403,21 @@ module.exports = class PoiCore {
   }
 
   createWebpackCompiler(config) {
-    return require('webpack')(config)
+    const compiler = require('webpack')(config)
+
+    // Override the .watch method so we can handle error here instead of letting WDM handle it
+    // And in fact we disabled WDM logger so errors will never show displayed there
+    const originalWatch = compiler.watch.bind(compiler)
+    compiler.watch = (options, cb) => {
+      return originalWatch(options, (err, stats) => {
+        if (err) {
+          throw err
+        }
+        cb(null, stats)
+      })
+    }
+
+    return compiler
   }
 
   getCacheConfig(dir, keys, files) {

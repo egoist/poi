@@ -16,7 +16,7 @@ exports.apply = api => {
 
     command.option('--parallel', 'Enable multicore compilation (experimental)')
 
-    command.option('--cache', 'Enable compilation caching')
+    command.option('--no-cache', 'Disable compilation caching')
 
     command.option('--public-url <url>', 'Set the public URL to serve on', {
       default: '/'
@@ -26,7 +26,7 @@ exports.apply = api => {
     })
     command.option('--no-public-folder', 'Disable public folder')
     command.option('--target <target>', 'Target environment', {
-      default: 'browser'
+      default: 'web'
     })
     command.option('--format <format>', 'Output format', { default: 'iife' })
     command.option('--module-name <name>', 'Module name for "umd" format')

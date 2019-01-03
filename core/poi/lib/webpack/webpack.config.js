@@ -55,9 +55,11 @@ module.exports = (config, api) => {
   config.devtool(
     api.config.output.sourceMap === false
       ? false
+      : api.mode === 'production'
+      ? 'source-map'
       : api.mode === 'test'
       ? 'cheap-module-eval-source-map'
-      : 'source-map'
+      : 'cheap-module-source-map'
   )
 
   /** Alias @ to `src` folder since many apps store app code here */
@@ -113,13 +115,20 @@ module.exports = (config, api) => {
     config.output.library(moduleName)
   }
 
-  const poiInstalledDir = path.join(__dirname, '../../../')
+  // Set output target
+  const { target } = api.config.output
+  config.target(target === 'electron' ? 'electron-renderer' : target)
+
+  const inYarnWorkspaces = __dirname.includes('/poi/core/poi')
+  const poiDependenciesDir = inYarnWorkspaces
+    ? path.join(__dirname, '../../../../node_modules')
+    : path.join(__dirname, '../../../')
 
   /** Resolve loaders */
-  config.resolveLoader.modules.add('node_modules').add(poiInstalledDir)
+  config.resolveLoader.modules.add('node_modules').add(poiDependenciesDir)
 
   /** Resolve modules */
-  config.resolve.modules.add('node_modules').add(poiInstalledDir)
+  config.resolve.modules.add('node_modules').add(poiDependenciesDir)
 
   // Add progress bar
   if (

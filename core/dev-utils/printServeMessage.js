@@ -1,7 +1,7 @@
 const chalk = require('chalk')
 const address = require('address')
 
-module.exports = ({ host, port, open }) => {
+module.exports = ({ host, port, open, isFirstBuild }) => {
   const ip = address.ip()
 
   const isUnspecifiedHost = host === '0.0.0.0' || host === '::'
@@ -12,7 +12,7 @@ module.exports = ({ host, port, open }) => {
   console.log(`On Your Network:   http://${ip}:${chalk.bold(port)}`)
   console.log()
 
-  if (open) {
+  if (open && isFirstBuild) {
     require('./openBrowser')(`http://${prettyHost}:${port}`)
   }
 }
