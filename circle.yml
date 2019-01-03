@@ -27,4 +27,7 @@ jobs:
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
       - run:
           name: Publish
-          command: yarn lerna publish from-git --yes
+          command: |
+            if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
+              yarn lerna publish from-git --yes
+            fi
