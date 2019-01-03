@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.2.14](https://github.com/egoist/poi/compare/poi@12.2.13...poi@12.2.14) (2019-01-03)
+
+### Bug Fixes
+
+- ignore `.DS_Store` in public folder ([#518](https://github.com/egoist/poi/issues/518)) ([91afba5](https://github.com/egoist/poi/commit/91afba5)), closes [#517](https://github.com/egoist/poi/issues/517)
+
 ## [12.2.13](https://github.com/egoist/poi/compare/poi@12.2.12...poi@12.2.13) (2019-01-02)
 
 ### Features
