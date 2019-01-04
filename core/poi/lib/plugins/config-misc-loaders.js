@@ -24,10 +24,20 @@ exports.apply = api => {
       .use('yaml-loader')
       .loader('yaml-loader')
 
+    // prettier-ignore
     config.module
       .rule('pug')
       .test([/\.pug$/, /\.jade$/])
-      .use('pug-loader')
-      .loader('pug-loader')
+      // Pug inside Vue template is loaded as raw string
+      .oneOf('vue-template')
+        .resourceQuery(/^\?vue/)
+        .use('pug-plain-loader')
+          .loader('pug-plain-loader')
+          .end()
+        .end()
+      // Pug inside js file is loaded as a compiled function
+      .oneOf('normal')
+        .use('pug-loader')
+        .loader('pug-loader')
   })
 }
