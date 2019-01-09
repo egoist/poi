@@ -284,6 +284,8 @@ module.exports = class PoiCore {
 
     this.hooks.invoke('createConfig', this.config)
 
+    await this.hooks.invokePromise('beforeRun')
+
     await this.cli.runMatchedCommand()
 
     await this.hooks.invokePromise('afterRun')
