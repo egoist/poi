@@ -179,6 +179,13 @@ module.exports = (api, config) => {
     result.cache = false
   }
 
+  // Ensure publicUrl
+  result.output.publicUrl = result.output.publicUrl
+    // Must end with slash
+    .replace(/\/?$/, '/')
+    // Remove leading ./
+    .replace(/^\.\//, '')
+
   api.logger.debug('Validated config', result)
 
   return result
