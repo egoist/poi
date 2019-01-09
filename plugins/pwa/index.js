@@ -2,6 +2,9 @@ const { GenerateSW } = require('workbox-webpack-plugin')
 
 exports.name = 'pwa'
 
+// Only use this plugin for web target
+exports.when = api => api.config.output.target === 'web'
+
 exports.apply = (api, options = {}) => {
   const pluginOptions = Object.assign(
     {
@@ -23,9 +26,6 @@ exports.apply = (api, options = {}) => {
   )
 
   api.hook('createWebpackChain', config => {
-    // Only add for browser target
-    if (api.config.output.target !== 'browser') return
-
     if (api.mode === 'production') {
       config.plugin('workbox').use(GenerateSW, [pluginOptions])
     }
