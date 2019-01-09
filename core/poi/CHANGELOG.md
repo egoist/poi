@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [12.3.0](https://github.com/egoist/poi/compare/poi@12.2.14...poi@12.3.0) (2019-01-09)
+
+### Bug Fixes
+
+- use pug-plain-loader for vue template ([6948539](https://github.com/egoist/poi/commit/6948539))
+
+### Features
+
+- show memory usage ([75f1376](https://github.com/egoist/poi/commit/75f1376))
+
 ## [12.2.14](https://github.com/egoist/poi/compare/poi@12.2.13...poi@12.2.14) (2019-01-03)
 
 ### Bug Fixes
