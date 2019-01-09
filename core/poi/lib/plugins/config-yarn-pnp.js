@@ -5,15 +5,22 @@ exports.when = api =>
 
 exports.apply = api => {
   api.hook('createWebpackChain', config => {
-    const PnpWebpackPlugin = require('@poi/pnp-webpack-plugin')
+    const { apply, moduleLoader } = require('@poi/pnp-webpack-plugin')
 
-    config.merge({
-      resolve: {
-        plugins: [PnpWebpackPlugin]
-      },
-      resolveLoader: {
-        plugins: [PnpWebpackPlugin.moduleLoader(module)]
+    config.resolve.plugin('pnp').use(
+      class PnpWebpackPlugin {
+        apply(...args) {
+          return apply(...args)
+        }
       }
-    })
+    )
+
+    config.resolveLoader.plugin('pnp').use(
+      class PnpWebpackPlugin {
+        apply(...args) {
+          return moduleLoader(module).apply(...args)
+        }
+      }
+    )
   })
 }
