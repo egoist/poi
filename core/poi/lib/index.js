@@ -56,6 +56,13 @@ module.exports = class PoiCore {
       this.mode = 'test'
     }
 
+    if (
+      this.parsedArgs.args[0] &&
+      this.parsedArgs.args[0].startsWith('test:')
+    ) {
+      this.mode = 'test'
+    }
+
     this.cwd = this.parsedArgs.get('cwd')
     if (!this.cwd) {
       this.cwd = process.cwd()

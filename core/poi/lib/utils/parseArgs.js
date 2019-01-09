@@ -2,7 +2,7 @@ const cac = require('cac')
 
 module.exports = _args => {
   const cli = cac()
-  const { options } = cli.parse(_args)
+  const { args, options } = cli.parse(_args)
 
   return {
     get(name) {
@@ -13,6 +13,8 @@ module.exports = _args => {
       return this.get(name) !== undefined
     },
 
-    options
+    options,
+
+    args
   }
 }
