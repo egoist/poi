@@ -9,7 +9,7 @@
 var enabled =
   process.env.FORCE_COLOR ||
   process.platform === "win32" ||
-  (process.stdout.isTTY && process.env.TERM && process.env.TERM !== "dumb")
+  (process.stdout && process.stdout.isTTY && process.env.TERM && process.env.TERM !== "dumb")
 
 var rawInit = function (open, close, searchRegex, replaceValue) { return function (s) { return enabled
     ? open +
