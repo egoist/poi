@@ -3,8 +3,8 @@ const chalk = require('chalk')
 const textTable = require('text-table')
 const gzipSize = require('gzip-size')
 const formatWebpackMessages = require('@poi/dev-utils/formatWebpackMessages')
+const prettyBytes = require('@poi/dev-utils/prettyBytes')
 const logger = require('@poi/logger')
-const prettyBytes = require('../utils/prettyBytes')
 
 class PrintStatusPlugin {
   constructor(opts = {}) {
