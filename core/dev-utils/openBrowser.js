@@ -1,10 +1,10 @@
 /* eslint-disable */
 'use strict';
 
-var chalk = require('chalk');
 var execSync = require('child_process').execSync;
 var spawn = require('cross-spawn');
 var opn = require('opn');
+var colors = require('./colors');
 
 // https://github.com/sindresorhus/opn#app
 var OSX_CHROME = 'google chrome';
@@ -43,11 +43,11 @@ function executeNodeScript(scriptPath, url) {
     if (code !== 0) {
       console.log();
       console.log(
-        chalk.red(
+        colors.red(
           'The script specified as BROWSER environment variable failed.'
         )
       );
-      console.log(chalk.cyan(scriptPath) + ' exited with code ' + code + '.');
+      console.log(colors.cyan(scriptPath) + ' exited with code ' + code + '.');
       console.log();
       return;
     }

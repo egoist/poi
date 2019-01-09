@@ -3,6 +3,7 @@
 
 // WARNING: this code is untranspiled and is used in browser too.
 // Please make sure any changes are in ES5 or contribute a Babel compile step.
+var colors = require('./colors')
 
 // Some custom utilities to prettify Webpack output.
 // This is quite hacky and hopefully won't be needed when Webpack fixes this.
@@ -65,6 +66,8 @@ function formatMessage(message, isError) {
   if (lines[1].match(exportError)) {
     lines[1] = lines[1].replace(exportError, '$1 \'$4\' does not contain an export named \'$3\'.');
   }
+
+  lines[0] = colors.inverse(lines[0]);
 
   // Reassemble the message.
   message = lines.map(function (line) {
