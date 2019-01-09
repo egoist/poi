@@ -1,8 +1,8 @@
 const fs = require('fs')
 const path = require('path')
 const url = require('url')
-const chalk = require('chalk')
 const address = require('address')
+const colors = require('./colors')
 
 module.exports = function(proxy, appPublicFolder, debug) {
   // `proxy` lets you specify alternate servers for specific requests.
@@ -74,18 +74,18 @@ function onProxyError(proxy) {
   return (err, req, res) => {
     const host = req.headers && req.headers.host
     console.log(
-      chalk.red('Proxy error:') +
+      colors.red('Proxy error:') +
         ' Could not proxy request ' +
-        chalk.cyan(req.url) +
+        colors.cyan(req.url) +
         ' from ' +
-        chalk.cyan(host) +
+        colors.cyan(host) +
         ' to ' +
-        chalk.cyan(proxy) +
+        colors.cyan(proxy) +
         '.'
     )
     console.log(
       'See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (' +
-        chalk.cyan(err.code) +
+        colors.cyan(err.code) +
         ').'
     )
     console.log()

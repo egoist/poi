@@ -3,13 +3,11 @@
 
 // WARNING: this code is untranspiled and is used in browser too.
 // Please make sure any changes are in ES5 or contribute a Babel compile step.
+var colors = require('./colors')
 
 // Some custom utilities to prettify Webpack output.
 // This is quite hacky and hopefully won't be needed when Webpack fixes this.
 // https://github.com/webpack/webpack/issues/2878
-
-var chalk = require('chalk');
-
 var friendlySyntaxErrorLabel = 'Syntax error:';
 
 function isLikelyASyntaxError(message) {
@@ -69,12 +67,12 @@ function formatMessage(message, isError) {
     lines[1] = lines[1].replace(exportError, '$1 \'$4\' does not contain an export named \'$3\'.');
   }
 
-  lines[0] = chalk.inverse(lines[0]);
+  lines[0] = colors.inverse(lines[0]);
 
   // Reassemble the message.
-  message = lines.map(line => {
+  message = lines.map(function (line) {
     if (line.indexOf('vue-template-compiler must be installed as a peer dependency') > -1) {
-      return `You need to install "vue-template-compiler" alongside "vue" in your project.`
+      return 'You need to install "vue-template-compiler" alongside "vue" in your project.'
     }
     return line
   }).join('\n');
