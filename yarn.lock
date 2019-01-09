@@ -11647,6 +11647,13 @@ stringify-object@^3.2.2, stringify-object@^3.3.0:
     is-obj "^1.0.1"
     is-regexp "^1.0.0"
 
+strip-ansi@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-3.0.0.tgz#7510b665567ca914ccb5d7e072763ac968be3724"
+  integrity sha1-dRC2ZVZ8qRTMtdfgcnY6yWi+NyQ=
+  dependencies:
+    ansi-regex "^2.0.0"
+
 strip-ansi@^3.0.0, strip-ansi@^3.0.1:
   version "3.0.1"
   resolved "http://registry.npmjs.org/strip-ansi/-/strip-ansi-3.0.1.tgz#6a385fb8853d952d5ff05d0e8aaf94278dc63dcf"
