@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.4.2](https://github.com/egoist/poi/compare/poi@12.4.1...poi@12.4.2) (2019-01-09)
+
+### Bug Fixes
+
+- properly add pnp plugins ([fdcd9e7](https://github.com/egoist/poi/commit/fdcd9e7))
+
 ## [12.4.1](https://github.com/egoist/poi/compare/poi@12.4.0...poi@12.4.1) (2019-01-09)
 
 ### Bug Fixes
