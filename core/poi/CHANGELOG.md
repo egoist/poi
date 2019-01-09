@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.3.2](https://github.com/egoist/poi/compare/poi@12.3.1...poi@12.3.2) (2019-01-09)
+
+### Bug Fixes
+
+- **serve:** read host and port from env vars ([7abfd2b](https://github.com/egoist/poi/commit/7abfd2b))
+
 ## [12.3.1](https://github.com/egoist/poi/compare/poi@12.3.0...poi@12.3.1) (2019-01-09)
 
 ### Bug Fixes
