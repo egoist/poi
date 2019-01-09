@@ -3,8 +3,8 @@ exports.name = 'karma'
 exports.apply = api => {
   api.hook('createCLI', () => {
     api.cli
-      .command('karma [...testFiles]', 'Run unit tests with Karma')
-      .usage('karma --test [...testFiles] [options]')
+      .command('test:unit [...testFiles]', 'Run unit tests with Karma')
+      .usage('test:unit [...testFiles] [options]')
       .option('-w, --watch', 'Watch files')
       .option('--no-headless', 'Run with Chrome instead of Chrome Headless')
       .option('--coverage', 'Report code coverage')

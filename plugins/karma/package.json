@@ -6,7 +6,7 @@
   },
   "main": "lib/index.js",
   "scripts": {
-    "example": "poi karma --test --plugin ."
+    "example": "poi test:unit --plugin ."
   },
   "files": [
     "lib"

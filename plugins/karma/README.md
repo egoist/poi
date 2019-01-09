@@ -26,7 +26,7 @@ module.exports = {
 }
 ```
 
-This plugin injected a new command to Poi CLI: `poi karma`, however you should always use `poi karma --test` to run your tests in `test` mode.
+This plugin injected a new command to Poi CLI: `poi test:unit` which is a command running in Poi's `test` mode.
 
 To run it easier, you can configure this in npm scripts:
 
@@ -34,7 +34,7 @@ To run it easier, you can configure this in npm scripts:
 {
   "name": "my-project",
   "scripts": {
-    "test": "poi karma --test",
+    "test": "poi test:unit",
     "build": "poi --prod",
     "start": "poi --serve"
   },
@@ -51,7 +51,7 @@ Now you can run `npm test` instead.
 By default this plugin use `**/*.{test,spec}.{js,ts}` (excluded `node_modules`) as test files, you can change this to any minimatch pattern (note the quotes to avoid shell expansion):
 
 ```bash
-poi karma "**/*.spec.coffee" --test
+poi test:unit "**/*.spec.coffee"
 ```
 
 ### Coverage Report
