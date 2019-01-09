@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [12.4.0](https://github.com/egoist/poi/compare/poi@12.3.2...poi@12.4.0) (2019-01-09)
+
+### Bug Fixes
+
+- set test mode for test command ([2cb92c4](https://github.com/egoist/poi/commit/2cb92c4))
+- tweak cli logs ([519a4fc](https://github.com/egoist/poi/commit/519a4fc))
+
+### Features
+
+- add a hook to invoke before running command ([fc5bcf3](https://github.com/egoist/poi/commit/fc5bcf3))
+- add a shorthand to set mode for test:\* commands ([a4af8db](https://github.com/egoist/poi/commit/a4af8db))
+
 ## [12.3.2](https://github.com/egoist/poi/compare/poi@12.3.1...poi@12.3.2) (2019-01-09)
 
 ### Bug Fixes
