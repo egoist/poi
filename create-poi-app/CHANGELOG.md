@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.1.1](https://github.com/egoist/poi/compare/create-poi-app@12.1.0...create-poi-app@12.1.1) (2019-01-09)
+
+### Bug Fixes
+
+- support yarn pnp ([ca61aaa](https://github.com/egoist/poi/commit/ca61aaa))
+
 # [12.1.0](https://github.com/egoist/poi/compare/create-poi-app@12.0.3...create-poi-app@12.1.0) (2019-01-09)
 
 ### Features

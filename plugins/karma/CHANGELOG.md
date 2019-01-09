@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.0.1](https://github.com/egoist/poi/compare/@poi/plugin-karma@13.0.0...@poi/plugin-karma@13.0.1) (2019-01-09)
+
+### Bug Fixes
+
+- support yarn pnp ([ca61aaa](https://github.com/egoist/poi/commit/ca61aaa))
+
 # [13.0.0](https://github.com/egoist/poi/compare/@poi/plugin-karma@12.0.3...@poi/plugin-karma@13.0.0) (2019-01-09)
 
 ### Features
