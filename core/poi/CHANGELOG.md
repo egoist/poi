@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.3.1](https://github.com/egoist/poi/compare/poi@12.3.0...poi@12.3.1) (2019-01-09)
+
+### Bug Fixes
+
+- ensure publicUrl ([5f0451f](https://github.com/egoist/poi/commit/5f0451f)), closes [#520](https://github.com/egoist/poi/issues/520)
+
 # [12.3.0](https://github.com/egoist/poi/compare/poi@12.2.14...poi@12.3.0) (2019-01-09)
 
 ### Bug Fixes
