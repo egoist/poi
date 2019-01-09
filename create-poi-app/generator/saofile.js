@@ -124,7 +124,7 @@ module.exports = {
             scripts: {
               build: 'poi --prod',
               dev: 'poi --serve',
-              'test:unit': when(unit === 'karma', 'poi karma --test'),
+              'test:unit': when(unit === 'karma', 'poi test:karma'),
               lint: when(
                 useEslint,
                 'eslint .',
@@ -133,7 +133,7 @@ module.exports = {
             },
             devDependencies: {
               poi: '^12.0.0',
-              '@poi/plugin-karma': when(unit === 'karma', '^12.0.0'),
+              '@poi/plugin-karma': when(unit === 'karma', '^13.0.0'),
               eslint: when(useEslint, '^5.9.0'),
               'eslint-config-xo': when(linterConfig === 'xo', '^0.25.0'),
               '@poi/plugin-eslint': when(useEslint, '^12.0.0'),
