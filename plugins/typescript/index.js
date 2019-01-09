@@ -27,13 +27,18 @@ exports.apply = (api, { lintOnSave = true } = {}) => {
 
     rule
       .use('ts-loader')
-      .loader('ts-loader')
-      .options({
-        transpileOnly: true,
-        appendTsSuffixTo: ['\\.vue$'],
-        // https://github.com/TypeStrong/ts-loader#happypackmode-boolean-defaultfalse
-        happyPackMode: api.config.parallel
-      })
+      .loader(require.resolve('ts-loader'))
+      .options(
+        Object.assign(
+          {
+            transpileOnly: true,
+            appendTsSuffixTo: ['\\.vue$'],
+            // https://github.com/TypeStrong/ts-loader#happypackmode-boolean-defaultfalse
+            happyPackMode: api.config.parallel
+          },
+          require('ts-pnp')
+        )
+      )
 
     config
       .plugin('fork-ts-cheker')

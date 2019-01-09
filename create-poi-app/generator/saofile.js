@@ -32,6 +32,11 @@ module.exports = {
           {
             name: 'Progressive Web App (PWA)',
             value: 'pwa'
+          },
+          {
+            name: `Yarn Plug'n'Play `,
+            value: 'pnp',
+            disabled: this.npmClient !== 'yarn'
           }
         ]
       },
@@ -144,7 +149,10 @@ module.exports = {
                 features.includes('pwa'),
                 '^1.5.2'
               )
-            }
+            },
+            installConfig: when(features.includes('pnp'), {
+              pnp: true
+            })
           }
         }
       },

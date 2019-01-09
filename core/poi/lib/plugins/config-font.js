@@ -6,7 +6,7 @@ exports.apply = api => {
       .rule('font')
       .test(/\.(eot|otf|ttf|woff|woff2)(\?.*)?$/)
       .use('file-loader')
-      .loader('file-loader')
+      .loader(require.resolve('file-loader'))
       .options({
         name: api.config.output.fileNames.font
       })

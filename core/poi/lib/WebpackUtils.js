@@ -30,7 +30,7 @@ module.exports = class WebpackUtils {
 
   addParallelSupport(rule) {
     if (this.api.config.parallel) {
-      rule.use('thread-loader').loader('thread-loader')
+      rule.use('thread-loader').loader(require.resolve('thread-loader'))
     }
 
     return this
@@ -40,7 +40,7 @@ module.exports = class WebpackUtils {
     if (this.api.config.cache) {
       rule
         .use('cache-loader')
-        .loader('cache-loader')
+        .loader(require.resolve('cache-loader'))
         .options(getCacheConfig())
     }
 

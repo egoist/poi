@@ -8,7 +8,7 @@ exports.apply = api => {
       .rule('image')
       .test([/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.webp$/])
       .use('url-loader')
-      .loader('url-loader')
+      .loader(require.resolve('url-loader'))
       .options({
         name: filename,
         // inline the file if smaller than this size
@@ -21,7 +21,7 @@ exports.apply = api => {
       .use('file-loader')
       // SVG files use file-loader directly, why?
       // See https://github.com/facebookincubator/create-react-app/pull/1180
-      .loader('file-loader')
+      .loader(require.resolve('file-loader'))
       .options({
         name: filename
       })

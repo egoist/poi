@@ -20,7 +20,7 @@ exports.apply = api => {
               .enforce('pre')
             istanbulinstrumenterRule
               .use('istanbul-instrumenter-loader')
-              .loader('istanbul-instrumenter-loader')
+              .loader(require.resolve('istanbul-instrumenter-loader'))
               .options({
                 esModules: true
               })

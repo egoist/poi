@@ -89,13 +89,15 @@ exports.apply = api => {
 
         rule
           .use('css-loader')
-          .loader(isServer ? 'css-loader/locals' : 'css-loader')
+          .loader(
+            require.resolve(isServer ? 'css-loader/locals' : 'css-loader')
+          )
           .options(cssLoaderOptions)
 
         if (needInlineMinification) {
           rule
             .use('minify-inline-css')
-            .loader('postcss-loader')
+            .loader(require.resolve('postcss-loader'))
             .options({
               plugins: [require('cssnano')(cssnanoOptions)]
             })
@@ -104,7 +106,7 @@ exports.apply = api => {
         if (hasPostCSSConfig) {
           rule
             .use('postcss-loader')
-            .loader('postcss-loader')
+            .loader(require.resolve('postcss-loader'))
             .options(Object.assign({ sourceMap }, loaderOptions.postcss))
         }
 

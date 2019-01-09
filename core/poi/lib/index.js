@@ -3,6 +3,7 @@ const path = require('path')
 const fs = require('fs-extra')
 const resolveFrom = require('resolve-from')
 const cac = require('cac')
+const chalk = require('chalk')
 const merge = require('lodash.merge')
 const logger = require('@poi/logger')
 const Hooks = require('./Hooks')
@@ -200,6 +201,7 @@ module.exports = class PoiCore {
       { resolve: require.resolve('./plugins/config-electron') },
       { resolve: require.resolve('./plugins/config-misc-loaders') },
       { resolve: require.resolve('./plugins/config-reason') },
+      { resolve: require.resolve('./plugins/config-yarn-pnp') },
       { resolve: require.resolve('./plugins/watch') },
       { resolve: require.resolve('./plugins/serve') },
       { resolve: require.resolve('./plugins/eject-html') }
@@ -229,7 +231,7 @@ module.exports = class PoiCore {
     // Run plugin's `apply` method
     for (const plugin of this.plugins) {
       if (plugin.resolve.apply) {
-        logger.debug(`Using plugin: \`${plugin.resolve.name}\``)
+        logger.debug(`Using plugin: \`${chalk.bold(plugin.resolve.name)}\``)
         if (plugin._resolve) {
           logger.debug(`location: ${plugin._resolve}`)
         }

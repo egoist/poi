@@ -28,7 +28,7 @@ exports.apply = api => {
 
     rule
       .use('vue-loader')
-      .loader('vue-loader')
+      .loader(require.resolve('vue-loader'))
       .options(
         Object.assign(
           {

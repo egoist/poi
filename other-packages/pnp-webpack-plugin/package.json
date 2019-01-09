@@ -1,0 +1,15 @@
+{
+  "name": "@poi/pnp-webpack-plugin",
+  "version": "0.0.0",
+  "files": [
+    "index.js"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "pnpapi": "0.0.0"
+  }
+}
