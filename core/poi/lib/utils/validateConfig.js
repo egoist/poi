@@ -100,8 +100,9 @@ module.exports = (api, config) => {
     },
     {
       hot: true,
-      host: '0.0.0.0',
-      port: 4000,
+      // Cloud IDEs use envs
+      host: process.env.HOST || '0.0.0.0',
+      port: process.env.PORT || 4000,
       hotEntries: ['index'],
       open: false
     }
