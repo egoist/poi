@@ -56,10 +56,7 @@ module.exports = class PoiCore {
       this.mode = 'test'
     }
 
-    if (
-      this.parsedArgs.args[0] &&
-      this.parsedArgs.args[0].startsWith('test:')
-    ) {
+    if (this.parsedArgs.args[0] && /^test(:|$)/.test(this.parsedArgs.args[0])) {
       this.mode = 'test'
     }
 
