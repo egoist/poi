@@ -60,6 +60,8 @@ module.exports = class PoiCore {
       this.mode = 'test'
     }
 
+    logger.debug(`Running in ${this.mode} mode`)
+
     this.cwd = this.parsedArgs.get('cwd')
     if (!this.cwd) {
       this.cwd = process.cwd()
@@ -271,11 +273,11 @@ module.exports = class PoiCore {
   async run() {
     this.cli.parse(this.args, { run: false })
 
-    logger.debug('CLI args', this.cli.args)
-    logger.debug('CLI options', this.cli.options)
+    logger.debug('Command args', this.cli.args)
+    logger.debug('Command options', this.cli.options)
 
     const cliConfig = this.createConfigFromCLIOptions()
-    logger.debug(`Config from CLI options`, cliConfig)
+    logger.debug(`Config from command options`, cliConfig)
 
     this.config = validateConfig(this, merge({}, this.config, cliConfig))
 
