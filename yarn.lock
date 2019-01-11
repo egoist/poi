@@ -9666,11 +9666,6 @@ pn@^1.1.0:
   resolved "https://registry.npmjs.org/pn/-/pn-1.1.0.tgz#e2f4cef0e219f463c179ab37463e4e1ecdccbafb"
   integrity sha512-2qHaIQr2VLRFoxe2nASzsV6ef4yOOH+Fi9FBOVH6cqeSgUnoyySPZkxzLuzd+RYOQTRpROA0ztTMqxROKSb/nA==
 
-pnpapi@0.0.0:
-  version "0.0.0"
-  resolved "https://registry.npmjs.org/pnpapi/-/pnpapi-0.0.0.tgz#90fe6bd18be67d3bb39cc93cb67188b1bf63a384"
-  integrity sha512-UemFU6zCZ4MZwsBcgmcFZX71nnNUUCwxKxdxctxfiEDB39SOzvUUJ28g+Arx5JF8kO3N0yxyjY/4+N6+jBFqZw==
-
 portfinder@^1.0.9:
   version "1.0.19"
   resolved "https://registry.npmjs.org/portfinder/-/portfinder-1.0.19.tgz#07e87914a55242dcda5b833d42f018d6875b595f"

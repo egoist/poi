@@ -8,8 +8,5 @@
     "access": "public"
   },
   "main": "index.js",
-  "license": "MIT",
-  "dependencies": {
-    "pnpapi": "0.0.0"
-  }
+  "license": "MIT"
 }
