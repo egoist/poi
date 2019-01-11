@@ -30,7 +30,7 @@ Then add a `tsconfig.json` in your project:
 ```json
 {
   "compilerOptions": {
-    "target": "es5,
+    "target": "es5",
     "strict": true,
     "module": "es2015",
     "moduleResolution": "node"
