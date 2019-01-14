@@ -120,6 +120,11 @@ exports.apply = api => {
 
       const baseRule = config.module.rule(lang).test(test)
 
+      // Prevent webpack from unexpectedly dropping local CSS files
+      // https://webpack.js.org/guides/tree-shaking/#mark-the-file-as-side-effect-free
+      // https://github.com/webpack/webpack/issues/6741
+      baseRule.sideEffects(true)
+
       // rules for <style lang="module">
       const vueModulesRule = baseRule
         .oneOf('vue-modules')
