@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.4.4](https://github.com/egoist/poi/compare/poi@12.4.3...poi@12.4.4) (2019-01-14)
+
+### Bug Fixes
+
+- **css:** disable tree-shaking for css files ([acc42f0](https://github.com/egoist/poi/commit/acc42f0))
+
 ## [12.4.3](https://github.com/egoist/poi/compare/poi@12.4.2...poi@12.4.3) (2019-01-11)
 
 ### Bug Fixes
