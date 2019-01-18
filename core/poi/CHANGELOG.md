@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.4.5](https://github.com/egoist/poi/compare/poi@12.4.4...poi@12.4.5) (2019-01-18)
+
+### Bug Fixes
+
+- support babel.transpileModules on windows, closes [#527](https://github.com/egoist/poi/issues/527) ([62ecdb9](https://github.com/egoist/poi/commit/62ecdb9))
+
 ## [12.4.4](https://github.com/egoist/poi/compare/poi@12.4.3...poi@12.4.4) (2019-01-14)
 
 ### Bug Fixes
