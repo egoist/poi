@@ -1,3 +1,5 @@
+const path = require('path')
+
 const logger = require('@poi/logger')
 
 exports.name = 'builtin:config-babel'
@@ -33,11 +35,15 @@ exports.apply = api => {
         return true
       }
       if (transpileModules) {
-        const shouldTranspile = [].concat(transpileModules).some(name => {
-          return filepath.includes(`/node_modules/${name}/`)
+        const shouldTranspile = [].concat(transpileModules).some(condition => {
+          return typeof condition === 'string'
+            ? filepath.includes(
+                `${path.sep}node_modules${path.sep}${condition}${path.sep}`
+              )
+            : filepath.match(condition)
         })
         if (shouldTranspile) {
-          logger.debug('babel', `Transpiling module file "${filepath}"`)
+          logger.debug(`Babel is transpiling addtional file "${filepath}"`)
           return true
         }
       }
