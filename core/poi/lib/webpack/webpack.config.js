@@ -43,7 +43,7 @@ module.exports = (config, api) => {
   config.merge({ entry: webpackEntry })
 
   /** Set extensions */
-  config.resolve.extensions.merge(['.js', '.json', '.jsx', '.ts', '.tsx'])
+  config.resolve.extensions.merge(['.js', '.json', '.jsx', '.ts', '.tsx', '.vue'])
 
   /** Support react-native-web by default, cuz why not? */
   // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
