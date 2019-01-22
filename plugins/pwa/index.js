@@ -3,7 +3,7 @@ const { GenerateSW } = require('workbox-webpack-plugin')
 exports.name = 'pwa'
 
 // Only use this plugin for web target
-exports.when = api => api.config.output.target === 'web'
+exports.when = api => !api.config.output || api.config.output.target === 'web'
 
 exports.apply = (api, options = {}) => {
   const pluginOptions = Object.assign(
