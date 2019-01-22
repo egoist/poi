@@ -3,7 +3,58 @@ const fs = require('fs-extra')
 
 exports.name = 'vue-static'
 
-exports.apply = (api, { staticRoutes, resourceHints = true } = {}) => {
+exports.cli = (api, { staticRoutes, resourceHints = true } = {}) => {
+  const { command } = api
+
+  // Override the action for default command
+  const defaultAction = command.commandAction
+  command.action(async (...args) => {
+    if (api.cli.options.serve) {
+      // Use default action under --serve
+      // It will be served as a normal SPA
+      await defaultAction(...args)
+    } else {
+      // Generate two builds otherwise
+      // And use them to generate static HTML files with vue-server-renderer
+      const clientConfig = api.createWebpackChain({ type: 'client' }).toConfig()
+      const serverConfig = api.createWebpackChain({ type: 'server' }).toConfig()
+      const [clientStats, serverStats] = await Promise.all([
+        api.runCompiler(api.createWebpackCompiler(clientConfig)),
+        api.runCompiler(api.createWebpackCompiler(serverConfig))
+      ])
+      if (clientStats.hasErrors() || serverStats.hasErrors()) {
+        return
+      }
+      await fs.copy(api.resolveCwd(`.vue-static/client`), api.resolveOutDir())
+      await require('./generate')(api, {
+        serverBundle: require(api.resolveCwd(
+          '.vue-static/server/vue-ssr-server-bundle.json'
+        )),
+        clientManifest: require(api.resolveCwd(
+          '.vue-static/client/vue-ssr-client-manifest.json'
+        )),
+        staticRoutes,
+        resourceHints,
+        htmlSkeletion: await fs.readFile(
+          api.resolveCwd('.vue-static/client/index.html'),
+          'utf8'
+        )
+      })
+      await Promise.all([
+        fs.remove(api.resolveCwd('.vue-static')),
+        fs.remove(api.resolveOutDir('vue-ssr-client-manifest.json'))
+      ])
+      api.logger.done(
+        `Successfully generated into ${path.relative(
+          process.cwd(),
+          api.resolveOutDir()
+        )}`
+      )
+    }
+  })
+}
+
+exports.apply = api => {
   if (
     !api.hasDependency('vue') ||
     !api.hasDependency('vue-template-compiler')
@@ -88,58 +139,5 @@ exports.apply = (api, { staticRoutes, resourceHints = true } = {}) => {
         printFileStats: false
       })
     ])
-  })
-
-  api.hook('createCLI', ({ command }) => {
-    // Override the action for default command
-    const defaultAction = command.commandAction
-    command.action(async (...args) => {
-      if (api.cli.options.serve) {
-        // Use default action under --serve
-        // It will be served as a normal SPA
-        await defaultAction(...args)
-      } else {
-        // Generate two builds otherwise
-        // And use them to generate static HTML files with vue-server-renderer
-        const clientConfig = api
-          .createWebpackChain({ type: 'client' })
-          .toConfig()
-        const serverConfig = api
-          .createWebpackChain({ type: 'server' })
-          .toConfig()
-        const [clientStats, serverStats] = await Promise.all([
-          api.runCompiler(api.createWebpackCompiler(clientConfig)),
-          api.runCompiler(api.createWebpackCompiler(serverConfig))
-        ])
-        if (clientStats.hasErrors() || serverStats.hasErrors()) {
-          return
-        }
-        await fs.copy(api.resolveCwd(`.vue-static/client`), api.resolveOutDir())
-        await require('./generate')(api, {
-          serverBundle: require(api.resolveCwd(
-            '.vue-static/server/vue-ssr-server-bundle.json'
-          )),
-          clientManifest: require(api.resolveCwd(
-            '.vue-static/client/vue-ssr-client-manifest.json'
-          )),
-          staticRoutes,
-          resourceHints,
-          htmlSkeletion: await fs.readFile(
-            api.resolveCwd('.vue-static/client/index.html'),
-            'utf8'
-          )
-        })
-        await Promise.all([
-          fs.remove(api.resolveCwd('.vue-static')),
-          fs.remove(api.resolveOutDir('vue-ssr-client-manifest.json'))
-        ])
-        api.logger.done(
-          `Successfully generated into ${path.relative(
-            process.cwd(),
-            api.resolveOutDir()
-          )}`
-        )
-      }
-    })
   })
 }

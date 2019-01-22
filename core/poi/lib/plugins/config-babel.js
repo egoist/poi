@@ -4,18 +4,18 @@ const logger = require('@poi/logger')
 
 exports.name = 'builtin:config-babel'
 
-exports.apply = api => {
-  api.hook('createCLI', ({ command }) => {
-    command
-      .option('--jsx <syntax>', 'Set JSX syntax', {
-        default: 'react'
-      })
-      .option(
-        '--named-imports <loaderMap>',
-        'Conver specific named imports to use custom loaders'
-      )
-  })
+exports.cli = ({ command }) => {
+  command
+    .option('--jsx <syntax>', 'Set JSX syntax', {
+      default: 'react'
+    })
+    .option(
+      '--named-imports <loaderMap>',
+      'Conver specific named imports to use custom loaders'
+    )
+}
 
+exports.apply = api => {
   api.hook('createWebpackChain', config => {
     const { transpileModules, jsx, namedImports } = api.config.babel || {}
 

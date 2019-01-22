@@ -18,7 +18,7 @@ const { normalizePlugins, mergePlugins } = require('./utils/plugins')
 
 module.exports = class PoiCore {
   constructor(
-    args = process.argv,
+    rawArgs = process.argv,
     {
       defaultConfigFiles = [
         'poi.config.js',
@@ -31,39 +31,39 @@ module.exports = class PoiCore {
       config: externalConfig
     } = {}
   ) {
-    this.args = args
+    this.rawArgs = rawArgs
     this.logger = logger
     this.spinner = spinner
     this.PoiError = PoiError
-    // For plugins, it's only used in createCLI hook
-    this.parsedArgs = parseArgs(args)
+    // For plugins, it's only used in plugin.cli export
+    this.args = parseArgs(rawArgs)
     this.hooks = new Hooks()
     this.testRunners = new Map()
 
-    if (this.parsedArgs.has('debug')) {
+    if (this.args.has('debug')) {
       logger.setOptions({ debug: true })
     }
 
-    this.mode = this.parsedArgs.get('mode')
+    this.mode = this.args.get('mode')
     if (!this.mode) {
       this.mode = 'development'
     }
 
-    if (this.parsedArgs.has('prod') || this.parsedArgs.has('production')) {
+    if (this.args.has('prod') || this.args.has('production')) {
       this.mode = 'production'
     }
 
-    if (this.parsedArgs.has('test')) {
+    if (this.args.has('test')) {
       this.mode = 'test'
     }
 
-    if (this.parsedArgs.args[0] && /^test(:|$)/.test(this.parsedArgs.args[0])) {
+    if (this.args.args[0] && /^test(:|$)/.test(this.args.args[0])) {
       this.mode = 'test'
     }
 
     logger.debug(`Running in ${this.mode} mode`)
 
-    this.cwd = this.parsedArgs.get('cwd')
+    this.cwd = this.args.get('cwd')
     if (!this.cwd) {
       this.cwd = process.cwd()
     }
@@ -85,13 +85,13 @@ module.exports = class PoiCore {
     this.webpackUtils = new WebpackUtils(this)
 
     // Try to load config file
-    if (externalConfig || this.parsedArgs.get('config') === false) {
+    if (externalConfig || this.args.get('config') === false) {
       logger.debug('Poi config file was disabled')
       this.config = externalConfig || {}
     } else {
       const configFiles =
-        typeof this.parsedArgs.get('config') === 'string'
-          ? [this.parsedArgs.get('config')]
+        typeof this.args.get('config') === 'string'
+          ? [this.args.get('config')]
           : defaultConfigFiles
       const { path: configPath, data: configFn } = this.configLoader.load({
         files: configFiles,
@@ -104,9 +104,7 @@ module.exports = class PoiCore {
       }
       this.configPath = configPath
       this.config =
-        typeof configFn === 'function'
-          ? configFn(this.parsedArgs.options)
-          : configFn
+        typeof configFn === 'function' ? configFn(this.args.options) : configFn
       this.config = this.config || {}
     }
 
@@ -115,10 +113,14 @@ module.exports = class PoiCore {
     })
     this.pkg.data = this.pkg.data || {}
 
-    // Apply plugins
-    this.applyPlugins()
-
+    // Initialize plugins
+    this.initPlugins()
+    // Init CLI instance, call plugin.cli, parse CLI args
     this.initCLI()
+    // Merge cli config with config file
+    this.mergeConfig()
+    // Call plugin.apply
+    this.applyPlugins()
   }
 
   get isProd() {
@@ -127,18 +129,19 @@ module.exports = class PoiCore {
 
   initCLI() {
     const cli = (this.cli = cac())
-    const command = (this.defaultCommand = cli
+    this.command = cli
       .command('[...entries]', 'Entry files to start bundling', {
         ignoreOptionDefaultValue: true
       })
-      .usage('[...entries] [options]')).action(async () => {
-      logger.debug(`Using default handler`)
-      const chain = this.createWebpackChain()
-      const compiler = this.createWebpackCompiler(chain.toConfig())
-      await this.runCompiler(compiler)
-    })
+      .usage('[...entries] [options]')
+      .action(async () => {
+        logger.debug(`Using default handler`)
+        const chain = this.createWebpackChain()
+        const compiler = this.createWebpackCompiler(chain.toConfig())
+        await this.runCompiler(compiler)
+      })
 
-    this.hooks.invoke('createCLI', { command, args: this.parsedArgs })
+    this.extendCLI()
 
     // Global options
     cli
@@ -168,6 +171,11 @@ module.exports = class PoiCore {
           }
         }
       })
+
+    this.cli.parse(this.rawArgs, { run: false })
+
+    logger.debug('Command args', this.cli.args)
+    logger.debug('Command options', this.cli.options)
   }
 
   hasDependency(name) {
@@ -181,10 +189,10 @@ module.exports = class PoiCore {
    * @private
    * @returns {void}
    */
-  applyPlugins() {
+  initPlugins() {
     const cwd = this.resolveCwd()
     const cliPlugins = normalizePlugins(
-      this.parsedArgs.get('plugin') || this.parsedArgs.get('plugins'),
+      this.args.get('plugin') || this.args.get('plugins'),
       cwd
     )
     const configPlugins = normalizePlugins(this.config.plugins, cwd)
@@ -214,24 +222,36 @@ module.exports = class PoiCore {
         }
         return plugin
       })
-      .filter(plugin => {
-        return plugin.resolve.when ? plugin.resolve.when(this) : true
-      })
+  }
+
+  extendCLI() {
+    for (const plugin of this.plugins) {
+      if (plugin.resolve.cli) {
+        plugin.resolve.cli(this, plugin.options)
+      }
+    }
+  }
+
+  /**
+   * @private
+   * @returns {void}
+   */
+  applyPlugins() {
+    let plugins = this.plugins.filter(plugin => {
+      return !plugin.resolve.when || plugin.resolve.when(this)
+    })
 
     // Run plugin's `filterPlugins` method
-    for (const plugin of this.plugins) {
+    for (const plugin of plugins) {
       if (plugin.resolve.filterPlugins) {
-        this.plugins = plugin.resolve.filterPlugins(
-          this.plugins,
-          plugin.options
-        )
+        plugins = plugin.resolve.filterPlugins(this.plugins, plugin.options)
       }
     }
 
     // Run plugin's `apply` method
-    for (const plugin of this.plugins) {
+    for (const plugin of plugins) {
       if (plugin.resolve.apply) {
-        logger.debug(`Using plugin: \`${chalk.bold(plugin.resolve.name)}\``)
+        logger.debug(`Apply plugin: \`${chalk.bold(plugin.resolve.name)}\``)
         if (plugin._resolve) {
           logger.debug(`location: ${plugin._resolve}`)
         }
@@ -247,6 +267,15 @@ module.exports = class PoiCore {
         return plugin.resolve.name === name
       })
     )
+  }
+
+  mergeConfig() {
+    const cliConfig = this.createConfigFromCLIOptions()
+    logger.debug(`Config from command options`, cliConfig)
+
+    this.config = validateConfig(this, merge({}, this.config, cliConfig))
+
+    this.hooks.invoke('createConfig', this.config)
   }
 
   hook(name, fn) {
@@ -273,18 +302,6 @@ module.exports = class PoiCore {
   }
 
   async run() {
-    this.cli.parse(this.args, { run: false })
-
-    logger.debug('Command args', this.cli.args)
-    logger.debug('Command options', this.cli.options)
-
-    const cliConfig = this.createConfigFromCLIOptions()
-    logger.debug(`Config from command options`, cliConfig)
-
-    this.config = validateConfig(this, merge({}, this.config, cliConfig))
-
-    this.hooks.invoke('createConfig', this.config)
-
     await this.hooks.invokePromise('beforeRun')
 
     await this.cli.runMatchedCommand()

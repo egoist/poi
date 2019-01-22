@@ -1,112 +1,114 @@
 exports.name = 'builtin:serve'
 
-exports.apply = api => {
-  api.hook('createCLI', ({ command, args }) => {
-    command.option('-s, --serve', 'Serve assets on a local server')
+exports.cli = api => {
+  const { command, args } = api
 
-    if (!args.has('s') && !args.has('serve')) return
+  command.option('-s, --serve', 'Serve assets on a local server')
 
-    command
-      .option('-p, --port <port>', 'Server port', { default: '4000' })
-      .option('--host <host>', 'Server host', { default: '0.0.0.0' })
-      .option('--proxy <url>', 'Proxy API requests')
-      .option('--no-hot', 'Disable hot reloading')
-      .option('-o, --open', 'Open in browser')
+  if (!args.has('s') && !args.has('serve')) return
 
-    command.action(async () => {
-      const devServer = Object.assign({}, api.config.devServer)
-      delete devServer.hotEntries
+  command
+    .option('-p, --port <port>', 'Server port', { default: '4000' })
+    .option('--host <host>', 'Server host', { default: '0.0.0.0' })
+    .option('--proxy <url>', 'Proxy API requests')
+    .option('--no-hot', 'Disable hot reloading')
+    .option('-o, --open', 'Open in browser')
 
-      const { host, port: _port, open } = devServer
-      const port = await require('get-port')({ port: _port })
+  command.action(async () => {
+    const devServer = Object.assign({}, api.config.devServer)
+    delete devServer.hotEntries
 
-      const webpackConfig = api.createWebpackChain().toConfig()
+    const { host, port: _port, open } = devServer
+    const port = await require('get-port')({ port: _port })
 
-      // No need to print URLs in test mode
-      if (api.mode !== 'test') {
-        webpackConfig.plugins.push({
-          apply(compiler) {
-            let isFirstBuild = true
-            // TODO: figure out why using .tap() can't catch error
-            compiler.hooks.done.tap('print-serve-urls', stats => {
-              if (stats.hasErrors() || stats.hasWarnings()) return
+    const webpackConfig = api.createWebpackChain().toConfig()
 
-              require('@poi/dev-utils/printServeMessage')({
-                host,
-                port,
-                open,
-                isFirstBuild
-              })
+    // No need to print URLs in test mode
+    if (api.mode !== 'test') {
+      webpackConfig.plugins.push({
+        apply(compiler) {
+          let isFirstBuild = true
+          // TODO: figure out why using .tap() can't catch error
+          compiler.hooks.done.tap('print-serve-urls', stats => {
+            if (stats.hasErrors() || stats.hasWarnings()) return
 
-              isFirstBuild = false
+            require('@poi/dev-utils/printServeMessage')({
+              host,
+              port,
+              open,
+              isFirstBuild
             })
-          }
-        })
-      }
 
-      const compiler = api.createWebpackCompiler(webpackConfig)
-
-      const devServerConfig = Object.assign(
-        {
-          quiet: true,
-          historyApiFallback: true,
-          overlay: true,
-          disableHostCheck: true,
-          publicPath: webpackConfig.output.publicPath,
-          contentBase:
-            api.config.publicFolder && api.resolveCwd(api.config.publicFolder),
-          watchContentBase: true,
-          stats: {
-            colors: true
-          }
-        },
-        devServer,
-        {
-          proxy:
-            typeof devServer.proxy === 'string'
-              ? require('@poi/dev-utils/prepareProxy')(
-                  devServer.proxy,
-                  api.resolveCwd(api.config.publicFolder),
-                  api.cli.options.debug
-                )
-              : devServer.proxy
+            isFirstBuild = false
+          })
         }
-      )
+      })
+    }
 
-      const existingBefore = devServerConfig.before
-      devServerConfig.before = server => {
-        api.hooks.invoke('beforeDevMiddlewares', server)
+    const compiler = api.createWebpackCompiler(webpackConfig)
 
-        server.use(
-          require('@poi/dev-utils/launchEditorEndpoint'),
-          require('launch-editor-middleware')(() =>
-            console.log(
-              `To specify an editor, sepcify the EDITOR env variable or ` +
-                `add "editor" field to your Vue project config.\n`
-            )
+    const devServerConfig = Object.assign(
+      {
+        quiet: true,
+        historyApiFallback: true,
+        overlay: true,
+        disableHostCheck: true,
+        publicPath: webpackConfig.output.publicPath,
+        contentBase:
+          api.config.publicFolder && api.resolveCwd(api.config.publicFolder),
+        watchContentBase: true,
+        stats: {
+          colors: true
+        }
+      },
+      devServer,
+      {
+        proxy:
+          typeof devServer.proxy === 'string'
+            ? require('@poi/dev-utils/prepareProxy')(
+                devServer.proxy,
+                api.resolveCwd(api.config.publicFolder),
+                api.cli.options.debug
+              )
+            : devServer.proxy
+      }
+    )
+
+    const existingBefore = devServerConfig.before
+    devServerConfig.before = server => {
+      api.hooks.invoke('beforeDevMiddlewares', server)
+
+      server.use(
+        require('@poi/dev-utils/launchEditorEndpoint'),
+        require('launch-editor-middleware')(() =>
+          console.log(
+            `To specify an editor, sepcify the EDITOR env variable or ` +
+              `add "editor" field to your Vue project config.\n`
           )
         )
-        server.use(require('@poi/dev-utils/skipServiceWorker')())
-        existingBefore && existingBefore(server)
-      }
+      )
+      server.use(require('@poi/dev-utils/skipServiceWorker')())
+      existingBefore && existingBefore(server)
+    }
 
-      const exitingAfter = devServerConfig.after
-      devServerConfig.after = server => {
-        exitingAfter && exitingAfter(server)
-        api.hooks.invoke('onCreateServer', server) // TODO: remove this in the future
+    const exitingAfter = devServerConfig.after
+    devServerConfig.after = server => {
+      exitingAfter && exitingAfter(server)
+      api.hooks.invoke('onCreateServer', server) // TODO: remove this in the future
 
-        api.hooks.invoke('afterDevMiddlewares', server)
-      }
+      api.hooks.invoke('afterDevMiddlewares', server)
+    }
 
-      api.hooks.invoke('createDevServerConfig', devServerConfig)
+    api.hooks.invoke('createDevServerConfig', devServerConfig)
 
-      const WebpackDevServer = require('webpack-dev-server')
-      const server = new WebpackDevServer(compiler, devServerConfig)
+    const WebpackDevServer = require('webpack-dev-server')
+    const server = new WebpackDevServer(compiler, devServerConfig)
 
-      server.listen(port, host)
-    })
+    server.listen(port, host)
   })
+}
 
+exports.apply = api => {
   api.hook('createWebpackChain', config => {
     if (!api.cli.options.serve) return
 
