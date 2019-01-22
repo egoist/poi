@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.0.2](https://github.com/egoist/poi/compare/@poi/plugin-karma@13.0.1...@poi/plugin-karma@13.0.2) (2019-01-22)
+
+### Bug Fixes
+
+- execute plugins after validating config ([ca7686d](https://github.com/egoist/poi/commit/ca7686d)), closes [#530](https://github.com/egoist/poi/issues/530)
+
 ## [13.0.1](https://github.com/egoist/poi/compare/@poi/plugin-karma@13.0.0...@poi/plugin-karma@13.0.1) (2019-01-09)
 
 ### Bug Fixes

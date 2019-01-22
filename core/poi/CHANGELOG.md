@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.4.6](https://github.com/egoist/poi/compare/poi@12.4.5...poi@12.4.6) (2019-01-22)
+
+### Bug Fixes
+
+- execute plugins after validating config ([ca7686d](https://github.com/egoist/poi/commit/ca7686d)), closes [#530](https://github.com/egoist/poi/issues/530)
+
 ## [12.4.5](https://github.com/egoist/poi/compare/poi@12.4.4...poi@12.4.5) (2019-01-18)
 
 ### Bug Fixes
