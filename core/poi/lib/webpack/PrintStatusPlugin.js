@@ -5,6 +5,7 @@ const gzipSize = require('gzip-size')
 const formatWebpackMessages = require('@poi/dev-utils/formatWebpackMessages')
 const prettyBytes = require('@poi/dev-utils/prettyBytes')
 const logger = require('@poi/logger')
+const prettyTime = require('pretty-ms')
 
 class PrintStatusPlugin {
   constructor(opts = {}) {
@@ -50,7 +51,7 @@ class PrintStatusPlugin {
       } else {
         if (this.opts.printSucessMessage) {
           logger.done(
-            `Build completed in ${stats.endTime - stats.startTime} ms`
+            `Build completed in ${prettyTime(stats.endTime - stats.startTime)}`
           )
         }
         // Print file stats

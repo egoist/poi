@@ -14,7 +14,7 @@ module.exports = ({ host, port, expectedPort, open, isFirstBuild }) => {
   console.log(`On Your Network:   http://${ip}:${colors.bold(port)}`)
   console.log()
   if (expectedPort && expectedPort !== port) {
-    console.log(colors.yellow(`> port ${expectedPort} is used !`))
+    console.log(colors.yellow(`> port ${expectedPort} is used!`))
   }
   console.log(colors.dim(`> ${prettyBytes(heapUsed)} memory used`))
   console.log()
