@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.1.1](https://github.com/egoist/poi/compare/@poi/dev-utils@12.1.0...@poi/dev-utils@12.1.1) (2019-01-23)
+
+### Bug Fixes
+
+- format build time in human-readable format ([a89ecd0](https://github.com/egoist/poi/commit/a89ecd0))
+- use a new port if the port is already used ([62053e5](https://github.com/egoist/poi/commit/62053e5))
+
 # [12.1.0](https://github.com/egoist/poi/compare/@poi/dev-utils@12.0.3...@poi/dev-utils@12.1.0) (2019-01-09)
 
 ### Bug Fixes
