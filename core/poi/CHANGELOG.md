@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.4.7](https://github.com/egoist/poi/compare/poi@12.4.6...poi@12.4.7) (2019-01-23)
+
+### Features
+
+- validate devServer.headers option ([#532](https://github.com/egoist/poi/issues/532)) ([579b3ff](https://github.com/egoist/poi/commit/579b3ff))
+
 ## [12.4.6](https://github.com/egoist/poi/compare/poi@12.4.5...poi@12.4.6) (2019-01-22)
 
 ### Bug Fixes
