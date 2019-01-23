@@ -84,6 +84,7 @@ module.exports = (api, config) => {
       host: 'string',
       port: struct.union(['string', 'number']),
       hotEntries: struct(['string']),
+      headers: struct.optional('object'),
       proxy: struct.optional(
         struct.union([
           'string',
