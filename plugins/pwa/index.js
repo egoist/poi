@@ -1,3 +1,4 @@
+const normalizePath = require('normalize-path')
 const { GenerateSW } = require('workbox-webpack-plugin')
 
 exports.name = 'pwa'
@@ -38,9 +39,11 @@ exports.apply = (api, options = {}) => {
           {
             // Pretend to be a glob pattern
             // TODO: newly added manifest.json won't trigger copy
-            from: api.resolveCwd(
-              api.config.publicFolder,
-              '{manifest,manifest}.json'
+            from: normalizePath(
+              api.resolveCwd(
+                api.config.publicFolder,
+                '{manifest,manifest}.json'
+              )
             ),
             to: '[name].[ext]',
             toType: 'template'
