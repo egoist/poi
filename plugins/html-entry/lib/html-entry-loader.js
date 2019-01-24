@@ -4,7 +4,8 @@ const { shouldProcess, replaceEjsDelimeters, wrapData } = require('./utils')
 
 const isProd = process.env.NODE_ENV === 'production'
 
-const templateSettings = require.resolve('./template-settings')
+const templateModulePath = require.resolve('lodash/template')
+const templateSettingsModulePath = require.resolve('./template-settings')
 
 const transform = ({ loader }) => tree => {
   let assetIndex = 0
@@ -73,8 +74,8 @@ module.exports = async function(content) {
     done(
       null,
       `
-  const template = require('lodash/template')
-  const templateSettings = require("${templateSettings}")
+  const template = require("${templateModulePath}")
+  const templateSettings = require("${templateSettingsModulePath}")
   export default function (data) {
     const { publicPath } = data.htmlWebpackPlugin.files
     data.htmlAsset = {}

@@ -13,7 +13,6 @@
     "chokidar": "^2.0.4",
     "fs-extra": "^7.0.1",
     "lodash": "^4.17.11",
-    "lodash.template": "^4.4.0",
     "posthtml": "^0.11.3"
   }
 }
