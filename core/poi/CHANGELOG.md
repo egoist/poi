@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [12.5.0](https://github.com/egoist/poi/compare/poi@12.4.8...poi@12.5.0) (2019-01-24)
+
+### Features
+
+- support html an entry file ([289468a](https://github.com/egoist/poi/commit/289468a))
+
 ## [12.4.8](https://github.com/egoist/poi/compare/poi@12.4.7...poi@12.4.8) (2019-01-23)
 
 ### Bug Fixes

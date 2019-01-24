@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.0.3](https://github.com/egoist/poi/compare/@poi/plugin-pwa@12.0.2...@poi/plugin-pwa@12.0.3) (2019-01-24)
+
+### Bug Fixes
+
+- normalize manifest path, closes [#533](https://github.com/egoist/poi/issues/533) ([25175bb](https://github.com/egoist/poi/commit/25175bb))
+
 ## [12.0.2](https://github.com/egoist/poi/compare/@poi/plugin-pwa@12.0.1...@poi/plugin-pwa@12.0.2) (2019-01-09)
 
 ### Bug Fixes
