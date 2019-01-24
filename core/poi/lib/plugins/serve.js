@@ -105,6 +105,8 @@ exports.cli = api => {
     const WebpackDevServer = require('webpack-dev-server')
     const server = new WebpackDevServer(compiler, devServerConfig)
 
+    api.hooks.invoke('createServer', { server, port, host })
+
     server.listen(port, host)
   })
 }

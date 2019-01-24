@@ -121,6 +121,7 @@ module.exports = class PoiCore {
     this.mergeConfig()
     // Call plugin.apply
     this.applyPlugins()
+    this.hooks.invoke('createConfig', this.config)
   }
 
   get isProd() {
@@ -212,7 +213,8 @@ module.exports = class PoiCore {
       { resolve: require.resolve('./plugins/config-yarn-pnp') },
       { resolve: require.resolve('./plugins/watch') },
       { resolve: require.resolve('./plugins/serve') },
-      { resolve: require.resolve('./plugins/eject-html') }
+      { resolve: require.resolve('./plugins/eject-html') },
+      { resolve: require.resolve('@poi/plugin-html-entry') }
     ]
       .concat(mergePlugins(configPlugins, cliPlugins))
       .map(plugin => {
@@ -274,8 +276,6 @@ module.exports = class PoiCore {
     logger.debug(`Config from command options`, cliConfig)
 
     this.config = validateConfig(this, merge({}, this.config, cliConfig))
-
-    this.hooks.invoke('createConfig', this.config)
   }
 
   hook(name, fn) {

@@ -30,6 +30,7 @@
     "@intervolga/optimize-cssnano-plugin": "^1.0.6",
     "@poi/dev-utils": "^12.1.1",
     "@poi/logger": "^12.0.0",
+    "@poi/plugin-html-entry": "^0.0.0",
     "@poi/pnp-webpack-plugin": "^0.0.2",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-loader": "^8.0.4",

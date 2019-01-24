@@ -97,12 +97,16 @@ exports.apply = api => {
             },
             typeof pages[entryName] === 'string' ? {} : pages[entryName]
           )
-          page.template = api.resolveCwd(page.template)
+          if (!page.template.startsWith('!')) {
+            page.template = api.resolveCwd(page.template)
+          }
           config.plugin(`html-page-${entryName}`).use(HtmlPlugin, [page])
         }
       } else {
         const page = merge({}, defaultHtmlOpts, html)
-        page.template = api.resolveCwd(page.template)
+        if (!page.template.startsWith('!')) {
+          page.template = api.resolveCwd(page.template)
+        }
         config.plugin('html').use(HtmlPlugin, [page])
       }
 
@@ -131,6 +135,7 @@ function templateParametersGenerator(data) {
         htmlTagObjectToString(assetTagObject, xhtml)
       ).join('')
     }
+
     return Object.assign(
       {
         compilation,
