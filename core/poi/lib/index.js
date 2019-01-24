@@ -191,7 +191,9 @@ module.exports = class PoiCore {
    * @returns {void}
    */
   initPlugins() {
-    const cwd = this.resolveCwd()
+    const cwd = this.configPath
+      ? path.dirname(this.configPath)
+      : this.resolveCwd()
     const cliPlugins = normalizePlugins(
       this.args.get('plugin') || this.args.get('plugins'),
       cwd
