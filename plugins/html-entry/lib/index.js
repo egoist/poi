@@ -1,7 +1,7 @@
 const path = require('path')
 const fs = require('fs-extra')
 const posthtml = require('posthtml')
-const { shouldProcess, replaceEjsDelimeters } = require('./utils')
+const { shouldProcess, replaceEjsDelimeters, slash } = require('./utils')
 
 exports.name = 'html-entry'
 
@@ -114,12 +114,12 @@ function writeTempFile({ tempFile, htmlFile, restFiles }) {
     async function main() {
       ${staticAssets
         .map(file => {
-          return `require("${file}")`
+          return `require("${slash(file)}")`
         })
         .join('\n')}
       ${restFiles
         .map(file => {
-          return `require("${file}")`
+          return `require("${slash(file)}")`
         })
         .join('\n')}
       ${assets
@@ -127,7 +127,7 @@ function writeTempFile({ tempFile, htmlFile, restFiles }) {
           return `await import(/* webpackChunkName: "html-asset-${index}/${path.basename(
             file,
             path.extname(file)
-          )}" */ "${file}");`
+          )}" */ "${slash(file)}");`
         })
         .join('\n')}
     }
