@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.5.2](https://github.com/egoist/poi/compare/poi@12.5.1...poi@12.5.2) (2019-01-24)
+
+### Bug Fixes
+
+- plugins should be resolved from config dir ([d023091](https://github.com/egoist/poi/commit/d023091))
+
 ## [12.5.1](https://github.com/egoist/poi/compare/poi@12.5.0...poi@12.5.1) (2019-01-24)
 
 **Note:** Version bump only for package poi
