@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.5.3](https://github.com/egoist/poi/compare/poi@12.5.2...poi@12.5.3) (2019-01-28)
+
+### Bug Fixes
+
+- missing shortcut for setting entry in multi-page mode ([655be46](https://github.com/egoist/poi/commit/655be46))
+
 ## [12.5.2](https://github.com/egoist/poi/compare/poi@12.5.1...poi@12.5.2) (2019-01-24)
 
 ### Bug Fixes
