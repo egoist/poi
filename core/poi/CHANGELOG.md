@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.5.4](https://github.com/egoist/poi/compare/poi@12.5.3...poi@12.5.4) (2019-01-28)
+
+### Bug Fixes
+
+- webpack entry object syntax ([#535](https://github.com/egoist/poi/issues/535)) ([1abe601](https://github.com/egoist/poi/commit/1abe601))
+
 ## [12.5.3](https://github.com/egoist/poi/compare/poi@12.5.2...poi@12.5.3) (2019-01-28)
 
 ### Bug Fixes
