@@ -37,7 +37,9 @@ module.exports = (config, api) => {
   }
 
   for (const name of Object.keys(webpackEntry)) {
-    webpackEntry[name] = webpackEntry[name].map(v => normalizeEntry(v))
+    webpackEntry[name] = Array.isArray(webpackEntry[name])
+      ? webpackEntry[name].map(v => normalizeEntry(v))
+      : normalizeEntry(webpackEntry[name])
   }
 
   config.merge({ entry: webpackEntry })
