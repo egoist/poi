@@ -95,7 +95,11 @@ exports.apply = api => {
               filename: `${entryName}.html`,
               chunks: ['chunk-vendors', 'chunk-common', entryName]
             },
-            typeof pages[entryName] === 'string' ? {} : pages[entryName]
+            typeof pages[entryName] === 'string'
+              ? {
+                  entry: pages[entryName]
+                }
+              : pages[entryName]
           )
           if (!page.template.startsWith('!')) {
             page.template = api.resolveCwd(page.template)
