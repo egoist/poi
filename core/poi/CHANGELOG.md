@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.5.5](https://github.com/egoist/poi/compare/poi@12.5.4...poi@12.5.5) (2019-01-31)
+
+### Bug Fixes
+
+- include .wasm .mjs in resolve.extensions, closes [#536](https://github.com/egoist/poi/issues/536) ([79b13e7](https://github.com/egoist/poi/commit/79b13e7))
+
 ## [12.5.4](https://github.com/egoist/poi/compare/poi@12.5.3...poi@12.5.4) (2019-01-28)
 
 ### Bug Fixes
