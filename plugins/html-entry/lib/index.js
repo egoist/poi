@@ -111,27 +111,32 @@ function writeTempFile({ tempFile, htmlFile, restFiles }) {
   fs.outputFileSync(
     tempFile,
     `
-    async function main() {
-      ${staticAssets
-        .map(file => {
-          return `require("${slash(file)}")`
-        })
-        .join('\n')}
-      ${restFiles
-        .map(file => {
-          return `require("${slash(file)}")`
-        })
-        .join('\n')}
-      ${assets
-        .map((file, index) => {
-          return `await import(/* webpackChunkName: "html-asset-${index}/${path.basename(
-            file,
-            path.extname(file)
-          )}" */ "${slash(file)}");`
-        })
-        .join('\n')}
-    }
-    main()
+    var assets = []
+
+    ${staticAssets
+      .map(file => {
+        return `require("${slash(file)}")`
+      })
+      .join('\n')}
+    ${restFiles
+      .map(file => {
+        return `require("${slash(file)}")`
+      })
+      .join('\n')}
+    ${assets
+      .map((file, index) => {
+        return `assets.push(function(){
+          return import(/* webpackChunkName: "html-asset-${index}/${path.basename(
+          file,
+          path.extname(file)
+        )}" */ "${slash(file)}")
+        })`
+      })
+      .join('\n')}
+
+    assets.reduce(function(current, next){
+      return current.then(next)
+    }, Promise.resolve())
     `,
     'utf8'
   )
