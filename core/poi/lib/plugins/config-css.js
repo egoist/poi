@@ -75,10 +75,7 @@ exports.apply = api => {
           {
             sourceMap,
             modules,
-            localIdentName:
-              api.mode === 'production'
-                ? '[local]_[hash:base64:5]'
-                : '[path][name]__[local]--[hash:base64:5]',
+            localIdentName: '[name]_[local]_[hash:base64:5]',
             importLoaders:
               1 + // stylePostLoader injected by vue-loader
               (hasPostCSSConfig ? 1 : 0) +
