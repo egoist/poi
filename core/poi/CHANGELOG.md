@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.5.7](https://github.com/egoist/poi/compare/poi@12.5.6...poi@12.5.7) (2019-03-21)
+
+### Bug Fixes
+
+- allow to configure css.sourceMap ([0372cd0](https://github.com/egoist/poi/commit/0372cd0))
+- tweak localIdentName for css-loader ([a90a638](https://github.com/egoist/poi/commit/a90a638))
+
 ## [12.5.6](https://github.com/egoist/poi/compare/poi@12.5.5...poi@12.5.6) (2019-03-12)
 
 **Note:** Version bump only for package poi
