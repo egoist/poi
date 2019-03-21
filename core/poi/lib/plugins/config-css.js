@@ -12,8 +12,11 @@ exports.cli = ({ command, isProd }) => {
 
 exports.apply = api => {
   api.hook('createWebpackChain', (config, { type }) => {
-    const { loaderOptions = {}, extract: shouldExtract } = api.config.css || {}
-    const sourceMap = Boolean(api.config.output.sourceMap)
+    const {
+      loaderOptions = {},
+      extract: shouldExtract,
+      sourceMap = api.config.output.sourceMap
+    } = api.config.css || {}
     const isServer = type === 'server'
 
     const hasPostCSSConfig = api.configLoader.resolve({

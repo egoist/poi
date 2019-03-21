@@ -62,6 +62,7 @@ module.exports = (api, config) => {
   const css = struct(
     {
       extract: 'boolean',
+      sourceMap: struct.optional('boolean'),
       loaderOptions: struct.optional(
         struct.object({
           css: struct.optional('object'),
