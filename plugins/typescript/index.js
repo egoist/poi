@@ -1,6 +1,9 @@
 exports.name = 'typescript'
 
-exports.apply = (api, { lintOnSave = true } = {}) => {
+exports.apply = (
+  api,
+  { lintOnSave = true, configFile = 'tsconfig.json', loaderOptions } = {}
+) => {
   api.hook('createWebpackChain', config => {
     const test = config.module
       .rule('js')
@@ -19,7 +22,7 @@ exports.apply = (api, { lintOnSave = true } = {}) => {
           typescript: api.localRequire('typescript/package').version,
           'ts-loader': require('ts-loader/package').version
         },
-        'tsconfig.json'
+        configFile
       )
     )
 
@@ -35,6 +38,10 @@ exports.apply = (api, { lintOnSave = true } = {}) => {
             appendTsSuffixTo: ['\\.vue$'],
             // https://github.com/TypeStrong/ts-loader#happypackmode-boolean-defaultfalse
             happyPackMode: api.config.parallel
+          },
+          loaderOptions,
+          {
+            configFile
           },
           require('ts-pnp')
         )

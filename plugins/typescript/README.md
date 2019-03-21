@@ -45,4 +45,17 @@ Then add a `tsconfig.json` in your project:
 - Type: `boolean`
 - Default: `true`
 
-Lint TS files with `ts-lint` at compile time, you need to create a `tslint.json` in your project.
+Lint TS files with `ts-lint` at compile time when a `tslint.json` is found in your project
+
+### configFile
+
+- Type: `string`
+- Default: `tsconfig.json`
+
+The path to the TypeScript config file.
+
+### loaderOptions
+
+- Type: `any`
+
+Addtional options for `ts-loader.
