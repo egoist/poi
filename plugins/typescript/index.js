@@ -2,18 +2,22 @@ exports.name = 'typescript'
 
 exports.apply = (
   api,
-  { lintOnSave = true, configFile = 'tsconfig.json', loaderOptions } = {}
+  {
+    lintOnSave = true,
+    configFile = 'tsconfig.json',
+    babel: useBabel,
+    loaderOptions
+  } = {}
 ) => {
   configFile = api.resolveCwd(configFile)
 
   api.hook('createWebpackChain', config => {
-    const test = config.module
-      .rule('js')
-      .get('test')
-      .filter(re => {
-        return !re.test('.ts') && !re.test('.tsx')
-      })
-    config.module.rule('js').test(test)
+    const jsRule = config.module.rule('js')
+
+    const test = jsRule.get('test').filter(re => {
+      return !re.test('.ts') && !re.test('.tsx')
+    })
+    jsRule.test(test)
 
     const rule = config.module.rule('ts').test(/\.tsx?$/)
 
@@ -29,6 +33,15 @@ exports.apply = (
     )
 
     api.webpackUtils.addParallelSupport(rule)
+
+    if (useBabel) {
+      const babelLoaderPath = jsRule.use('babel-loader').get('loader')
+      const babelLoaderOptions = jsRule.use('babel-loader').get('options')
+      rule
+        .use('babel-loader')
+        .loader(babelLoaderPath)
+        .options(babelLoaderOptions)
+    }
 
     rule
       .use('ts-loader')
