@@ -4,6 +4,8 @@ exports.apply = (
   api,
   { lintOnSave = true, configFile = 'tsconfig.json', loaderOptions } = {}
 ) => {
+  configFile = api.resolveCwd(configFile)
+
   api.hook('createWebpackChain', config => {
     const test = config.module
       .rule('js')
@@ -52,6 +54,7 @@ exports.apply = (
       .use(require('fork-ts-checker-webpack-plugin'), [
         {
           vue: true,
+          tsconfig: configFile,
           tslint:
             lintOnSave &&
             Boolean(api.configLoader.resolve({ files: ['tslint.json'] })),
