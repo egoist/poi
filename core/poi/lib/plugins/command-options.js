@@ -32,6 +32,7 @@ exports.cli = ({ command, isProd }) => {
   command.option('--file-names <filenames>', 'Customize output filenames')
   command.option('--no-clean', `Don't clean output directory before bundling`)
   command.option('--html <options>', 'Configure generated HTML file')
+  command.option('--no-html', `Don't generate HTML file`)
   command.option('--no-clear-console', `Don't clear console`)
 
   if (isProd) {
