@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.5.8](https://github.com/egoist/poi/compare/poi@12.5.7...poi@12.5.8) (2019-03-26)
+
+### Bug Fixes
+
+- allow to disable html generation via cli flag ([adb8d32](https://github.com/egoist/poi/commit/adb8d32))
+
 ## [12.5.7](https://github.com/egoist/poi/compare/poi@12.5.6...poi@12.5.7) (2019-03-21)
 
 ### Bug Fixes
