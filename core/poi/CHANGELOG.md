@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.5.9](https://github.com/egoist/poi/compare/poi@12.5.8...poi@12.5.9) (2019-03-29)
+
+### Bug Fixes
+
+- add #webpack-hot-client to all entries, closes [#534](https://github.com/egoist/poi/issues/534) ([2cf113b](https://github.com/egoist/poi/commit/2cf113b))
+
 ## [12.5.8](https://github.com/egoist/poi/compare/poi@12.5.7...poi@12.5.8) (2019-03-26)
 
 ### Bug Fixes
