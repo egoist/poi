@@ -115,9 +115,11 @@ exports.apply = api => {
   api.hook('createWebpackChain', config => {
     if (!api.cli.options.serve) return
 
-    const { hotEntries, hot } = api.config.devServer
-
-    if (hot) {
+    if (api.config.devServer.hot) {
+      const hotEntries =
+        api.config.devServer.hotEntries.length > 0
+          ? api.config.devServer.hotEntries
+          : config.entryPoints.store.keys()
       for (const entry of hotEntries) {
         if (config.entryPoints.has(entry)) {
           config.entry(entry).prepend('#webpack-hot-client')
