@@ -5,13 +5,20 @@ const { minify } = require('html-minifier')
 
 module.exports = async (
   api,
-  { staticRoutes, serverBundle, clientManifest, htmlSkeletion, resourceHints }
+  {
+    staticRoutes,
+    serverBundle,
+    clientManifest,
+    htmlSkeletion,
+    resourceHints,
+    runInNewContext
+  }
 ) => {
   const routes = [...new Set(['/'].concat(staticRoutes || []))]
   const renderer = createBundleRenderer(serverBundle, {
     clientManifest,
-    runInNewContext: false,
-    inject: false,
+    runInNewContext,
+    inject: true,
     basedir: api.resolveCwd()
   })
 

@@ -5,6 +5,10 @@
   "files": [
     "lib"
   ],
+  "scripts": {
+    "example": "poi example/index.js -so --plugin .",
+    "build:example": "poi example/index.js --prod --plugin ."
+  },
   "publishConfig": {
     "access": "public"
   },

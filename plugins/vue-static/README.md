@@ -89,6 +89,15 @@ Then you will get `index.html` `user/egoist/index.html` and `user/cristiano/inde
 
 Add `prefetch` and `preload` resource hints to `<head>`.
 
+### runInNewContext
+
+- Type: `boolean`
+- Default: `false`
+
+With `runInNewContext: false`, the bundle code will run in the same `global` context with the server process, so be careful about code that modifies `global` in your application code.
+
+See more details [here](https://ssr.vuejs.org/api/#runinnewcontext).
+
 ## FAQ
 
 ### How do I modify webpack config for specific build?

@@ -3,7 +3,10 @@ const fs = require('fs-extra')
 
 exports.name = 'vue-static'
 
-exports.cli = (api, { staticRoutes, resourceHints = true } = {}) => {
+exports.cli = (
+  api,
+  { staticRoutes, resourceHints = true, runInNewContext = false } = {}
+) => {
   const { command } = api
 
   // Override the action for default command
@@ -35,6 +38,7 @@ exports.cli = (api, { staticRoutes, resourceHints = true } = {}) => {
         )),
         staticRoutes,
         resourceHints,
+        runInNewContext,
         htmlSkeletion: await fs.readFile(
           api.resolveCwd('.vue-static/client/index.html'),
           'utf8'
