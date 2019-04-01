@@ -63,7 +63,7 @@ exports.apply = (
       )
 
     config
-      .plugin('fork-ts-cheker')
+      .plugin('fork-ts-checker')
       .use(require('fork-ts-checker-webpack-plugin'), [
         {
           vue: true,
