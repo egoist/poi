@@ -5,8 +5,7 @@ Use [astroturf](https://github.com/4Catalyzer/astroturf) to write css-in-js.
 ## Install
 
 ```bash
-yarn add astroturf
-yarn add @poi/plugin-astroturf --dev
+yarn add astroturf @poi/plugin-astroturf --dev
 ```
 
 ## How to use
