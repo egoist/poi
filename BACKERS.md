@@ -9,5 +9,5 @@ Poi is an MIT-licensed open source project. It's an independent project with its
 
 ## Backers
 
-- Alexis Tyler [@OmgImAlexis](https://github.com/OmgImAlexis)
+- Shinya Katayama [@ktsn](https://github.com/ktsn)
 - HANATANI Takuma [@potato4d](https://github.com/potato4d)
