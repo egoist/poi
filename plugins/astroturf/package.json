@@ -1,0 +1,23 @@
+{
+  "name": "@poi/plugin-astroturf",
+  "version": "0.0.0",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "test": "jest --env node"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "astroturf": "^0.9.2",
+    "jest": "^24.7.0"
+  },
+  "peerDependencies": {
+    "astroturf": "^0.9.2",
+    "@poi/test-utils": "workspace:*"
+  }
+}
