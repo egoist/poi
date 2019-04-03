@@ -43,7 +43,7 @@ Check out [astroturf](https://github.com/4Catalyzer/astroturf/) for more usages.
 ## Options
 
 - `loaderOptions`: `astroturf/loader` [options](https://github.com/4Catalyzer/astroturf/tree/1741c3e702049f6e75483cd000b439d42e57ef2d#options)
-  - `loaderOptions.extension`: Default `.module.css`, not recommended to change this.
+  - `loaderOptions.extension`: Default `.module.css`. You can also change it to `.module.scss` etc to use [CSS pre-processors](https://poi.js.org/guide/pre-processing-css.html), but make sure that it ends with `.module.xxx` to get proper CSS modules support.
 
 ## License
 
