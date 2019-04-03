@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.2.1](https://github.com/egoist/poi/compare/@poi/plugin-typescript@12.2.0...@poi/plugin-typescript@12.2.1) (2019-04-03)
+
+### Bug Fixes
+
+- **plugin-typescript:** fix typo fork-ts-cheker -> fork-ts-checker ([#550](https://github.com/egoist/poi/issues/550)) ([bba820b](https://github.com/egoist/poi/commit/bba820b))
+
 # [12.2.0](https://github.com/egoist/poi/compare/@poi/plugin-typescript@12.1.0...@poi/plugin-typescript@12.2.0) (2019-03-23)
 
 ### Bug Fixes
