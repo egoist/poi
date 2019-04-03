@@ -10,7 +10,7 @@ exports.name = 'astroturf'
 exports.apply = (api, options = {}) => {
   const loaderOptions = Object.assign(
     {
-      extension: '.module.css'
+      extension: '.scss'
     },
     options.loaderOptions
   )

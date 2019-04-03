@@ -1,5 +1,6 @@
 const createProject = require('@poi/test-utils/createProject')
 
+jest.setTimeout(300000)
 test('astroturf', async () => {
   const project = await createProject({ name: 'astroturf' })
   await project.write(
@@ -36,6 +37,8 @@ test('astroturf', async () => {
   export default styles;
   `
   )
+  await project.run('yarn init -y')
+  await project.run('yarn add sass-loader sass')
   await project.run('poi')
   expect(project.require('dist/index.js')).toEqual({
     default: {
