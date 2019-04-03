@@ -8,32 +8,39 @@ exports.name = 'astroturf'
  */
 
 exports.apply = (api, options = {}) => {
-  options = {
-    ...options,
-    loaderOptions: {
-      extension: '.module.css',
-      ...options.loaderOptions
-    }
+  const loaderOptions = Object.assign(
+    {
+      extension: '.module.css'
+    },
+    options.loaderOptions
+  )
+
+  const loaderPath = api.localResolve('astroturf/loader')
+  if (!loaderPath) {
+    throw new api.PoiError(
+      `Cannot find module "astroturf/loader" in your project, did you forget to install "astroturf"?`
+    )
   }
 
   api.hook('createWebpackChain', config => {
     const jsRule = config.module.rule('js')
 
-    addAstroturfLoader(jsRule, options.loaderOptions)
+    addAstroturfLoader(jsRule, loaderOptions, loaderPath)
     if (config.module.rules.get('ts')) {
-      addAstroturfLoader(config.module.rule('ts'), options.loaderOptions)
+      addAstroturfLoader(config.module.rule('ts'), loaderOptions, loaderPath)
     }
   })
 }
 
 /**
  * @private
- * @param {WebpackChain~Rule} rule -
- * @param {AstroturfOptions.loaderOptions} loaderOptions -
+ * @param {import('webpack-chain').Rule} rule
+ * @param {AstroturfOptions.loaderOptions} loaderOptions
+ * @param {string} loaderPath
  */
-function addAstroturfLoader(rule, loaderOptions) {
+function addAstroturfLoader(rule, loaderOptions, loaderPath) {
   rule
     .use('astroturf-loader')
-    .loader(require.resolve('astroturf/loader'))
+    .loader(loaderPath)
     .options(loaderOptions)
 }
