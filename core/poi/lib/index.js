@@ -68,6 +68,9 @@ module.exports = class PoiCore {
       this.cwd = process.cwd()
     }
 
+    // Load modules from --require flag
+    this.loadRequiredModules()
+
     this.configLoader = createConfigLoader(this.cwd)
 
     // For other tools that use Poi under the hood
@@ -85,14 +88,16 @@ module.exports = class PoiCore {
     this.webpackUtils = new WebpackUtils(this)
 
     // Try to load config file
-    if (externalConfig || this.args.get('config') === false) {
+    const configFlag =
+      this.args.get('config') === undefined
+        ? this.args.get('c')
+        : this.args.get('config')
+    if (externalConfig || configFlag === false) {
       logger.debug('Poi config file was disabled')
       this.config = externalConfig || {}
     } else {
       const configFiles =
-        typeof this.args.get('config') === 'string'
-          ? [this.args.get('config')]
-          : defaultConfigFiles
+        typeof configFlag === 'string' ? [configFlag] : defaultConfigFiles
       const { path: configPath, data: configFn } = this.configLoader.load({
         files: configFiles,
         packageKey: 'poi'
@@ -150,7 +155,8 @@ module.exports = class PoiCore {
       .option('--prod, --production', 'Alias for --mode production')
       .option('--test', 'Alias for --mode test')
       .option('--no-config', 'Disable config file')
-      .option('--config <path>', 'Set the path to config file')
+      .option('-c, --config <path>', 'Set the path to config file')
+      .option('-r, --require <module>', 'Require a module before bootstrapping')
       .option(
         '--plugin, --plugins <plugin>',
         'Add a plugin (can be used for multiple times)'
@@ -177,6 +183,20 @@ module.exports = class PoiCore {
 
     logger.debug('Command args', this.cli.args)
     logger.debug('Command options', this.cli.options)
+  }
+
+  loadRequiredModules() {
+    const requiredModules = this.args.get('require') || this.args.get('r')
+    if (requiredModules) {
+      ;[].concat(requiredModules).forEach(name => {
+        const m = this.localRequire(name)
+        if (!m) {
+          throw new PoiError({
+            message: `Cannot find module "${name}" in current directory!`
+          })
+        }
+      })
+    }
   }
 
   hasDependency(name) {
