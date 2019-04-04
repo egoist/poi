@@ -27,14 +27,13 @@ module.exports = (
     namedImports = process.env.POI_NAMED_IMPORTS
   } = {}
 ) => {
-  jsxPragmaFrag = jsxPragmaFrag || 'React.Fragment'
-
   if (typeof namedImports === 'string') {
     namedImports = JSON.parse(namedImports)
   }
 
   const isVueJSX = jsx === 'vue'
   const isReactJSX = jsx === 'react'
+  const isPreactJSX = jsx === 'preact'
 
   // Enable flow and typescript by default at the same time
   // typescript transforms will only be applied to .ts .tsx files
@@ -61,8 +60,12 @@ module.exports = (
     !isVueJSX && [
       require('@babel/preset-react'),
       {
-        pragma: isReactJSX ? 'React.createElement' : jsx,
-        pragmaFrag: jsxPragmaFrag
+        pragma: isReactJSX ? 'React.createElement' : isPreactJSX ? 'h' : jsx,
+        pragmaFrag: isReactJSX
+          ? 'React.Fragment'
+          : isPreactJSX
+          ? 'Fragment'
+          : jsxPragmaFrag
       }
     ],
     isTypeScriptEnabled && require('@babel/preset-typescript')
