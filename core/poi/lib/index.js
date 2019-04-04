@@ -234,6 +234,7 @@ module.exports = class PoiCore {
       { resolve: require.resolve('./plugins/config-misc-loaders') },
       { resolve: require.resolve('./plugins/config-reason') },
       { resolve: require.resolve('./plugins/config-yarn-pnp') },
+      { resolve: require.resolve('./plugins/config-jsx-import') },
       { resolve: require.resolve('./plugins/watch') },
       { resolve: require.resolve('./plugins/serve') },
       { resolve: require.resolve('./plugins/eject-html') },
