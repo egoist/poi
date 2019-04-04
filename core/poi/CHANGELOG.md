@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.6.1](https://github.com/egoist/poi/compare/poi@12.6.0...poi@12.6.1) (2019-04-04)
+
+### Features
+
+- automatically add imports for react and preact jsx ([12dd506](https://github.com/egoist/poi/commit/12dd506))
+
 # [12.6.0](https://github.com/egoist/poi/compare/poi@12.5.9...poi@12.6.0) (2019-04-04)
 
 ### Bug Fixes
