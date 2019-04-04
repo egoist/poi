@@ -27,28 +27,39 @@ exports.apply = api => {
           : JSON.stringify(namedImports)
     }
 
+    // Handle .mjs
+    config.module
+      .rule('mjs')
+      .test(/\.mjs$/)
+      .type('javascript/auto')
+
+    // Handle other js files
     const rule = config.module.rule('js')
 
-    rule.test([/\.js$/, /\.jsx$/, /\.ts$/, /\.tsx$/]).include.add(filepath => {
-      // Transpile everthing outside node_modules
-      if (!/node_modules/.test(filepath)) {
-        return true
-      }
-      if (transpileModules) {
-        const shouldTranspile = [].concat(transpileModules).some(condition => {
-          return typeof condition === 'string'
-            ? filepath.includes(
-                `${path.sep}node_modules${path.sep}${condition}${path.sep}`
-              )
-            : filepath.match(condition)
-        })
-        if (shouldTranspile) {
-          logger.debug(`Babel is transpiling addtional file "${filepath}"`)
+    rule
+      .test([/\.m?js$/, /\.jsx$/, /\.ts$/, /\.tsx$/])
+      .include.add(filepath => {
+        // Transpile everthing outside node_modules
+        if (!/node_modules/.test(filepath)) {
           return true
         }
-      }
-      return false
-    })
+        if (transpileModules) {
+          const shouldTranspile = []
+            .concat(transpileModules)
+            .some(condition => {
+              return typeof condition === 'string'
+                ? filepath.includes(
+                    `${path.sep}node_modules${path.sep}${condition}${path.sep}`
+                  )
+                : filepath.match(condition)
+            })
+          if (shouldTranspile) {
+            logger.debug(`Babel is transpiling addtional file "${filepath}"`)
+            return true
+          }
+        }
+        return false
+      })
 
     api.webpackUtils.addParallelSupport(rule)
 
