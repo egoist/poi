@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [12.6.0](https://github.com/egoist/poi/compare/poi@12.5.9...poi@12.6.0) (2019-04-04)
+
+### Bug Fixes
+
+- properly handle .mjs files, closes [#552](https://github.com/egoist/poi/issues/552) ([59ebbfe](https://github.com/egoist/poi/commit/59ebbfe))
+
+### Features
+
+- **cli:** add --require flag ([157c23f](https://github.com/egoist/poi/commit/157c23f))
+- support loading poi.config.ts ([499ba12](https://github.com/egoist/poi/commit/499ba12))
+- support preact x ([59a51f3](https://github.com/egoist/poi/commit/59a51f3))
+
 ## [12.5.9](https://github.com/egoist/poi/compare/poi@12.5.8...poi@12.5.9) (2019-03-29)
 
 ### Bug Fixes
