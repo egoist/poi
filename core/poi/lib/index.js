@@ -22,6 +22,7 @@ module.exports = class PoiCore {
     {
       defaultConfigFiles = [
         'poi.config.js',
+        'poi.config.ts',
         'package.json',
         '.poirc',
         '.poirc.json',
