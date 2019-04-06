@@ -1,6 +1,11 @@
 const path = require('path')
 const posthtml = require('posthtml')
-const { shouldProcess, replaceEjsDelimeters, wrapData } = require('./utils')
+const {
+  shouldProcess,
+  replaceEjsDelimeters,
+  wrapData,
+  slash
+} = require('./utils')
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -74,8 +79,8 @@ module.exports = async function(content) {
     done(
       null,
       `
-  const template = require("${templateModulePath}")
-  const templateSettings = require("${templateSettingsModulePath}")
+  const template = require("${slash(templateModulePath)}")
+  const templateSettings = require("${slash(templateSettingsModulePath)}")
   export default function (data) {
     const { publicPath } = data.htmlWebpackPlugin.files
     data.htmlAsset = {}
