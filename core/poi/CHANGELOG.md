@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.6.3](https://github.com/egoist/poi/compare/poi@12.6.2...poi@12.6.3) (2019-04-06)
+
+### Bug Fixes
+
+- scoped package name in babel.transpileModules ([1fc0217](https://github.com/egoist/poi/commit/1fc0217))
+
 ## [12.6.2](https://github.com/egoist/poi/compare/poi@12.6.1...poi@12.6.2) (2019-04-06)
 
 **Note:** Version bump only for package poi
