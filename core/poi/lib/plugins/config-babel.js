@@ -1,5 +1,3 @@
-const path = require('path')
-
 const logger = require('@poi/logger')
 
 exports.name = 'builtin:config-babel'
@@ -39,6 +37,8 @@ exports.apply = api => {
     rule
       .test([/\.m?js$/, /\.jsx$/, /\.ts$/, /\.tsx$/])
       .include.add(filepath => {
+        // Ensure there're no back slashes
+        filepath = filepath.replace(/\\/g, '/')
         // Transpile everthing outside node_modules
         if (!/node_modules/.test(filepath)) {
           return true
@@ -48,9 +48,7 @@ exports.apply = api => {
             .concat(transpileModules)
             .some(condition => {
               return typeof condition === 'string'
-                ? filepath.includes(
-                    `${path.sep}node_modules${path.sep}${condition}${path.sep}`
-                  )
+                ? filepath.includes(`/node_modules/${condition}/`)
                 : filepath.match(condition)
             })
           if (shouldTranspile) {
