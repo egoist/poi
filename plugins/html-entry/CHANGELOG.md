@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.3](https://github.com/egoist/poi/compare/@poi/plugin-html-entry@0.1.2...@poi/plugin-html-entry@0.1.3) (2019-04-06)
+
+### Bug Fixes
+
+- **html-entry:** convert backslash to slash ([b1f581c](https://github.com/egoist/poi/commit/b1f581c)), closes [#555](https://github.com/egoist/poi/issues/555)
+
 ## [0.1.2](https://github.com/egoist/poi/compare/@poi/plugin-html-entry@0.1.1...@poi/plugin-html-entry@0.1.2) (2019-03-12)
 
 ### Bug Fixes
