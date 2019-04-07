@@ -19,7 +19,7 @@ const transform = ({ loader }) => tree => {
     const value = node.attrs[key]
     if (shouldProcess(value)) {
       node.attrs[key] = wrapData(
-        `=getStaticAsset('${path.join(loader.context, value)}')`
+        `=getStaticAsset('${slash(path.join(loader.context, value))}')`
       )
     }
   }
