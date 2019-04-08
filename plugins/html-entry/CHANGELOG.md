@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.4](https://github.com/egoist/poi/compare/@poi/plugin-html-entry@0.1.3...@poi/plugin-html-entry@0.1.4) (2019-04-08)
+
+### Bug Fixes
+
+- **html-entry:** slash attrs for static assets ([#558](https://github.com/egoist/poi/issues/558)) ([3a2bf0e](https://github.com/egoist/poi/commit/3a2bf0e))
+
 ## [0.1.3](https://github.com/egoist/poi/compare/@poi/plugin-html-entry@0.1.2...@poi/plugin-html-entry@0.1.3) (2019-04-06)
 
 ### Bug Fixes
