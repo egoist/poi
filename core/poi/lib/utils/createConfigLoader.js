@@ -31,7 +31,8 @@ const tsLoader = {
         )} instead.`
       )
     }
-    return require(filePath)
+    const result = require(filePath)
+    return result.default || result
   }
 }
 
