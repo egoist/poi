@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.6.5](https://github.com/egoist/poi/compare/poi@12.6.4...poi@12.6.5) (2019-04-16)
+
+### Bug Fixes
+
+- handle default export in ts config file ([62eda5a](https://github.com/egoist/poi/commit/62eda5a))
+
 ## [12.6.4](https://github.com/egoist/poi/compare/poi@12.6.3...poi@12.6.4) (2019-04-08)
 
 **Note:** Version bump only for package poi
