@@ -187,6 +187,11 @@ module.exports = class PoiCore {
   }
 
   loadRequiredModules() {
+    // Ensure that ts-node returns a commonjs module
+    process.env.TS_NODE_COMPILER_OPTIONS = JSON.stringify({
+      module: 'commonjs'
+    })
+
     const requiredModules = this.args.get('require') || this.args.get('r')
     if (requiredModules) {
       ;[].concat(requiredModules).forEach(name => {
