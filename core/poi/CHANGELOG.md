@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.6.6](https://github.com/egoist/poi/compare/poi@12.6.5...poi@12.6.6) (2019-04-28)
+
+### Bug Fixes
+
+- ensure that ts-node returns a commonjs module, closes [#563](https://github.com/egoist/poi/issues/563) ([27eaf55](https://github.com/egoist/poi/commit/27eaf55))
+
 ## [12.6.5](https://github.com/egoist/poi/compare/poi@12.6.4...poi@12.6.5) (2019-04-16)
 
 ### Bug Fixes
