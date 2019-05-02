@@ -82,16 +82,15 @@ exports.apply = api => {
             importLoaders:
               1 + // stylePostLoader injected by vue-loader
               (hasPostCSSConfig ? 1 : 0) +
-              (needInlineMinification ? 1 : 0)
+              (needInlineMinification ? 1 : 0),
+            exportOnlyLocals: isServer
           },
           loaderOptions.css
         )
 
         rule
           .use('css-loader')
-          .loader(
-            require.resolve(isServer ? 'css-loader/locals' : 'css-loader')
-          )
+          .loader(require.resolve('css-loader'))
           .options(cssLoaderOptions)
 
         if (needInlineMinification) {
