@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.6.7](https://github.com/egoist/poi/compare/poi@12.6.6...poi@12.6.7) (2019-05-03)
+
+### Bug Fixes
+
+- **dependency:** update css-loader ([#567](https://github.com/egoist/poi/issues/567)) ([b471032](https://github.com/egoist/poi/commit/b471032))
+
 ## [12.6.6](https://github.com/egoist/poi/compare/poi@12.6.5...poi@12.6.6) (2019-04-28)
 
 ### Bug Fixes
