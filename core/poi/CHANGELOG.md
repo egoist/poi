@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.6.8](https://github.com/egoist/poi/compare/poi@12.6.7...poi@12.6.8) (2019-05-05)
+
+### Bug Fixes
+
+- **webpack:** do not override process.env.NODE_ENV, closes [#568](https://github.com/egoist/poi/issues/568) ([439af76](https://github.com/egoist/poi/commit/439af76))
+
 ## [12.6.7](https://github.com/egoist/poi/compare/poi@12.6.6...poi@12.6.7) (2019-05-03)
 
 ### Bug Fixes
