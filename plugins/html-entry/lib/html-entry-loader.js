@@ -47,9 +47,8 @@ const transform = ({ loader }) => tree => {
           node.attrs.src = wrapData(`=htmlAsset['js' + ${assetIndex}]`)
           assetIndex++
         }
-        return node
       }
-      return null
+      return node
     }
     if (node.tag === 'img') {
       updateNodeSource(node, 'src')
