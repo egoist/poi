@@ -110,15 +110,16 @@ module.exports = {
     } = this.answers
 
     return [
-      frameworks.includes('react') && {
-        type: 'add',
-        templateDir: 'templates/react',
-        files: '**',
-        filters: {
-          'tsconfig.json': Boolean(typeChecker === 'ts')
-        }
-      },
-      !frameworks.length && {
+      frameworks &&
+        frameworks.includes('react') && {
+          type: 'add',
+          templateDir: 'templates/react',
+          files: '**',
+          filters: {
+            'tsconfig.json': Boolean(typeChecker === 'ts')
+          }
+        },
+      !frameworks && {
         type: 'add',
         templateDir: 'templates/main',
         files: '**'
@@ -128,7 +129,7 @@ module.exports = {
         templateDir: `templates/linter-${linterConfig}`,
         files: '**'
       },
-      !frameworks.length && {
+      !frameworks && {
         type: 'add',
         templateDir: `templates/${typeChecker === 'ts' ? 'ts' : 'js'}`,
         files: '**',
@@ -154,6 +155,8 @@ module.exports = {
           } = this.answers
 
           const useEslint = linterConfig && linterConfig !== 'tslint'
+
+          const isReactApp = Boolean(frameworks) && frameworks.includes('react')
 
           return {
             name: this.outFolder,
@@ -181,11 +184,11 @@ module.exports = {
                 features.includes('pwa'),
                 '^1.5.2'
               ),
-              'react-hot-loader': when(frameworks.includes('react'), '^4.6.3')
+              'react-hot-loader': when(isReactApp, '^4.6.3')
             },
             dependencies: {
-              react: when(frameworks.includes('react'), '^16.6.3'),
-              'react-dom': when(frameworks.includes('react'), '^16.6.3')
+              react: when(isReactApp, '^16.6.3'),
+              'react-dom': when(isReactApp, '^16.6.3')
             },
             installConfig: when(features.includes('pnp'), {
               pnp: true
