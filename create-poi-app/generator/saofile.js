@@ -86,13 +86,35 @@ module.exports = {
             value: 'karma'
           }
         ]
+      },
+      {
+        name: 'frameworks',
+        message: 'Choose a Framework (none is required)',
+        type: 'checkbox',
+        choices: [
+          {
+            name: 'React',
+            value: 'react'
+          }
+        ]
       }
     ]
   },
   actions() {
-    const { features, typeChecker, linterConfig, unit } = this.answers
+    const {
+      features,
+      frameworks,
+      typeChecker,
+      linterConfig,
+      unit
+    } = this.answers
     return [
-      {
+      frameworks.includes('react') && {
+        type: 'add',
+        templateDir: 'templates/react',
+        files: '**'
+      },
+      !frameworks.includes('react') && {
         type: 'add',
         templateDir: 'templates/main',
         files: '**'
@@ -102,7 +124,7 @@ module.exports = {
         templateDir: `templates/linter-${linterConfig}`,
         files: '**'
       },
-      {
+      !frameworks.includes('react') && {
         type: 'add',
         templateDir: `templates/${typeChecker === 'ts' ? 'ts' : 'js'}`,
         files: '**',
@@ -119,7 +141,13 @@ module.exports = {
         type: 'modify',
         files: 'package.json',
         handler: () => {
-          const { features, unit, typeChecker, linterConfig } = this.answers
+          const {
+            features,
+            frameworks,
+            unit,
+            typeChecker,
+            linterConfig
+          } = this.answers
 
           const useEslint = linterConfig && linterConfig !== 'tslint'
 
@@ -148,7 +176,12 @@ module.exports = {
               'register-service-worker': when(
                 features.includes('pwa'),
                 '^1.5.2'
-              )
+              ),
+              'react-hot-loader': when(frameworks.includes('react'), '^4.6.3')
+            },
+            dependencies: {
+              react: when(frameworks.includes('react'), '^16.6.3'),
+              'react-dom': when(frameworks.includes('react'), '^16.6.3')
             },
             installConfig: when(features.includes('pnp'), {
               pnp: true

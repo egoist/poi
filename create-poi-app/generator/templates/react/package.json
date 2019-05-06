@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "poi --serve",
+    "build": "poi --prod"
+  },
+  "devDependencies": {
+    "poi": "^12.2.2",
+    "react-hot-loader": "^4.6.3"
+  },
+  "dependencies": {
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
+  }
+}
