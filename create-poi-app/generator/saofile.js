@@ -108,13 +108,17 @@ module.exports = {
       linterConfig,
       unit
     } = this.answers
+
     return [
       frameworks.includes('react') && {
         type: 'add',
         templateDir: 'templates/react',
-        files: '**'
+        files: '**',
+        filters: {
+          'tsconfig.json': Boolean(typeChecker === 'ts')
+        }
       },
-      !frameworks.includes('react') && {
+      !frameworks.length && {
         type: 'add',
         templateDir: 'templates/main',
         files: '**'
@@ -124,7 +128,7 @@ module.exports = {
         templateDir: `templates/linter-${linterConfig}`,
         files: '**'
       },
-      !frameworks.includes('react') && {
+      !frameworks.length && {
         type: 'add',
         templateDir: `templates/${typeChecker === 'ts' ? 'ts' : 'js'}`,
         files: '**',
