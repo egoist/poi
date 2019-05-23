@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.6.10](https://github.com/egoist/poi/compare/poi@12.6.9...poi@12.6.10) (2019-05-23)
+
+### Bug Fixes
+
+- stop spinner before logging ([92146e9](https://github.com/egoist/poi/commit/92146e9))
+
 ## [12.6.9](https://github.com/egoist/poi/compare/poi@12.6.8...poi@12.6.9) (2019-05-23)
 
 **Note:** Version bump only for package poi
