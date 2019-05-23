@@ -1,4 +1,3 @@
-const path = require('path')
 const posthtml = require('posthtml')
 const {
   shouldProcess,
@@ -12,15 +11,15 @@ const isProd = process.env.NODE_ENV === 'production'
 const templateModulePath = require.resolve('lodash/template')
 const templateSettingsModulePath = require.resolve('./template-settings')
 
-const transform = ({ loader }) => tree => {
+const transform = () => tree => {
   let assetIndex = 0
+  let staticAssetIndex = 0
 
   const updateNodeSource = (node, key) => {
     const value = node.attrs[key]
     if (shouldProcess(value)) {
-      node.attrs[key] = wrapData(
-        `=getStaticAsset('${slash(path.join(loader.context, value))}')`
-      )
+      node.attrs[key] = wrapData(`=htmlStaticAsset[${staticAssetIndex}]`)
+      staticAssetIndex++
     }
   }
 
@@ -90,24 +89,19 @@ module.exports = async function(content) {
   export default function (data) {
     const { publicPath } = data.htmlWebpackPlugin.files
     data.htmlAsset = {}
-    data.getStaticAsset = file => {
-      for (const m of data.compilation._modules.values()) {
-        if (m.rawRequest === file) {
-          const _module = { exports: {} }
-          const fn = new Function('module', m._source._value.replace('__webpack_public_path__', JSON.stringify(publicPath)))
-          fn(_module)
-          return _module.exports
-        }
-      }
-    }
+    data.htmlStaticAsset = {}
     const files = Object.keys(data.compilation.assets)
-    const INDEX_RE = /\\/html-asset-(\\d+)\\//
+    const ASSET_RE = /\\/html-asset\\/(\\d+)--/
+    const STATIC_ASSET_RE = /\\/html-static-asset\\/(\\d+)--/
     const TYPE_RE = /\\.(css|js)$/
     for (const file of files) {
-      if (INDEX_RE.test(file) && TYPE_RE.test(file)) {
-        const [, index] = INDEX_RE.exec(file)
+      if (ASSET_RE.test(file) && TYPE_RE.test(file)) {
+        const [, index] = ASSET_RE.exec(file)
         const [, type] = TYPE_RE.exec(file)
         data.htmlAsset[type + index] = publicPath + file
+      } else if (STATIC_ASSET_RE.test(file)) {
+        const [, index] = STATIC_ASSET_RE.exec(file)
+        data.htmlStaticAsset[index] = publicPath + file
       }
     }
     return template(${JSON.stringify(html)}, templateSettings)(data)

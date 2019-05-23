@@ -118,8 +118,10 @@ function writeTempFile({ tempFile, htmlFile, restFiles }) {
     var assets = []
 
     ${staticAssets
-      .map(file => {
-        return `require("${slash(file)}")`
+      .map((file, index) => {
+        return `require("!file-loader?name=assets/static/html-static-asset/${index}--[name].[ext]!${slash(
+          file
+        )}")`
       })
       .join('\n')}
     ${restFiles
@@ -130,7 +132,7 @@ function writeTempFile({ tempFile, htmlFile, restFiles }) {
     ${assets
       .map((file, index) => {
         return `assets.push(function(){
-          return import(/* webpackChunkName: "html-asset-${index}/${path.basename(
+          return import(/* webpackChunkName: "html-asset/${index}--${path.basename(
           file,
           path.extname(file)
         )}" */ "${slash(file)}")
