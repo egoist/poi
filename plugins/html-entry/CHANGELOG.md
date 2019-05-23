@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/egoist/poi/compare/@poi/plugin-html-entry@0.1.4...@poi/plugin-html-entry@0.2.0) (2019-05-23)
+
+### Bug Fixes
+
+- **html-entry:** support external css and scripts ([ff65156](https://github.com/egoist/poi/commit/ff65156)), closes [#570](https://github.com/egoist/poi/issues/570) [#571](https://github.com/egoist/poi/issues/571)
+
+### Features
+
+- **html-entry:** a better way to handle static asset ([873cc16](https://github.com/egoist/poi/commit/873cc16))
+- **html-entry:** support all link tags([#572](https://github.com/egoist/poi/issues/572)) ([5695f25](https://github.com/egoist/poi/commit/5695f25))
+
 ## [0.1.4](https://github.com/egoist/poi/compare/@poi/plugin-html-entry@0.1.3...@poi/plugin-html-entry@0.1.4) (2019-04-08)
 
 ### Bug Fixes
