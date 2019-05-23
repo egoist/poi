@@ -85,6 +85,9 @@ function writeTempFile({ tempFile, htmlFile, restFiles }) {
         if (node.tag === 'link' && node.attrs.rel === 'stylesheet') {
           addAsset(node.attrs.href)
         }
+        if (node.tag === 'link' && node.attrs.rel === 'icon') {
+          addStaticAsset(node, 'href')
+        }
         if (node.tag === 'script') {
           addAsset(node.attrs.src)
         }
