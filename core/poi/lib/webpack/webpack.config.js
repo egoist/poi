@@ -170,7 +170,7 @@ module.exports = (config, api) => {
         } else if (per === 1) {
           spinner.stop()
         } else {
-          spinner.text = msg
+          spinner.start(msg)
         }
       }
     ])

@@ -1,5 +1,6 @@
 const babelLoader = require('babel-loader')
 const logger = require('@poi/logger')
+const spinner = require('../utils/spinner')
 
 const macroCheck = new RegExp('[./]macro')
 
@@ -32,6 +33,7 @@ module.exports = babelLoader.custom(babel => {
         for (const file of [cfg.babelrc, cfg.config]) {
           if (file && !configs.has(file)) {
             configs.add(file)
+            spinner.stop()
             logger.debug(`Using external babel config file: ${file}`)
           }
         }
