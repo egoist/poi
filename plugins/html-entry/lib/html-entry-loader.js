@@ -28,28 +28,30 @@ const transform = ({ loader }) => tree => {
     node.attrs = node.attrs || {}
 
     if (node.tag === 'link' && node.attrs.rel === 'stylesheet') {
-      // We only need to add css in production mode
-      // Since in dev css is inserted by js
       if (isProd) {
+        // In production mode, replace the tag with actual webpack chunk
         if (shouldProcess(node.attrs.href)) {
           node.attrs.href = wrapData(`=htmlAsset['css' + ${assetIndex}]`)
           assetIndex++
         }
         return node
       }
-      return null
+      // In dev mode, chunks are automatically dynamically injected
+      // So we only return the node if it's not processed by webpack
+      return shouldProcess(node.attrs.href) ? null : node
     }
     if (node.tag === 'script' && node.attrs.src) {
-      // In production mode we pre-load the lazy-loaded js chunk
-      // So webpack's `main.js` won't load it again
       if (isProd) {
+        // In production mode, replace the tag with actual webpack chunk
         if (shouldProcess(node.attrs.src)) {
           node.attrs.src = wrapData(`=htmlAsset['js' + ${assetIndex}]`)
           assetIndex++
         }
         return node
       }
-      return null
+      // In dev mode, chunks are automatically dynamically injected
+      // So we only return the node if it's not processed by webpack
+      return shouldProcess(node.attrs.src) ? null : node
     }
     if (node.tag === 'img') {
       updateNodeSource(node, 'src')
