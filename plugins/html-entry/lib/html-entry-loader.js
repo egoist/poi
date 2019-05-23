@@ -39,9 +39,7 @@ const transform = ({ loader }) => tree => {
       }
       return null
     }
-    if (node.tag === 'link' && node.attrs.rel === 'icon') {
-      updateNodeSource(node, 'href')
-    }
+
     if (node.tag === 'script' && node.attrs.src) {
       // In production mode we pre-load the lazy-loaded js chunk
       // So webpack's `main.js` won't load it again
@@ -53,6 +51,9 @@ const transform = ({ loader }) => tree => {
         return node
       }
       return null
+    }
+    if (node.tag === 'link') {
+      updateNodeSource(node, 'href')
     }
     if (node.tag === 'img') {
       updateNodeSource(node, 'src')
