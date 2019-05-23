@@ -82,8 +82,12 @@ function writeTempFile({ tempFile, htmlFile, restFiles }) {
     .use(tree => {
       tree.walk(node => {
         node.attrs = node.attrs || {}
-        if (node.tag === 'link' && node.attrs.rel === 'stylesheet') {
-          addAsset(node.attrs.href)
+        if (node.tag === 'link') {
+          if (node.attrs.rel === 'stylesheet') {
+            addAsset(node.attrs.href)
+          } else {
+            addStaticAsset(node.attrs.href)
+          }
         }
         if (node.tag === 'script') {
           addAsset(node.attrs.src)

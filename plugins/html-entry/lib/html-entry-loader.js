@@ -40,6 +40,7 @@ const transform = ({ loader }) => tree => {
       // So we only return the node if it's not processed by webpack
       return shouldProcess(node.attrs.href) ? null : node
     }
+
     if (node.tag === 'script' && node.attrs.src) {
       if (isProd) {
         // In production mode, replace the tag with actual webpack chunk
@@ -52,6 +53,9 @@ const transform = ({ loader }) => tree => {
       // In dev mode, chunks are automatically dynamically injected
       // So we only return the node if it's not processed by webpack
       return shouldProcess(node.attrs.src) ? null : node
+    }
+    if (node.tag === 'link') {
+      updateNodeSource(node, 'href')
     }
     if (node.tag === 'img') {
       updateNodeSource(node, 'src')
