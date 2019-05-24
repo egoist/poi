@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "poi-monorepo",
+  "name": "poi",
   "scripts": {
     "lint": "xo",
     "test": "sh tasks/test.sh",
