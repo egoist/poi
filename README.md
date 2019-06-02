@@ -14,7 +14,7 @@ Poi is a bundler built on the top of webpack, trying to make developing and bund
 - 📦 Out of box support for JS, CSS, File assets and more.
 - ⚛ Framework-agnostic but also support JSX, Vue and more with no configs.
 - 🔌 Great extensibility.
-- 🐙 Fit most web apps, npm libs.
+- 🐙 Fits most web apps, npm libs.
 - 🚨 Great development experience.
 
 ## Quick Overview
@@ -97,7 +97,7 @@ All feedback and suggestions are welcome!
 
 ## Credits
 
-Poi v12 won't exist without the inspirations from following projects:
+Poi v12 wouldn't exist without the inspirations from following projects:
 
 - Webpack
 - Parcel 2
