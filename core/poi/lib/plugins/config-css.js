@@ -65,7 +65,7 @@ exports.apply = api => {
               .use('extract-css-loader')
               .loader(require('mini-css-extract-plugin').loader)
               .options({
-                hmr: !api.isProd,
+                hmr: api.mode === 'development',
                 reloadAll: true
               })
           } else {
