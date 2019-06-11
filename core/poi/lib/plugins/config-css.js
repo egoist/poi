@@ -2,13 +2,11 @@ const logger = require('@poi/logger')
 
 exports.name = 'builtin:config-css'
 
-exports.cli = ({ command, isProd, mode }) => {
+exports.cli = ({ command, isProd }) => {
   if (isProd) {
     command.option('--no-extract-css', `Don't extract CSS files`)
   } else {
-    command.option('--extract-css', 'Extract CSS files', {
-      default: mode === 'development'
-    })
+    command.option('--extract-css', 'Extract CSS files')
   }
 }
 

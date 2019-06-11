@@ -74,7 +74,7 @@ module.exports = (api, config) => {
       )
     },
     {
-      extract: api.isProd
+      extract: api.isProd || api.mode === 'development'
     }
   )
 
