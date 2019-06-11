@@ -6,7 +6,9 @@ exports.cli = ({ command, isProd }) => {
   if (isProd) {
     command.option('--no-extract-css', `Don't extract CSS files`)
   } else {
-    command.option('--extract-css', 'Extract CSS files')
+    command.option('--extract-css', 'Extract CSS files', {
+      default: true
+    })
   }
 }
 
