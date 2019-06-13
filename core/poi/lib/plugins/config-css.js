@@ -64,6 +64,10 @@ exports.apply = api => {
             rule
               .use('extract-css-loader')
               .loader(require('mini-css-extract-plugin').loader)
+              .options({
+                hmr: api.mode === 'development',
+                reloadAll: true
+              })
           } else {
             rule
               .use('vue-style-loader')
