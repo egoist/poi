@@ -37,7 +37,7 @@ if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
       })
     }
 
-    workbox.addEventListener('installed', event => {
+    workbox.addEventListener('installed', () => {
       if (!event.isUpdate) {
         createSnackbar(pwaFirstTimeInstallMessage, {
           position: 'right',
