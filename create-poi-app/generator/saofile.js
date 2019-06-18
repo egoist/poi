@@ -145,10 +145,8 @@ module.exports = {
               typescript: when(typeChecker === 'ts', '^3.2.1'),
               '@poi/plugin-typescript': when(typeChecker === 'ts', '^12.0.1'),
               '@poi/plugin-pwa': when(features.includes('pwa'), '^12.0.2'),
-              'register-service-worker': when(
-                features.includes('pwa'),
-                '^1.5.2'
-              )
+              'workbox-window': when(features.includes('pwa'), '^4.3.1'),
+              '@egoist/snackbar': when(features.includes('pwa'), '^1.2.2')
             },
             installConfig: when(features.includes('pnp'), {
               pnp: true
