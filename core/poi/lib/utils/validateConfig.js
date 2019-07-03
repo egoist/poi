@@ -52,7 +52,9 @@ module.exports = (api, config) => {
     {
       jsx: 'string',
       transpileModules: struct.optional(struct.list(['string'])),
-      namedImports: struct.optional('object')
+      namedImports: struct.optional('object'),
+      babelrc: struct.optional('boolean'),
+      configFile: struct.optional('boolean')
     },
     {
       jsx: 'react'

@@ -7,6 +7,8 @@ exports.cli = ({ command }) => {
     .option('--jsx <syntax>', 'Set JSX syntax', {
       default: 'react'
     })
+    .option('--no-babelrc', `Disable .babelrc files`)
+    .option('--no-babel-config-file', `Disable babel.config.js`)
     .option(
       '--named-imports <loaderMap>',
       'Conver specific named imports to use custom loaders'
@@ -69,7 +71,9 @@ exports.apply = api => {
         cacheCompression: api.isProd,
         cacheIdentifier: `jsx:${process.env.POI_JSX}::namedImports:${
           process.env.POI_NAMED_IMPORTS
-        }`
+        }`,
+        babelrc: api.config.babel.babelrc,
+        configFile: api.config.babel.configFile
       })
   })
 }
