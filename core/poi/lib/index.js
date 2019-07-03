@@ -359,7 +359,9 @@ module.exports = class PoiCore {
       proxy,
       fileNames,
       html,
-      publicFolder
+      publicFolder,
+      babelrc,
+      babelConfigFile
     } = this.cli.options
     return {
       entry: this.cli.args.length > 0 ? this.cli.args : undefined,
@@ -379,7 +381,9 @@ module.exports = class PoiCore {
       cache,
       publicFolder,
       babel: {
-        jsx
+        jsx,
+        babelrc,
+        configFile: babelConfigFile
       },
       css: {
         extract: extractCss
