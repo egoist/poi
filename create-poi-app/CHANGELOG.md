@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [12.2.0](https://github.com/egoist/poi/compare/create-poi-app@12.1.2...create-poi-app@12.2.0) (2019-07-03)
+
+### Features
+
+- **create-poi-app:** add update notifier in pwa ([#580](https://github.com/egoist/poi/issues/580)) ([5b4bbaf](https://github.com/egoist/poi/commit/5b4bbaf))
+
 ## [12.1.2](https://github.com/egoist/poi/compare/create-poi-app@12.1.1...create-poi-app@12.1.2) (2019-01-09)
 
 ### Bug Fixes

@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [12.7.0](https://github.com/egoist/poi/compare/poi@12.6.10...poi@12.7.0) (2019-07-03)
+
+### Features
+
+- **webpack:** Upgrade mini-css-extract-webpack-plugin and support hmr ([#578](https://github.com/egoist/poi/issues/578)) ([e254e31](https://github.com/egoist/poi/commit/e254e31))
+- add babel.configFile, babel.babelrc options ([#583](https://github.com/egoist/poi/issues/583)) ([57c7260](https://github.com/egoist/poi/commit/57c7260))
+
 ## [12.6.10](https://github.com/egoist/poi/compare/poi@12.6.9...poi@12.6.10) (2019-05-23)
 
 ### Bug Fixes
