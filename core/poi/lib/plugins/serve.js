@@ -21,6 +21,8 @@ exports.cli = api => {
     const { host, port: _port, open } = devServer
     const port = await require('get-port')({ port: _port, host })
 
+    const { publicUrl } = Object.assign({}, api.config.output)
+
     const webpackConfig = api.createWebpackChain().toConfig()
 
     // No need to print URLs in test mode
@@ -37,7 +39,8 @@ exports.cli = api => {
               port,
               expectedPort: _port,
               open,
-              isFirstBuild
+              isFirstBuild,
+              publicUrl
             })
 
             isFirstBuild = false
