@@ -1,6 +1,6 @@
+const path = require('path')
 const address = require('address')
 const colors = require('./colors')
-const path = require('path')
 const prettyBytes = require('./prettyBytes')
 
 module.exports = ({
