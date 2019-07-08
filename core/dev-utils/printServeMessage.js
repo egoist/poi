@@ -1,5 +1,6 @@
 const address = require('address')
 const colors = require('./colors')
+const path = require('path')
 const prettyBytes = require('./prettyBytes')
 
 module.exports = ({
@@ -16,13 +17,12 @@ module.exports = ({
   const prettyHost = isUnspecifiedHost ? 'localhost' : host
   const { heapUsed } = process.memoryUsage()
 
+  const urlPort = colors.bold(port)
+  const urlPath = path.join('/', publicUrl)
+
   console.log()
-  console.log(
-    `Local:             http://${prettyHost}:${colors.bold(port)}${publicUrl}`
-  )
-  console.log(
-    `On Your Network:   http://${ip}:${colors.bold(port)}${publicUrl}`
-  )
+  console.log(`Local:             http://${prettyHost}:${urlPort}${urlPath}`)
+  console.log(`On Your Network:   http://${ip}:${urlPort}${urlPath}`)
   console.log()
   if (expectedPort && expectedPort !== port) {
     console.log(colors.yellow(`> port ${expectedPort} is used!`))
