@@ -37,7 +37,8 @@ exports.cli = api => {
               port,
               expectedPort: _port,
               open,
-              isFirstBuild
+              isFirstBuild,
+              publicUrl: api.config.output.publicUrl
             })
 
             isFirstBuild = false
