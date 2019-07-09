@@ -1,4 +1,4 @@
-const path = require('path')
+const url = require('url')
 const address = require('address')
 const colors = require('./colors')
 const prettyBytes = require('./prettyBytes')
@@ -18,7 +18,7 @@ module.exports = ({
   const { heapUsed } = process.memoryUsage()
 
   const urlPort = colors.bold(port)
-  const urlPath = path.join('/', publicUrl)
+  const urlPath = url.resolve('/', publicUrl).replace(/\/$/, '')
 
   console.log()
   console.log(`Local:             http://${prettyHost}:${urlPort}${urlPath}`)
