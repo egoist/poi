@@ -190,6 +190,9 @@ module.exports = (api, config) => {
     .replace(/\/?$/, '/')
     // Remove leading ./
     .replace(/^\.\//, '')
+  if (!api.isProd && /^https?:\/\//.test(result.output.publicUrl)) {
+    result.output.publicUrl = '/'
+  }
 
   api.logger.debug('Validated config', result)
 
