@@ -3255,15 +3255,10 @@ bytes@3.0.0:
   resolved "https://registry.npmjs.org/bytes/-/bytes-3.0.0.tgz#d32815404d689699f85a4ea4fa8755dd13a96048"
   integrity sha1-0ygVQE1olpn4Wk6k+odV3ROpYEg=
 
-cac@^6.3.12:
-  version "6.3.12"
-  resolved "https://registry.npmjs.org/cac/-/cac-6.3.12.tgz#eb45205c7d09ac7c141104e8b8d1859bd9a09d39"
-  integrity sha512-0tJOuYFAfQc8s3G6BHSPCvSTCkcVm9etd3nSeLW55Prz3uv3I6cMli9bfkEGbVUZQ39t750rAY6nCFp3dLboxw==
-
-cac@^6.3.8:
-  version "6.3.9"
-  resolved "https://registry.npmjs.org/cac/-/cac-6.3.9.tgz#0cdf3f2d3a7d3fb71ab89c476c73e472084859a2"
-  integrity sha512-vWuINsAe+HYqdp/adfi03pP/A0wCmbg9WmHKNBywwUTuHoFhctEGbGp/x4ecQemihUEqvWq1FB9sna7gLF3KCw==
+cac@^6.3.12, cac@^6.3.8:
+  version "6.5.2"
+  resolved "https://registry.yarnpkg.com/cac/-/cac-6.5.2.tgz#92ef1490b9ffde5f0be7eeadec5ea926f0e78ef6"
+  integrity sha512-8JdiD9/ZLsG418j/chyZQ3VWuhFELSGlH4EUxzNKgIH8wK8dO0j5Pqu6Pk7B/RP3kX9aasyQhPrrUjYO5e0w7w==
 
 cacache@^10.0.4:
   version "10.0.4"
