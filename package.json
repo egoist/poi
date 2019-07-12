@@ -16,7 +16,7 @@
   "devDependencies": {
     "commitizen": "^3.0.5",
     "cz-conventional-changelog": "^2.1.0",
-    "eslint-config-prettier": "^3.3.0",
+    "eslint-config-prettier": "^6.0.0",
     "eslint-config-rem": "^4.0.0",
     "eslint-plugin-prettier": "^3.0.0",
     "husky": "^1.2.0",
