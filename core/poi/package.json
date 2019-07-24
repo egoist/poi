@@ -48,7 +48,7 @@
     "dotenv-expand": "^4.2.0",
     "file-loader": "^2.0.0",
     "fs-extra": "^7.0.1",
-    "get-port": "^4.0.0",
+    "get-port": "^5.0.0",
     "gzip-size": "^5.0.0",
     "html-webpack-plugin": "^4.0.0-beta.4",
     "joycon": "^2.2.1",
