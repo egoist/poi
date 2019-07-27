@@ -18,7 +18,7 @@ exports.cli = api => {
     const devServer = Object.assign({}, api.config.devServer)
     delete devServer.hotEntries
 
-    const { host, port: _port, open } = devServer
+    const { https, host, port: _port, open } = devServer
     const port = await require('get-port')({ port: _port, host })
 
     const webpackConfig = api.createWebpackChain().toConfig()
@@ -33,6 +33,7 @@ exports.cli = api => {
             if (stats.hasErrors() || stats.hasWarnings()) return
 
             require('@poi/dev-utils/printServeMessage')({
+              https,
               host,
               port,
               expectedPort: _port,

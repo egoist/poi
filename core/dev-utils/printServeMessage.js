@@ -4,6 +4,7 @@ const colors = require('./colors')
 const prettyBytes = require('./prettyBytes')
 
 module.exports = ({
+  https,
   host,
   port,
   expectedPort,
@@ -13,6 +14,7 @@ module.exports = ({
 }) => {
   const ip = address.ip()
 
+  const protocol = https ? 'https' : 'http'
   const isUnspecifiedHost = host === '0.0.0.0' || host === '::'
   const prettyHost = isUnspecifiedHost ? 'localhost' : host
   const { heapUsed } = process.memoryUsage()
@@ -21,8 +23,10 @@ module.exports = ({
   const urlPath = url.resolve('/', publicUrl).replace(/\/$/, '')
 
   console.log()
-  console.log(`Local:             http://${prettyHost}:${urlPort}${urlPath}`)
-  console.log(`On Your Network:   http://${ip}:${urlPort}${urlPath}`)
+  console.log(
+    `Local:             ${protocol}://${prettyHost}:${urlPort}${urlPath}`
+  )
+  console.log(`On Your Network:   ${protocol}://${ip}:${urlPort}${urlPath}`)
   console.log()
   if (expectedPort && expectedPort !== port) {
     console.log(colors.yellow(`> port ${expectedPort} is used!`))
@@ -31,6 +35,6 @@ module.exports = ({
   console.log()
 
   if (open && isFirstBuild) {
-    require('./openBrowser')(`http://${prettyHost}:${port}`)
+    require('./openBrowser')(`${protocol}://${prettyHost}:${port}${urlPath}`)
   }
 }
