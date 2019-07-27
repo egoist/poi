@@ -20,7 +20,7 @@ module.exports = ({
   const { heapUsed } = process.memoryUsage()
 
   const urlPort = colors.bold(port)
-  const urlPath = url.resolve('/', publicUrl).replace(/\/$/, '')
+  const urlPath = publicUrl === '/' ? '' : url.resolve('/', publicUrl)
 
   console.log()
   console.log(
