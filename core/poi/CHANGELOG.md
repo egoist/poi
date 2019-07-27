@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.7.1](https://github.com/egoist/poi/compare/poi@12.7.0...poi@12.7.1) (2019-07-27)
+
+### Bug Fixes
+
+- Append `poi -s` output URLs with `output.publicUrl` ([#587](https://github.com/egoist/poi/issues/587)) ([fcd70f7](https://github.com/egoist/poi/commit/fcd70f7))
+
+### Features
+
+- enable https one the preview URLs ([#611](https://github.com/egoist/poi/issues/611)) ([cda0ec2](https://github.com/egoist/poi/commit/cda0ec2))
+
 # [12.7.0](https://github.com/egoist/poi/compare/poi@12.6.10...poi@12.7.0) (2019-07-03)
 
 ### Features

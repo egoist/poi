@@ -1,6 +1,6 @@
 {
   "name": "@poi/plugin-karma",
-  "version": "13.0.2",
+  "version": "13.0.3",
   "publishConfig": {
     "access": "public"
   },
