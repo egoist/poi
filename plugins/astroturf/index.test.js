@@ -39,8 +39,8 @@ test('astroturf', async () => {
   await project.run('poi')
   expect(project.require('dist/index.js')).toEqual({
     default: {
-      box: 'index-styles-module_box_1SCdY',
-      footer: 'index-styles-module_footer_1xrFU'
+      box: 'index-styles.module_box_1SCdY',
+      footer: 'index-styles.module_footer_1xrFU'
     }
   })
 })
