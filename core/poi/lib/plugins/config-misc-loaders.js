@@ -24,6 +24,13 @@ exports.apply = api => {
       .use('yaml-loader')
       .loader('yaml-loader')
 
+    config.module
+      .rule('manifest')
+      .type('javascript/auto')
+      .test(/manifest\.json$/)
+      .use('file-loader')
+      .loader('file-loader')
+
     // prettier-ignore
     config.module
       .rule('pug')
