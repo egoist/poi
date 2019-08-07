@@ -14,6 +14,16 @@ exports.apply = api => {
     server = context.server
   })
 
+  api.hook('createWebpackChain', chain => {
+    chain.module
+      .rule('import-json-from-html-entry')
+      .resourceQuery(/imported-from-html-entry/)
+      .test(/\.json$/)
+      .type('javascript/auto')
+      .use('file-loader')
+      .loader('file-loader')
+  })
+
   api.hook('createConfig', config => {
     if (!Array.isArray(config.entry)) {
       return
@@ -119,9 +129,12 @@ function writeTempFile({ tempFile, htmlFile, restFiles }) {
 
     ${staticAssets
       .map((file, index) => {
+        const query = file.includes('?')
+          ? `&imported-from-html-entry`
+          : `?imported-from-html-entry`
         return `require("!file-loader?name=assets/static/html-static-asset/${index}--[name].[ext]!${slash(
           file
-        )}")`
+        )}${query}")`
       })
       .join('\n')}
     ${restFiles
