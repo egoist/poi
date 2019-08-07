@@ -20,8 +20,6 @@ exports.apply = api => {
       .resourceQuery(/imported-from-html-entry/)
       .test(/\.json$/)
       .type('javascript/auto')
-      .use('file-loader')
-      .loader('file-loader')
   })
 
   api.hook('createConfig', config => {
