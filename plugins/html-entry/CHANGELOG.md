@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/egoist/poi/compare/@poi/plugin-html-entry@0.2.0...@poi/plugin-html-entry@0.2.1) (2019-08-09)
+
+### Bug Fixes
+
+- **html-entry:** fix json assets support in html entry ([#619](https://github.com/egoist/poi/issues/619)) ([91dfd21](https://github.com/egoist/poi/commit/91dfd21))
+
 # [0.2.0](https://github.com/egoist/poi/compare/@poi/plugin-html-entry@0.1.4...@poi/plugin-html-entry@0.2.0) (2019-05-23)
 
 ### Bug Fixes

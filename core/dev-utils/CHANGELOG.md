@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.1.3](https://github.com/egoist/poi/compare/@poi/dev-utils@12.1.2...@poi/dev-utils@12.1.3) (2019-08-09)
+
+### Bug Fixes
+
+- keep the trailing slash of `output.publicUrl` ([#612](https://github.com/egoist/poi/issues/612)) ([56bd612](https://github.com/egoist/poi/commit/56bd612))
+
 ## [12.1.2](https://github.com/egoist/poi/compare/@poi/dev-utils@12.1.1...@poi/dev-utils@12.1.2) (2019-07-27)
 
 ### Bug Fixes
