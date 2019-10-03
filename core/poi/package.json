@@ -70,7 +70,7 @@
     "vue-style-loader": "^4.1.2",
     "webpack": "^4.26.0",
     "webpack-chain": "^5.0.1",
-    "webpack-dev-server": "^3.1.10",
+    "webpack-dev-server": "^3.8.2",
     "webpack-merge": "^4.1.4"
   },
   "xo": false,

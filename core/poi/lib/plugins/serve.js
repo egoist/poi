@@ -52,7 +52,7 @@ exports.cli = api => {
 
     const devServerConfig = Object.assign(
       {
-        quiet: true,
+        noInfo: true,
         historyApiFallback: true,
         overlay: true,
         disableHostCheck: true,
@@ -60,9 +60,7 @@ exports.cli = api => {
         contentBase:
           api.config.publicFolder && api.resolveCwd(api.config.publicFolder),
         watchContentBase: true,
-        stats: {
-          colors: true
-        }
+        stats: 'none'
       },
       devServer,
       {
