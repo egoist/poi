@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.7.3](https://github.com/egoist/poi/compare/poi@12.7.2...poi@12.7.3) (2019-10-03)
+
+### Bug Fixes
+
+- fix webpack-dev-server logs ([ad7ae9a](https://github.com/egoist/poi/commit/ad7ae9a))
+
 ## [12.7.2](https://github.com/egoist/poi/compare/poi@12.7.1...poi@12.7.2) (2019-08-09)
 
 **Note:** Version bump only for package poi
