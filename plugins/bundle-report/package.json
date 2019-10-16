@@ -10,6 +10,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "webpack-bundle-analyzer": "^3.3.2"
+    "webpack-bundle-analyzer": "^3.6.0"
   }
 }
