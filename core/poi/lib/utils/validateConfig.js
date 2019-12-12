@@ -51,7 +51,9 @@ module.exports = (api, config) => {
   const babel = struct(
     {
       jsx: 'string',
-      transpileModules: struct.optional(struct.list(['string'])),
+      transpileModules: struct.optional(
+        struct.list([struct.union(['string', 'regexp'])])
+      ),
       namedImports: struct.optional('object'),
       babelrc: struct.optional('boolean'),
       configFile: struct.optional('boolean')
