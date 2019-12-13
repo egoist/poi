@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.7.4](https://github.com/egoist/poi/compare/poi@12.7.3...poi@12.7.4) (2019-12-13)
+
+### Bug Fixes
+
+- add regexp to allowed type of options.transpileModules ([#654](https://github.com/egoist/poi/issues/654)) ([966efff](https://github.com/egoist/poi/commit/966efff))
+
 ## [12.7.3](https://github.com/egoist/poi/compare/poi@12.7.2...poi@12.7.3) (2019-10-03)
 
 ### Bug Fixes
