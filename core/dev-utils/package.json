@@ -11,7 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "address": "^1.0.3",
-    "cross-spawn": "^6.0.5",
+    "cross-spawn": "^7.0.1",
     "opn": "^5.4.0",
     "react-error-overlay": "^4.0.1",
     "sockjs-client": "^1.1.5",
