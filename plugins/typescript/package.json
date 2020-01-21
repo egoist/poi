@@ -12,7 +12,7 @@
     "fork-ts-checker-webpack-plugin": "^0.5.0",
     "ts-loader": "^5.3.0",
     "ts-pnp": "^1.0.0",
-    "tslint": "^5.11.0"
+    "tslint": "^6.0.0"
   },
   "peerDependencies": {
     "typescript": "^3.1.6"
