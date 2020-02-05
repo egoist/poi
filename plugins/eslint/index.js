@@ -1,6 +1,6 @@
 exports.name = 'eslint'
 
-exports.apply = api => {
+exports.apply = (api, options = {}) => {
   api.hook('createWebpackChain', config => {
     const { cacheIdentifier } = api.getCacheConfig('eslint-loader', {}, [
       '.eslintrc.js',
@@ -19,6 +19,7 @@ exports.apply = api => {
       .use('eslint-loader')
       .loader(require.resolve('eslint-loader'))
       .options({
+        ...options,
         cache: api.config.cache,
         cacheKey: cacheIdentifier,
         formatter: require('eslint/lib/formatters/codeframe'),
