@@ -68,3 +68,9 @@ The path to the TypeScript config file.
 - Type: `any`
 
 Addtional options for `ts-loader`.
+
+### tscheckerOptions
+
+- Type: `any`
+
+Additional options for `fork-ts-checker-webpack-plugin`.
