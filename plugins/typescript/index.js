@@ -6,7 +6,8 @@ exports.apply = (
     lintOnSave = true,
     configFile = 'tsconfig.json',
     babel: useBabel,
-    loaderOptions
+    loaderOptions,
+    tscheckerOptions
   } = {}
 ) => {
   configFile = api.resolveCwd(configFile)
@@ -65,16 +66,21 @@ exports.apply = (
     config
       .plugin('fork-ts-checker')
       .use(require('fork-ts-checker-webpack-plugin'), [
-        {
-          vue: true,
-          tsconfig: configFile,
-          tslint:
-            lintOnSave &&
-            Boolean(api.configLoader.resolve({ files: ['tslint.json'] })),
-          formatter: 'codeframe',
-          // https://github.com/TypeStrong/ts-loader#happypackmode-boolean-defaultfalse
-          checkSyntacticErrors: api.config.parallel
-        }
+        Object.assign(
+          {
+            vue: true,
+            formatter: 'codeframe',
+            // https://github.com/TypeStrong/ts-loader#happypackmode-boolean-defaultfalse
+            checkSyntacticErrors: api.config.parallel
+          },
+          tscheckerOptions,
+          {
+            tsconfig: configFile,
+            tslint:
+              lintOnSave &&
+              Boolean(api.configLoader.resolve({ files: ['tslint.json'] }))
+          }
+        )
       ])
   })
 }
