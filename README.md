@@ -5,6 +5,8 @@
 
 [![npm version](https://badgen.net/npm/v/poi)](https://npm.im/poi) [![build status](https://badgen.net/circleci/github/egoist/poi/master)](https://circleci.com/gh/egoist/poi/tree/master) [![npm downloads](https://badgen.net/npm/dm/poi)](https://npm.im/poi) [![poi twitter](https://badgen.net/badge//@poi__js/1da1f2?icon=twitter)](https://twitter.com/poi__js)
 
+[![poi-service](https://user-images.githubusercontent.com/8784712/77440987-e8640080-6e23-11ea-84f6-fa13a5c9b235.png)](https://cp.xscode.com/egoist/poi)
+
 Poi is a bundler built on the top of webpack, trying to make developing and bundling apps with webpack as easy as possible.
 
 **The Poi project is supported by our [Backers](./BACKERS.md) and funded through [Patreon](https://patreon.com/egoist).**
