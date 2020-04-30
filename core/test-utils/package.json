@@ -11,6 +11,6 @@
   "dependencies": {
     "execa": "^1.0.0",
     "fast-glob": "^3.0.4",
-    "fs-extra": "^7.0.1"
+    "fs-extra": "^9.0.0"
   }
 }
