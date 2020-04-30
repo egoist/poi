@@ -49,7 +49,7 @@ exports.apply = (
       .options(
         Object.assign(
           {
-            transpileOnly: api.config.parallel ? undefined : true
+            transpileOnly: api.config.parallel ? undefined : true,
             appendTsSuffixTo: ['\\.vue$'],
             // https://github.com/TypeStrong/ts-loader#happypackmode-boolean-defaultfalse
             happyPackMode: api.config.parallel
