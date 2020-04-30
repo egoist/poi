@@ -81,13 +81,17 @@ exports.apply = api => {
         const cssLoaderOptions = Object.assign(
           {
             sourceMap,
-            modules,
-            localIdentName: '[name]_[local]_[hash:base64:5]',
+            modules: modules
+              ? {
+                  localIdentName: '[name]_[local]_[hash:base64:5]'
+                }
+              : false,
             importLoaders:
               1 + // stylePostLoader injected by vue-loader
               (hasPostCSSConfig ? 1 : 0) +
               (needInlineMinification ? 1 : 0),
-            exportOnlyLocals: isServer
+            onlyLocals: isServer,
+            localsConvention: 'camelCase'
           },
           loaderOptions.css
         )

@@ -7,6 +7,10 @@
     "commit": "git-cz",
     "release": "lerna version --conventional-commits"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:egoist/poi.git"
+  },
   "workspaces": [
     "core/*",
     "plugins/*",
