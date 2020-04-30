@@ -1,0 +1,33 @@
+name: Mark stale issues and pull requests
+
+on:
+  schedule:
+  - cron: "0 0 * * *"
+
+jobs:
+  stale:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Close Stale Issues
+      uses: actions/stale@v2.0.0
+      with:
+        # Token for the repository. Can be passed in using `{{ secrets.GITHUB_TOKEN }}`.
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        # The message to post on the issue when tagging it. If none provided, will not mark issues stale.
+        stale-issue-message: This issue has been marked as Stale, it will be closed in a week if there's no furthur activity.
+        # The message to post on the pr when tagging it. If none provided, will not mark pull requests stale.
+        stale-pr-message: This PR has been marked as Stale, it will be closed in a week if there's no furthur activity.
+        # The number of days old an issue can be before marking it stale.
+        days-before-stale: 60
+        # The number of days to wait to close an issue or pull request after it being marked stale. Set to -1 to never close stale issues.
+        days-before-close: 7
+        # The label to apply when an issue is stale.
+        stale-issue-label: stale
+        # The labels to apply when an issue is exempt from being marked stale. Separate multiple labels with commas (eg. "label1,label2")
+        exempt-issue-labels: not-stale,discussion,RFC
+        # The label to apply when a pull request is stale.
+        stale-pr-label: stale
+        # The labels to apply when a pull request is exempt from being marked stale. Separate multiple labels with commas (eg. "label1,label2")
+        exempt-pr-labels: wip,not-stale
