@@ -63,7 +63,7 @@ exports.apply = api => {
           if (shouldExtract) {
             rule
               .use('extract-css-loader')
-              .loader(require('mini-css-extract-plugin').loader)
+              .loader(require('extract-css-chunks-webpack-plugin').loader)
               .options({
                 hmr: api.mode === 'development',
                 reloadAll: true
@@ -156,7 +156,7 @@ exports.apply = api => {
     if (shouldExtract) {
       config
         .plugin('extract-css')
-        .use(require('mini-css-extract-plugin'), [extractOptions])
+        .use(require('extract-css-chunks-webpack-plugin'), [extractOptions])
 
       const OptimizeCSSPlugin = require('@intervolga/optimize-cssnano-plugin')
       config.plugin('optimize-css').use(OptimizeCSSPlugin, [
