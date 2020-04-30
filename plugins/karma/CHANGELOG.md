@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.0.4](https://github.com/egoist/poi/compare/@poi/plugin-karma@13.0.3...@poi/plugin-karma@13.0.4) (2020-04-30)
+
+**Note:** Version bump only for package @poi/plugin-karma
+
+
+
+
+
 ## [13.0.3](https://github.com/egoist/poi/compare/@poi/plugin-karma@13.0.2...@poi/plugin-karma@13.0.3) (2019-07-27)
 
 **Note:** Version bump only for package @poi/plugin-karma

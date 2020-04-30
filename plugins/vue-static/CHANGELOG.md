@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.0.9](https://github.com/egoist/poi/compare/@poi/plugin-vue-static@12.0.8...@poi/plugin-vue-static@12.0.9) (2020-04-30)
+
+**Note:** Version bump only for package @poi/plugin-vue-static
+
+
+
+
+
 ## [12.0.8](https://github.com/egoist/poi/compare/@poi/plugin-vue-static@12.0.7...@poi/plugin-vue-static@12.0.8) (2019-08-09)
 
 **Note:** Version bump only for package @poi/plugin-vue-static

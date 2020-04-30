@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.1.4](https://github.com/egoist/poi/compare/@poi/dev-utils@12.1.3...@poi/dev-utils@12.1.4) (2020-04-30)
+
+**Note:** Version bump only for package @poi/dev-utils
+
+
+
+
+
 ## [12.1.3](https://github.com/egoist/poi/compare/@poi/dev-utils@12.1.2...@poi/dev-utils@12.1.3) (2019-08-09)
 
 ### Bug Fixes

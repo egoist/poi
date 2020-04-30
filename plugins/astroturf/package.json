@@ -1,6 +1,6 @@
 {
   "name": "@poi/plugin-astroturf",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "main": "index.js",
   "files": [
     "index.js"
@@ -13,7 +13,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@poi/test-utils": "^12.0.1",
+    "@poi/test-utils": "^12.0.2",
     "astroturf": "^0.9.2"
   },
   "peerDependencies": {

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.3.1](https://github.com/egoist/poi/compare/@poi/plugin-typescript@12.3.0...@poi/plugin-typescript@12.3.1) (2020-04-30)
+
+
+### Bug Fixes
+
+* **typescript:** Don't set `transpileOnly` in parallel mode ([#573](https://github.com/egoist/poi/issues/573)) ([823c0c2](https://github.com/egoist/poi/commit/823c0c2))
+
+
+
+
+
 # [12.3.0](https://github.com/egoist/poi/compare/@poi/plugin-typescript@12.2.1...@poi/plugin-typescript@12.3.0) (2020-03-18)
 
 ### Features
