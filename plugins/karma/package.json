@@ -19,6 +19,6 @@
     "karma-coverage": "^1.1.2",
     "karma-jasmine": "^2.0.1",
     "karma-mocha-reporter": "^2.2.5",
-    "karma-webpack": "^3.0.5"
+    "karma-webpack": "^4.0.2"
   }
 }
