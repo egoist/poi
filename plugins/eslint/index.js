@@ -19,11 +19,11 @@ exports.apply = (api, options = {}) => {
       .use('eslint-loader')
       .loader(require.resolve('eslint-loader'))
       .options({
-        ...options,
-        cache: api.config.cache,
-        cacheKey: cacheIdentifier,
         formatter: require('eslint/lib/formatters/codeframe'),
-        eslintPath: api.localResolve('eslint') || require.resolve('eslint')
+        eslintPath: api.localResolve('eslint') || require.resolve('eslint'),
+        ...options.loaderOptions,
+        cache: api.config.cache,
+        cacheKey: cacheIdentifier
       })
   })
 }
