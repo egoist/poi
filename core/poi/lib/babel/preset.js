@@ -123,7 +123,8 @@ module.exports = (
           require.resolve('@babel/runtime/package.json')
         )
       }
-    ]
+    ],
+    require('@babel/plugin-proposal-optional-chaining')
   ].filter(Boolean)
 
   return {

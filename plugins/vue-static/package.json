@@ -1,6 +1,6 @@
 {
   "name": "@poi/plugin-vue-static",
-  "version": "12.0.7",
+  "version": "12.0.8",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -18,8 +18,8 @@
     "vue-template-compiler": "^2.5.21"
   },
   "dependencies": {
-    "fs-extra": "^7.0.1",
-    "html-minifier": "^3.5.21",
+    "fs-extra": "^9.0.0",
+    "html-minifier": "^4.0.0",
     "vue-meta": "^1.5.6",
     "vue-router": "^3.0.2",
     "vue-server-renderer": "^2.5.21",

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.1.3](https://github.com/egoist/poi/compare/@poi/dev-utils@12.1.2...@poi/dev-utils@12.1.3) (2019-08-09)
+
+### Bug Fixes
+
+- keep the trailing slash of `output.publicUrl` ([#612](https://github.com/egoist/poi/issues/612)) ([56bd612](https://github.com/egoist/poi/commit/56bd612))
+
+## [12.1.2](https://github.com/egoist/poi/compare/@poi/dev-utils@12.1.1...@poi/dev-utils@12.1.2) (2019-07-27)
+
+### Bug Fixes
+
+- Append `poi -s` output URLs with `output.publicUrl` ([#587](https://github.com/egoist/poi/issues/587)) ([fcd70f7](https://github.com/egoist/poi/commit/fcd70f7))
+
+### Features
+
+- enable https one the preview URLs ([#611](https://github.com/egoist/poi/issues/611)) ([cda0ec2](https://github.com/egoist/poi/commit/cda0ec2))
+
 ## [12.1.1](https://github.com/egoist/poi/compare/@poi/dev-utils@12.1.0...@poi/dev-utils@12.1.1) (2019-01-23)
 
 ### Bug Fixes

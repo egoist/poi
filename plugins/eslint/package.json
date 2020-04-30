@@ -1,6 +1,6 @@
 {
   "name": "@poi/plugin-eslint",
-  "version": "12.0.0",
+  "version": "12.0.1",
   "main": "index.js",
   "files": [
     "index.js"
@@ -12,6 +12,6 @@
   "dependencies": {
     "eslint": "^5.9.0",
     "eslint-formatter-pretty": "^2.0.0",
-    "eslint-loader": "^2.1.1"
+    "eslint-loader": "^3.0.2"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@poi/plugin-bundle-report",
-  "version": "12.1.1",
+  "version": "12.1.2",
   "main": "index.js",
   "files": [
     "index.js"
@@ -10,6 +10,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "webpack-bundle-analyzer": "^3.3.2"
+    "webpack-bundle-analyzer": "^3.6.0"
   }
 }

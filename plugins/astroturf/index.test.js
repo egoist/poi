@@ -1,5 +1,7 @@
 const createProject = require('@poi/test-utils/createProject')
 
+jest.setTimeout(60000)
+
 test('astroturf', async () => {
   const project = await createProject({ name: 'astroturf' })
   await project.write(

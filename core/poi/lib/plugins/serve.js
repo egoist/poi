@@ -18,7 +18,7 @@ exports.cli = api => {
     const devServer = Object.assign({}, api.config.devServer)
     delete devServer.hotEntries
 
-    const { host, port: _port, open } = devServer
+    const { https, host, port: _port, open } = devServer
     const port = await require('get-port')({ port: _port, host })
 
     const webpackConfig = api.createWebpackChain().toConfig()
@@ -33,11 +33,13 @@ exports.cli = api => {
             if (stats.hasErrors() || stats.hasWarnings()) return
 
             require('@poi/dev-utils/printServeMessage')({
+              https,
               host,
               port,
               expectedPort: _port,
               open,
-              isFirstBuild
+              isFirstBuild,
+              publicUrl: api.config.output.publicUrl
             })
 
             isFirstBuild = false
@@ -50,7 +52,7 @@ exports.cli = api => {
 
     const devServerConfig = Object.assign(
       {
-        quiet: true,
+        noInfo: true,
         historyApiFallback: true,
         overlay: true,
         disableHostCheck: true,
@@ -58,9 +60,7 @@ exports.cli = api => {
         contentBase:
           api.config.publicFolder && api.resolveCwd(api.config.publicFolder),
         watchContentBase: true,
-        stats: {
-          colors: true
-        }
+        stats: 'none'
       },
       devServer,
       {

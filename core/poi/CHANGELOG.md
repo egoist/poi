@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.7.5](https://github.com/egoist/poi/compare/poi@12.7.4...poi@12.7.5) (2019-12-19)
+
+### Bug Fixes
+
+- **deps:** [security] bump copy-webpack-plugin from 4.6.0 to 5.1.1 ([#656](https://github.com/egoist/poi/issues/656)) ([278a936](https://github.com/egoist/poi/commit/278a936))
+
+## [12.7.4](https://github.com/egoist/poi/compare/poi@12.7.3...poi@12.7.4) (2019-12-13)
+
+### Bug Fixes
+
+- add regexp to allowed type of options.transpileModules ([#654](https://github.com/egoist/poi/issues/654)) ([966efff](https://github.com/egoist/poi/commit/966efff))
+
+## [12.7.3](https://github.com/egoist/poi/compare/poi@12.7.2...poi@12.7.3) (2019-10-03)
+
+### Bug Fixes
+
+- fix webpack-dev-server logs ([ad7ae9a](https://github.com/egoist/poi/commit/ad7ae9a))
+
+## [12.7.2](https://github.com/egoist/poi/compare/poi@12.7.1...poi@12.7.2) (2019-08-09)
+
+**Note:** Version bump only for package poi
+
+## [12.7.1](https://github.com/egoist/poi/compare/poi@12.7.0...poi@12.7.1) (2019-07-27)
+
+### Bug Fixes
+
+- Append `poi -s` output URLs with `output.publicUrl` ([#587](https://github.com/egoist/poi/issues/587)) ([fcd70f7](https://github.com/egoist/poi/commit/fcd70f7))
+
+### Features
+
+- enable https one the preview URLs ([#611](https://github.com/egoist/poi/issues/611)) ([cda0ec2](https://github.com/egoist/poi/commit/cda0ec2))
+
 # [12.7.0](https://github.com/egoist/poi/compare/poi@12.6.10...poi@12.7.0) (2019-07-03)
 
 ### Features

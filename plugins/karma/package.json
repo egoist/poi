@@ -1,6 +1,6 @@
 {
   "name": "@poi/plugin-karma",
-  "version": "13.0.2",
+  "version": "13.0.3",
   "publishConfig": {
     "access": "public"
   },
@@ -12,13 +12,13 @@
     "lib"
   ],
   "dependencies": {
-    "fast-glob": "^2.2.4",
+    "fast-glob": "^3.0.4",
     "istanbul-instrumenter-loader": "^3.0.1",
-    "karma": "^3.1.1",
+    "karma": "^5.0.3",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.2",
     "karma-jasmine": "^2.0.1",
     "karma-mocha-reporter": "^2.2.5",
-    "karma-webpack": "^3.0.5"
+    "karma-webpack": "^4.0.2"
   }
 }

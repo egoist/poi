@@ -1,6 +1,6 @@
 {
   "name": "@poi/test-utils",
-  "version": "12.0.0",
+  "version": "12.0.1",
   "files": [
     "*.js"
   ],
@@ -10,7 +10,7 @@
   "xo": false,
   "dependencies": {
     "execa": "^1.0.0",
-    "fast-glob": "^2.2.4",
-    "fs-extra": "^7.0.1"
+    "fast-glob": "^3.0.4",
+    "fs-extra": "^9.0.0"
   }
 }

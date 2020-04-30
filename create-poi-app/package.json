@@ -20,9 +20,6 @@
     "stringify-object": "^3.3.0"
   },
   "xo": false,
-  "devDependencies": {
-    "jest": "^23.6.0"
-  },
   "jest": {
     "testPathIgnorePatterns": [
       "/templates/"
