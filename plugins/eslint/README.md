@@ -31,3 +31,12 @@ module.exports = {
 ```
 
 Now ESLint will check your JS files at compile time.
+
+
+## Options
+
+### loaderOptions
+
+- Type: `any`
+
+Addtional [options](https://github.com/webpack-contrib/eslint-loader#options) for `eslint-loader`.
