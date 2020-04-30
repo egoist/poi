@@ -14,7 +14,6 @@
   "license": "MIT",
   "xo": false,
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "jest": "^23.6.0"
+    "@babel/core": "^7.2.2"
   }
 }

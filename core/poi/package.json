@@ -77,7 +77,6 @@
   "xo": false,
   "devDependencies": {
     "@poi/test-utils": "^12.0.1",
-    "jest": "^23.6.0",
     "vue-template-compiler": "^2.5.21"
   },
   "keywords": [
