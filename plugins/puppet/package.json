@@ -16,7 +16,7 @@
     "chrome-location": "^1.2.1",
     "express": "^4.16.4",
     "fast-glob": "^3.0.4",
-    "mocha": "^5.2.0",
+    "mocha": "^7.1.2",
     "puppeteer-core": "^1.11.0"
   }
 }
