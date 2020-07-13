@@ -1,1 +1,1 @@
-module.exports = require('opn')
+module.exports = require('open')
