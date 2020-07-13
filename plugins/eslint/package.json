@@ -12,6 +12,6 @@
   "dependencies": {
     "eslint": "^5.9.0",
     "eslint-formatter-pretty": "^2.0.0",
-    "eslint-loader": "^3.0.2"
+    "eslint-loader": "^4.0.2"
   }
 }
