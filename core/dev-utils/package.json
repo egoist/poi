@@ -1,6 +1,6 @@
 {
   "name": "@poi/dev-utils",
-  "version": "12.1.4",
+  "version": "12.1.5",
   "publishConfig": {
     "access": "public"
   },

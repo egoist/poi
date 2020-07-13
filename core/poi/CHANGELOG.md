@@ -3,17 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [12.8.0](https://github.com/egoist/poi/compare/poi@12.7.5...poi@12.8.0) (2020-04-30)
-
+# [12.9.0](https://github.com/egoist/poi/compare/poi@12.8.0...poi@12.9.0) (2020-07-13)
 
 ### Features
 
-* CSS modules should export camelCased names ([#585](https://github.com/egoist/poi/issues/585)) ([5567a8c](https://github.com/egoist/poi/commit/5567a8c))
-* **babel:** Add optional chaining support to default babel preset ([#682](https://github.com/egoist/poi/issues/682)) ([745c66b](https://github.com/egoist/poi/commit/745c66b))
+- **vue:** add vue 3 support ([22d4e13](https://github.com/egoist/poi/commit/22d4e13))
 
+# [12.8.0](https://github.com/egoist/poi/compare/poi@12.7.5...poi@12.8.0) (2020-04-30)
 
+### Features
 
-
+- CSS modules should export camelCased names ([#585](https://github.com/egoist/poi/issues/585)) ([5567a8c](https://github.com/egoist/poi/commit/5567a8c))
+- **babel:** Add optional chaining support to default babel preset ([#682](https://github.com/egoist/poi/issues/682)) ([745c66b](https://github.com/egoist/poi/commit/745c66b))
 
 ## [12.7.5](https://github.com/egoist/poi/compare/poi@12.7.4...poi@12.7.5) (2019-12-19)
 
