@@ -8881,10 +8881,10 @@ isurl@^1.0.0-alpha5:
     has-to-string-tag-x "^1.2.0"
     is-object "^1.0.1"
 
-jasmine-core@^3.3:
-  version "3.3.0"
-  resolved "https://registry.npmjs.org/jasmine-core/-/jasmine-core-3.3.0.tgz#dea1cdc634bc93c7e0d4ad27185df30fa971b10e"
-  integrity sha512-3/xSmG/d35hf80BEN66Y6g9Ca5l/Isdeg/j6zvbTYlTzeKinzmaTM4p9am5kYqOmE05D7s1t8FGjzdSnbUbceA==
+jasmine-core@^3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-3.5.0.tgz#132c23e645af96d85c8bca13c8758b18429fc1e4"
+  integrity sha512-nCeAiw37MIMA9w9IXso7bRaLl+c/ef3wnxsoSAlYrzS+Ot0zTG6nU8G/cIfGkqpkjX2wNaIW9RFG0TwIFnG6bA==
 
 javascript-stringify@^2.0.1:
   version "2.0.1"
@@ -9510,12 +9510,12 @@ karma-coverage@^1.1.2:
     minimatch "^3.0.0"
     source-map "^0.5.1"
 
-karma-jasmine@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.npmjs.org/karma-jasmine/-/karma-jasmine-2.0.1.tgz#26e3e31f2faf272dd80ebb0e1898914cc3a19763"
-  integrity sha512-iuC0hmr9b+SNn1DaUD2QEYtUxkS1J+bSJSn7ejdEexs7P8EYvA1CWkEdrDQ+8jVH3AgWlCNwjYsT1chjcNW9lA==
+karma-jasmine@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/karma-jasmine/-/karma-jasmine-3.3.1.tgz#c01b1a2ec973e1531c1f6535e1d7d66b8e4275c2"
+  integrity sha512-Nxh7eX9mOQMyK0VSsMxdod+bcqrR/ikrmEiWj5M6fwuQ7oI+YEF1FckaDsWfs6TIpULm9f0fTKMjF7XcrvWyqQ==
   dependencies:
-    jasmine-core "^3.3"
+    jasmine-core "^3.5.0"
 
 karma-mocha-reporter@^2.2.5:
   version "2.2.5"
