@@ -54,8 +54,15 @@ exports.cli = api => {
       {
         noInfo: true,
         historyApiFallback: true,
-        overlay: true,
+        overlay: false,
         disableHostCheck: true,
+        compress: true,
+        // Silence WebpackDevServer's own logs since they're generally not useful.
+        // It will still show compile warnings and errors with this setting.
+        clientLogLevel: 'none',
+        // Prevent a WS client from getting injected as we're already including
+        // `webpackHotDevClient`.
+        injectClient: false,
         publicPath: webpackConfig.output.publicPath,
         contentBase:
           api.config.publicFolder && api.resolveCwd(api.config.publicFolder),
