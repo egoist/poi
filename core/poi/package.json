@@ -1,6 +1,6 @@
 {
   "name": "poi",
-  "version": "12.9.0",
+  "version": "12.10.0",
   "main": "lib/index.js",
   "bin": "bin/cli.js",
   "description": "A zero-config bundler for JavaScript applications.",
@@ -29,6 +29,7 @@
     "@babel/preset-typescript": "^7.1.0",
     "@babel/runtime": "^7.1.5",
     "@intervolga/optimize-cssnano-plugin": "^1.0.6",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.4.1",
     "@poi/dev-utils": "^12.1.5",
     "@poi/logger": "^12.0.0",
     "@poi/plugin-html-entry": "^0.2.3",
@@ -59,6 +60,7 @@
     "ora": "^3.0.0",
     "postcss-loader": "^3.0.0",
     "pretty-ms": "^4.0.0",
+    "react-refresh": "^0.8.3",
     "resolve-from": "^5.0.0",
     "string-width": "^4.1.0",
     "superstruct": "^0.6.0",
@@ -72,9 +74,7 @@
     "webpack": "^4.26.0",
     "webpack-chain": "^6.4.0",
     "webpack-dev-server": "^3.8.2",
-    "webpack-merge": "^4.1.4",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.4.1",
-    "react-refresh": "^0.8.3"
+    "webpack-merge": "^4.1.4"
   },
   "xo": false,
   "devDependencies": {
