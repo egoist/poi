@@ -8,6 +8,6 @@ exports.when = api =>
 exports.apply = api => {
   api.hook('createWebpackChain', config => {
     const reactRefresh = require('@pmmmwh/react-refresh-webpack-plugin')
-    config.plugin('@pmmmwh/react-refresh-webpack-plugin').use(reactRefresh)
+    config.plugin('react-refresh').use(reactRefresh)
   })
 }
