@@ -72,7 +72,9 @@
     "webpack": "^4.26.0",
     "webpack-chain": "^6.4.0",
     "webpack-dev-server": "^3.8.2",
-    "webpack-merge": "^4.1.4"
+    "webpack-merge": "^4.1.4",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.4.1",
+    "react-refresh": "^0.8.3"
   },
   "xo": false,
   "devDependencies": {
