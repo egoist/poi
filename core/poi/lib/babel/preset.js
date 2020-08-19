@@ -3,6 +3,7 @@ const merge = require('lodash.merge')
 
 const env = process.env.BABEL_ENV || process.env.NODE_ENV
 const isTest = env === 'test'
+const isDevelopment = env === 'development'
 
 const validateBoolOption = (name, value, defaultValue) => {
   if (typeof value === 'undefined') {
@@ -124,7 +125,8 @@ module.exports = (
         )
       }
     ],
-    require('@babel/plugin-proposal-optional-chaining')
+    require('@babel/plugin-proposal-optional-chaining'),
+    isDevelopment && require('react-refresh/babel')
   ].filter(Boolean)
 
   return {
