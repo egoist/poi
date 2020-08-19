@@ -149,7 +149,8 @@ module.exports = (api, config) => {
       configureWebpack: struct.optional(struct.union(['object', 'function'])),
       assets,
       publicFolder: struct.union(['string', 'boolean']),
-      pages: struct.optional('object')
+      pages: struct.optional('object'),
+      reactRefresh: struct.optional('boolean')
     },
     {
       cache: true,

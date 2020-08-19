@@ -362,7 +362,8 @@ module.exports = class PoiCore {
       html,
       publicFolder,
       babelrc,
-      babelConfigFile
+      babelConfigFile,
+      reactRefresh
     } = this.cli.options
     return {
       entry: this.cli.args.length > 0 ? this.cli.args : undefined,
@@ -395,7 +396,8 @@ module.exports = class PoiCore {
         port,
         open,
         proxy
-      }
+      },
+      reactRefresh
     }
   }
 

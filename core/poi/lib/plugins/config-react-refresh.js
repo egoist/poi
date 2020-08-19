@@ -1,9 +1,10 @@
 exports.name = 'builtin:config-react-refresh'
 
-exports.when = api =>
-  api.hasDependency('react') &&
-  api.hasDependency('react-dom') &&
-  process.env.NODE_ENV === 'development'
+exports.cli = ({ command }) => {
+  command.option('--react-refresh', 'Enable React Refresh')
+}
+
+exports.when = api => api.config.reactRefresh && api.mode === 'development'
 
 exports.apply = api => {
   api.hook('createWebpackChain', config => {
