@@ -22,12 +22,3 @@ jobs:
       - run:
           name: test
           command: yarn test
-      - run:
-          name: Authenticate with registry
-          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
-      - run:
-          name: Publish
-          command: |
-            if [[ "${CIRCLE_BRANCH}" == "master" ]]; then
-              yarn lerna publish from-git --yes
-            fi
