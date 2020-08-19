@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.1.6](https://github.com/egoist/poi/compare/@poi/dev-utils@12.1.5...@poi/dev-utils@12.1.6) (2020-08-19)
+
+### Bug Fixes
+
+- make react-refresh work better with error overlay ([e6deed4](https://github.com/egoist/poi/commit/e6deed4))
+
 ## [12.1.5](https://github.com/egoist/poi/compare/@poi/dev-utils@12.1.4...@poi/dev-utils@12.1.5) (2020-07-13)
 
 **Note:** Version bump only for package @poi/dev-utils

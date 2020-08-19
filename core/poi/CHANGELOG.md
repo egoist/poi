@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.10.2](https://github.com/egoist/poi/compare/poi@12.10.1...poi@12.10.2) (2020-08-19)
+
+### Bug Fixes
+
+- make react-refresh work better with error overlay ([e6deed4](https://github.com/egoist/poi/commit/e6deed4))
+
 ## [12.10.1](https://github.com/egoist/poi/compare/poi@12.10.0...poi@12.10.1) (2020-08-19)
 
 ### Bug Fixes
