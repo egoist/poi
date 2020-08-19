@@ -129,7 +129,9 @@ module.exports = (config, api) => {
   const { target } = api.config.output
   config.target(target === 'electron' ? 'electron-renderer' : target)
 
-  const inYarnWorkspaces = __dirname.includes('/poi/core/poi')
+  const inYarnWorkspaces = __dirname.includes(
+    `${path.sep}poi${path.sep}core${path.sep}poi`
+  )
   const poiDependenciesDir = inYarnWorkspaces
     ? path.join(__dirname, '../../../../node_modules')
     : path.join(__dirname, '../../../')
