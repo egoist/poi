@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.10.1](https://github.com/egoist/poi/compare/poi@12.10.0...poi@12.10.1) (2020-08-19)
+
+### Bug Fixes
+
+- load react-refresh plugin ([32870e1](https://github.com/egoist/poi/commit/32870e1))
+
 # [12.10.0](https://github.com/egoist/poi/compare/poi@12.9.0...poi@12.10.0) (2020-08-19)
 
 ### Features
