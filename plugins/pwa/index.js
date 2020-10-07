@@ -53,7 +53,7 @@ exports.apply = (api, options = {}) => {
     }
 
     // Inject PWA tags in HTML
-    // Generate / tpdate manifest.json
+    // Generate / update manifest.json
     const page = api.config.pages && Object.keys(api.config.pages)[0]
     const htmlWebpackPluginName = page ? `html-page-${page}` : null
     const HtmlWebpackPlugin = config.plugins.has(htmlWebpackPluginName)
