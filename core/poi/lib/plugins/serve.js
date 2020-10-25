@@ -82,6 +82,13 @@ exports.cli = api => {
       }
     )
 
+    if (devServerConfig.publicPath && devServerConfig.historyApiFallback) {
+      devServerConfig.historyApiFallback = {
+        index: `${devServerConfig.publicPath}/index.html`.replace(/\/+/, '/'),
+        ...devServerConfig.historyApiFallback
+      }
+    }
+
     const existingBefore = devServerConfig.before
     devServerConfig.before = server => {
       api.hooks.invoke('beforeDevMiddlewares', server)
