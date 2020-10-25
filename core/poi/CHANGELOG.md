@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.10.3](https://github.com/egoist/poi/compare/poi@12.10.2...poi@12.10.3) (2020-10-25)
+
+### Bug Fixes
+
+- make react refresh babel plugin optional ([#761](https://github.com/egoist/poi/issues/761)) ([9d22b03](https://github.com/egoist/poi/commit/9d22b03))
+- With publicPath and historyApiFallback, manually set fallback index ([#764](https://github.com/egoist/poi/issues/764)) ([cf6279b](https://github.com/egoist/poi/commit/cf6279b))
+
 ## [12.10.2](https://github.com/egoist/poi/compare/poi@12.10.1...poi@12.10.2) (2020-08-19)
 
 ### Bug Fixes
