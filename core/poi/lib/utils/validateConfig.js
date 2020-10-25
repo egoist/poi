@@ -155,7 +155,8 @@ module.exports = (api, config) => {
     {
       cache: true,
       parallel: false,
-      publicFolder: 'public'
+      publicFolder: 'public',
+      reactRefresh: false
     }
   )
 

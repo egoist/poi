@@ -25,11 +25,15 @@ module.exports = (
     flow,
     typescript,
     env,
-    namedImports = process.env.POI_NAMED_IMPORTS
+    namedImports = process.env.POI_NAMED_IMPORTS,
+    reactRefresh = process.env.POI_REACT_REFRESH
   } = {}
 ) => {
   if (typeof namedImports === 'string') {
     namedImports = JSON.parse(namedImports)
+  }
+  if (typeof reactRefresh === 'string') {
+    reactRefresh = reactRefresh === 'true'
   }
 
   const isVueJSX = jsx === 'vue'
@@ -40,6 +44,8 @@ module.exports = (
   // typescript transforms will only be applied to .ts .tsx files
   const isFlowEnabled = validateBoolOption('flow', flow, true)
   const isTypeScriptEnabled = validateBoolOption('typescript', typescript, true)
+
+  const isReactRefreshEnabled = isDevelopment && reactRefresh
 
   const presets = [
     [
@@ -126,7 +132,7 @@ module.exports = (
       }
     ],
     require('@babel/plugin-proposal-optional-chaining'),
-    isDevelopment && require('react-refresh/babel')
+    isReactRefreshEnabled && require('react-refresh/babel')
   ].filter(Boolean)
 
   return {
