@@ -8,7 +8,7 @@ exports.when = api => api.config.reactRefresh && api.mode === 'development'
 
 exports.apply = api => {
   api.hook('createWebpackChain', config => {
-    process.env.POI_REACT_REFRESH = Boolean(api.hasDependency('react'))
+    process.env.POI_REACT_REFRESH = api.hasDependency('react')
 
     config
       .plugin('react-refresh')
