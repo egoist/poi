@@ -5,6 +5,11 @@
   "files": [
     "lib"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/egoist/poi.git",
+    "directory": "plugins/html-entry"
+  },
   "publishConfig": {
     "access": "public"
   },

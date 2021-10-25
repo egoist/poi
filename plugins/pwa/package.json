@@ -4,6 +4,11 @@
   "publishConfig": {
     "access": "public"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/egoist/poi.git",
+    "directory": "plugins/pwa"
+  },
   "main": "index.js",
   "files": [
     "index.js"
