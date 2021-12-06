@@ -1,3 +1,5 @@
+# ⚠️ Poi has been deprecated, please migrate to [Vite](https://vitejs.dev), contact me personally if you need help.
+
 <p align="center">
   <img src="https://i.loli.net/2018/09/12/5b98e77352c9d.png" width="200">
   </p>
