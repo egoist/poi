@@ -3,6 +3,11 @@
   "publishConfig": {
     "access": "public"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/egoist/poi.git",
+    "directory": "other-packages/babel-plugin-assets-named-imports"
+  },
   "scripts": {
     "test": "jest --env node"
   },

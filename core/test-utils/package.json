@@ -4,6 +4,11 @@
   "files": [
     "*.js"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/egoist/poi.git",
+    "directory": "core/test-utils"
+  },
   "publishConfig": {
     "access": "public"
   },

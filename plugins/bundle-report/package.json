@@ -5,6 +5,11 @@
   "files": [
     "index.js"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/egoist/poi.git",
+    "directory": "plugins/bundle-report"
+  },
   "publishConfig": {
     "access": "public"
   },
